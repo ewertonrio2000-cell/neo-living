@@ -2194,18 +2194,52 @@ a.contact-direct__value:hover {
     z-index: 2;
     transform: translate(-50%, -50%) perspective(1400px) rotateY(-3deg) rotateX(2deg);
     transform-origin: center center;
-    /* fallback caso a imagem não carregue (gradiente que evoca um render) */
-    background:
-        linear-gradient(155deg, rgba(255,255,255,0.04), transparent 55%),
-        linear-gradient(180deg, #1a2a32 0%, #243846 35%, #5a8095 70%, #8aa9bd 100%);
     box-shadow:
         0 50px 100px rgba(0, 0, 0, 0.55),
         0 0 0 1px rgba(255, 255, 255, 0.04);
     border-radius: 6px;
     overflow: hidden;
+    background:
+        linear-gradient(155deg, rgba(255,255,255,0.04), transparent 55%),
+        linear-gradient(180deg, #1a2a32 0%, #243846 35%, #5a8095 70%, #8aa9bd 100%);
     transition: transform 720ms var(--ease-out),
                 box-shadow 720ms var(--ease-out);
     will-change: transform;
+}
+
+/* Variante cut-out: imagem PNG transparente sem moldura, flutuando livre */
+.hero--editorial__house.hero--editorial__house--cutout {
+    aspect-ratio: 1920 / 1018;
+    width: clamp(420px, 72vw, 1180px);
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: visible;
+    transform: translate(-50%, -50%) perspective(1600px) rotateY(-1.5deg) rotateX(0.8deg);
+    /* sombra projetada que acompanha o contorno da casa (alpha) */
+    filter:
+        drop-shadow(0 30px 40px rgba(0, 0, 0, 0.35))
+        drop-shadow(0 8px 12px rgba(0, 0, 0, 0.22));
+    transition: transform 720ms var(--ease-out), filter 720ms var(--ease-out);
+}
+
+.hero--editorial__house.hero--editorial__house--cutout:hover {
+    transform: translate(-50%, -50%) perspective(1600px) rotateY(-0.5deg) rotateX(0deg) scale(1.025);
+    filter:
+        drop-shadow(0 40px 56px rgba(0, 0, 0, 0.42))
+        drop-shadow(0 12px 18px rgba(0, 0, 0, 0.26));
+}
+
+html[data-theme="light"] .hero--editorial__house.hero--editorial__house--cutout {
+    filter:
+        drop-shadow(0 30px 40px rgba(20, 17, 11, 0.20))
+        drop-shadow(0 8px 12px rgba(20, 17, 11, 0.12));
+}
+
+html[data-theme="light"] .hero--editorial__house.hero--editorial__house--cutout:hover {
+    filter:
+        drop-shadow(0 40px 56px rgba(20, 17, 11, 0.26))
+        drop-shadow(0 12px 18px rgba(20, 17, 11, 0.16));
 }
 
 .hero--editorial__house img {
