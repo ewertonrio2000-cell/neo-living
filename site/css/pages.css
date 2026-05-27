@@ -1009,6 +1009,21 @@
     padding-bottom: var(--space-2xl);
 }
 
+.designers-intro--tight {
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
+}
+
+.designers-intro--tight .designers-intro__inner {
+    max-width: 920px;
+}
+
+.designers-intro--tight .designers-intro__text {
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
 .designers-intro__inner {
     max-width: 800px;
     margin: 0 auto;
@@ -1186,8 +1201,8 @@
    DESIGNERS — TABELA DE REGISTROS NO TOPO (compact horizontal)
    ========================================================= */
 .designers-table {
-    padding-top: var(--space-xl);
-    padding-bottom: var(--space-xl);
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
     border-bottom: 1px solid var(--accent-line-soft);
 }
 
@@ -1286,8 +1301,8 @@
    CAROUSEL FLUTUANTE — fotos dos arquitetos (60s contemplativo)
    ========================================================= */
 .designers-carousel {
-    padding-top: var(--space-2xl);
-    padding-bottom: var(--space-2xl);
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
     overflow: hidden;
     position: relative;
 }
@@ -1423,22 +1438,123 @@
     color: var(--text-secondary);
 }
 
+/* =========================================================
+   CONCEPT BLOCKS — DINÂMICOS (subtítulo + título, linha animada)
+   ========================================================= */
+.concept-blocks--dynamic {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    background-color: var(--bg-deeper);
+}
+
+.concept-blocks--dynamic .concept-blocks__inner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    width: 100%;
+    max-width: var(--max-content);
+    margin: 0 auto;
+    padding-left: var(--gutter-desktop);
+    padding-right: var(--gutter-desktop);
+    border-top: 1px solid var(--accent-line-soft);
+    border-bottom: 1px solid var(--accent-line-soft);
+}
+
+.concept-blocks--dynamic .concept-card {
+    position: relative;
+    padding: var(--space-lg) var(--space-md);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: var(--space-md);
+    row-gap: 4px;
+    align-items: start;
+    overflow: hidden;
+    transition: background-color var(--duration-base) var(--ease-out);
+}
+
+.concept-blocks--dynamic .concept-card + .concept-card {
+    border-left: 1px solid var(--accent-line-soft);
+}
+
+.concept-blocks--dynamic .concept-card:hover {
+    background-color: var(--bg-surface);
+}
+
+.concept-blocks--dynamic .concept-card__num {
+    grid-row: 1 / 3;
+    align-self: center;
+    font-family: var(--font-condensed, var(--font-display));
+    font-weight: 300;
+    font-size: clamp(2.75rem, 5vw, 4.25rem);
+    line-height: 1;
+    color: var(--accent-line);
+    transition: color var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+}
+
+.concept-blocks--dynamic .concept-card:hover .concept-card__num {
+    color: var(--accent-amber);
+    transform: translateY(-2px);
+}
+
+.concept-blocks--dynamic .concept-card__sub {
+    font-size: 0.6875rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.concept-blocks--dynamic .concept-card__title {
+    font-family: var(--font-condensed, var(--font-display));
+    font-weight: 400;
+    font-size: clamp(1.5rem, 2.4vw, 2.125rem);
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.concept-blocks--dynamic .concept-card__line {
+    position: absolute;
+    left: var(--space-md);
+    right: var(--space-md);
+    bottom: 0;
+    height: 2px;
+    background-color: var(--accent-amber);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 480ms var(--ease-out);
+}
+
+.concept-blocks--dynamic .concept-card:hover .concept-card__line {
+    transform: scaleX(1);
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .designers-table__grid { grid-template-columns: 1fr; }
     .designer-row__data { grid-template-columns: 100px 1fr; }
     .concept-blocks--compact .concept-blocks__inner { grid-template-columns: 1fr; }
+    .concept-blocks--dynamic .concept-blocks__inner { grid-template-columns: 1fr; }
+    .concept-blocks--dynamic .concept-card + .concept-card {
+        border-left: 0;
+        border-top: 1px solid var(--accent-line-soft);
+    }
 }
 
 @media (max-width: 768px) {
     .designers-carousel__item { width: clamp(220px, 80vw, 320px); }
     .designer-row__data { grid-template-columns: 90px 1fr; }
+    .concept-blocks--dynamic .concept-card { padding: var(--space-md); }
 }
 
 /* Founders in (parallel brands) */
 .founders-in-section {
-    padding-top: var(--space-2xl);
-    padding-bottom: var(--space-2xl);
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
     border-top: 1px solid var(--accent-line-soft);
 }
 
