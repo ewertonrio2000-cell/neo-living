@@ -2207,39 +2207,74 @@ a.contact-direct__value:hover {
     will-change: transform;
 }
 
-/* Variante cut-out: imagem PNG transparente sem moldura, flutuando livre */
+/* Variante cut-out: PNG transparente posicionada no canto inferior direito
+   com fade mágico das bordas (deck dissolve no fundo, sem cantos visíveis) */
 .hero--editorial__house.hero--editorial__house--cutout {
     aspect-ratio: 1920 / 1018;
-    width: clamp(420px, 72vw, 1180px);
+    width: clamp(440px, 62vw, 1040px);
+    /* Cancela o centering do parent — vai pro BR */
+    top: auto;
+    left: auto;
+    right: -3vw;
+    bottom: -5vw;
     background: none;
     box-shadow: none;
     border-radius: 0;
     overflow: visible;
-    transform: translate(-50%, -50%) perspective(1600px) rotateY(-1.5deg) rotateX(0.8deg);
-    /* sombra projetada que acompanha o contorno da casa (alpha) */
+    transform: perspective(1600px) rotateY(-2.5deg) rotateX(0.6deg);
+    transform-origin: bottom right;
     filter:
-        drop-shadow(0 30px 40px rgba(0, 0, 0, 0.35))
-        drop-shadow(0 8px 12px rgba(0, 0, 0, 0.22));
+        drop-shadow(0 30px 40px rgba(0, 0, 0, 0.32))
+        drop-shadow(0 10px 14px rgba(0, 0, 0, 0.18));
     transition: transform 720ms var(--ease-out), filter 720ms var(--ease-out);
 }
 
+/* Mask aplicada ao img para dissolver as bordas opacas do deck/piso */
+.hero--editorial__house.hero--editorial__house--cutout img {
+    -webkit-mask-image:
+        linear-gradient(180deg, #000 0%, #000 62%, rgba(0,0,0,0.65) 82%, transparent 100%),
+        linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+    -webkit-mask-composite: source-in;
+            mask-image:
+        linear-gradient(180deg, #000 0%, #000 62%, rgba(0,0,0,0.65) 82%, transparent 100%),
+        linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+            mask-composite: intersect;
+}
+
 .hero--editorial__house.hero--editorial__house--cutout:hover {
-    transform: translate(-50%, -50%) perspective(1600px) rotateY(-0.5deg) rotateX(0deg) scale(1.025);
+    transform: perspective(1600px) rotateY(-1.2deg) rotateX(0deg) scale(1.025);
     filter:
-        drop-shadow(0 40px 56px rgba(0, 0, 0, 0.42))
-        drop-shadow(0 12px 18px rgba(0, 0, 0, 0.26));
+        drop-shadow(0 40px 56px rgba(0, 0, 0, 0.40))
+        drop-shadow(0 14px 20px rgba(0, 0, 0, 0.22));
 }
 
 html[data-theme="light"] .hero--editorial__house.hero--editorial__house--cutout {
     filter:
-        drop-shadow(0 30px 40px rgba(20, 17, 11, 0.20))
-        drop-shadow(0 8px 12px rgba(20, 17, 11, 0.12));
+        drop-shadow(0 30px 40px rgba(20, 17, 11, 0.18))
+        drop-shadow(0 10px 14px rgba(20, 17, 11, 0.10));
 }
 
 html[data-theme="light"] .hero--editorial__house.hero--editorial__house--cutout:hover {
     filter:
-        drop-shadow(0 40px 56px rgba(20, 17, 11, 0.26))
-        drop-shadow(0 12px 18px rgba(20, 17, 11, 0.16));
+        drop-shadow(0 40px 56px rgba(20, 17, 11, 0.24))
+        drop-shadow(0 14px 20px rgba(20, 17, 11, 0.14));
+}
+
+@media (max-width: 1024px) {
+    .hero--editorial__house.hero--editorial__house--cutout {
+        right: -2vw;
+        bottom: -2vw;
+        transform: perspective(1600px) rotateY(-1.5deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero--editorial__house.hero--editorial__house--cutout {
+        width: 100%;
+        right: -4vw;
+        bottom: -4vw;
+        transform: none;
+    }
 }
 
 .hero--editorial__house img {
