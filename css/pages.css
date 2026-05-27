@@ -2222,7 +2222,7 @@ a.contact-direct__value:hover {
 /* Variante cut-out: PNG transparente ancorada no canto inferior direito,
    cobrindo só a parte de baixo do letreiro (que fica predominante em cima) */
 .hero--editorial__house.hero--editorial__house--cutout {
-    aspect-ratio: 1920 / 1018;
+    aspect-ratio: 16 / 9;
     width: clamp(720px, 82vw, 1500px);
     max-width: 100vw;
     /* Ancorado no BR — title fica predominante em cima */
@@ -2236,41 +2236,50 @@ a.contact-direct__value:hover {
     overflow: visible;
     transform: perspective(2000px) rotateY(-2deg) rotateX(0.4deg);
     transform-origin: bottom right;
-    filter:
-        drop-shadow(0 40px 60px rgba(0, 0, 0, 0.34))
-        drop-shadow(0 14px 22px rgba(0, 0, 0, 0.20));
-    transition: transform 720ms var(--ease-out), filter 720ms var(--ease-out);
+    /* Sem filter na figure — filter vai no img para acompanhar o alpha mascarado */
+    filter: none;
+    transition: transform 720ms var(--ease-out);
 }
 
-/* Mask aplicada ao img para dissolver as bordas opacas do deck/piso */
+/* Mask + drop-shadow aplicados ao IMG (acompanha o silhueta após o fade,
+   evitando qualquer borda retangular visível em qualquer tema) */
 .hero--editorial__house.hero--editorial__house--cutout img {
     -webkit-mask-image:
-        linear-gradient(180deg, #000 0%, #000 62%, rgba(0,0,0,0.65) 82%, transparent 100%),
-        linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+        linear-gradient(180deg, #000 0%, #000 48%, rgba(0,0,0,0.45) 72%, transparent 92%),
+        linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
     -webkit-mask-composite: source-in;
             mask-image:
-        linear-gradient(180deg, #000 0%, #000 62%, rgba(0,0,0,0.65) 82%, transparent 100%),
-        linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+        linear-gradient(180deg, #000 0%, #000 48%, rgba(0,0,0,0.45) 72%, transparent 92%),
+        linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
             mask-composite: intersect;
+    filter:
+        drop-shadow(0 36px 50px rgba(0, 0, 0, 0.28))
+        drop-shadow(0 12px 18px rgba(0, 0, 0, 0.16));
+    transition: filter 720ms var(--ease-out);
 }
 
 .hero--editorial__house.hero--editorial__house--cutout:hover {
     transform: perspective(1600px) rotateY(-1.2deg) rotateX(0deg) scale(1.025);
-    filter:
-        drop-shadow(0 40px 56px rgba(0, 0, 0, 0.40))
-        drop-shadow(0 14px 20px rgba(0, 0, 0, 0.22));
 }
 
-html[data-theme="light"] .hero--editorial__house.hero--editorial__house--cutout {
+.hero--editorial__house.hero--editorial__house--cutout:hover img {
     filter:
-        drop-shadow(0 30px 40px rgba(20, 17, 11, 0.18))
-        drop-shadow(0 10px 14px rgba(20, 17, 11, 0.10));
+        drop-shadow(0 44px 60px rgba(0, 0, 0, 0.32))
+        drop-shadow(0 16px 22px rgba(0, 0, 0, 0.18));
 }
 
-html[data-theme="light"] .hero--editorial__house.hero--editorial__house--cutout:hover {
+/* No light mode: drop-shadow drasticamente reduzido — a casa flutua leve
+   sobre o creme sem nenhuma borda/sombra retangular evidente */
+html[data-theme="light"] .hero--editorial__house.hero--editorial__house--cutout img {
     filter:
-        drop-shadow(0 40px 56px rgba(20, 17, 11, 0.24))
-        drop-shadow(0 14px 20px rgba(20, 17, 11, 0.14));
+        drop-shadow(0 18px 24px rgba(20, 17, 11, 0.10))
+        drop-shadow(0 4px 8px rgba(20, 17, 11, 0.06));
+}
+
+html[data-theme="light"] .hero--editorial__house.hero--editorial__house--cutout:hover img {
+    filter:
+        drop-shadow(0 24px 32px rgba(20, 17, 11, 0.14))
+        drop-shadow(0 6px 10px rgba(20, 17, 11, 0.08));
 }
 
 @media (max-width: 1024px) {
