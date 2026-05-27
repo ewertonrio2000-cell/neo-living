@@ -57,6 +57,31 @@
 }
 
 /* =========================================================
+   THEME — LIGHT (toggle via [data-theme="light"] no <html>)
+   ========================================================= */
+[data-theme="light"] {
+    --bg-deep:        #F5F2EB;
+    --bg-deeper:      #ECE7DC;
+    --bg-surface:     #FFFFFF;
+    --bg-overlay:     rgba(245, 242, 235, 0.82);
+    --bg-overlay-strong: rgba(245, 242, 235, 0.94);
+
+    --accent-amber:   #A87124;
+    --accent-amber-soft: #8B5A18;
+    --accent-line:    #BFB7A4;
+    --accent-line-soft: rgba(135, 122, 100, 0.32);
+
+    --text-primary:   #14110B;
+    --text-secondary: #3F3A30;
+    --text-muted:     #7A7466;
+    --text-watermark: rgba(20, 17, 11, 0.05);
+    --text-watermark-strong: rgba(20, 17, 11, 0.08);
+}
+
+html { color-scheme: dark; }
+html[data-theme="light"] { color-scheme: light; }
+
+/* =========================================================
    RESET
    ========================================================= */
 *,

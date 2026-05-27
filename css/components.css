@@ -142,6 +142,48 @@
     background-color: var(--accent-amber);
 }
 
+/* ---------- THEME TOGGLE (sol/lua) ---------- */
+.theme-toggle {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--accent-line);
+    border-radius: 999px;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: border-color var(--duration-fast) var(--ease-out),
+                background-color var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out);
+}
+
+.theme-toggle:hover {
+    border-color: var(--accent-amber);
+    color: var(--accent-amber);
+}
+
+.theme-toggle__icon {
+    position: absolute;
+    transition: opacity var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+}
+
+/* Mostra lua quando tema atual é light (clica para escurecer) */
+html:not([data-theme="light"]) .theme-toggle__icon--sun { opacity: 1; transform: rotate(0deg) scale(1); }
+html:not([data-theme="light"]) .theme-toggle__icon--moon { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+
+html[data-theme="light"] .theme-toggle__icon--sun  { opacity: 0; transform: rotate(90deg) scale(0.6); }
+html[data-theme="light"] .theme-toggle__icon--moon { opacity: 1; transform: rotate(0deg) scale(1); }
+
+/* Light-theme adjustments para o header (backdrop e linha) */
+html[data-theme="light"] .site-header.is-scrolled {
+    background-color: rgba(245, 242, 235, 0.78);
+    border-bottom-color: rgba(135, 122, 100, 0.25);
+}
+
 /* ---------- MOBILE TOGGLE ---------- */
 .nav-toggle {
     display: none;

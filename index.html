@@ -19,60 +19,47 @@
 
     <main>
         <!-- ============================================
-             SECTION 1 — HERO (full screen)
+             SECTION 1 — HERO EDITORIAL
+             Tipografia condensada + casa sobreposta (3D parallax)
              ============================================ -->
-        <section class="hero">
-            <div class="hero__media">
-                <img class="hero__image"
-                     src="assets/images/hero-home.jpg"
-                     alt="NEO.LIVING — projeto arquitetônico de uso misto: complexo lifestyle com skatepark, parede de escalada e edifícios de uso misto sob céu dramático"
-                     loading="eager"
-                     fetchpriority="high">
-            </div>
-
-            <div class="hero__overlay"></div>
-
-            <div class="hero__content">
-                <h1 class="t-display t-metallic hero__display">NEO.LIVING</h1>
-                <p class="t-label hero__sub text-amber">_ Design &amp; Lifestyle</p>
-
-                <div class="hero__bottom">
-                    <div class="hero__copy">
-                        <p class="hero__copy-text">
-                            Um conceito de arquitetura e estilo de vida que combina design contemporâneo, inovação tecnológica, sustentabilidade e bem-estar — para uma forma inovadora e conectada de viver.
-                        </p>
-                        <div class="hero__ctas">
-                            <a href="#highlights" class="btn btn-primary">
-                                <span>Ver projetos</span>
-                                <span class="arrow" aria-hidden="true">→</span>
-                            </a>
-                            <a href="contact.html" class="btn btn-ghost">
-                                <span>Fale com a gente</span>
-                                <span class="arrow" aria-hidden="true">→</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="hero__metrics">
-                        <div class="hero__metric">
-                            <p class="hero__metric-value">+1000</p>
-                            <p class="hero__metric-label">projetos assinados</p>
-                        </div>
-                        <div class="hero__metric">
-                            <p class="hero__metric-value">+25</p>
-                            <p class="hero__metric-label">anos de atuação</p>
-                        </div>
-                        <div class="hero__metric">
-                            <p class="hero__metric-value">Premium</p>
-                            <p class="hero__metric-label">segmento exclusivo</p>
-                        </div>
-                    </div>
+        <section class="hero hero--editorial">
+            <div class="hero--editorial__top">
+                <div class="hero--editorial__intro">
+                    <span class="hero--editorial__pill">_ Atelier de Arquitetura · Rio de Janeiro</span>
+                    <p class="hero--editorial__lede">
+                        Arquitetura autoral, residências de alto padrão e incorporações assinadas em sistema Full-Service — do conceito autoral à execução total.
+                    </p>
                 </div>
+
+                <ul class="hero--editorial__metrics" aria-label="Indicadores do atelier">
+                    <li>
+                        <span class="value">1000<small>+</small></span>
+                        <span class="label">Projetos assinados</span>
+                    </li>
+                    <li>
+                        <span class="value">25<small>+</small></span>
+                        <span class="label">Anos de trajetória</span>
+                    </li>
+                    <li>
+                        <span class="value">RJ</span>
+                        <span class="label">Atelier · Brasil</span>
+                    </li>
+                </ul>
             </div>
 
-            <div class="hero__scroll-indicator" aria-hidden="true">
-                <span class="hero__scroll-label">scroll</span>
-                <div class="hero__scroll-indicator-line"></div>
+            <div class="hero--editorial__stage">
+                <h1 class="hero--editorial__display">
+                    <span class="hero--editorial__word hero--editorial__word--top">NEO.</span>
+                    <span class="hero--editorial__word hero--editorial__word--bot">LIVING</span>
+                </h1>
+
+                <figure class="hero--editorial__house">
+                    <img src="assets/images/hero/casa-neo.jpg"
+                         alt="Residência NEO.LIVING — projeto contemporâneo à beira-mar com piscina de borda infinita"
+                         loading="eager"
+                         fetchpriority="high">
+                    <figcaption class="hero--editorial__caption">_ Residência Costa · Arquitetura litorânea · 2025</figcaption>
+                </figure>
             </div>
         </section>
 
