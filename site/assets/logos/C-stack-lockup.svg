@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" fill="none" aria-label="NEO.LIVING">
+    <g stroke="currentColor" stroke-width="1.5" stroke-linecap="square">
+        <line x1="14" y1="20" x2="44" y2="20" />
+        <line x1="14" y1="30" x2="50" y2="30" />
+        <line x1="14" y1="40" x2="38" y2="40" />
+        <line x1="14" y1="50" x2="50" y2="50" />
+        <line x1="14" y1="20" x2="14" y2="50" stroke-width="1.8" />
+    </g>
+    <line x1="68" y1="20" x2="68" y2="44" stroke="currentColor" stroke-width="0.8" opacity="0.4" />
+    <text x="82" y="40" font-family="'Bebas Neue', 'Oswald', sans-serif" font-size="28" letter-spacing="2" fill="currentColor">NEO.LIVING</text>
+</svg>
