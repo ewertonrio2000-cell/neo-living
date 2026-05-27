@@ -2194,6 +2194,10 @@ a.contact-direct__value:hover {
     z-index: 2;
     transform: translate(-50%, -50%) perspective(1400px) rotateY(-3deg) rotateX(2deg);
     transform-origin: center center;
+    /* fallback caso a imagem não carregue (gradiente que evoca um render) */
+    background:
+        linear-gradient(155deg, rgba(255,255,255,0.04), transparent 55%),
+        linear-gradient(180deg, #1a2a32 0%, #243846 35%, #5a8095 70%, #8aa9bd 100%);
     box-shadow:
         0 50px 100px rgba(0, 0, 0, 0.55),
         0 0 0 1px rgba(255, 255, 255, 0.04);
