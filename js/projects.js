@@ -167,8 +167,8 @@ window.NEO_PROJECTS = [
         tagline: 'Sobre a Lagoa Rodrigo de Freitas — releitura premium de Ipanema.',
         description1: '[Descrição do projeto a ser adicionada.]',
         description2: '[Texto complementar a ser adicionado.]',
-        coverImage: '',
-        gallery: [],
+        coverImage: 'assets/images/epitacio-pessoa.jpg',
+        gallery: ['assets/images/epitacio-pessoa.jpg'],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
             photography: '',
