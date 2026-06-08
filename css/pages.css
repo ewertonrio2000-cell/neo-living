@@ -2200,38 +2200,13 @@ html[data-theme="light"] .hero.hero--editorial::after {
     color: var(--text-primary);
     margin: 0;
     user-select: none;
-    pointer-events: auto;
-    cursor: default;
+    pointer-events: none;
     /* Sutileza extra de legibilidade onde o título encontra a imagem */
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
-    transition: text-shadow 600ms var(--ease-out);
 }
 
 html[data-theme="light"] .hero--editorial__display {
     text-shadow: 0 2px 12px rgba(245, 242, 235, 0.55);
-}
-
-/* Hover do letreiro: salta para a frente da casa com fade-in suave */
-.hero--editorial__display:hover {
-    z-index: 25;
-    animation: hero-title-popup 720ms cubic-bezier(0.22, 1, 0.36, 1);
-    text-shadow:
-        0 8px 30px rgba(20, 17, 11, 0.32),
-        0 0 80px rgba(233, 183, 112, 0.28);
-}
-
-@keyframes hero-title-popup {
-    0%   { opacity: 0; transform: translateY(-8px) scale(0.995); }
-    55%  { opacity: 1; transform: translateY(0) scale(1); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* Dark mode: glow âmbar predomina sobre fundo escuro */
-html:not([data-theme="light"]) .hero--editorial__display:hover {
-    text-shadow:
-        0 6px 30px rgba(0, 0, 0, 0.6),
-        0 0 100px rgba(233, 183, 112, 0.40),
-        0 0 40px rgba(244, 241, 234, 0.18);
 }
 
 .hero--editorial__word {
@@ -2254,9 +2229,14 @@ html:not([data-theme="light"]) .hero--editorial__display:hover {
     line-height: 0.88;
     letter-spacing: -0.04em;
     white-space: nowrap;
-    text-align: left;
-    width: 100%;
+    text-align: center;          /* centralizado horizontalmente sobre a foto */
+    /* Extende além do gutter do stage para o letreiro caber e ficar centrado
+       sobre a viewport inteira (sem ser cortado em telas largas) */
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
     margin-top: 0;
+    margin-bottom: 0;
 }
 
 /* Casa sobreposta com perspectiva 3D suave */
