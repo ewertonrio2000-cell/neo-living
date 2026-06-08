@@ -2067,9 +2067,40 @@ a.contact-direct__value:hover {
     justify-content: flex-start;
 }
 
-/* desativa o ken-burns e overlays cinematográficos do hero antigo, se aplicados */
-.hero.hero--editorial::before,
-.hero.hero--editorial::after { display: none; }
+/* desativa o overlay superior cinematográfico do hero antigo */
+.hero.hero--editorial::before { display: none; }
+
+/* Gradiente discreto na parte de baixo do hero — fade para a cor de fundo
+   do tema atual (escuro: #0E1410 / claro: #F5F2EB) via var(--bg-deep) */
+.hero.hero--editorial::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 32%;
+    z-index: 5;                /* acima da casa (z-index 2) mas abaixo do título (z-index 25 no hover) */
+    pointer-events: none;
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(0, 0, 0, 0) 35%,
+        var(--bg-deep) 100%
+    );
+    transition: background var(--duration-base) var(--ease-out);
+    transform: none;
+    display: block;
+}
+
+/* Override do background gradient para light mode (mesma estrutura, cor adaptada) */
+html[data-theme="light"] .hero.hero--editorial::after {
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(245, 242, 235, 0) 35%,
+        var(--bg-deep) 100%
+    );
+}
 
 .hero--editorial__top {
     display: grid;
