@@ -17,7 +17,7 @@ window.NEO_PROJECTS = [
         tagline: 'Residência contemporânea sobre a Floresta da Tijuca.',
         description1: '[Descrição do projeto a ser adicionada.] Texto editorial sobre o conceito arquitetônico, a relação com o entorno e o partido adotado para a residência sobre a Floresta da Tijuca.',
         description2: '[Texto complementar a ser adicionado.] Materiais, soluções técnicas, paisagismo e detalhes de projeto.',
-        coverImage: 'assets/images/horizon-joa.jpg',
+        coverImage: 'assets/images/joa.png',
         gallery: [
             'assets/images/horizon-joa.jpg'
         ],
@@ -167,8 +167,8 @@ window.NEO_PROJECTS = [
         tagline: 'Sobre a Lagoa Rodrigo de Freitas — releitura premium de Ipanema.',
         description1: '[Descrição do projeto a ser adicionada.]',
         description2: '[Texto complementar a ser adicionado.]',
-        coverImage: 'assets/images/epitacio-pessoa.jpg',
-        gallery: ['assets/images/epitacio-pessoa.jpg'],
+        coverImage: 'assets/images/epitaciopessoa.png',
+        gallery: ['assets/images/epitaciopessoa.png'],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
             photography: '',
@@ -187,8 +187,8 @@ window.NEO_PROJECTS = [
         tagline: 'Endereço autoral em Ipanema — densidade, autoria e detalhe.',
         description1: '[Descrição do projeto a ser adicionada.]',
         description2: '[Texto complementar a ser adicionado.]',
-        coverImage: '',
-        gallery: [],
+        coverImage: 'assets/images/nascimentosilva.png',
+        gallery: ['assets/images/nascimentosilva.png'],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
             photography: '',
@@ -207,8 +207,8 @@ window.NEO_PROJECTS = [
         tagline: 'Hospitality premium em um dos endereços mais tradicionais do Rio.',
         description1: '[Descrição do projeto a ser adicionada.]',
         description2: '[Texto complementar a ser adicionado.]',
-        coverImage: '',
-        gallery: [],
+        coverImage: 'assets/images/jockey.png',
+        gallery: ['assets/images/jockey.png'],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
             photography: '',
@@ -227,8 +227,8 @@ window.NEO_PROJECTS = [
         tagline: 'Mostra retrospectiva sobre a obra de Oscar Niemeyer.',
         description1: '[Descrição do projeto a ser adicionada.]',
         description2: '[Texto complementar a ser adicionado.]',
-        coverImage: '',
-        gallery: [],
+        coverImage: 'assets/images/exponiemayer.png',
+        gallery: ['assets/images/exponiemayer.png'],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
             photography: '',
@@ -307,8 +307,8 @@ window.NEO_PROJECTS = [
         tagline: 'Pub-experiência dentro do icônico Hotel Nacional.',
         description1: '[Descrição do projeto a ser adicionada.]',
         description2: '[Texto complementar a ser adicionado.]',
-        coverImage: '',
-        gallery: [],
+        coverImage: 'assets/images/matchpoint.png',
+        gallery: ['assets/images/matchpoint.png'],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
             photography: '',
