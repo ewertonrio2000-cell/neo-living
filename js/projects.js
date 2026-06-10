@@ -17,7 +17,7 @@ window.NEO_PROJECTS = [
         tagline: 'Residência contemporânea sobre a Floresta da Tijuca.',
         description1: '[Descrição do projeto a ser adicionada.] Texto editorial sobre o conceito arquitetônico, a relação com o entorno e o partido adotado para a residência sobre a Floresta da Tijuca.',
         description2: '[Texto complementar a ser adicionado.] Materiais, soluções técnicas, paisagismo e detalhes de projeto.',
-        coverImage: 'assets/images/joa.png',
+        coverImage: 'assets/images/horizon-joa.jpg',
         gallery: [
             'assets/images/horizon-joa.jpg'
         ],
@@ -147,8 +147,8 @@ window.NEO_PROJECTS = [
         tagline: 'Reinvenção contemporânea para um endereço icônico carioca.',
         description1: '[Descrição do projeto a ser adicionada.]',
         description2: '[Texto complementar a ser adicionado.]',
-        coverImage: '',
-        gallery: [],
+        coverImage: 'assets/images/nova-joatinga.png',
+        gallery: ['assets/images/nova-joatinga.png'],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
             photography: '',
@@ -247,8 +247,8 @@ window.NEO_PROJECTS = [
         tagline: 'Reposicionamento de um shopping office em endereço estratégico da Barra.',
         description1: '[Descrição do projeto a ser adicionada.]',
         description2: '[Texto complementar a ser adicionado.]',
-        coverImage: '',
-        gallery: [],
+        coverImage: 'assets/images/citta-office-mall.png',
+        gallery: ['assets/images/citta-office-mall.png'],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
             photography: '',
@@ -267,8 +267,8 @@ window.NEO_PROJECTS = [
         tagline: 'Residência em diálogo direto com a mata.',
         description1: '[Descrição do projeto a ser adicionada.]',
         description2: '[Texto complementar a ser adicionado.]',
-        coverImage: '',
-        gallery: [],
+        coverImage: 'assets/images/forestlife.jpg',
+        gallery: ['assets/images/forestlife.jpg'],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
             photography: '',
