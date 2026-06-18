@@ -2612,12 +2612,12 @@ html[data-theme="light"] .hero.hero--editorial {
    ========================================================= */
 .hero-rally {
     position: absolute;
-    top: 50%;
+    top: 27%;
     right: var(--gutter-desktop);
     transform: translateY(-50%);
     z-index: 6;
     display: flex;
-    gap: 16px;
+    gap: 18px;
     justify-content: flex-end;
     align-items: stretch;
     max-width: calc(100% - var(--gutter-desktop) * 2);
@@ -2629,7 +2629,7 @@ html[data-theme="light"] .hero.hero--editorial {
     pointer-events: auto;
     position: relative;
     flex: 0 0 auto;
-    width: clamp(140px, 13vw, 196px);
+    width: clamp(172px, 16vw, 244px);
     display: flex;
     flex-direction: column;
     background: rgba(8, 12, 10, 0.55);
@@ -2736,9 +2736,9 @@ html[data-theme="light"] .hero.hero--editorial {
 @media (max-width: 1024px) {
     .hero-rally {
         right: var(--gutter-tablet);
-        gap: 12px;
+        gap: 14px;
     }
-    .hero-rally__card { width: clamp(120px, 18vw, 160px); }
+    .hero-rally__card { width: clamp(150px, 21vw, 200px); }
 }
 
 /* ---- Mobile: faixa horizontal compacta no topo da imagem ---- */
