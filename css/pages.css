@@ -2221,7 +2221,7 @@ html[data-theme="light"] .hero.hero--editorial::after {
     margin: 0 auto;
     min-height: 92vh;
     padding-top: 0;
-    padding-bottom: var(--space-2xs);  /* título/subtítulo bem na base */
+    padding-bottom: var(--space-xl);   /* espaço para os cards abaixo do subtítulo */
 }
 
 .hero--editorial__display {
@@ -2358,7 +2358,7 @@ html[data-theme="light"] .hero--editorial__concept {
 /* Variante cut-out: imagem preenchendo o hero inteiro como o protagonista
    visual — gradiente da base é quem dá destaque ao letreiro */
 .hero--editorial__house.hero--editorial__house--cutout {
-    aspect-ratio: 9966 / 5233; /* match exato com a imagem nova */
+    aspect-ratio: 10000 / 5300; /* match exato com a imagem nova */
     width: clamp(1100px, 104vw, 2200px);
     max-width: none;
     top: auto;
@@ -2611,16 +2611,14 @@ html[data-theme="light"] .hero.hero--editorial {
    e fixando sobre o hero. Disparo via .is-rallying (JS).
    ========================================================= */
 .hero-rally {
-    position: absolute;
-    top: 27%;
-    right: var(--gutter-desktop);
-    transform: translateY(-50%);
-    z-index: 6;
+    position: relative;          /* em fluxo, logo abaixo do subtítulo */
+    z-index: 10;
+    margin-top: var(--space-lg);
     display: flex;
     gap: 18px;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: stretch;
-    max-width: calc(100% - var(--gutter-desktop) * 2);
+    width: 100%;
     pointer-events: none;
     perspective: 1200px;
 }
@@ -2734,24 +2732,17 @@ html[data-theme="light"] .hero.hero--editorial {
 
 /* ---- Tablet: cards menores ---- */
 @media (max-width: 1024px) {
-    .hero-rally {
-        right: var(--gutter-tablet);
-        gap: 14px;
-    }
+    .hero-rally { gap: 14px; }
     .hero-rally__card { width: clamp(150px, 21vw, 200px); }
 }
 
-/* ---- Mobile: faixa horizontal compacta no topo da imagem ---- */
+/* ---- Mobile: faixa horizontal compacta abaixo do subtítulo ---- */
 @media (max-width: 768px) {
     .hero-rally {
-        top: 84px;
-        right: var(--gutter-mobile);
-        left: var(--gutter-mobile);
-        transform: none;
-        max-width: none;
+        margin-top: var(--space-md);
         gap: 8px;
-        justify-content: flex-start;
-        overflow: visible;
+        justify-content: center;
+        flex-wrap: nowrap;
     }
     .hero-rally__card {
         width: calc((100% - 24px) / 4);
