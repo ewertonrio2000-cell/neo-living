@@ -5,6 +5,15 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&family=Oswald:wght@500;600;700&display=swap');
 
+/* Fonte autoral para o letreiro NEO.LIVING */
+@font-face {
+    font-family: 'Horizondrift';
+    src: url('../assets/fonts/horizondrift-oblique.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
     /* ---------- COLOR TOKENS ---------- */
     --bg-deep:        #0E1410;

@@ -2078,15 +2078,16 @@ a.contact-direct__value:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    height: 50%;
+    height: 64%;                  /* mais alto — começa a subir cedo e oculta a linha reta da imagem */
     z-index: 5;
     pointer-events: none;
     background: linear-gradient(
         180deg,
         transparent 0%,
-        rgba(14, 20, 16, 0.30) 45%,
-        rgba(14, 20, 16, 0.78) 78%,
-        var(--bg-deep) 100%
+        rgba(14, 20, 16, 0.12) 28%,
+        rgba(14, 20, 16, 0.45) 52%,
+        rgba(14, 20, 16, 0.82) 74%,
+        var(--bg-deep) 96%
     );
     transition: background var(--duration-base) var(--ease-out);
     transform: none;
@@ -2097,9 +2098,10 @@ html[data-theme="light"] .hero.hero--editorial::after {
     background: linear-gradient(
         180deg,
         transparent 0%,
-        rgba(245, 242, 235, 0.28) 45%,
-        rgba(245, 242, 235, 0.80) 78%,
-        var(--bg-deep) 100%
+        rgba(245, 242, 235, 0.12) 28%,
+        rgba(245, 242, 235, 0.46) 52%,
+        rgba(245, 242, 235, 0.84) 74%,
+        var(--bg-deep) 96%
     );
 }
 
@@ -2239,6 +2241,50 @@ html[data-theme="light"] .hero--editorial__display {
     margin-right: calc(50% - 50vw);
     margin-top: 0;
     margin-bottom: 0;
+}
+
+/* Bloco da marca (título + conceito) ancorado ao fundo, sobre o gradiente */
+.hero--editorial__brand {
+    position: relative;
+    z-index: 10;                 /* acima do gradiente (5) e da casa (2) */
+    width: 100%;
+    pointer-events: none;
+}
+
+/* Fonte autoral Horizondrift para o letreiro */
+.hero--editorial__display--horizon {
+    font-family: 'Horizondrift', var(--font-condensed);
+    font-style: normal;          /* a fonte já é oblíqua no desenho */
+    letter-spacing: 0.005em;     /* a fonte é mais aberta que a condensada */
+    line-height: 0.95;
+    font-size: clamp(4rem, 16.5vw, 17rem);
+}
+
+/* Subtítulo conceito — centrado, largura controlada, junto ao gradiente */
+.hero--editorial__concept {
+    position: relative;
+    z-index: 10;
+    max-width: 760px;
+    margin: var(--space-md) auto 0;
+    text-align: center;
+    font-size: clamp(0.875rem, 1.1vw, 1.0625rem);
+    line-height: 1.7;
+    color: var(--text-secondary);
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
+}
+
+.hero--editorial__concept strong {
+    color: var(--accent-amber);
+    font-weight: 600;
+}
+
+.hero--editorial__concept em {
+    font-style: italic;
+    color: var(--text-primary);
+}
+
+html[data-theme="light"] .hero--editorial__concept {
+    text-shadow: 0 1px 10px rgba(245, 242, 235, 0.6);
 }
 
 /* Casa sobreposta com perspectiva 3D suave */
