@@ -2060,12 +2060,28 @@ a.contact-direct__value:hover {
     display: flex;
     flex-direction: column;
     gap: var(--space-xl);
+    /* Hero é sempre cinematográfico (escuro) nos dois temas — texto branco
+       sobre a imagem. O toggle claro/escuro afeta as seções de conteúdo. */
     background:
-        radial-gradient(ellipse at 70% 35%, rgba(233, 183, 112, 0.05), transparent 60%),
-        var(--bg-deep);
+        radial-gradient(ellipse at 70% 35%, rgba(233, 183, 112, 0.06), transparent 60%),
+        #0B0F0D;
     overflow: hidden;
     justify-content: flex-start;
 }
+
+/* Cores internas do hero fixas em claro nos DOIS temas (sobre fundo escuro) */
+.hero--editorial__pill { color: #C9C4B8; border-color: #3A4A42; }
+.hero--editorial__lede { color: #C9C4B8; }
+.hero--editorial__metrics { border-top-color: rgba(58, 74, 66, 0.5); }
+.hero--editorial__metrics .value { color: #F4F1EA; }
+.hero--editorial__metrics .value small { color: #E9B770; }
+.hero--editorial__metrics .label { color: #9CA39A; }
+.hero--editorial__metrics li { border-left-color: #E9B770; }
+
+html[data-theme="light"] .hero--editorial__pill { color: #C9C4B8; border-color: #3A4A42; }
+html[data-theme="light"] .hero--editorial__lede { color: #C9C4B8; }
+html[data-theme="light"] .hero--editorial__metrics .value { color: #F4F1EA; }
+html[data-theme="light"] .hero--editorial__metrics .label { color: #9CA39A; }
 
 /* desativa o overlay superior cinematográfico do hero antigo */
 .hero.hero--editorial::before { display: none; }
@@ -2095,19 +2111,29 @@ a.contact-direct__value:hover {
     display: block;
 }
 
-/* No tema claro mantemos o scrim escuro (texto branco precisa de fundo escuro),
-   mas suavizamos a base para casar com as seções claras que vêm abaixo */
+/* Hero é sempre escuro — scrim idêntico nos dois temas, fechando no bg do hero */
 html[data-theme="light"] .hero.hero--editorial::after {
     background: linear-gradient(
         180deg,
         rgba(6, 10, 8, 0) 0%,
-        rgba(6, 10, 8, 0.16) 30%,
-        rgba(6, 10, 8, 0.44) 50%,
-        rgba(6, 10, 8, 0.70) 68%,
-        rgba(6, 10, 8, 0.84) 86%,
-        rgba(6, 10, 8, 0.90) 100%
+        rgba(6, 10, 8, 0.18) 30%,
+        rgba(6, 10, 8, 0.48) 50%,
+        rgba(6, 10, 8, 0.78) 68%,
+        rgba(6, 10, 8, 0.93) 84%,
+        #0B0F0D 100%
     );
 }
+
+.hero.hero--editorial::after { background:
+    linear-gradient(
+        180deg,
+        rgba(6, 10, 8, 0) 0%,
+        rgba(6, 10, 8, 0.18) 30%,
+        rgba(6, 10, 8, 0.48) 50%,
+        rgba(6, 10, 8, 0.78) 68%,
+        rgba(6, 10, 8, 0.93) 84%,
+        #0B0F0D 100%
+    ); }
 
 .hero--editorial__top {
     position: relative;
@@ -2394,18 +2420,10 @@ html[data-theme="light"] .hero--editorial__house.hero--editorial__house--cutout:
 
 @media (max-width: 1024px) {
     .hero--editorial__house.hero--editorial__house--cutout {
+        width: clamp(640px, 100vw, 1100px);
         right: -2vw;
         bottom: -2vw;
         transform: perspective(1600px) rotateY(-1.5deg);
-    }
-}
-
-@media (max-width: 768px) {
-    .hero--editorial__house.hero--editorial__house--cutout {
-        width: 100%;
-        right: -4vw;
-        bottom: -4vw;
-        transform: none;
     }
 }
 
@@ -2438,17 +2456,11 @@ html[data-theme="light"] .hero--editorial__house.hero--editorial__house--cutout:
     margin: 0;
 }
 
-/* ---- LIGHT MODE adjustments ---- */
+/* ---- LIGHT MODE: hero permanece escuro (cinematográfico) ---- */
 html[data-theme="light"] .hero.hero--editorial {
     background:
-        radial-gradient(ellipse at 70% 35%, rgba(168, 113, 36, 0.06), transparent 60%),
-        var(--bg-deep);
-}
-
-html[data-theme="light"] .hero--editorial__house {
-    box-shadow:
-        0 38px 80px rgba(20, 17, 11, 0.18),
-        0 0 0 1px rgba(20, 17, 11, 0.05);
+        radial-gradient(ellipse at 70% 35%, rgba(233, 183, 112, 0.06), transparent 60%),
+        #0B0F0D;
 }
 
 /* ---- Responsive ---- */
@@ -2459,9 +2471,100 @@ html[data-theme="light"] .hero--editorial__house {
     }
 }
 
+/* =========================================================
+   HERO MOBILE — layout empilhado, imagem adaptada ao celular
+   ========================================================= */
 @media (max-width: 768px) {
-    .hero.hero--editorial { padding: 120px var(--gutter-mobile) var(--space-xl); gap: var(--space-lg); }
-    .hero--editorial__display { font-size: clamp(4.5rem, 22vw, 8rem); line-height: 0.85; }
-    .hero--editorial__house { width: 92%; }
-    .hero--editorial__metrics { gap: var(--space-sm); }
+    .hero.hero--editorial {
+        min-height: auto;
+        padding: 104px var(--gutter-mobile) var(--space-xl);
+        gap: var(--space-lg);
+    }
+
+    .hero--editorial__top {
+        gap: var(--space-md);
+    }
+
+    .hero--editorial__lede {
+        font-size: 0.9375rem;
+        max-width: none;
+    }
+
+    /* Métricas em linha compacta */
+    .hero--editorial__metrics {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-sm);
+    }
+    .hero--editorial__metrics .value { font-size: clamp(1.5rem, 8vw, 2.25rem); }
+    .hero--editorial__metrics .label { font-size: 0.5625rem; }
+
+    /* Stage volta a fluir no documento (sem alturas de viewport).
+       Reordena: imagem primeiro, letreiro sobreposto à base dela. */
+    .hero--editorial__stage {
+        min-height: auto;
+        padding-bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Imagem: bloco normal, largura total, sem overflow nem perspectiva */
+    .hero--editorial__house.hero--editorial__house--cutout {
+        order: 1;
+        position: relative;
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        transform: none;
+        aspect-ratio: 4000 / 2114;
+        opacity: 1;
+    }
+    .hero--editorial__house.hero--editorial__house--cutout img {
+        /* fade na base p/ o letreiro emergir da imagem */
+        -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 96%);
+                mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 96%);
+        filter: none;
+    }
+
+    /* Letreiro vem depois da imagem e sobe sobre a base dela */
+    .hero--editorial__brand {
+        order: 2;
+        margin-top: -22vw;
+        width: 100%;
+    }
+
+    /* Título cabe em uma linha confortável */
+    .hero--editorial__display--single,
+    .hero--editorial__display--horizon {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        font-size: clamp(3.25rem, 19vw, 6rem);
+        line-height: 0.9;
+        letter-spacing: 0.005em;
+    }
+
+    .hero--editorial__concept {
+        max-width: 100%;
+        margin-top: 0.2em;
+        font-size: clamp(0.9rem, 4vw, 1.05rem);
+        line-height: 1.6;
+        padding: 0 var(--space-2xs);
+    }
+
+    /* Scrim mais curto no mobile (imagem é menor) */
+    .hero.hero--editorial::after,
+    html[data-theme="light"] .hero.hero--editorial::after {
+        height: 46%;
+    }
+}
+
+@media (max-width: 420px) {
+    .hero--editorial__metrics .value { font-size: clamp(1.25rem, 9vw, 1.75rem); }
+    .hero--editorial__display--single,
+    .hero--editorial__display--horizon { font-size: clamp(2.75rem, 18vw, 5rem); }
 }
