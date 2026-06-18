@@ -343,6 +343,16 @@
     })();
 
     // =====================================================
+    // 12b. HERO RALLY — dispara entrada horizontal dos cards
+    // =====================================================
+    function initHeroRally() {
+        const rally = document.querySelector('.hero-rally');
+        if (!rally) return;
+        // Dispara após um pequeno atraso (robusto: não depende de rAF/load)
+        setTimeout(() => rally.classList.add('is-rallying'), 450);
+    }
+
+    // =====================================================
     // 12. INIT
     // =====================================================
     function init() {
@@ -357,6 +367,7 @@
         initForm();
         initPageTransitions();
         initThemeToggle();
+        initHeroRally();
     }
 
     if (document.readyState === 'loading') {

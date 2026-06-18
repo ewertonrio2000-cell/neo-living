@@ -2071,7 +2071,7 @@ a.contact-direct__value:hover {
 
 /* Cores internas do hero fixas em claro nos DOIS temas (sobre fundo escuro) */
 .hero--editorial__pill { color: #C9C4B8; border-color: #3A4A42; }
-.hero--editorial__lede { color: #C9C4B8; }
+.hero--editorial__lede { color: #FFFFFF; }
 .hero--editorial__metrics { border-top-color: rgba(58, 74, 66, 0.5); }
 .hero--editorial__metrics .value { color: #F4F1EA; }
 .hero--editorial__metrics .value small { color: #E9B770; }
@@ -2079,7 +2079,7 @@ a.contact-direct__value:hover {
 .hero--editorial__metrics li { border-left-color: #E9B770; }
 
 html[data-theme="light"] .hero--editorial__pill { color: #C9C4B8; border-color: #3A4A42; }
-html[data-theme="light"] .hero--editorial__lede { color: #C9C4B8; }
+html[data-theme="light"] .hero--editorial__lede { color: #FFFFFF; }
 html[data-theme="light"] .hero--editorial__metrics .value { color: #F4F1EA; }
 html[data-theme="light"] .hero--editorial__metrics .label { color: #9CA39A; }
 
@@ -2161,11 +2161,13 @@ html[data-theme="light"] .hero.hero--editorial::after {
 }
 
 .hero--editorial__lede {
-    font-size: 0.9375rem;
-    line-height: 1.65;
-    color: var(--text-secondary);
-    max-width: 460px;
+    font-size: clamp(1rem, 1.25vw, 1.1875rem);
+    line-height: 1.55;
+    font-weight: 700;
+    color: #FFFFFF;
+    max-width: 500px;
     margin: 0;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
 }
 
 .hero--editorial__metrics {
@@ -2356,7 +2358,7 @@ html[data-theme="light"] .hero--editorial__concept {
 /* Variante cut-out: imagem preenchendo o hero inteiro como o protagonista
    visual — gradiente da base é quem dá destaque ao letreiro */
 .hero--editorial__house.hero--editorial__house--cutout {
-    aspect-ratio: 4000 / 2100; /* match exato com a imagem nova */
+    aspect-ratio: 9966 / 5233; /* match exato com a imagem nova */
     width: clamp(1100px, 104vw, 2200px);
     max-width: none;
     top: auto;
@@ -2602,4 +2604,166 @@ html[data-theme="light"] .hero.hero--editorial {
     .hero--editorial__metrics .value { font-size: clamp(1.25rem, 9vw, 1.75rem); }
     .hero--editorial__display--single,
     .hero--editorial__display--horizon { font-size: clamp(2.75rem, 18vw, 5rem); }
+}
+
+/* =========================================================
+   HERO RALLY — 4 cards de projeto entrando da direita (efeito rally)
+   e fixando sobre o hero. Disparo via .is-rallying (JS).
+   ========================================================= */
+.hero-rally {
+    position: absolute;
+    top: 50%;
+    right: var(--gutter-desktop);
+    transform: translateY(-50%);
+    z-index: 6;
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    align-items: stretch;
+    max-width: calc(100% - var(--gutter-desktop) * 2);
+    pointer-events: none;
+    perspective: 1200px;
+}
+
+.hero-rally__card {
+    pointer-events: auto;
+    position: relative;
+    flex: 0 0 auto;
+    width: clamp(140px, 13vw, 196px);
+    display: flex;
+    flex-direction: column;
+    background: rgba(8, 12, 10, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+    overflow: hidden;
+    -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+    text-decoration: none;
+    /* Estado inicial — fora da tela à direita, esticado/borrado (velocidade) */
+    opacity: 0;
+    transform: translateX(132vw) skewX(-7deg) scaleX(1.2);
+    filter: blur(2px);
+    transition:
+        transform 880ms cubic-bezier(0.18, 0.9, 0.25, 1),
+        opacity 460ms ease-out,
+        filter 640ms ease-out,
+        box-shadow 400ms ease-out,
+        border-color 400ms ease-out;
+    transition-delay: calc(var(--rally-i, 0) * 150ms);
+    will-change: transform, opacity, filter;
+}
+
+/* Chegada: assenta na posição, sem skew/blur */
+.hero-rally.is-rallying .hero-rally__card {
+    opacity: 1;
+    transform: translateX(0) skewX(0deg) scaleX(1);
+    filter: blur(0);
+}
+
+.hero-rally__card:hover {
+    border-color: var(--accent-amber);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 40px rgba(233, 183, 112, 0.22);
+}
+
+.hero-rally__media {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+}
+
+.hero-rally__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 600ms var(--ease-out);
+}
+
+.hero-rally__card:hover .hero-rally__media img {
+    transform: scale(1.06);
+}
+
+.hero-rally__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 10px 12px 12px;
+}
+
+.hero-rally__idx {
+    font-family: var(--font-body);
+    font-size: 0.5625rem;
+    letter-spacing: 0.22em;
+    color: var(--accent-amber);
+}
+
+.hero-rally__name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    line-height: 1.15;
+    color: #F4F1EA;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+}
+
+/* Linha de "rastro" de velocidade que some ao assentar */
+.hero-rally__card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,0.18), transparent 40%);
+    opacity: 0.8;
+    pointer-events: none;
+    transition: opacity 500ms ease-out;
+    transition-delay: calc(var(--rally-i, 0) * 150ms);
+}
+.hero-rally.is-rallying .hero-rally__card::before {
+    opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-rally__card {
+        transition: opacity 300ms ease;
+        transform: none;
+        filter: none;
+    }
+}
+
+/* ---- Tablet: cards menores ---- */
+@media (max-width: 1024px) {
+    .hero-rally {
+        right: var(--gutter-tablet);
+        gap: 12px;
+    }
+    .hero-rally__card { width: clamp(120px, 18vw, 160px); }
+}
+
+/* ---- Mobile: faixa horizontal compacta no topo da imagem ---- */
+@media (max-width: 768px) {
+    .hero-rally {
+        top: 84px;
+        right: var(--gutter-mobile);
+        left: var(--gutter-mobile);
+        transform: none;
+        max-width: none;
+        gap: 8px;
+        justify-content: flex-start;
+        overflow: visible;
+    }
+    .hero-rally__card {
+        width: calc((100% - 24px) / 4);
+        background: rgba(8, 12, 10, 0.62);
+    }
+    .hero-rally__media { aspect-ratio: 1 / 1; }
+    .hero-rally__meta { padding: 6px 7px 8px; }
+    .hero-rally__idx { font-size: 0.5rem; }
+    .hero-rally__name { font-size: 0.5625rem; letter-spacing: 0; }
+}
+
+@media (max-width: 480px) {
+    .hero-rally__name { display: none; }
+    .hero-rally__meta { padding: 5px 6px; }
 }
