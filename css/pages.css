@@ -2067,6 +2067,8 @@ a.contact-direct__value:hover {
         #0B0F0D;
     overflow: hidden;
     justify-content: flex-start;
+    /* espaço inferior para os cards que passam abaixo do subtítulo */
+    padding-bottom: 280px;
 }
 
 /* Cores internas do hero fixas em claro nos DOIS temas (sobre fundo escuro) */
@@ -2221,7 +2223,7 @@ html[data-theme="light"] .hero.hero--editorial::after {
     margin: 0 auto;
     min-height: 92vh;
     padding-top: 0;
-    padding-bottom: var(--space-xl);   /* espaço para os cards abaixo do subtítulo */
+    padding-bottom: var(--space-2xs);  /* título/subtítulo na posição original */
 }
 
 .hero--editorial__display {
@@ -2499,7 +2501,7 @@ html[data-theme="light"] .hero.hero--editorial {
         width: 100%;
         min-height: 88vh;
         margin: 0;
-        padding: 0 var(--gutter-mobile) var(--space-2xl);
+        padding: 0 var(--gutter-mobile) 150px;  /* espaço p/ os cards abaixo do subtítulo */
         display: flex;
         flex-direction: column;
         justify-content: flex-end;  /* título na base */
@@ -2611,9 +2613,11 @@ html[data-theme="light"] .hero.hero--editorial {
    e fixando sobre o hero. Disparo via .is-rallying (JS).
    ========================================================= */
 .hero-rally {
-    position: relative;          /* em fluxo, logo abaixo do subtítulo */
+    position: absolute;          /* ancorado abaixo do subtítulo, não empurra o texto */
+    top: calc(100% + var(--space-md));
+    left: 0;
+    right: 0;
     z-index: 10;
-    margin-top: var(--space-lg);
     display: flex;
     gap: 18px;
     justify-content: center;
