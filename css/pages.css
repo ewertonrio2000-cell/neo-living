@@ -2472,72 +2472,94 @@ html[data-theme="light"] .hero.hero--editorial {
 }
 
 /* =========================================================
-   HERO MOBILE — layout empilhado, imagem adaptada ao celular
+   HERO MOBILE — imagem full-bleed dominando a tela inicial.
+   Stage = hero de imagem (corta laterais via cover) com título
+   sobreposto na base; conteúdo de apoio (pill/lede/métricas) abaixo.
    ========================================================= */
 @media (max-width: 768px) {
     .hero.hero--editorial {
         min-height: auto;
-        padding: 104px var(--gutter-mobile) var(--space-xl);
-        gap: var(--space-lg);
+        padding: 0;                 /* full-bleed */
+        gap: 0;
+        overflow: visible;
     }
 
-    .hero--editorial__top {
-        gap: var(--space-md);
+    /* Scrim de seção desligado no mobile — cada bloco cuida do seu */
+    .hero.hero--editorial::after,
+    html[data-theme="light"] .hero.hero--editorial::after {
+        display: none;
     }
 
-    .hero--editorial__lede {
-        font-size: 0.9375rem;
-        max-width: none;
-    }
-
-    /* Métricas em linha compacta */
-    .hero--editorial__metrics {
-        grid-template-columns: repeat(3, 1fr);
-        gap: var(--space-sm);
-    }
-    .hero--editorial__metrics .value { font-size: clamp(1.5rem, 8vw, 2.25rem); }
-    .hero--editorial__metrics .label { font-size: 0.5625rem; }
-
-    /* Stage volta a fluir no documento (sem alturas de viewport).
-       Reordena: imagem primeiro, letreiro sobreposto à base dela. */
+    /* STAGE = hero de imagem em tela cheia, vem primeiro */
     .hero--editorial__stage {
-        min-height: auto;
-        padding-bottom: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /* Imagem: bloco normal, largura total, sem overflow nem perspectiva */
-    .hero--editorial__house.hero--editorial__house--cutout {
         order: 1;
         position: relative;
-        left: auto;
-        right: auto;
-        top: auto;
-        bottom: auto;
         width: 100%;
-        max-width: 100%;
+        min-height: 88vh;
+        margin: 0;
+        padding: 0 var(--gutter-mobile) var(--space-2xl);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;  /* título na base */
+        align-items: center;
+        overflow: hidden;
+    }
+
+    /* Imagem cobre todo o stage, cortando as laterais */
+    .hero--editorial__house.hero--editorial__house--cutout {
+        position: absolute;
+        inset: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        max-width: none;
+        height: 100%;
         margin: 0;
         transform: none;
-        aspect-ratio: 4000 / 2114;
+        aspect-ratio: auto;
         opacity: 1;
+        z-index: 1;
     }
     .hero--editorial__house.hero--editorial__house--cutout img {
-        /* fade na base p/ o letreiro emergir da imagem */
-        -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 96%);
-                mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 96%);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;          /* domina e corta as laterais */
+        object-position: center 38%;
+        -webkit-mask-image: none;
+                mask-image: none;
         filter: none;
     }
 
-    /* Letreiro vem depois da imagem e sobe sobre a base dela */
+    /* Scrim próprio do stage — escurece a base para o título saltar */
+    .hero--editorial__stage::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 62%;
+        z-index: 2;
+        pointer-events: none;
+        background: linear-gradient(
+            180deg,
+            rgba(6, 10, 8, 0) 0%,
+            rgba(6, 10, 8, 0.35) 42%,
+            rgba(6, 10, 8, 0.80) 72%,
+            #0B0F0D 100%
+        );
+    }
+
+    /* Letreiro sobre o scrim, na base da imagem */
     .hero--editorial__brand {
-        order: 2;
-        margin-top: -22vw;
+        order: 1;
+        position: relative;
+        z-index: 10;
+        margin: 0;
         width: 100%;
     }
 
-    /* Título cabe em uma linha confortável */
     .hero--editorial__display--single,
     .hero--editorial__display--horizon {
         width: 100%;
@@ -2556,11 +2578,24 @@ html[data-theme="light"] .hero.hero--editorial {
         padding: 0 var(--space-2xs);
     }
 
-    /* Scrim mais curto no mobile (imagem é menor) */
-    .hero.hero--editorial::after,
-    html[data-theme="light"] .hero.hero--editorial::after {
-        height: 46%;
+    /* Conteúdo de apoio vem ABAIXO da imagem, sobre fundo escuro */
+    .hero--editorial__top {
+        order: 2;
+        gap: var(--space-md);
+        padding: var(--space-xl) var(--gutter-mobile) var(--space-lg);
     }
+
+    .hero--editorial__lede {
+        font-size: 0.9375rem;
+        max-width: none;
+    }
+
+    .hero--editorial__metrics {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-sm);
+    }
+    .hero--editorial__metrics .value { font-size: clamp(1.5rem, 8vw, 2.25rem); }
+    .hero--editorial__metrics .label { font-size: 0.5625rem; }
 }
 
 @media (max-width: 420px) {
