@@ -2356,7 +2356,7 @@ html[data-theme="light"] .hero--editorial__concept {
 /* Variante cut-out: imagem preenchendo o hero inteiro como o protagonista
    visual — gradiente da base é quem dá destaque ao letreiro */
 .hero--editorial__house.hero--editorial__house--cutout {
-    aspect-ratio: 4000 / 2114; /* match exato com a imagem nova = 1.892 */
+    aspect-ratio: 4000 / 2115; /* match exato com a imagem nova */
     width: clamp(1100px, 104vw, 2200px);
     max-width: none;
     top: auto;
