@@ -2317,23 +2317,26 @@ html[data-theme="light"] .hero-title__back {
     opacity: 0.6;
 }
 
-/* Camada da frente — Lagency em dourado fino, sobre a vazada */
+/* Camada da frente — Lagency em prata fino, sobre a vazada */
 .hero-title__front {
     font-family: 'Lagency', var(--font-condensed);
     font-weight: 400;
-    /* Dourado fino com leve brilho metálico */
-    background: linear-gradient(180deg, #F4D9A0 0%, #E9B770 45%, #C9974E 100%);
+    /* Prata fino com leve brilho metálico */
+    background: linear-gradient(180deg, #FFFFFF 0%, #E4E7EB 38%, #B9C0C7 68%, #8E969E 100%);
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
     letter-spacing: 0.02em;
     text-shadow: none;
-    filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.35));
+    filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.4));
 }
 
 html[data-theme="light"] .hero-title__front {
-    filter: drop-shadow(0 2px 12px rgba(201, 151, 78, 0.35));
+    background: linear-gradient(180deg, #E9ECEF 0%, #BFC6CD 45%, #8B939B 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    filter: drop-shadow(0 2px 12px rgba(20, 17, 11, 0.30));
 }
 
 /* Fonte autoral Horizondrift para o letreiro — branco em ambos os temas
@@ -2343,7 +2346,7 @@ html[data-theme="light"] .hero-title__front {
     font-style: normal;          /* a fonte já é oblíqua no desenho */
     letter-spacing: 0.005em;
     line-height: 0.92;
-    font-size: clamp(4rem, 16.5vw, 17rem);
+    font-size: clamp(3.25rem, 13.5vw, 14rem);  /* um pouco menor */
     color: #F4F1EA;
     text-shadow: 0 4px 28px rgba(0, 0, 0, 0.55);
     margin-bottom: 0;
@@ -2358,8 +2361,8 @@ html[data-theme="light"] .hero--editorial__display--horizon {
 .hero--editorial__concept {
     position: relative;
     z-index: 10;
-    max-width: 880px;
-    margin: -0.4em auto 0;       /* sobe e encosta no título — um completa o outro */
+    max-width: 415px;            /* estreito → quebra em ~3 linhas */
+    margin: -0.2em auto 0;
     text-align: center;
     font-family: 'Horizondrift', var(--font-condensed);
     font-size: clamp(0.9rem, 1.18vw, 1.2rem);
@@ -2370,8 +2373,8 @@ html[data-theme="light"] .hero--editorial__display--horizon {
 }
 
 .hero--editorial__concept strong {
-    color: var(--accent-amber);
-    font-weight: 400;            /* a fonte não tem bold — destaca por cor */
+    color: #D6DBE0;              /* prata — destaca por cor */
+    font-weight: 400;
 }
 
 .hero--editorial__concept em {
@@ -2382,6 +2385,10 @@ html[data-theme="light"] .hero--editorial__display--horizon {
 html[data-theme="light"] .hero--editorial__concept {
     color: #14110B;
     text-shadow: 0 2px 12px rgba(245, 242, 235, 0.7);
+}
+
+html[data-theme="light"] .hero--editorial__concept strong {
+    color: #6B7178;             /* prata mais escuro p/ contraste no claro */
 }
 
 html[data-theme="light"] .hero--editorial__concept em {
