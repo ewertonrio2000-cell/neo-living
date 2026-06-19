@@ -2338,38 +2338,22 @@ html[data-theme="light"] .hero-title__back {
 .hero-title__front {
     font-family: 'Bebas Neue', var(--font-condensed);
     font-weight: 400;
-    /* Prata metálico (cromado) — faixa de reflexo clara no meio + sombras */
-    background: linear-gradient(
-        176deg,
-        #F6F8FA 0%,
-        #BFC8D0 24%,
-        #8B96A0 44%,
-        #FFFFFF 55%,
-        #C4CDD5 70%,
-        #828D97 100%
-    );
+    /* Prateado leve — degradê suave claro → prata (sem cromado) */
+    background: linear-gradient(180deg, #FFFFFF 0%, #E3E8ED 50%, #BFC7CE 100%);
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
     letter-spacing: 0.02em;
     text-shadow: none;
-    filter: drop-shadow(0 2px 16px rgba(255, 255, 255, 0.22)) drop-shadow(0 2px 14px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.35));
 }
 
 html[data-theme="light"] .hero-title__front {
-    background: linear-gradient(
-        176deg,
-        #EEF1F4 0%,
-        #AFB9C1 26%,
-        #7C8893 46%,
-        #FAFBFC 56%,
-        #AAB4BC 72%,
-        #6E7A84 100%
-    );
+    background: linear-gradient(180deg, #FFFFFF 0%, #DDE3E8 50%, #B6BEC6 100%);
     -webkit-background-clip: text;
             background-clip: text;
-    filter: drop-shadow(0 2px 12px rgba(20, 17, 11, 0.28));
+    filter: drop-shadow(0 2px 12px rgba(20, 17, 11, 0.25));
 }
 
 /* Fonte autoral Horizondrift para o letreiro — branco em ambos os temas
