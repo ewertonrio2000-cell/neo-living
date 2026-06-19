@@ -31,8 +31,8 @@
     --bg-overlay:     rgba(14, 32, 26, 0.72);
     --bg-overlay-strong: rgba(8, 12, 10, 0.88);
 
-    --accent-amber:   #E9B770;
-    --accent-amber-soft: #C99E5E;
+    --accent-amber:   #E6B325;
+    --accent-amber-soft: #C99A1E;
     --accent-line:    #3A4A42;
     --accent-line-soft: rgba(58, 74, 66, 0.4);
 
@@ -84,8 +84,8 @@
     --bg-overlay:     rgba(245, 242, 235, 0.82);
     --bg-overlay-strong: rgba(245, 242, 235, 0.94);
 
-    --accent-amber:   #A87124;
-    --accent-amber-soft: #8B5A18;
+    --accent-amber:   #B8860B;
+    --accent-amber-soft: #9A7100;
     --accent-line:    #BFB7A4;
     --accent-line-soft: rgba(135, 122, 100, 0.32);
 
