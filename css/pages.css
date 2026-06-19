@@ -2335,7 +2335,7 @@ html[data-theme="light"] .hero-title__back {
 
 /* Camada da frente — Lagency em prata fino, sobre a vazada */
 .hero-title__front {
-    font-family: 'Lagency', var(--font-condensed);
+    font-family: 'Bebas Neue', var(--font-condensed);
     font-weight: 400;
     /* Prata ACESO — brilho metálico claro e luminoso */
     background: linear-gradient(180deg, #FFFFFF 0%, #FAFBFC 30%, #E3E8ED 60%, #C4CCD3 100%);
