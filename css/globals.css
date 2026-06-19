@@ -14,6 +14,15 @@
     font-display: swap;
 }
 
+/* Lagency — camada dourada na frente do letreiro */
+@font-face {
+    font-family: 'Lagency';
+    src: url('../assets/fonts/lagency-regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
     /* ---------- COLOR TOKENS ---------- */
     --bg-deep:        #0E1410;

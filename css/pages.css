@@ -2285,6 +2285,57 @@ html[data-theme="light"] .hero--editorial__display {
     pointer-events: none;
 }
 
+/* =========================================================
+   TÍTULO EM DUAS CAMADAS — Horizondrift vazada (fundo) + Lagency dourada (frente)
+   ========================================================= */
+.hero-title {
+    display: grid;
+    place-items: center;
+    position: relative;
+}
+
+.hero-title__back,
+.hero-title__front {
+    grid-area: 1 / 1;            /* empilhadas na mesma célula */
+    display: block;
+    white-space: nowrap;
+    line-height: 0.92;
+}
+
+/* Camada de fundo — Horizondrift VAZADA (contorno) + transparência */
+.hero-title__back {
+    font-family: 'Horizondrift', var(--font-condensed);
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1.5px rgba(244, 241, 234, 0.35);
+    opacity: 0.55;
+    text-shadow: none;
+}
+
+html[data-theme="light"] .hero-title__back {
+    -webkit-text-stroke: 1.5px rgba(20, 17, 11, 0.32);
+    opacity: 0.6;
+}
+
+/* Camada da frente — Lagency em dourado fino, sobre a vazada */
+.hero-title__front {
+    font-family: 'Lagency', var(--font-condensed);
+    font-weight: 400;
+    /* Dourado fino com leve brilho metálico */
+    background: linear-gradient(180deg, #F4D9A0 0%, #E9B770 45%, #C9974E 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.02em;
+    text-shadow: none;
+    filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.35));
+}
+
+html[data-theme="light"] .hero-title__front {
+    filter: drop-shadow(0 2px 12px rgba(201, 151, 78, 0.35));
+}
+
 /* Fonte autoral Horizondrift para o letreiro — branco em ambos os temas
    (assenta sobre o scrim escuro do gradiente para máximo destaque) */
 .hero--editorial__display--horizon {
