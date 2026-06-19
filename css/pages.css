@@ -353,6 +353,22 @@
     background-color: var(--bg-deeper);
 }
 
+/* Seção cinematográfica (overlay escuro) sempre — no modo claro força tokens
+   claros para o texto não sumir sobre o fundo escuro */
+html[data-theme="light"] .process-section {
+    --text-primary: #F4F1EA;
+    --text-secondary: #C9C4B8;
+    --text-muted: #9CA39A;
+    --accent-amber: #E9B770;
+    --accent-line: #3A4A42;
+    background-color: #080C0A;
+}
+
+html[data-theme="light"] .process-section .t-h1,
+html[data-theme="light"] .process-section .step-card__title {
+    color: #F4F1EA;
+}
+
 .process-section__media {
     position: absolute;
     inset: 0;
@@ -2361,11 +2377,11 @@ html[data-theme="light"] .hero--editorial__display--horizon {
 .hero--editorial__concept {
     position: relative;
     z-index: 10;
-    max-width: 415px;            /* estreito → quebra em ~3 linhas */
+    max-width: 500px;            /* calibrado p/ exatamente 3 linhas */
     margin: -0.2em auto 0;
     text-align: center;
     font-family: 'Horizondrift', var(--font-condensed);
-    font-size: clamp(0.9rem, 1.18vw, 1.2rem);
+    font-size: 0.9375rem;        /* fixo — não escala com vw (mantém 3 linhas) */
     line-height: 1.7;
     letter-spacing: 0.04em;
     color: #F4F1EA;
