@@ -364,26 +364,6 @@
     }
 
     // =====================================================
-    // 12c. PRACTICE FOUNDERS — entrada rally ao rolar para a seção
-    // =====================================================
-    function initFoundersRally() {
-        const el = document.querySelector('.practice-founders');
-        if (!el) return;
-        // Observa a SEÇÃO (posição estável), não a imagem transformada (fora da tela)
-        const target = el.closest('.services-section') || el;
-        if (!('IntersectionObserver' in window)) { el.classList.add('is-in'); return; }
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach((e) => {
-                if (e.isIntersecting) {
-                    el.classList.add('is-in');
-                    obs.unobserve(e.target);
-                }
-            });
-        }, { threshold: 0.15 });
-        obs.observe(target);
-    }
-
-    // =====================================================
     // 12. INIT
     // =====================================================
     function init() {
@@ -399,7 +379,6 @@
         initPageTransitions();
         initThemeToggle();
         initHeroRally();
-        initFoundersRally();
     }
 
     if (document.readyState === 'loading') {
