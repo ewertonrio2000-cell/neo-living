@@ -364,6 +364,50 @@
     }
 
     // =====================================================
+    // 12d. HERO VÍDEO (4 clipes, 4s cada) + SPOTLIGHT do cursor
+    // =====================================================
+    function initHeroVideo() {
+        const hero = document.querySelector('.hero--editorial');
+        if (!hero) return;
+
+        // ---- Carrossel de vídeo ----
+        const clips = Array.from(hero.querySelectorAll('.hero-video__clip'));
+        if (clips.length) {
+            const playSafe = (el) => { try { const p = el.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {} };
+            let idx = 0;
+            clips[0].classList.add('is-active');
+            playSafe(clips[0]);
+            // Pré-carrega os demais clipes em segundo plano
+            window.addEventListener('load', () => {
+                clips.forEach((c, i) => { if (i > 0) { try { c.load(); } catch (e) {} } });
+            }, { once: true });
+
+            setInterval(() => {
+                const next = (idx + 1) % clips.length;
+                try { clips[next].currentTime = 0; } catch (e) {}
+                playSafe(clips[next]);
+                clips[next].classList.add('is-active');
+                clips[idx].classList.remove('is-active');
+                const prev = idx;
+                setTimeout(() => { try { clips[prev].pause(); } catch (e) {} }, 900);
+                idx = next;
+            }, 4000);
+        }
+
+        // ---- Spotlight que segue o cursor ----
+        const spot = hero.querySelector('.hero-spotlight');
+        if (spot && window.matchMedia && window.matchMedia('(hover: hover)').matches) {
+            hero.addEventListener('mousemove', (e) => {
+                const r = hero.getBoundingClientRect();
+                spot.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+                spot.style.setProperty('--my', (e.clientY - r.top) + 'px');
+                spot.style.opacity = '1';
+            });
+            hero.addEventListener('mouseleave', () => { spot.style.opacity = '0'; });
+        }
+    }
+
+    // =====================================================
     // 12. INIT
     // =====================================================
     function init() {
@@ -379,6 +423,7 @@
         initPageTransitions();
         initThemeToggle();
         initHeroRally();
+        initHeroVideo();
     }
 
     if (document.readyState === 'loading') {
