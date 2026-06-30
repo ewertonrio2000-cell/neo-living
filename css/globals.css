@@ -488,7 +488,7 @@ ul, ol {
     inset: 0;
     background:
         radial-gradient(ellipse at 20% 80%, rgba(233, 183, 112, 0.12), transparent 60%),
-        radial-gradient(ellipse at 80% 20%, rgba(58, 74, 66, 0.4), transparent 60%);
+        radial-gradient(ellipse at 80% 20%, rgba(12, 12, 12, 0.4), transparent 60%);
     pointer-events: none;
 }
 

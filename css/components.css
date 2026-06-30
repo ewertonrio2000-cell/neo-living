@@ -420,7 +420,7 @@ html[data-theme="light"] .site-header.is-scrolled {
 .project-card__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, transparent 35%, rgba(8, 12, 10, 0.92) 100%);
+    background: linear-gradient(180deg, transparent 35%, rgba(10, 10, 10, 0.92) 100%);
     pointer-events: none;
 }
 

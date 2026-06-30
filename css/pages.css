@@ -80,16 +80,16 @@
     background:
         /* Subtle top edge — unifies with the blurred header without darkening the sky */
         linear-gradient(180deg,
-            rgba(6, 10, 8, 0.30) 0%,
-            rgba(6, 10, 8, 0.10) 10%,
+            rgba(8, 8, 8, 0.30) 0%,
+            rgba(8, 8, 8, 0.10) 10%,
             rgba(0, 0, 0, 0) 22%
         ),
         /* Minimal bottom darkening — just enough for readable display + CTAs */
         linear-gradient(180deg,
             rgba(0, 0, 0, 0) 45%,
             rgba(10, 14, 12, 0.30) 70%,
-            rgba(6, 10, 8, 0.70) 92%,
-            rgba(6, 10, 8, 0.85) 100%
+            rgba(8, 8, 8, 0.70) 92%,
+            rgba(8, 8, 8, 0.85) 100%
         );
     pointer-events: none;
 }
@@ -263,7 +263,7 @@
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(180deg, rgba(8, 12, 10, 0.70) 0%, rgba(14, 32, 26, 0.55) 50%, rgba(8, 12, 10, 0.95) 100%);
+    background: linear-gradient(180deg, rgba(10, 10, 10, 0.70) 0%, rgba(12, 12, 12, 0.55) 50%, rgba(10, 10, 10, 0.95) 100%);
 }
 
 .hero-inner__content {
@@ -345,30 +345,20 @@
 /* =========================================================
    SECTION — PROCESS (3 steps + huge bg words)
    ========================================================= */
-/* Seção cinematográfica — bloco escuro de contraste (sempre), texto claro */
+/* Seção de processo — branca, com a imagem como marca d'água sutil (P&B) */
 .process-section {
     position: relative;
     padding-top: var(--space-3xl);
     padding-bottom: var(--space-3xl);
     overflow: hidden;
-    background-color: #0A0A0A;
-    --text-primary: #F4F4F4;
-    --text-secondary: #BFBFBF;
-    --text-muted: #8A8A8A;
-    --accent-line: #2A2A2A;
-    --accent-line-soft: rgba(255, 255, 255, 0.12);
-}
-
-.process-section .t-h1,
-.process-section .step-card__title {
-    color: #F4F4F4;
+    background-color: #FFFFFF;
 }
 
 .process-section__media {
     position: absolute;
     inset: 0;
     z-index: 0;
-    opacity: 0.42;
+    opacity: 0.08;
 }
 
 .process-section__media img {
@@ -377,14 +367,14 @@
     object-fit: cover;
     object-position: center;
     display: block;
-    filter: grayscale(0.4) contrast(1.05);
+    filter: grayscale(1) contrast(1.05);
 }
 
 .process-section__overlay {
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(180deg, rgba(8, 12, 10, 0.85) 0%, rgba(14, 32, 26, 0.78) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.85) 100%);
 }
 
 .process-section__inner {
@@ -908,7 +898,7 @@
 .empreendimento-card__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, transparent 50%, rgba(8, 12, 10, 0.95) 100%);
+    background: linear-gradient(180deg, transparent 50%, rgba(10, 10, 10, 0.95) 100%);
     pointer-events: none;
 }
 
@@ -1667,7 +1657,7 @@
     padding: var(--space-md) var(--space-lg);
     background:
         linear-gradient(180deg, rgba(120, 220, 255, 0.06), transparent 55%),
-        linear-gradient(180deg, rgba(8, 12, 10, 0.96), rgba(14, 32, 26, 0.96));
+        linear-gradient(180deg, rgba(10, 10, 10, 0.96), rgba(12, 12, 12, 0.96));
     border: 1px solid rgba(120, 220, 255, 0.32);
     border-top: 0;
     transform-origin: top center;
@@ -2085,7 +2075,7 @@ a.contact-direct__value:hover {
        sobre a imagem. O toggle claro/escuro afeta as seções de conteúdo. */
     background:
         radial-gradient(ellipse at 70% 35%, rgba(233, 183, 112, 0.06), transparent 60%),
-        #0B0F0D;
+        #0A0A0A;
     overflow: hidden;
     justify-content: flex-start;
     /* espaço inferior para os cards que passam abaixo do subtítulo */
@@ -2128,12 +2118,12 @@ html[data-theme="light"] .hero--editorial__metrics .label { color: #9CA39A; }
     pointer-events: none;
     background: linear-gradient(
         180deg,
-        rgba(6, 10, 8, 0) 0%,
-        rgba(6, 10, 8, 0.18) 30%,
-        rgba(6, 10, 8, 0.48) 50%,
-        rgba(6, 10, 8, 0.78) 68%,
-        rgba(6, 10, 8, 0.93) 84%,
-        rgba(6, 10, 8, 0.98) 100%
+        rgba(8, 8, 8, 0) 0%,
+        rgba(8, 8, 8, 0.18) 30%,
+        rgba(8, 8, 8, 0.48) 50%,
+        rgba(8, 8, 8, 0.78) 68%,
+        rgba(8, 8, 8, 0.93) 84%,
+        rgba(8, 8, 8, 0.98) 100%
     );
     transition: none;
     transform: none;
@@ -2156,12 +2146,12 @@ html[data-theme="light"] .hero.hero--editorial::after {
 .hero.hero--editorial::after { background:
     linear-gradient(
         180deg,
-        rgba(6, 10, 8, 0) 0%,
-        rgba(6, 10, 8, 0.18) 30%,
-        rgba(6, 10, 8, 0.48) 50%,
-        rgba(6, 10, 8, 0.78) 68%,
-        rgba(6, 10, 8, 0.93) 84%,
-        #0B0F0D 100%
+        rgba(8, 8, 8, 0) 0%,
+        rgba(8, 8, 8, 0.18) 30%,
+        rgba(8, 8, 8, 0.48) 50%,
+        rgba(8, 8, 8, 0.78) 68%,
+        rgba(8, 8, 8, 0.93) 84%,
+        #0A0A0A 100%
     ); }
 
 .hero--editorial__top {
@@ -2598,7 +2588,7 @@ html[data-theme="light"] .hero--editorial__house.hero--editorial__house--cutout:
 html[data-theme="light"] .hero.hero--editorial {
     background:
         radial-gradient(ellipse at 70% 35%, rgba(233, 183, 112, 0.06), transparent 60%),
-        #0B0F0D;
+        #0A0A0A;
 }
 
 /* ---- Responsive ---- */
@@ -2681,10 +2671,10 @@ html[data-theme="light"] .hero.hero--editorial {
         pointer-events: none;
         background: linear-gradient(
             180deg,
-            rgba(6, 10, 8, 0) 0%,
-            rgba(6, 10, 8, 0.35) 42%,
-            rgba(6, 10, 8, 0.80) 72%,
-            #0B0F0D 100%
+            rgba(8, 8, 8, 0) 0%,
+            rgba(8, 8, 8, 0.35) 42%,
+            rgba(8, 8, 8, 0.80) 72%,
+            #0A0A0A 100%
         );
     }
 
@@ -2779,7 +2769,7 @@ html[data-theme="light"] .hero.hero--editorial {
     width: clamp(172px, 16vw, 244px);
     display: flex;
     flex-direction: column;
-    background: rgba(8, 12, 10, 0.55);
+    background: rgba(10, 10, 10, 0.55);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 6px;
     overflow: hidden;
@@ -2895,7 +2885,7 @@ html[data-theme="light"] .hero.hero--editorial {
     }
     .hero-rally__card {
         width: calc((100% - 24px) / 4);
-        background: rgba(8, 12, 10, 0.62);
+        background: rgba(10, 10, 10, 0.62);
     }
     .hero-rally__media { aspect-ratio: 1 / 1; }
     .hero-rally__meta { padding: 6px 7px 8px; }
