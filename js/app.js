@@ -356,28 +356,16 @@
             }, 4000);
         }
 
-        // ---- Spotlight reveal que segue o cursor (throttle via rAF) ----
+        // ---- Spotlight que segue o cursor ----
         const spot = hero.querySelector('.hero-spotlight');
         if (spot && window.matchMedia && window.matchMedia('(hover: hover)').matches) {
-            let mx = 0, my = 0, raf = null, hovering = false;
-            const apply = () => {
-                raf = null;
-                spot.style.setProperty('--mx', mx + 'px');
-                spot.style.setProperty('--my', my + 'px');
-            };
             hero.addEventListener('mousemove', (e) => {
                 const r = hero.getBoundingClientRect();
-                mx = e.clientX - r.left;
-                my = e.clientY - r.top;
-                if (!hovering) { hovering = true; spot.style.setProperty('--spot-r', '480px'); }
-                if (!raf) raf = requestAnimationFrame(apply);
-            }, { passive: true });
-            // Ao sair, encolhe a revelação suavemente (volta ao véu cheio)
-            hero.addEventListener('mouseenter', () => { spot.style.transition = 'none'; });
-            hero.addEventListener('mouseleave', () => {
-                spot.style.transition = '--spot-r 600ms ease';
-                spot.style.setProperty('--spot-r', '0px');
+                spot.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+                spot.style.setProperty('--my', (e.clientY - r.top) + 'px');
+                spot.style.opacity = '1';
             });
+            hero.addEventListener('mouseleave', () => { spot.style.opacity = '0'; });
         }
     }
 

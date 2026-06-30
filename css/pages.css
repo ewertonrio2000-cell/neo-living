@@ -2488,14 +2488,14 @@ html[data-theme="light"] .hero--editorial__concept em {
     transition: none;
 }
 
-/* Película fosca bem leve (o véu do spotlight controla o escuro) */
+/* Película fosca clara — esmaece a imagem com um véu translúcido uniforme */
 .hero--editorial__house.hero--editorial__house--cutout::after {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(238, 235, 228, 0.16);
 }
 
 /* =========================================================
@@ -2517,73 +2517,28 @@ html[data-theme="light"] .hero--editorial__concept em {
     object-position: center 42%;
     opacity: 0;
     transition: opacity 850ms ease;
-    filter: contrast(1.06) saturate(1.14) brightness(1.02);  /* vívido — o véu controla o escuro */
+    filter: contrast(0.98) saturate(0.92) brightness(0.66);  /* mais escuro */
 }
 
 .hero-video__clip.is-active {
     opacity: 1;
 }
 
-/* Raio da revelação animável (para encolher suavemente ao sair) */
-@property --spot-r {
-    syntax: '<length>';
-    inherits: false;
-    initial-value: 480px;
-}
-
-/* SPOTLIGHT REVEAL — véu escuro sobre o vídeo; o cursor abre um buraco
-   grande que revela a cena vívida e iluminada (não é um borrão de lanterna) */
+/* Spotlight — luz que segue o cursor e ilumina o vídeo em volta dele */
 .hero-spotlight {
     position: absolute;
     inset: 0;
-    z-index: 3;                /* acima do vídeo (0) e da película (1) */
-    pointer-events: none;
-    background: rgba(4, 4, 6, 0.66);   /* véu escuro */
-    -webkit-mask-image: radial-gradient(
-        circle var(--spot-r, 480px) at var(--mx, 50%) var(--my, 38%),
-        transparent 0%,
-        transparent 24%,
-        rgba(0, 0, 0, 0.55) 52%,
-        #000 78%
-    );
-            mask-image: radial-gradient(
-        circle var(--spot-r, 480px) at var(--mx, 50%) var(--my, 38%),
-        transparent 0%,
-        transparent 24%,
-        rgba(0, 0, 0, 0.55) 52%,
-        #000 78%
-    );
-    will-change: mask-image;
-}
-
-/* Anel dourado sutil na borda da revelação — toque dinâmico e atrativo */
-.hero-spotlight::before {
-    content: "";
-    position: absolute;
-    inset: 0;
+    z-index: 2;                /* acima do vídeo (0) e da película (1) */
     pointer-events: none;
     background: radial-gradient(
-        circle var(--spot-r, 480px) at var(--mx, 50%) var(--my, 38%),
-        transparent 50%,
-        rgba(233, 200, 120, 0.22) 62%,
-        rgba(233, 200, 120, 0.06) 70%,
-        transparent 80%
+        circle 320px at var(--mx, 50%) var(--my, 40%),
+        rgba(255, 255, 255, 0.55),
+        rgba(255, 255, 255, 0.22) 40%,
+        transparent 72%
     );
     mix-blend-mode: screen;
-}
-
-/* Núcleo de luz quente no centro do cursor — realça a cena revelada */
-.hero-spotlight::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(
-        circle calc(var(--spot-r, 480px) * 0.55) at var(--mx, 50%) var(--my, 38%),
-        rgba(255, 246, 224, 0.28),
-        transparent 70%
-    );
-    mix-blend-mode: soft-light;
+    opacity: 0;
+    transition: opacity 400ms ease;
 }
 
 html[data-theme="light"] .hero--editorial__house.hero--editorial__house--cutout::after {
