@@ -19,10 +19,27 @@
 .site-header.is-scrolled {
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    background-color: rgba(14, 20, 16, 0.72);
+    background-color: rgba(255, 255, 255, 0.85);
     border-bottom: 1px solid var(--accent-line-soft);
     padding: 18px 0;
 }
+
+/* No topo (sobre o hero escuro) — logo, nav e toggle em claro */
+.site-header .site-logo { color: #F4F4F4; }
+.site-header .site-logo__monogram { border-color: #F4F4F4; }
+.site-header .site-logo__monogram::before,
+.site-header .site-logo__monogram::after { background-color: #F4F4F4; }
+.site-header .site-nav__link { color: rgba(244, 244, 244, 0.82); }
+.site-header .nav-toggle__line { background-color: #F4F4F4; }
+
+/* Rolado (sobre o branco) — tudo em preto */
+.site-header.is-scrolled .site-logo { color: var(--text-primary); }
+.site-header.is-scrolled .site-logo__monogram { border-color: var(--text-primary); }
+.site-header.is-scrolled .site-logo__monogram::before,
+.site-header.is-scrolled .site-logo__monogram::after { background-color: var(--text-primary); }
+.site-header.is-scrolled .site-nav__link { color: var(--text-secondary); }
+.site-header.is-scrolled .site-nav__link:hover { color: var(--text-primary); }
+.site-header.is-scrolled .nav-toggle__line { background-color: var(--text-primary); }
 
 .site-header__inner {
     display: flex;
@@ -446,27 +463,8 @@ html[data-theme="light"] .site-header.is-scrolled {
 /* Service card (4-column ALL SERVICES) */
 .service-card {
     position: relative;
-    display: flex;
-    flex-direction: column;
+    display: block;
     text-decoration: none;
-    border-top: 1px solid var(--accent-line-soft);
-    padding-top: var(--space-md);
-}
-
-/* Linha âmbar que cresce no topo ao hover */
-.service-card::before {
-    content: "";
-    position: absolute;
-    top: -1px;
-    left: 0;
-    height: 2px;
-    width: 0;
-    background-color: var(--accent-amber);
-    transition: width 520ms var(--ease-out);
-}
-
-.service-card:hover::before {
-    width: 100%;
 }
 
 .service-card__media {
@@ -475,75 +473,85 @@ html[data-theme="light"] .site-header.is-scrolled {
     width: 100%;
     aspect-ratio: 3 / 4;
     overflow: hidden;
-    margin-bottom: var(--space-md);
-    background-color: var(--bg-surface);
+    background-color: #111;
 }
 
+/* Imagem sempre em PRETO & BRANCO; ganha um leve toque dourado no hover */
 .service-card__media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    filter: grayscale(0.35) brightness(0.82) contrast(1.04);
-    transition: transform 900ms var(--ease-out), filter 700ms var(--ease-out);
+    filter: grayscale(1) contrast(1.05) brightness(0.95);
+    transition: transform 1000ms var(--ease-out), filter 700ms var(--ease-out);
 }
 
 .service-card:hover .service-card__media img {
-    transform: scale(1.07);
-    filter: grayscale(0) brightness(0.95) contrast(1.05);
+    transform: scale(1.06);
+    filter: grayscale(1) contrast(1.05) brightness(0.66) sepia(0.2);
 }
 
 .service-card__number {
     position: absolute;
     top: 14px;
-    left: 14px;
-    z-index: 2;
+    left: 16px;
+    z-index: 3;
     font-family: var(--font-condensed);
     font-weight: 400;
-    font-size: 1.5rem;
+    font-size: 1.625rem;
     line-height: 1;
-    letter-spacing: 0;
-    color: var(--text-primary);
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+    color: #FFFFFF;
+    mix-blend-mode: difference;   /* legível sobre qualquer parte da foto P&B */
+}
+
+/* Legenda — painel DOURADO que sobe no hover, texto preto e negrito */
+.service-card__caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: var(--space-md);
+    background: linear-gradient(180deg, rgba(184, 134, 11, 0.92), #B8860B);
+    transform: translateY(101%);
+    transition: transform 560ms var(--ease-out);
+    will-change: transform;
+}
+
+.service-card:hover .service-card__caption {
+    transform: translateY(0);
 }
 
 .service-card__title {
     font-family: var(--font-condensed);
-    font-weight: 400;
-    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
-    line-height: 1.1;
+    font-weight: 700;
+    font-size: clamp(1.25rem, 1.7vw, 1.625rem);
+    line-height: 1.05;
     text-transform: uppercase;
     letter-spacing: 0.01em;
-    margin-bottom: var(--space-sm);
-    color: var(--text-primary);
-    transition: color var(--duration-base) var(--ease-out);
-}
-
-.service-card:hover .service-card__title {
-    color: var(--accent-amber);
+    color: #0A0A0A;
 }
 
 .service-card__desc {
-    font-size: 0.875rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    margin-bottom: var(--space-md);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    font-weight: 600;
+    color: #1A1306;
 }
 
 .service-card__link {
-    margin-top: auto;
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    margin-top: 4px;
     font-size: 0.6875rem;
+    font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--text-muted);
-    transition: color var(--duration-fast) var(--ease-out);
-}
-
-.service-card:hover .service-card__link {
-    color: var(--accent-amber);
+    color: #0A0A0A;
 }
 
 .service-card__link .arrow {

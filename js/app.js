@@ -304,30 +304,6 @@
         });
     }
 
-    // =====================================================
-    // 11. THEME TOGGLE (light/dark + localStorage persist)
-    // =====================================================
-    function initThemeToggle() {
-        const STORAGE_KEY = 'neo-living-theme';
-        const root = document.documentElement;
-
-        // Resolve initial theme: saved > OS preference > default dark
-        const saved = (() => { try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; } })();
-        const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-        const initial = saved || (prefersLight ? 'light' : 'dark');
-        root.setAttribute('data-theme', initial);
-
-        const btn = document.querySelector('.theme-toggle');
-        if (!btn) return;
-
-        btn.addEventListener('click', () => {
-            const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-            const next = current === 'light' ? 'dark' : 'light';
-            root.setAttribute('data-theme', next);
-            try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {}
-        });
-    }
-
     // Garante que a página sempre inicia no topo (hero), evitando o browser
     // restaurar uma posição de rolagem anterior (bug "abre no final" no mobile)
     (function forceTopOnLoad() {
@@ -337,20 +313,6 @@
         const toTop = () => window.scrollTo(0, 0);
         toTop();
         window.addEventListener('load', toTop, { once: true });
-    })();
-
-    // Bootstrap theme as early as possible to avoid flash
-    (function earlyTheme() {
-        try {
-            const saved = localStorage.getItem('neo-living-theme');
-            if (saved) {
-                document.documentElement.setAttribute('data-theme', saved);
-            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-                document.documentElement.setAttribute('data-theme', 'light');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            }
-        } catch (e) {}
     })();
 
     // =====================================================
@@ -421,7 +383,6 @@
         initActiveNav();
         initForm();
         initPageTransitions();
-        initThemeToggle();
         initHeroRally();
         initHeroVideo();
     }

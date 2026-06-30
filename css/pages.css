@@ -345,28 +345,23 @@
 /* =========================================================
    SECTION — PROCESS (3 steps + huge bg words)
    ========================================================= */
+/* Seção cinematográfica — bloco escuro de contraste (sempre), texto claro */
 .process-section {
     position: relative;
     padding-top: var(--space-3xl);
     padding-bottom: var(--space-3xl);
     overflow: hidden;
-    background-color: var(--bg-deeper);
+    background-color: #0A0A0A;
+    --text-primary: #F4F4F4;
+    --text-secondary: #BFBFBF;
+    --text-muted: #8A8A8A;
+    --accent-line: #2A2A2A;
+    --accent-line-soft: rgba(255, 255, 255, 0.12);
 }
 
-/* Seção cinematográfica (overlay escuro) sempre — no modo claro força tokens
-   claros para o texto não sumir sobre o fundo escuro */
-html[data-theme="light"] .process-section {
-    --text-primary: #F4F1EA;
-    --text-secondary: #C9C4B8;
-    --text-muted: #9CA39A;
-    --accent-amber: #E9B770;
-    --accent-line: #3A4A42;
-    background-color: #080C0A;
-}
-
-html[data-theme="light"] .process-section .t-h1,
-html[data-theme="light"] .process-section .step-card__title {
-    color: #F4F1EA;
+.process-section .t-h1,
+.process-section .step-card__title {
+    color: #F4F4F4;
 }
 
 .process-section__media {
@@ -2095,6 +2090,12 @@ a.contact-direct__value:hover {
     justify-content: flex-start;
     /* espaço inferior para os cards que passam abaixo do subtítulo */
     padding-bottom: 280px;
+    /* Bloco escuro — tokens de texto claros para todo o conteúdo interno */
+    --text-primary: #F4F1EA;
+    --text-secondary: #C9C4B8;
+    --text-muted: #9CA39A;
+    --accent-line: #3A4A42;
+    --accent-line-soft: rgba(255, 255, 255, 0.16);
 }
 
 /* Cores internas do hero fixas em claro nos DOIS temas (sobre fundo escuro) */
