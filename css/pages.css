@@ -2103,7 +2103,18 @@ html[data-theme="light"] .hero--editorial__metrics .value { color: #F4F1EA; }
 html[data-theme="light"] .hero--editorial__metrics .label { color: #9CA39A; }
 
 /* desativa o overlay superior cinematográfico do hero antigo */
-.hero.hero--editorial::before { display: none; }
+/* Scrim sutil no topo — garante leitura do header e da legenda sobre o vídeo */
+.hero.hero--editorial::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 42%;
+    z-index: 4;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.22) 45%, transparent 100%);
+}
 
 /* Gradiente discreto na parte de baixo do hero — base escurecida onde o
    letreiro NEO.LIVING se assenta, dando destaque por contraste */
