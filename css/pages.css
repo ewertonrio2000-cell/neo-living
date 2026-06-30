@@ -2319,25 +2319,28 @@ html[data-theme="light"] .hero--editorial__display {
     line-height: 0.92;
 }
 
-/* Camada de fundo — Horizondrift VAZADA (contorno) + transparência */
+/* Camada de fundo — Saira VAZADA (contorno) + transparência, escalada
+   levemente para o contorno aparecer em volta da camada da frente */
 .hero-title__back {
-    font-family: 'Horizondrift', var(--font-condensed);
+    font-family: var(--font-condensed);
+    font-weight: 700;
     color: transparent;
     -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1.5px rgba(244, 241, 234, 0.35);
-    opacity: 0.55;
+    -webkit-text-stroke: 1.5px rgba(244, 241, 234, 0.32);
+    opacity: 0.5;
     text-shadow: none;
+    transform: scale(1.06);
 }
 
 html[data-theme="light"] .hero-title__back {
-    -webkit-text-stroke: 1.5px rgba(20, 17, 11, 0.32);
-    opacity: 0.6;
+    -webkit-text-stroke: 1.5px rgba(20, 17, 11, 0.3);
+    opacity: 0.55;
 }
 
-/* Camada da frente — Lagency em prata fino, sobre a vazada */
+/* Camada da frente — Saira em prata leve, sobre a vazada */
 .hero-title__front {
-    font-family: 'Bebas Neue', var(--font-condensed);
-    font-weight: 400;
+    font-family: var(--font-condensed);
+    font-weight: 700;
     /* Prateado leve — degradê suave claro → prata (sem cromado) */
     background: linear-gradient(180deg, #FFFFFF 0%, #E3E8ED 50%, #BFC7CE 100%);
     -webkit-background-clip: text;
@@ -2359,11 +2362,11 @@ html[data-theme="light"] .hero-title__front {
 /* Fonte autoral Horizondrift para o letreiro — branco em ambos os temas
    (assenta sobre o scrim escuro do gradiente para máximo destaque) */
 .hero--editorial__display--horizon {
-    font-family: 'Horizondrift', var(--font-condensed);
-    font-style: normal;          /* a fonte já é oblíqua no desenho */
-    letter-spacing: 0.005em;
-    line-height: 0.92;
-    font-size: clamp(3.25rem, 13.5vw, 14rem);  /* um pouco menor */
+    font-family: var(--font-condensed);
+    font-style: normal;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
+    font-size: clamp(2.75rem, 11vw, 11.5rem);  /* Saira normal-width */
     color: #F4F1EA;
     text-shadow: 0 4px 28px rgba(0, 0, 0, 0.55);
     margin-bottom: 0;
@@ -2381,10 +2384,10 @@ html[data-theme="light"] .hero--editorial__display--horizon {
     max-width: 500px;            /* calibrado p/ exatamente 3 linhas */
     margin: -0.2em auto 0;
     text-align: center;
-    font-family: 'Horizondrift', var(--font-condensed);
-    font-size: 0.9375rem;        /* fixo — não escala com vw (mantém 3 linhas) */
-    line-height: 1.7;
-    letter-spacing: 0.04em;
+    font-family: var(--font-body);
+    font-size: 0.875rem;         /* fixo — não escala com vw */
+    line-height: 1.75;
+    letter-spacing: 0.01em;
     color: #F4F1EA;
     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
 }

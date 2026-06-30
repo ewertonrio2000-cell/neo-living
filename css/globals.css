@@ -3,7 +3,7 @@
    Global tokens, reset, base typography, utilities
    ========================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&family=Oswald:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&family=Oswald:wght@500;600;700&family=Saira:wght@300;400;500;600;700;800&display=swap');
 
 /* Fonte autoral para o letreiro NEO.LIVING */
 @font-face {
@@ -43,10 +43,10 @@
     --text-watermark-strong: rgba(244, 241, 234, 0.08);
 
     /* ---------- TYPOGRAPHY ---------- */
-    --font-condensed: 'Bebas Neue', 'Oswald', 'Inter', -apple-system, sans-serif;  /* Display gigante + watermarks (condensada ultra-bold) */
-    --font-display:   'Inter', -apple-system, BlinkMacSystemFont, sans-serif;       /* Headlines de seção (grotesque bold) */
-    --font-body:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;       /* Parágrafos / labels */
-    --font-serif:     'Bebas Neue', 'Oswald', 'Inter', sans-serif;                  /* Acentos editoriais (Bebas Neue por escolha do cliente) */
+    --font-condensed: 'Saira', 'Bebas Neue', 'Oswald', sans-serif;                 /* Display / títulos */
+    --font-display:   'Saira', 'Inter', -apple-system, sans-serif;                 /* Headlines de seção */
+    --font-body:      'Saira', 'Inter', -apple-system, sans-serif;                 /* Parágrafos / labels */
+    --font-serif:     'Saira', 'Bebas Neue', 'Oswald', sans-serif;                 /* Acentos editoriais */
 
     /* ---------- SPACING ---------- */
     --space-3xs: 4px;
@@ -188,20 +188,20 @@ ul, ol {
 }
 
 .t-h1 {
-    font-family: 'Bebas Neue', var(--font-condensed);
-    font-weight: 400;
-    font-size: clamp(2.75rem, 5.5vw, 5rem);
-    line-height: 1.0;
-    letter-spacing: 0.02em;
+    font-family: var(--font-condensed);
+    font-weight: 700;
+    font-size: clamp(2.25rem, 4.4vw, 4rem);   /* Saira é mais larga que Bebas */
+    line-height: 1.02;
+    letter-spacing: -0.01em;
     text-transform: uppercase;
 }
 
 .t-h2 {
-    font-family: 'Bebas Neue', var(--font-condensed);
-    font-weight: 400;
-    font-size: clamp(2rem, 3.8vw, 3.25rem);
-    line-height: 1.05;
-    letter-spacing: 0.025em;
+    font-family: var(--font-condensed);
+    font-weight: 600;
+    font-size: clamp(1.625rem, 3vw, 2.625rem);
+    line-height: 1.08;
+    letter-spacing: -0.005em;
     text-transform: uppercase;
 }
 
