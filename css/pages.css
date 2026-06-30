@@ -2439,25 +2439,24 @@ html[data-theme="light"] .hero--editorial__concept em {
     will-change: transform;
 }
 
-/* Variante cut-out: imagem full-bleed cobrindo o hero inteiro, chegando
-   às quatro extremidades (sem fade nas laterais) */
+/* Variante cut-out: full-bleed à largura TOTAL da viewport (rompe o
+   max-width/padding da stage) — sem bordas laterais */
 .hero--editorial__house.hero--editorial__house--cutout {
     aspect-ratio: auto;
     position: absolute;
-    inset: 0;
     top: 0;
-    left: 0;
-    right: 0;
     bottom: 0;
-    width: 100%;
+    left: 50%;
+    right: auto;
+    width: 100vw;
     height: 100%;
     max-width: none;
     margin: 0;
+    transform: translateX(-50%);
     background: none;
     box-shadow: none;
     border-radius: 0;
     overflow: hidden;
-    transform: none;
     filter: none;
     pointer-events: none;
     opacity: 1;
@@ -2507,26 +2506,26 @@ html[data-theme="light"] .hero--editorial__concept em {
     object-position: center 42%;
     opacity: 0;
     transition: opacity 850ms ease;
-    filter: contrast(0.94) saturate(0.92) brightness(1.02);
+    filter: contrast(0.98) saturate(0.92) brightness(0.66);  /* mais escuro */
 }
 
 .hero-video__clip.is-active {
     opacity: 1;
 }
 
-/* Spotlight — luz que segue o cursor e ilumina o vídeo em volta dele */
+/* Spotlight — luz forte que segue o cursor e ilumina o vídeo em volta dele */
 .hero-spotlight {
     position: absolute;
     inset: 0;
     z-index: 2;                /* acima do vídeo (0) e da película (1) */
     pointer-events: none;
     background: radial-gradient(
-        circle 220px at var(--mx, 50%) var(--my, 40%),
-        rgba(255, 255, 255, 0.30),
-        rgba(255, 255, 255, 0.10) 38%,
-        transparent 66%
+        circle 320px at var(--mx, 50%) var(--my, 40%),
+        rgba(255, 255, 255, 0.55),
+        rgba(255, 255, 255, 0.22) 40%,
+        transparent 72%
     );
-    mix-blend-mode: soft-light;
+    mix-blend-mode: screen;    /* adiciona luz — destaque maior */
     opacity: 0;
     transition: opacity 400ms ease;
 }
@@ -2548,10 +2547,11 @@ html[data-theme="light"] .hero--editorial__house.hero--editorial__house--cutout:
 
 @media (max-width: 1024px) {
     .hero--editorial__house.hero--editorial__house--cutout {
-        width: 100%;
-        right: 0;
+        left: 50%;
+        right: auto;
         bottom: 0;
-        transform: none;
+        width: 100vw;
+        transform: translateX(-50%);
     }
 }
 
@@ -2633,19 +2633,18 @@ html[data-theme="light"] .hero.hero--editorial {
         overflow: hidden;
     }
 
-    /* Imagem cobre todo o stage, cortando as laterais */
+    /* Vídeo/imagem cobre todo o stage à largura TOTAL da viewport */
     .hero--editorial__house.hero--editorial__house--cutout {
         position: absolute;
-        inset: 0;
-        left: 0;
-        right: 0;
         top: 0;
         bottom: 0;
-        width: 100%;
+        left: 50%;
+        right: auto;
+        width: 100vw;
         max-width: none;
         height: 100%;
         margin: 0;
-        transform: none;
+        transform: translateX(-50%);
         aspect-ratio: auto;
         opacity: 1;
         z-index: 1;
