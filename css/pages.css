@@ -2524,21 +2524,36 @@ html[data-theme="light"] .hero--editorial__concept em {
     opacity: 1;
 }
 
-/* Spotlight — luz que segue o cursor e ilumina o vídeo em volta dele */
+/* Spotlight — luz FORTE que segue o cursor e ilumina o vídeo em volta dele */
 .hero-spotlight {
     position: absolute;
     inset: 0;
     z-index: 2;                /* acima do vídeo (0) e da película (1) */
     pointer-events: none;
     background: radial-gradient(
-        circle 320px at var(--mx, 50%) var(--my, 40%),
-        rgba(255, 255, 255, 0.55),
-        rgba(255, 255, 255, 0.22) 40%,
-        transparent 72%
+        circle 440px at var(--mx, 50%) var(--my, 40%),
+        rgba(255, 255, 255, 0.95),
+        rgba(255, 255, 255, 0.55) 32%,
+        rgba(255, 255, 255, 0.22) 58%,
+        transparent 78%
     );
     mix-blend-mode: screen;
     opacity: 0;
     transition: opacity 400ms ease;
+}
+
+/* Segunda camada — realça ainda mais o núcleo da luz */
+.hero-spotlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+        circle 220px at var(--mx, 50%) var(--my, 40%),
+        rgba(255, 250, 235, 0.6),
+        transparent 70%
+    );
+    mix-blend-mode: overlay;
 }
 
 html[data-theme="light"] .hero--editorial__house.hero--editorial__house--cutout::after {
