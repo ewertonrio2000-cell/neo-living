@@ -242,6 +242,41 @@
     }
 
     // =====================================================
+    // 6d. GALERIA HORIZONTAL — pin + scroll horizontal
+    // =====================================================
+    function initHorizontalGallery() {
+        const section = document.querySelector('.h-gallery');
+        if (!section) return;
+        const track = section.querySelector('.h-gallery__track');
+        if (!track) return;
+
+        const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+        const canGsap = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
+
+        // Fallback: scroll horizontal nativo (mobile, sem GSAP ou reduced-motion)
+        if (!canGsap || reduce || isMobile) {
+            section.classList.add('h-gallery--native');
+            return;
+        }
+
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.to(track, {
+            x: () => -(track.scrollWidth - window.innerWidth),
+            ease: 'none',
+            scrollTrigger: {
+                trigger: section,
+                start: 'top top',
+                end: () => '+=' + (track.scrollWidth - window.innerWidth),
+                pin: true,
+                scrub: 1,
+                anticipatePin: 1,
+                invalidateOnRefresh: true
+            }
+        });
+    }
+
+    // =====================================================
     // 6b. REVEALS CINEMATOGRÁFICOS + PARALLAX NAS IMAGENS
     // =====================================================
     function initReveals() {
@@ -479,6 +514,7 @@
         initCustomCursor();
         initParallax();
         initReveals();
+        initHorizontalGallery();
         initHeroEntrance();
         initActiveNav();
         initForm();
