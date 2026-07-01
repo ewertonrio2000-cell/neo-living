@@ -173,6 +173,35 @@
     }
 
     // =====================================================
+    // 6b. REVEALS CINEMATOGRÁFICOS + PARALLAX NAS IMAGENS
+    // =====================================================
+    function initReveals() {
+        const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Curtain reveal é feito via CSS atrelado a .is-visible (observer do fade-in).
+
+        // ---- Parallax interno nas imagens (object-position, sem conflito com hover) ----
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && !reduce) {
+            gsap.registerPlugin(ScrollTrigger);
+            gsap.utils.toArray('.project-card__media img, .service-card__media img').forEach((img) => {
+                gsap.fromTo(img,
+                    { objectPosition: '50% 34%' },
+                    {
+                        objectPosition: '50% 66%',
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: img.closest('.project-card, .service-card') || img,
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: 0.6
+                        }
+                    }
+                );
+            });
+        }
+    }
+
+    // =====================================================
     // 7. HERO ENTRANCE
     // =====================================================
     function initHeroEntrance() {
@@ -379,6 +408,7 @@
         initFadeIn();
         initHighlightsHover();
         initParallax();
+        initReveals();
         initHeroEntrance();
         initActiveNav();
         initForm();

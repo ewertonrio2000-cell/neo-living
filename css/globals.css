@@ -435,15 +435,20 @@ ul, ol {
    ========================================================= */
 .fade-in {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity var(--duration-cinema) var(--ease-out),
-                transform var(--duration-cinema) var(--ease-out);
+    transform: translateY(42px);
+    filter: blur(7px);
+    transition: opacity 1100ms var(--ease-out),
+                transform 1100ms var(--ease-out),
+                filter 1100ms var(--ease-out);
+    will-change: opacity, transform, filter;
 }
 
 .fade-in.is-visible {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0);
 }
+
 
 .fade-in-delay-1 { transition-delay: 80ms; }
 .fade-in-delay-2 { transition-delay: 160ms; }
