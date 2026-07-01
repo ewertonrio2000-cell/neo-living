@@ -510,6 +510,21 @@ html[data-theme="light"] .site-header.is-scrolled {
         linear-gradient(180deg, rgba(0, 0, 0, 0.10) 0%, transparent 60%);
 }
 
+/* Canvas WebGL de distorção (só aparece quando renderiza com sucesso) */
+.project-card__fx {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    filter: grayscale(1) contrast(1.06);
+    transition: opacity 320ms var(--ease-out);
+}
+
+.project-card__fx.is-on {
+    opacity: 1;
+}
+
 .project-card__content {
     position: absolute;
     bottom: 0;

@@ -242,6 +242,135 @@
     }
 
     // =====================================================
+    // 6e. WEBGL — distorção líquida + RGB shift no hover (Our Projects)
+    //     Detector de desempenho + falha graciosa (zero regressão)
+    // =====================================================
+    function initWebGLImageFX() {
+        const mm = window.matchMedia;
+        if (!mm) return;
+        // Gate de desempenho: desktop, ponteiro fino, cores/memória suficientes
+        if (mm('(prefers-reduced-motion: reduce)').matches) return;
+        if (!mm('(hover: hover) and (pointer: fine)').matches) return;
+        if ((navigator.hardwareConcurrency || 4) < 4) return;
+        if ((navigator.deviceMemory || 4) < 4) return;
+        // Suporte a WebGL
+        try {
+            const t = document.createElement('canvas').getContext('webgl');
+            if (!t) return;
+        } catch (e) { return; }
+
+        const VERT =
+            'attribute vec2 aPos; varying vec2 vUv;' +
+            'void main(){ vUv = (aPos+1.0)*0.5; vUv.y = 1.0-vUv.y; gl_Position = vec4(aPos,0.0,1.0); }';
+        const FRAG =
+            'precision mediump float; uniform sampler2D uTex; uniform vec2 uPointer; uniform float uAmp; uniform float uTime; varying vec2 vUv;' +
+            'void main(){ vec2 uv=vUv; vec2 d=uv-uPointer; float dist=length(d);' +
+            'float ripple = sin(dist*20.0 - uTime*4.5)*exp(-dist*6.5)*uAmp*0.035;' +
+            'vec2 dir = d/(dist+0.0001);' +
+            'vec2 uvR = uv+dir*ripple*1.0; vec2 uvG = uv+dir*ripple*0.65; vec2 uvB = uv+dir*ripple*0.35;' +
+            'float r=texture2D(uTex,uvR).r; float g=texture2D(uTex,uvG).g; float b=texture2D(uTex,uvB).b;' +
+            'gl_FragColor = vec4(r,g,b,1.0); }';
+
+        function compile(gl, type, src) {
+            const s = gl.createShader(type);
+            gl.shaderSource(s, src); gl.compileShader(s);
+            if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { return null; }
+            return s;
+        }
+
+        function createFX(media, img) {
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.className = 'project-card__fx';
+                const gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: false, antialias: false });
+                if (!gl) return null;
+                const vs = compile(gl, gl.VERTEX_SHADER, VERT);
+                const fs = compile(gl, gl.FRAGMENT_SHADER, FRAG);
+                if (!vs || !fs) return null;
+                const prog = gl.createProgram();
+                gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+                if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return null;
+                gl.useProgram(prog);
+
+                const buf = gl.createBuffer();
+                gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]), gl.STATIC_DRAW);
+                const aPos = gl.getAttribLocation(prog, 'aPos');
+                gl.enableVertexAttribArray(aPos);
+                gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+                const tex = gl.createTexture();
+                gl.bindTexture(gl.TEXTURE_2D, tex);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+                gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
+
+                const uPointer = gl.getUniformLocation(prog, 'uPointer');
+                const uAmp = gl.getUniformLocation(prog, 'uAmp');
+                const uTime = gl.getUniformLocation(prog, 'uTime');
+                gl.uniform1i(gl.getUniformLocation(prog, 'uTex'), 0);
+
+                media.appendChild(canvas);
+
+                const state = { px: 0.5, py: 0.5, amp: 0, target: 0, t: 0, raf: null, dead: false, firstFrame: false };
+
+                function resize() {
+                    const r = media.getBoundingClientRect();
+                    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+                    canvas.width = Math.max(2, Math.round(r.width * dpr));
+                    canvas.height = Math.max(2, Math.round(r.height * dpr));
+                    gl.viewport(0, 0, canvas.width, canvas.height);
+                }
+                resize();
+
+                function frame() {
+                    if (state.dead) return;
+                    state.t += 0.016;
+                    state.amp += (state.target - state.amp) * 0.08;
+                    gl.uniform2f(uPointer, state.px, state.py);
+                    gl.uniform1f(uAmp, state.amp);
+                    gl.uniform1f(uTime, state.t);
+                    gl.drawArrays(gl.TRIANGLES, 0, 6);
+                    if (!state.firstFrame) { state.firstFrame = true; canvas.classList.add('is-on'); }
+                    if (state.amp > 0.002 || state.target > 0) {
+                        state.raf = requestAnimationFrame(frame);
+                    } else {
+                        state.raf = null;
+                        canvas.classList.remove('is-on');
+                    }
+                }
+
+                return {
+                    activate() { resize(); state.target = 1; if (!state.raf) state.raf = requestAnimationFrame(frame); },
+                    deactivate() { state.target = 0; },
+                    setPointer(e) {
+                        const r = media.getBoundingClientRect();
+                        state.px = (e.clientX - r.left) / r.width;
+                        state.py = (e.clientY - r.top) / r.height;
+                    }
+                };
+            } catch (err) { return null; }
+        }
+
+        document.querySelectorAll('.project-card').forEach((card) => {
+            const media = card.querySelector('.project-card__media');
+            const img = media && media.querySelector('img');
+            if (!media || !img) return;
+            let fx = null;
+            const ensure = () => {
+                if (fx) return;
+                if (img.complete && img.naturalWidth > 0) fx = createFX(media, img);
+            };
+            card.addEventListener('mouseenter', () => { ensure(); if (fx) fx.activate(); });
+            card.addEventListener('mousemove', (e) => { if (fx) fx.setPointer(e); });
+            card.addEventListener('mouseleave', () => { if (fx) fx.deactivate(); });
+        });
+    }
+
+    // =====================================================
     // 6d. GALERIA HORIZONTAL — pin + scroll horizontal
     // =====================================================
     function initHorizontalGallery() {
@@ -515,6 +644,7 @@
         initParallax();
         initReveals();
         initHorizontalGallery();
+        initWebGLImageFX();
         initHeroEntrance();
         initActiveNav();
         initForm();
