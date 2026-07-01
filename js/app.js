@@ -173,6 +173,75 @@
     }
 
     // =====================================================
+    // 6a. CURSOR CUSTOMIZADO + HOVERS MAGNÉTICOS
+    // =====================================================
+    function initCustomCursor() {
+        if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+        const cursor = document.createElement('div');
+        cursor.className = 'cursor';
+        cursor.innerHTML = '<span class="cursor__label"></span>';
+        document.body.appendChild(cursor);
+        document.body.classList.add('has-custom-cursor');
+        const label = cursor.querySelector('.cursor__label');
+
+        // Seletores que ativam o crescimento do cursor + rótulo
+        const HOVER_SEL = 'a[href], button, .service-card, .project-card, .highlights-item, .step-card';
+        const labelFor = (el) => {
+            if (el.dataset && el.dataset.cursor) return el.dataset.cursor;
+            if (el.matches('.project-card')) return 'Ver projeto';
+            if (el.matches('.service-card')) return 'Explorar';
+            if (el.matches('.highlights-item')) return 'Abrir';
+            return '';
+        };
+
+        // Movimento suave (lerp)
+        let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+        let cx = mx, cy = my;
+        window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
+        (function raf() {
+            cx += (mx - cx) * 0.2;
+            cy += (my - cy) * 0.2;
+            cursor.style.transform = 'translate(' + cx + 'px, ' + cy + 'px) translate(-50%, -50%)';
+            requestAnimationFrame(raf);
+        })();
+
+        // Delegação (cobre header/footer injetados dinamicamente)
+        document.addEventListener('mouseover', (e) => {
+            const t = e.target.closest ? e.target.closest(HOVER_SEL) : null;
+            if (!t) return;
+            cursor.classList.add('is-hover');
+            const lbl = labelFor(t);
+            label.textContent = lbl;
+            cursor.classList.toggle('has-label', !!lbl);
+        });
+        document.addEventListener('mouseout', (e) => {
+            const t = e.target.closest ? e.target.closest(HOVER_SEL) : null;
+            if (!t) return;
+            const to = e.relatedTarget && e.relatedTarget.closest ? e.relatedTarget.closest(HOVER_SEL) : null;
+            if (to) return; // ainda sobre um alvo
+            cursor.classList.remove('is-hover', 'has-label');
+            label.textContent = '';
+        });
+
+        // ---- Hovers magnéticos (botões) ----
+        let magnet = null;
+        document.addEventListener('mousemove', (e) => {
+            const el = e.target.closest ? e.target.closest('.btn, [data-magnetic]') : null;
+            if (el) {
+                const r = el.getBoundingClientRect();
+                const dx = (e.clientX - (r.left + r.width / 2)) * 0.3;
+                const dy = (e.clientY - (r.top + r.height / 2)) * 0.35;
+                el.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+                magnet = el;
+            } else if (magnet) {
+                magnet.style.transform = '';
+                magnet = null;
+            }
+        }, { passive: true });
+    }
+
+    // =====================================================
     // 6b. REVEALS CINEMATOGRÁFICOS + PARALLAX NAS IMAGENS
     // =====================================================
     function initReveals() {
@@ -407,6 +476,7 @@
         initMobileDrawer();
         initFadeIn();
         initHighlightsHover();
+        initCustomCursor();
         initParallax();
         initReveals();
         initHeroEntrance();
