@@ -180,20 +180,11 @@
 
         const cursor = document.createElement('div');
         cursor.className = 'cursor';
-        cursor.innerHTML = '<span class="cursor__label"></span>';
         document.body.appendChild(cursor);
         document.body.classList.add('has-custom-cursor');
-        const label = cursor.querySelector('.cursor__label');
 
-        // Seletores que ativam o crescimento do cursor + rótulo
+        // Seletores que mudam o cursor para dourado
         const HOVER_SEL = 'a[href], button, .service-card, .project-card, .highlights-item, .step-card';
-        const labelFor = (el) => {
-            if (el.dataset && el.dataset.cursor) return el.dataset.cursor;
-            if (el.matches('.project-card')) return 'Ver projeto';
-            if (el.matches('.service-card')) return 'Explorar';
-            if (el.matches('.highlights-item')) return 'Abrir';
-            return '';
-        };
 
         // Movimento suave (lerp)
         let mx = window.innerWidth / 2, my = window.innerHeight / 2;
@@ -211,17 +202,17 @@
             const t = e.target.closest ? e.target.closest(HOVER_SEL) : null;
             if (!t) return;
             cursor.classList.add('is-hover');
-            const lbl = labelFor(t);
-            label.textContent = lbl;
-            cursor.classList.toggle('has-label', !!lbl);
+            cursor.style.backgroundColor = '#E6B325';
+            cursor.style.mixBlendMode = 'normal';
         });
         document.addEventListener('mouseout', (e) => {
             const t = e.target.closest ? e.target.closest(HOVER_SEL) : null;
             if (!t) return;
             const to = e.relatedTarget && e.relatedTarget.closest ? e.relatedTarget.closest(HOVER_SEL) : null;
             if (to) return; // ainda sobre um alvo
-            cursor.classList.remove('is-hover', 'has-label');
-            label.textContent = '';
+            cursor.classList.remove('is-hover');
+            cursor.style.backgroundColor = '';
+            cursor.style.mixBlendMode = '';
         });
 
         // ---- Hovers magnéticos (botões) ----

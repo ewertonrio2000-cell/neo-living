@@ -2956,17 +2956,21 @@ html[data-theme="light"] .hero.hero--editorial {
 
 .h-panel {
     flex: 0 0 auto;
-    width: clamp(300px, 34vw, 560px);
     text-decoration: none;
     color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
 }
 
+/* Altura baseada em vh — deixa espaço garantido p/ a legenda (sem corte) */
 .h-panel__media {
     display: block;
-    width: 100%;
-    aspect-ratio: 3 / 4;
+    height: 56vh;
+    width: calc(56vh * 3 / 4);
+    max-height: 620px;
     overflow: hidden;
     background-color: #EEE;
+    flex: 0 0 auto;
 }
 
 .h-panel__media img {
