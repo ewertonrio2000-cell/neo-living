@@ -2932,6 +2932,7 @@ html[data-theme="light"] .hero.hero--editorial {
     height: 100vh;
     overflow: hidden;
     background-color: #FFFFFF;
+    margin-top: 6vh;   /* respiro após o hero (desce um pouco o portfólio) */
 }
 
 .h-gallery__head {
@@ -2944,43 +2945,40 @@ html[data-theme="light"] .hero.hero--editorial {
 
 .h-gallery__head .t-eyebrow { margin-bottom: 8px; }
 
-/* Track ocupa a altura toda (abaixo do head) — panéis de altura cheia, colados */
+/* Track = 2 linhas exatas; imagens ocupam meia-altura, tocando pelos cantos */
 .h-gallery__track {
     display: flex;
     align-items: stretch;
     gap: 0;
     height: 100%;
-    padding: 10vh var(--gutter-desktop) 4vh;
+    padding: 12vh var(--gutter-desktop) 6vh;
     box-sizing: border-box;
     will-change: transform;
 }
 
-/* Painel de altura cheia; ÍMPAR = imagem em cima + título embaixo */
+/* Painel = 1 célula de largura, altura cheia (2 linhas). Imagem = meia-altura */
 .h-panel {
+    position: relative;
     flex: 0 0 auto;
-    width: clamp(420px, 60vh, 760px);
+    width: clamp(460px, 74vh, 880px);
     height: 100%;
     text-decoration: none;
     color: var(--text-primary);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
 }
 
-/* PAR = imagem embaixo + título em cima (escalonado, efeito tijolo) */
-.h-panel:nth-child(even) {
-    flex-direction: column-reverse;
-    justify-content: flex-end;
-}
-
+/* Imagem ocupa exatamente metade da altura; ÍMPAR em cima, PAR embaixo
+   → tocam apenas pelo canto (degrau = altura da própria imagem) */
 .h-panel__media {
-    display: block;
-    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
     height: 50%;
     overflow: hidden;
     background-color: #EEE;
-    flex: 0 0 auto;
 }
+
+.h-panel:nth-child(odd) .h-panel__media { top: 0; }
+.h-panel:nth-child(even) .h-panel__media { bottom: 0; }
 
 .h-panel__media img {
     width: 100%;
@@ -2995,20 +2993,19 @@ html[data-theme="light"] .hero.hero--editorial {
     filter: grayscale(0) contrast(1.04);
 }
 
+/* Título na metade vazia (célula branca): ÍMPAR embaixo da imagem, PAR acima */
 .h-panel__meta {
+    position: absolute;
+    left: 0;
+    right: 0;
     display: flex;
     align-items: baseline;
     gap: var(--space-sm);
-    margin-top: var(--space-md);
     flex-wrap: wrap;
-    flex: 0 0 auto;
 }
 
-/* No painel PAR o título fica ACIMA da imagem (espaço embaixo) */
-.h-panel:nth-child(even) .h-panel__meta {
-    margin-top: 0;
-    margin-bottom: var(--space-md);
-}
+.h-panel:nth-child(odd) .h-panel__meta { top: 50%; padding-top: var(--space-md); }
+.h-panel:nth-child(even) .h-panel__meta { bottom: 50%; padding-bottom: var(--space-md); }
 
 .h-panel__idx {
     font-family: var(--font-condensed);

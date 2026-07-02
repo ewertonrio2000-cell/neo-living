@@ -389,11 +389,22 @@
                 start: 'top top',
                 end: () => '+=' + (track.scrollWidth - window.innerWidth),
                 pin: true,
+                pinSpacing: true,
                 scrub: 1,
                 anticipatePin: 1,
                 invalidateOnRefresh: true
             }
         });
+
+        // Corrige o "travamento" do pin: recalcula posições quando as imagens
+        // carregam (o layout muda depois que o ScrollTrigger já foi montado)
+        const refresh = () => { try { ScrollTrigger.refresh(); } catch (e) {} };
+        window.addEventListener('load', refresh);
+        section.querySelectorAll('img').forEach((img) => {
+            if (!img.complete) img.addEventListener('load', refresh, { once: true });
+        });
+        setTimeout(refresh, 600);
+        setTimeout(refresh, 1500);
     }
 
     // =====================================================
