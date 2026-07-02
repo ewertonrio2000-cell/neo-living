@@ -365,46 +365,50 @@
     // 6d. GALERIA HORIZONTAL — pin + scroll horizontal
     // =====================================================
     function initHorizontalGallery() {
-        const section = document.querySelector('.h-gallery');
-        if (!section) return;
-        const track = section.querySelector('.h-gallery__track');
-        if (!track) return;
+        const wrap = document.querySelector('.h-gallery-wrap');
+        if (!wrap) return;
+        const section = wrap.querySelector('.h-gallery');
+        const track = section && section.querySelector('.h-gallery__track');
+        if (!section || !track) return;
 
         const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
-        const canGsap = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
 
-        // Fallback: scroll horizontal nativo (mobile, sem GSAP ou reduced-motion)
-        if (!canGsap || reduce || isMobile) {
+        // Fallback: scroll horizontal nativo (mobile / reduced-motion)
+        if (reduce || isMobile) {
+            wrap.style.height = 'auto';
             section.classList.add('h-gallery--native');
             return;
         }
 
-        gsap.registerPlugin(ScrollTrigger);
-        gsap.to(track, {
-            x: () => -(track.scrollWidth - window.innerWidth),
-            ease: 'none',
-            scrollTrigger: {
-                trigger: section,
-                start: 'top top',
-                end: () => '+=' + (track.scrollWidth - window.innerWidth),
-                pin: true,
-                pinSpacing: true,
-                scrub: 1,
-                anticipatePin: 1,
-                invalidateOnRefresh: true
-            }
-        });
+        let overflow = 0;
 
-        // Corrige o "travamento" do pin: recalcula posições quando as imagens
-        // carregam (o layout muda depois que o ScrollTrigger já foi montado)
-        const refresh = () => { try { ScrollTrigger.refresh(); } catch (e) {} };
-        window.addEventListener('load', refresh);
+        // Altura do wrapper = 100vh + overflow horizontal (quanto scroll extra)
+        function measure() {
+            overflow = Math.max(0, track.scrollWidth - window.innerWidth);
+            wrap.style.height = (window.innerHeight + overflow) + 'px';
+            render();
+        }
+
+        // Traduz o track conforme o progresso do scroll dentro do wrapper
+        function render() {
+            const rect = wrap.getBoundingClientRect();
+            const total = wrap.offsetHeight - window.innerHeight;
+            let p = total > 0 ? (-rect.top / total) : 0;
+            p = p < 0 ? 0 : (p > 1 ? 1 : p);
+            track.style.transform = 'translate3d(' + (-p * overflow) + 'px, 0, 0)';
+        }
+
+        measure();
+        window.addEventListener('resize', measure, { passive: true });
+        window.addEventListener('scroll', render, { passive: true });
+        if (lenis && lenis.on) lenis.on('scroll', render);
+
+        // Recalcula quando as imagens carregam (layout muda depois)
         section.querySelectorAll('img').forEach((img) => {
-            if (!img.complete) img.addEventListener('load', refresh, { once: true });
+            if (!img.complete) img.addEventListener('load', measure, { once: true });
         });
-        setTimeout(refresh, 600);
-        setTimeout(refresh, 1500);
+        window.addEventListener('load', measure);
     }
 
     // =====================================================

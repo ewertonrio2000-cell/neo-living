@@ -2927,12 +2927,20 @@ html[data-theme="light"] .hero.hero--editorial {
 /* =========================================================
    GALERIA HORIZONTAL — pin + scroll horizontal (GSAP)
    ========================================================= */
-.h-gallery {
+/* Wrapper alto: define quanto scroll vertical vira scroll horizontal.
+   A altura é calculada no JS = 100vh + overflow horizontal. */
+.h-gallery-wrap {
     position: relative;
+    margin-top: 6vh;   /* respiro após o hero (desce um pouco o portfólio) */
+}
+
+/* Sticky (não pin GSAP) — não conflita com o Lenis, não quebra o scroll */
+.h-gallery {
+    position: sticky;
+    top: 0;
     height: 100vh;
     overflow: hidden;
     background-color: #FFFFFF;
-    margin-top: 6vh;   /* respiro após o hero (desce um pouco o portfólio) */
 }
 
 .h-gallery__head {
@@ -2960,7 +2968,7 @@ html[data-theme="light"] .hero.hero--editorial {
 .h-panel {
     position: relative;
     flex: 0 0 auto;
-    width: clamp(460px, 74vh, 880px);
+    width: clamp(540px, 84vh, 980px);
     height: 100%;
     text-decoration: none;
     color: var(--text-primary);
@@ -3033,14 +3041,14 @@ html[data-theme="light"] .hero.hero--editorial {
     color: var(--text-muted);
 }
 
-/* Fallback (mobile / sem GSAP / reduced-motion): scroll horizontal nativo */
+/* Fallback (mobile / reduced-motion): scroll horizontal nativo, painéis simples */
 .h-gallery--native {
+    position: static;
     height: auto;
-    display: block;
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
-    padding: var(--space-2xl) 0;
+    padding: var(--space-xl) 0;
     scroll-snap-type: x mandatory;
 }
 
@@ -3053,8 +3061,30 @@ html[data-theme="light"] .hero.hero--editorial {
 
 .h-gallery--native .h-gallery__track {
     transform: none !important;
+    height: auto;
     padding: 0 var(--gutter-mobile);
     gap: var(--space-md);
+}
+
+/* No mobile os painéis voltam ao empilhamento simples (imagem em cima, título embaixo) */
+.h-gallery--native .h-panel {
+    width: 78vw;
+    height: auto;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+}
+
+.h-gallery--native .h-panel__media {
+    position: static;
+    height: auto;
+    aspect-ratio: 4 / 3;
+}
+
+.h-gallery--native .h-panel__meta {
+    position: static;
+    margin-top: var(--space-md);
+    padding: 0 !important;
 }
 
 .h-gallery--native .h-panel {
