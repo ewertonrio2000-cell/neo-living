@@ -2078,8 +2078,8 @@ a.contact-direct__value:hover {
         #0A0A0A;
     overflow: hidden;
     justify-content: flex-start;
-    /* espaço inferior para os cards que passam abaixo do subtítulo */
-    padding-bottom: 280px;
+    /* rally removido do hero — rodapé normal */
+    padding-bottom: var(--space-2xl);
     /* Bloco escuro — tokens de texto claros para todo o conteúdo interno */
     --text-primary: #F4F1EA;
     --text-secondary: #C9C4B8;
@@ -2944,13 +2944,13 @@ html[data-theme="light"] .hero.hero--editorial {
 
 .h-gallery__head .t-eyebrow { margin-bottom: 8px; }
 
-/* Track ocupa a altura toda (abaixo do head) — panéis de altura cheia */
+/* Track ocupa a altura toda (abaixo do head) — panéis de altura cheia, colados */
 .h-gallery__track {
     display: flex;
     align-items: stretch;
-    gap: var(--space-lg);
+    gap: 0;
     height: 100%;
-    padding: 13vh var(--gutter-desktop) 5vh;
+    padding: 10vh var(--gutter-desktop) 4vh;
     box-sizing: border-box;
     will-change: transform;
 }
@@ -2958,7 +2958,7 @@ html[data-theme="light"] .hero.hero--editorial {
 /* Painel de altura cheia; ÍMPAR = imagem em cima + título embaixo */
 .h-panel {
     flex: 0 0 auto;
-    width: clamp(340px, 46vh, 640px);
+    width: clamp(420px, 60vh, 760px);
     height: 100%;
     text-decoration: none;
     color: var(--text-primary);
@@ -2976,7 +2976,7 @@ html[data-theme="light"] .hero.hero--editorial {
 .h-panel__media {
     display: block;
     width: 100%;
-    height: 42%;
+    height: 50%;
     overflow: hidden;
     background-color: #EEE;
     flex: 0 0 auto;
