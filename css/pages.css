@@ -358,7 +358,7 @@
     position: absolute;
     inset: 0;
     z-index: 0;
-    opacity: 0.08;
+    opacity: 0.30;
 }
 
 .process-section__media img {
@@ -374,7 +374,7 @@
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.85) 100%);
+    background: linear-gradient(180deg, rgba(10, 10, 10, 0.82) 0%, rgba(10, 10, 10, 0.9) 100%);
 }
 
 .process-section__inner {
@@ -3094,4 +3094,28 @@ html[data-theme="light"] .hero.hero--editorial {
 
 @media (max-width: 768px) {
     .h-gallery__head .t-h2 { font-size: 1.75rem; }
+}
+
+/* =========================================================
+   ALTERNÂNCIA DE FUNDOS — seção de fundo PRETO (texto claro)
+   Aplicada a cada 2 seções brancas (ver classes no HTML)
+   ========================================================= */
+.section--dark {
+    background-color: #0A0A0A;
+    color: #F4F4F4;   /* garante texto claro herdado (títulos que não usam var) */
+    --text-primary: #F4F4F4;
+    --text-secondary: #C2C2C2;
+    --text-muted: #8A8A8A;
+    --accent-line: #2A2A2A;
+    --accent-line-soft: rgba(255, 255, 255, 0.14);
+}
+
+/* Botão fantasma legível sobre o preto */
+.section--dark .btn-ghost {
+    border-color: rgba(255, 255, 255, 0.35);
+    color: #F4F4F4;
+}
+.section--dark .btn-ghost:hover {
+    border-color: var(--accent-amber);
+    color: var(--accent-amber);
 }
