@@ -397,7 +397,7 @@
                 const buf = document.createElement('canvas');
                 const bctx = buf.getContext('2d');
                 const BUF_SCALE = 0.5;
-                const RING = 0.62;   // rad/px → controla o espaçamento das ristas (maior = + juntas)
+                const RING = 0.48;   // rad/px → controla o espaçamento das ristas (maior = + juntas)
                 const WARP = 34;     // amplitude do domain-warp em px (organicidade das digitais)
                 const WF = 0.010;    // frequência espacial do warp
 
@@ -411,23 +411,11 @@
                     });
                 }
 
-                // Flashes dourados (glints que pulsam e somem)
-                const flashes = [];
-                const NF = 12;
-                for (let i = 0; i < NF; i++) {
-                    flashes.push({
-                        x: Math.random(), y: Math.random(), life: Math.random(),
-                        dur: 0.35 + Math.random() * 0.6, size: 5 + Math.random() * 9
-                    });
-                }
-
                 let W = 0, H = 0, BW = 0, BH = 0, imgData = null, data32 = null;
                 let t = 0, last = 0, lastRidge = 0, visible = false, raf = null, needsRidge = true;
                 let sxA = null, syA = null, warpRow = null, warpCol = null;   // coords/warp pré-computados
                 // tx/ty = alvo cru do mouse; x/y = posição suavizada (lerp)
                 const mouse = { tx: 0.5, ty: 0.5, x: 0.5, y: 0.5, active: false, px: 0.5, py: 0.5 };
-
-                function clamp01(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
 
                 function resize() {
                     const r = host.getBoundingClientRect();
@@ -494,9 +482,9 @@
                                       + (X * 0.32 + Y * 0.58);   // viés linear → laços
                             const s = Math.sin(phi * RING);
                             if (s > 0.12) {
-                                // s^3 → ristas finas; alpha até ~0.62
+                                // s^3 → ristas finas; alpha até ~0.80 (mais opacas)
                                 const inten = s * s * s;
-                                const a = (inten * 168) | 0;
+                                const a = (inten * 205) | 0;
                                 // gold (224,196,128) em ABGR little-endian
                                 data32[i] = (a << 24) | (128 << 16) | (196 << 8) | 224;
                             } else {
@@ -511,7 +499,7 @@
                     raf = requestAnimationFrame(frame);
                     if (!visible) return;
                     const dt = now - last;
-                    if (dt < 24) return;          // ~40fps no laço principal (flashes fluidos)
+                    if (dt < 24) return;          // ~40fps no laço principal (vinheta fluida)
                     last = now;
                     const dts = Math.min(0.05, dt / 1000);
                     t += 0.7 * dts;
@@ -537,37 +525,27 @@
                     ctx.imageSmoothingEnabled = true;
                     ctx.drawImage(buf, 0, 0, W, H);   // upscale suave do campo
 
-                    // ---- FLASHES DOURADOS (aditivo) ----
+                    // ---- VINHETA LATERAL: flash de câmera lento e sutil nas bordas ----
+                    // Duas luzes douradas suaves (esq/dir) que surgem devagar e alternam.
                     ctx.globalCompositeOperation = 'lighter';
-                    for (const f of flashes) {
-                        f.life += dts / f.dur;
-                        if (f.life >= 1) {
-                            if (mouse.active && Math.random() < 0.6) {
-                                f.x = clamp01(mouse.x + (Math.random() - 0.5) * 0.16);
-                                f.y = clamp01(mouse.y + (Math.random() - 0.5) * 0.16);
-                            } else { f.x = Math.random(); f.y = Math.random(); }
-                            f.life = 0; f.dur = 0.32 + Math.random() * 0.6; f.size = 5 + Math.random() * 9;
-                        }
-                        const l = f.life;
-                        // ataque rápido, decaimento suave (envelope de "flash")
-                        const e = l < 0.12 ? (l / 0.12) : Math.pow(1 - (l - 0.12) / 0.88, 1.7);
-                        if (e <= 0.02) continue;
-                        const cx = f.x * W, cy = f.y * H, sz = f.size;
-                        const rr = sz * 2.6;
-                        const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, rr);
-                        g.addColorStop(0, 'rgba(255,236,180,' + (e * 0.95) + ')');
-                        g.addColorStop(0.3, 'rgba(240,200,120,' + (e * 0.45) + ')');
-                        g.addColorStop(1, 'rgba(240,200,120,0)');
-                        ctx.fillStyle = g;
-                        ctx.beginPath(); ctx.arc(cx, cy, rr, 0, 6.2832); ctx.fill();
-                        // glint em cruz (estrela do flash)
-                        const gl = sz * 3.4 * e;
-                        ctx.strokeStyle = 'rgba(255,240,190,' + (e * 0.6) + ')';
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(cx - gl, cy); ctx.lineTo(cx + gl, cy);
-                        ctx.moveTo(cx, cy - gl); ctx.lineTo(cx, cy + gl);
-                        ctx.stroke();
+                    const vw = W * 0.30;                 // largura da vinheta
+                    const PEAK = 0.15;                   // opacidade máxima (discreta)
+                    // envelope^3 => escuro na maior parte do tempo, breve "flash" lento
+                    const lp = Math.sin(t * 0.7);
+                    const rp = Math.sin(t * 0.7 + Math.PI);
+                    const le = lp > 0 ? lp * lp * lp * PEAK : 0;
+                    const re = rp > 0 ? rp * rp * rp * PEAK : 0;
+                    if (le > 0.004) {
+                        const gl = ctx.createLinearGradient(0, 0, vw, 0);
+                        gl.addColorStop(0, 'rgba(228,188,120,' + le + ')');
+                        gl.addColorStop(1, 'rgba(228,188,120,0)');
+                        ctx.fillStyle = gl; ctx.fillRect(0, 0, vw, H);
+                    }
+                    if (re > 0.004) {
+                        const gr = ctx.createLinearGradient(W, 0, W - vw, 0);
+                        gr.addColorStop(0, 'rgba(228,188,120,' + re + ')');
+                        gr.addColorStop(1, 'rgba(228,188,120,0)');
+                        ctx.fillStyle = gr; ctx.fillRect(W - vw, 0, vw, H);
                     }
                 }
 
