@@ -398,11 +398,13 @@
                 const bctx = buf.getContext('2d');
                 const BUF_SCALE = 0.38;
                 const N_BANDS = 4;   // campo renderizado em faixas (1 por quadro) → sem quadros longos
-                const RING = 0.44;   // rad/px → controla o espaçamento das ristas (maior = + juntas)
+                const RING = 0.34;   // rad/px → controla o espaçamento das ristas (maior = + juntas)
                 const WARP = 34;     // amplitude do domain-warp em px (organicidade das digitais)
                 const WF = 0.010;    // frequência espacial do warp
                 const RIDGE_A = 140; // opacidade máxima das ristas (0-255) — mais transparente
-                const CYCLE_MS = 150;// descanso entre ciclos completos (poupa CPU do notebook)
+                const CYCLE_MS = 150;// descanso entre ciclos completos quando ocioso (poupa CPU)
+                const DEF_R = 0.26;  // raio da deformação do cursor (fração de min(W,H))
+                const DEF_STR = 0.5; // força do empurrão das ristas ao redor do cursor
 
                 // Núcleos das digitais (cores dos laços/verticilos) — derivam devagar
                 const cores = [];
@@ -418,6 +420,9 @@
                 let t = 0, last = 0, visible = false, raf = null;
                 let sxA = null, syA = null, warpRow = null, warpCol = null;   // coords/warp pré-computados
                 let band = 0, cycleT = 0, lastCycle = 0;                      // estado do render em faixas
+                let snMx = 0, snMy = 0, snAct = false;                        // mouse congelado por ciclo
+                // tx/ty = alvo cru do cursor; x/y = posição suavizada (lerp)
+                const mouse = { tx: 0.5, ty: 0.5, x: 0.5, y: 0.5, active: false };
 
                 function resize() {
                     const r = host.getBoundingClientRect();
@@ -437,15 +442,24 @@
                 resize();
                 window.addEventListener('resize', resize, { passive: true });
 
+                host.addEventListener('mousemove', (e) => {
+                    const r = host.getBoundingClientRect();
+                    mouse.tx = (e.clientX - r.left) / r.width;
+                    mouse.ty = (e.clientY - r.top) / r.height;
+                    mouse.active = true;
+                }, { passive: true });
+                host.addEventListener('mouseleave', () => { mouse.active = false; });
+
                 // ---- CAMPO DE DIGITAIS: iso-linhas de um campo escalar ----
                 // As ristas são os cumes de sin(phi·RING); como phi combina distâncias
                 // aos núcleos + gradiente + warp, elas se fundem em deltas e nunca se cruzam.
                 // Renderizado em FAIXAS: uma faixa por quadro (nunca o campo todo de uma vez),
                 // então nenhum quadro é longo → sem travamento.
                 function renderBand() {
-                    // No início de cada ciclo, congela o tempo e recomputa o warp separável
+                    // No início de cada ciclo, congela o tempo/mouse e recomputa o warp separável
                     if (band === 0) {
                         cycleT = t;
+                        snMx = mouse.x * W; snMy = mouse.y * H; snAct = mouse.active;
                         for (let py = 0; py < BH; py++) {
                             const syp = syA[py];
                             warpRow[py] = WARP * Math.sin(syp * WF + cycleT) + WARP * 0.5 * Math.sin(syp * WF * 2.3 - cycleT * 0.7);
@@ -459,11 +473,22 @@
                     const y1 = Math.floor((band + 1) * BH / N_BANDS);
                     const c0x = cores[0].x * W, c0y = cores[0].y * H;
                     const c1x = cores[1].x * W, c1y = cores[1].y * H;
+                    const R2 = (Math.min(W, H) * DEF_R) * (Math.min(W, H) * DEF_R);
                     let i = y0 * BW;
                     for (let py = y0; py < y1; py++) {
                         const syp = syA[py], fr = warpRow[py];
                         for (let px = 0; px < BW; px++, i++) {
-                            const X = sxA[px] + fr, Y = syp + warpCol[px];
+                            let X = sxA[px] + fr, Y = syp + warpCol[px];
+                            // deformação do cursor: empurra as ristas ao redor do mouse
+                            // (sem sqrt → só multiplicações; barato o bastante p/ rodar por pixel)
+                            if (snAct) {
+                                const ddx = X - snMx, ddy = Y - snMy, dd = ddx * ddx + ddy * ddy;
+                                if (dd < R2) {
+                                    const push = (1 - dd / R2);   // 1 no centro → 0 na borda
+                                    const p = push * push * DEF_STR;
+                                    X += ddx * p; Y += ddy * p;
+                                }
+                            }
                             const dx0 = X - c0x, dy0 = Y - c0y;
                             const dx1 = X - c1x, dy1 = Y - c1y;
                             const phi = Math.sqrt(dx0 * dx0 + dy0 * dy0)
@@ -473,8 +498,8 @@
                             if (s > 0.12) {
                                 const inten = s * s * s;             // s^3 → ristas finas
                                 const a = (inten * RIDGE_A) | 0;
-                                // gold (224,196,128) em ABGR little-endian
-                                data32[i] = (a << 24) | (128 << 16) | (196 << 8) | 224;
+                                // prata (206,212,222) em ABGR little-endian
+                                data32[i] = (a << 24) | (222 << 16) | (212 << 8) | 206;
                             } else {
                                 data32[i] = 0;
                             }
@@ -493,15 +518,18 @@
                     last = now;
                     const dts = Math.min(0.05, dt / 1000);
                     t += 0.7 * dts;
+                    mouse.x += (mouse.tx - mouse.x) * 0.14;   // suaviza o cursor (sem tremor)
+                    mouse.y += (mouse.ty - mouse.y) * 0.14;
                     for (const co of cores) {
                         co.x += co.vx; co.y += co.vy;
                         if (co.x < 0.14 || co.x > 0.86) co.vx *= -1;
                         if (co.y < 0.14 || co.y > 0.86) co.vy *= -1;
                     }
 
-                    // Render em faixas: 1 faixa por quadro. Não recalcula durante o scroll
-                    // (scroll fica suave) e descansa entre ciclos completos (poupa CPU).
-                    if (!scrolling && (band !== 0 || now - lastCycle > CYCLE_MS)) {
+                    // Render em faixas: 1 faixa por quadro (cada faixa ~2ms → nunca trava).
+                    // Com o cursor sobre a seção, renderiza contínuo p/ a deformação acompanhar;
+                    // ocioso, descansa entre ciclos (poupa CPU). Nunca recalcula durante o scroll.
+                    if (!scrolling && (band !== 0 || mouse.active || now - lastCycle > CYCLE_MS)) {
                         if (band === 0) lastCycle = now;
                         renderBand();
                     }
@@ -512,7 +540,7 @@
                     ctx.drawImage(buf, 0, 0, W, H);   // upscale suave do campo
 
                     // ---- VINHETA LATERAL: flash de câmera lento e sutil nas bordas ----
-                    // Duas luzes douradas suaves (esq/dir) que surgem devagar e alternam.
+                    // Duas luzes prateadas suaves (esq/dir) que surgem devagar e alternam.
                     ctx.globalCompositeOperation = 'lighter';
                     const vw = W * 0.30;                 // largura da vinheta
                     const PEAK = 0.09;                   // opacidade máxima (bem discreta)
@@ -523,14 +551,14 @@
                     const re = rp > 0 ? rp * rp * rp * PEAK : 0;
                     if (le > 0.004) {
                         const gl = ctx.createLinearGradient(0, 0, vw, 0);
-                        gl.addColorStop(0, 'rgba(228,188,120,' + le + ')');
-                        gl.addColorStop(1, 'rgba(228,188,120,0)');
+                        gl.addColorStop(0, 'rgba(214,222,234,' + le + ')');
+                        gl.addColorStop(1, 'rgba(214,222,234,0)');
                         ctx.fillStyle = gl; ctx.fillRect(0, 0, vw, H);
                     }
                     if (re > 0.004) {
                         const gr = ctx.createLinearGradient(W, 0, W - vw, 0);
-                        gr.addColorStop(0, 'rgba(228,188,120,' + re + ')');
-                        gr.addColorStop(1, 'rgba(228,188,120,0)');
+                        gr.addColorStop(0, 'rgba(214,222,234,' + re + ')');
+                        gr.addColorStop(1, 'rgba(214,222,234,0)');
                         ctx.fillStyle = gr; ctx.fillRect(W - vw, 0, vw, H);
                     }
                 }
