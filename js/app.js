@@ -382,8 +382,8 @@
                 if (!ctx) return;
                 host.insertBefore(canvas, host.firstChild);
 
-                const GX = 11, GY = 7, STEPS = 26, STEP = 0.02, SCALE = 3.4;
-                const NL = 5;                 // luzes suaves
+                const GX = 17, GY = 11, STEPS = 30, STEP = 0.018, SCALE = 3.4;
+                const NL = 7;                 // luzes suaves
                 const lights = [];
                 for (let i = 0; i < NL; i++) {
                     lights.push({
@@ -395,7 +395,8 @@
                 }
 
                 let W = 0, H = 0, t = 0, last = 0, visible = false, raf = null;
-                const mouse = { x: 0.5, y: 0.5, active: false };
+                // tx/ty = alvo cru do mouse; x/y = posição suavizada (lerp) usada no campo
+                const mouse = { tx: 0.5, ty: 0.5, x: 0.5, y: 0.5, active: false };
 
                 function resize() {
                     const r = host.getBoundingClientRect();
@@ -407,12 +408,13 @@
 
                 host.addEventListener('mousemove', (e) => {
                     const r = host.getBoundingClientRect();
-                    mouse.x = (e.clientX - r.left) / r.width;
-                    mouse.y = (e.clientY - r.top) / r.height;
+                    mouse.tx = (e.clientX - r.left) / r.width;
+                    mouse.ty = (e.clientY - r.top) / r.height;
                     mouse.active = true;
                 }, { passive: true });
                 host.addEventListener('mouseleave', () => { mouse.active = false; });
 
+                const SWIRL_R = 0.42;   // raio de influência do cursor (maior = mais interação)
                 function angle(x, y, tt) {
                     const n = Math.sin(x * 0.9 + tt) + Math.sin(y * 1.1 - tt * 0.8)
                             + Math.sin((x + y) * 0.6 + tt * 0.5) + Math.sin((x - y) * 0.7 - tt * 0.3);
@@ -420,7 +422,17 @@
                     if (mouse.active) {
                         const dx = x / SCALE - mouse.x, dy = y / SCALE - mouse.y;
                         const d = Math.sqrt(dx * dx + dy * dy);
-                        if (d < 0.3) a += (1 - d / 0.3) * 2.6 * Math.atan2(dy, dx);
+                        if (d < SWIRL_R) {
+                            // peso com queda suave (quadrática) — sem saltos bruscos
+                            const inf = 1 - d / SWIRL_R;
+                            const w = inf * inf * 0.92;
+                            // direção tangencial: circula ao redor do cursor (vórtice)
+                            const tan = Math.atan2(dy, dx) + Math.PI * 0.5;
+                            // mistura VETORIAL do fluxo base com a tangencial (caminho mais curto, sem seam)
+                            const mx = Math.cos(a) * (1 - w) + Math.cos(tan) * w;
+                            const my = Math.sin(a) * (1 - w) + Math.sin(tan) * w;
+                            a = Math.atan2(my, mx);
+                        }
                     }
                     return a;
                 }
@@ -431,11 +443,20 @@
                     if (now - last < 33) return;   // ~30fps
                     last = now;
                     t += 0.0016;
+                    // suaviza a posição do cursor (elimina o tremor das linhas)
+                    mouse.x += (mouse.tx - mouse.x) * 0.12;
+                    mouse.y += (mouse.ty - mouse.y) * 0.12;
                     ctx.clearRect(0, 0, W, H);
 
                     // Luzes suaves (glow dourado) — composição aditiva
                     ctx.globalCompositeOperation = 'lighter';
                     for (const L of lights) {
+                        // leve atração pelo cursor (interação extra), com amortecimento
+                        if (mouse.active) {
+                            L.vx += (mouse.x - L.x) * 0.00003;
+                            L.vy += (mouse.y - L.y) * 0.00003;
+                        }
+                        L.vx *= 0.992; L.vy *= 0.992;
                         L.x += L.vx; L.y += L.vy;
                         if (L.x < -0.2 || L.x > 1.2) L.vx *= -1;
                         if (L.y < -0.2 || L.y > 1.2) L.vy *= -1;
