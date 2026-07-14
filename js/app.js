@@ -362,6 +362,125 @@
     }
 
     // =====================================================
+    // 6f. FINGERPRINT FX — campo de linhas generativas + luzes suaves
+    //     (interativo: as linhas curvam ao redor do cursor)
+    // =====================================================
+    function initFingerprintFX() {
+        const mm = window.matchMedia;
+        if (!mm) return;
+        if (mm('(prefers-reduced-motion: reduce)').matches) return;
+        if (mm('(max-width: 768px)').matches) return;
+        if ((navigator.hardwareConcurrency || 4) < 4) return;
+
+        document.querySelectorAll('[data-fingerprint]').forEach(setup);
+
+        function setup(host) {
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.className = 'fp-canvas';
+                const ctx = canvas.getContext('2d');
+                if (!ctx) return;
+                host.insertBefore(canvas, host.firstChild);
+
+                const GX = 11, GY = 7, STEPS = 26, STEP = 0.02, SCALE = 3.4;
+                const NL = 5;                 // luzes suaves
+                const lights = [];
+                for (let i = 0; i < NL; i++) {
+                    lights.push({
+                        x: Math.random(), y: Math.random(),
+                        vx: (Math.random() - 0.5) * 0.0006,
+                        vy: (Math.random() - 0.5) * 0.0006,
+                        r: 0.18 + Math.random() * 0.16
+                    });
+                }
+
+                let W = 0, H = 0, t = 0, last = 0, visible = false, raf = null;
+                const mouse = { x: 0.5, y: 0.5, active: false };
+
+                function resize() {
+                    const r = host.getBoundingClientRect();
+                    W = canvas.width = Math.max(2, Math.round(r.width));
+                    H = canvas.height = Math.max(2, Math.round(r.height));
+                }
+                resize();
+                window.addEventListener('resize', resize, { passive: true });
+
+                host.addEventListener('mousemove', (e) => {
+                    const r = host.getBoundingClientRect();
+                    mouse.x = (e.clientX - r.left) / r.width;
+                    mouse.y = (e.clientY - r.top) / r.height;
+                    mouse.active = true;
+                }, { passive: true });
+                host.addEventListener('mouseleave', () => { mouse.active = false; });
+
+                function angle(x, y, tt) {
+                    const n = Math.sin(x * 0.9 + tt) + Math.sin(y * 1.1 - tt * 0.8)
+                            + Math.sin((x + y) * 0.6 + tt * 0.5) + Math.sin((x - y) * 0.7 - tt * 0.3);
+                    let a = n * 0.9;
+                    if (mouse.active) {
+                        const dx = x / SCALE - mouse.x, dy = y / SCALE - mouse.y;
+                        const d = Math.sqrt(dx * dx + dy * dy);
+                        if (d < 0.3) a += (1 - d / 0.3) * 2.6 * Math.atan2(dy, dx);
+                    }
+                    return a;
+                }
+
+                function frame(now) {
+                    raf = requestAnimationFrame(frame);
+                    if (!visible) return;
+                    if (now - last < 33) return;   // ~30fps
+                    last = now;
+                    t += 0.0016;
+                    ctx.clearRect(0, 0, W, H);
+
+                    // Luzes suaves (glow dourado) — composição aditiva
+                    ctx.globalCompositeOperation = 'lighter';
+                    for (const L of lights) {
+                        L.x += L.vx; L.y += L.vy;
+                        if (L.x < -0.2 || L.x > 1.2) L.vx *= -1;
+                        if (L.y < -0.2 || L.y > 1.2) L.vy *= -1;
+                        const cx = L.x * W, cy = L.y * H, rr = L.r * Math.min(W, H);
+                        const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, rr);
+                        g.addColorStop(0, 'rgba(233, 200, 130, 0.10)');
+                        g.addColorStop(1, 'rgba(233, 200, 130, 0)');
+                        ctx.fillStyle = g;
+                        ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI * 2); ctx.fill();
+                    }
+
+                    // Linhas generativas (digitais) seguindo o campo de fluxo
+                    ctx.globalCompositeOperation = 'source-over';
+                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = 'rgba(224, 196, 128, 0.13)';
+                    for (let gx = 0; gx < GX; gx++) {
+                        for (let gy = 0; gy < GY; gy++) {
+                            let px = (gx + 0.5) / GX, py = (gy + 0.5) / GY;
+                            ctx.beginPath();
+                            ctx.moveTo(px * W, py * H);
+                            for (let s = 0; s < STEPS; s++) {
+                                const a = angle(px * SCALE, py * SCALE, t);
+                                px += Math.cos(a) * STEP;
+                                py += Math.sin(a) * STEP;
+                                ctx.lineTo(px * W, py * H);
+                            }
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                // Só anima quando a seção está visível (economia de CPU)
+                if ('IntersectionObserver' in window) {
+                    new IntersectionObserver((entries) => {
+                        visible = entries[0].isIntersecting;
+                    }, { threshold: 0.02 }).observe(host);
+                } else {
+                    visible = true;
+                }
+                raf = requestAnimationFrame(frame);
+            } catch (e) { /* falha graciosa */ }
+        }
+    }
+
+    // =====================================================
     // 6d. GALERIA HORIZONTAL — pin + scroll horizontal
     // =====================================================
     function initHorizontalGallery() {
@@ -657,6 +776,7 @@
         initPageTransitions();
         initHeroRally();
         initHeroVideo();
+        initFingerprintFX();
     }
 
     if (document.readyState === 'loading') {
