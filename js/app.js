@@ -372,6 +372,17 @@
         if (mm('(max-width: 768px)').matches) return;
         if ((navigator.hardwareConcurrency || 4) < 4) return;
 
+        // Flag global de scroll: NÃO recalculamos o campo de digitais enquanto o
+        // usuário rola (mantém o scroll 100% suave); só quando parado o cursor reage.
+        let scrolling = false, scrollTimer = null;
+        function onScroll() {
+            scrolling = true;
+            if (scrollTimer) clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(() => { scrolling = false; }, 130);
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        if (lenis && lenis.on) lenis.on('scroll', onScroll);
+
         document.querySelectorAll('[data-fingerprint]').forEach(setup);
 
         function setup(host) {
@@ -382,26 +393,56 @@
                 if (!ctx) return;
                 host.insertBefore(canvas, host.firstChild);
 
-                const GX = 17, GY = 11, STEPS = 30, STEP = 0.018, SCALE = 3.4;
-                const NL = 7;                 // luzes suaves
-                const lights = [];
-                for (let i = 0; i < NL; i++) {
-                    lights.push({
-                        x: Math.random(), y: Math.random(),
-                        vx: (Math.random() - 0.5) * 0.0006,
-                        vy: (Math.random() - 0.5) * 0.0006,
-                        r: 0.18 + Math.random() * 0.16
+                // Buffer offscreen de baixa resolução p/ o campo de digitais (ristas)
+                const buf = document.createElement('canvas');
+                const bctx = buf.getContext('2d');
+                const BUF_SCALE = 0.5;
+                const RING = 0.62;   // rad/px → controla o espaçamento das ristas (maior = + juntas)
+                const WARP = 34;     // amplitude do domain-warp em px (organicidade das digitais)
+                const WF = 0.010;    // frequência espacial do warp
+
+                // Núcleos das digitais (cores dos laços/verticilos) — derivam devagar
+                const cores = [];
+                const NC = 2;
+                for (let i = 0; i < NC; i++) {
+                    cores.push({
+                        x: 0.28 + Math.random() * 0.44, y: 0.26 + Math.random() * 0.48,
+                        vx: (Math.random() - 0.5) * 0.00035, vy: (Math.random() - 0.5) * 0.00035
                     });
                 }
 
-                let W = 0, H = 0, t = 0, last = 0, visible = false, raf = null;
-                // tx/ty = alvo cru do mouse; x/y = posição suavizada (lerp) usada no campo
-                const mouse = { tx: 0.5, ty: 0.5, x: 0.5, y: 0.5, active: false };
+                // Flashes dourados (glints que pulsam e somem)
+                const flashes = [];
+                const NF = 12;
+                for (let i = 0; i < NF; i++) {
+                    flashes.push({
+                        x: Math.random(), y: Math.random(), life: Math.random(),
+                        dur: 0.35 + Math.random() * 0.6, size: 5 + Math.random() * 9
+                    });
+                }
+
+                let W = 0, H = 0, BW = 0, BH = 0, imgData = null, data32 = null;
+                let t = 0, last = 0, lastRidge = 0, visible = false, raf = null, needsRidge = true;
+                let sxA = null, syA = null, warpRow = null, warpCol = null;   // coords/warp pré-computados
+                // tx/ty = alvo cru do mouse; x/y = posição suavizada (lerp)
+                const mouse = { tx: 0.5, ty: 0.5, x: 0.5, y: 0.5, active: false, px: 0.5, py: 0.5 };
+
+                function clamp01(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
 
                 function resize() {
                     const r = host.getBoundingClientRect();
                     W = canvas.width = Math.max(2, Math.round(r.width));
                     H = canvas.height = Math.max(2, Math.round(r.height));
+                    BW = buf.width = Math.max(2, Math.round(W * BUF_SCALE));
+                    BH = buf.height = Math.max(2, Math.round(H * BUF_SCALE));
+                    imgData = bctx.createImageData(BW, BH);
+                    data32 = new Uint32Array(imgData.data.buffer);
+                    // coordenadas de tela pré-computadas (elimina 2 divisões por pixel)
+                    sxA = new Float64Array(BW); for (let i = 0; i < BW; i++) sxA[i] = (i / BW) * W;
+                    syA = new Float64Array(BH); for (let i = 0; i < BH; i++) syA[i] = (i / BH) * H;
+                    warpRow = new Float64Array(BH);
+                    warpCol = new Float64Array(BW);
+                    needsRidge = true;
                 }
                 resize();
                 window.addEventListener('resize', resize, { passive: true });
@@ -412,79 +453,121 @@
                     mouse.ty = (e.clientY - r.top) / r.height;
                     mouse.active = true;
                 }, { passive: true });
-                host.addEventListener('mouseleave', () => { mouse.active = false; });
+                host.addEventListener('mouseleave', () => { mouse.active = false; needsRidge = true; });
 
-                const SWIRL_R = 0.42;   // raio de influência do cursor (maior = mais interação)
-                function angle(x, y, tt) {
-                    const n = Math.sin(x * 0.9 + tt) + Math.sin(y * 1.1 - tt * 0.8)
-                            + Math.sin((x + y) * 0.6 + tt * 0.5) + Math.sin((x - y) * 0.7 - tt * 0.3);
-                    let a = n * 0.9;
-                    if (mouse.active) {
-                        const dx = x / SCALE - mouse.x, dy = y / SCALE - mouse.y;
-                        const d = Math.sqrt(dx * dx + dy * dy);
-                        if (d < SWIRL_R) {
-                            // peso com queda suave (quadrática) — sem saltos bruscos
-                            const inf = 1 - d / SWIRL_R;
-                            const w = inf * inf * 0.92;
-                            // direção tangencial: circula ao redor do cursor (vórtice)
-                            const tan = Math.atan2(dy, dx) + Math.PI * 0.5;
-                            // mistura VETORIAL do fluxo base com a tangencial (caminho mais curto, sem seam)
-                            const mx = Math.cos(a) * (1 - w) + Math.cos(tan) * w;
-                            const my = Math.sin(a) * (1 - w) + Math.sin(tan) * w;
-                            a = Math.atan2(my, mx);
+                // ---- CAMPO DE DIGITAIS: iso-linhas de um campo escalar ----
+                // As ristas são os cumes de sin(phi·RING); como phi combina distâncias
+                // aos núcleos + gradiente + warp, elas se fundem em deltas e nunca se cruzam.
+                function renderRidges() {
+                    // warp separável: X depende só da linha, Y só da coluna → 2·(BW+BH) sines
+                    // por quadro em vez de 4·BW·BH (o que tornava o laço ~3× mais lento)
+                    for (let py = 0; py < BH; py++) {
+                        const syp = syA[py];
+                        warpRow[py] = WARP * Math.sin(syp * WF + t) + WARP * 0.5 * Math.sin(syp * WF * 2.3 - t * 0.7);
+                    }
+                    for (let px = 0; px < BW; px++) {
+                        const sxp = sxA[px];
+                        warpCol[px] = WARP * Math.sin(sxp * WF - t * 0.9) + WARP * 0.5 * Math.sin(sxp * WF * 1.9 + t * 0.6);
+                    }
+                    const mxp = mouse.x * W, myp = mouse.y * H, ma = mouse.active;
+                    const R = Math.min(W, H) * 0.34, R2 = R * R;
+                    const c0x = cores[0].x * W, c0y = cores[0].y * H;
+                    const c1x = cores[1].x * W, c1y = cores[1].y * H;
+                    let i = 0;
+                    for (let py = 0; py < BH; py++) {
+                        const syp = syA[py], fr = warpRow[py];
+                        for (let px = 0; px < BW; px++, i++) {
+                            let X = sxA[px] + fr, Y = syp + warpCol[px];
+                            // deformação ao redor do cursor (empurra as ristas)
+                            if (ma) {
+                                const ddx = X - mxp, ddy = Y - myp, dd = ddx * ddx + ddy * ddy;
+                                if (dd < R2) {
+                                    const push = (1 - dd / R2);
+                                    const p = push * push * 46 / (Math.sqrt(dd) + 1);
+                                    X += ddx * p; Y += ddy * p;
+                                }
+                            }
+                            const dx0 = X - c0x, dy0 = Y - c0y;
+                            const dx1 = X - c1x, dy1 = Y - c1y;
+                            const phi = Math.sqrt(dx0 * dx0 + dy0 * dy0)
+                                      + Math.sqrt(dx1 * dx1 + dy1 * dy1) * 0.85
+                                      + (X * 0.32 + Y * 0.58);   // viés linear → laços
+                            const s = Math.sin(phi * RING);
+                            if (s > 0.12) {
+                                // s^3 → ristas finas; alpha até ~0.62
+                                const inten = s * s * s;
+                                const a = (inten * 168) | 0;
+                                // gold (224,196,128) em ABGR little-endian
+                                data32[i] = (a << 24) | (128 << 16) | (196 << 8) | 224;
+                            } else {
+                                data32[i] = 0;
+                            }
                         }
                     }
-                    return a;
+                    bctx.putImageData(imgData, 0, 0);
                 }
 
                 function frame(now) {
                     raf = requestAnimationFrame(frame);
                     if (!visible) return;
-                    if (now - last < 33) return;   // ~30fps
+                    const dt = now - last;
+                    if (dt < 24) return;          // ~40fps no laço principal (flashes fluidos)
                     last = now;
-                    t += 0.0016;
-                    // suaviza a posição do cursor (elimina o tremor das linhas)
+                    const dts = Math.min(0.05, dt / 1000);
+                    t += 0.7 * dts;
                     mouse.x += (mouse.tx - mouse.x) * 0.12;
                     mouse.y += (mouse.ty - mouse.y) * 0.12;
-                    ctx.clearRect(0, 0, W, H);
-
-                    // Luzes suaves (glow dourado) — composição aditiva
-                    ctx.globalCompositeOperation = 'lighter';
-                    for (const L of lights) {
-                        // leve atração pelo cursor (interação extra), com amortecimento
-                        if (mouse.active) {
-                            L.vx += (mouse.x - L.x) * 0.00003;
-                            L.vy += (mouse.y - L.y) * 0.00003;
-                        }
-                        L.vx *= 0.992; L.vy *= 0.992;
-                        L.x += L.vx; L.y += L.vy;
-                        if (L.x < -0.2 || L.x > 1.2) L.vx *= -1;
-                        if (L.y < -0.2 || L.y > 1.2) L.vy *= -1;
-                        const cx = L.x * W, cy = L.y * H, rr = L.r * Math.min(W, H);
-                        const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, rr);
-                        g.addColorStop(0, 'rgba(233, 200, 130, 0.10)');
-                        g.addColorStop(1, 'rgba(233, 200, 130, 0)');
-                        ctx.fillStyle = g;
-                        ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI * 2); ctx.fill();
+                    for (const co of cores) {
+                        co.x += co.vx; co.y += co.vy;
+                        if (co.x < 0.14 || co.x > 0.86) co.vx *= -1;
+                        if (co.y < 0.14 || co.y > 0.86) co.vy *= -1;
                     }
 
-                    // Linhas generativas (digitais) seguindo o campo de fluxo
+                    // Recalcula o campo só quando NÃO está rolando (scroll fica suave).
+                    // Dispara por respiração lenta (idle), movimento do cursor, ou resize.
+                    const moved = Math.abs(mouse.x - mouse.px) + Math.abs(mouse.y - mouse.py) > 0.005;
+                    if (!scrolling && (needsRidge || moved || now - lastRidge > 90)) {
+                        lastRidge = now; needsRidge = false;
+                        mouse.px = mouse.x; mouse.py = mouse.y;
+                        renderRidges();
+                    }
+
+                    ctx.clearRect(0, 0, W, H);
                     ctx.globalCompositeOperation = 'source-over';
-                    ctx.lineWidth = 1;
-                    ctx.strokeStyle = 'rgba(224, 196, 128, 0.13)';
-                    for (let gx = 0; gx < GX; gx++) {
-                        for (let gy = 0; gy < GY; gy++) {
-                            let px = (gx + 0.5) / GX, py = (gy + 0.5) / GY;
-                            ctx.beginPath();
-                            ctx.moveTo(px * W, py * H);
-                            for (let s = 0; s < STEPS; s++) {
-                                const a = angle(px * SCALE, py * SCALE, t);
-                                px += Math.cos(a) * STEP;
-                                py += Math.sin(a) * STEP;
-                                ctx.lineTo(px * W, py * H);
-                            }
-                            ctx.stroke();
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.drawImage(buf, 0, 0, W, H);   // upscale suave do campo
+
+                    // ---- FLASHES DOURADOS (aditivo) ----
+                    ctx.globalCompositeOperation = 'lighter';
+                    for (const f of flashes) {
+                        f.life += dts / f.dur;
+                        if (f.life >= 1) {
+                            if (mouse.active && Math.random() < 0.6) {
+                                f.x = clamp01(mouse.x + (Math.random() - 0.5) * 0.16);
+                                f.y = clamp01(mouse.y + (Math.random() - 0.5) * 0.16);
+                            } else { f.x = Math.random(); f.y = Math.random(); }
+                            f.life = 0; f.dur = 0.32 + Math.random() * 0.6; f.size = 5 + Math.random() * 9;
                         }
+                        const l = f.life;
+                        // ataque rápido, decaimento suave (envelope de "flash")
+                        const e = l < 0.12 ? (l / 0.12) : Math.pow(1 - (l - 0.12) / 0.88, 1.7);
+                        if (e <= 0.02) continue;
+                        const cx = f.x * W, cy = f.y * H, sz = f.size;
+                        const rr = sz * 2.6;
+                        const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, rr);
+                        g.addColorStop(0, 'rgba(255,236,180,' + (e * 0.95) + ')');
+                        g.addColorStop(0.3, 'rgba(240,200,120,' + (e * 0.45) + ')');
+                        g.addColorStop(1, 'rgba(240,200,120,0)');
+                        ctx.fillStyle = g;
+                        ctx.beginPath(); ctx.arc(cx, cy, rr, 0, 6.2832); ctx.fill();
+                        // glint em cruz (estrela do flash)
+                        const gl = sz * 3.4 * e;
+                        ctx.strokeStyle = 'rgba(255,240,190,' + (e * 0.6) + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(cx - gl, cy); ctx.lineTo(cx + gl, cy);
+                        ctx.moveTo(cx, cy - gl); ctx.lineTo(cx, cy + gl);
+                        ctx.stroke();
                     }
                 }
 
