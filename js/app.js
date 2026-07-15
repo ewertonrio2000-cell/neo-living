@@ -400,7 +400,7 @@
             '  #else\n' +
             '    float aa=0.02;\n' +
             '  #endif\n' +
-            '  float e=abs(fract(idx)-0.5); float LW=0.11;\n' +
+            '  float e=abs(fract(idx)-0.5); float LW=0.075;\n' +
             '  float line=1.0-smoothstep(LW, LW+aa*1.5, e);\n' +
             '  line*=smoothstep(0.55, 0.18, aa);\n' +   // some onde as ristas ficam sub-pixel
             '  vec3 silver=vec3(206.0,212.0,222.0)/255.0;\n' +
