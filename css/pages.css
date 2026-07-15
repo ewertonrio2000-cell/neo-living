@@ -3135,5 +3135,6 @@ html[data-theme="light"] .hero.hero--editorial {
 .manifesto-section .container { position: relative; z-index: 3; }
 
 /* No hero: canvas acima do vídeo (z0) e dos gradientes (z4/5), abaixo do
-   texto (top z8, título z10); película fina — não compete com o letreiro */
-.hero--editorial .fp-canvas { z-index: 6; opacity: 0.34; }
+   texto (top z8, título z10). Opacity 0.55: as ristas seguem sutis (alpha
+   baixo no shader) e a vinheta de sombra das bordas ganha presença */
+.hero--editorial .fp-canvas { z-index: 6; opacity: 0.55; }

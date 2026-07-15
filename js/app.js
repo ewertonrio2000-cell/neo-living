@@ -378,7 +378,7 @@
             'precision highp float;\n' +
             'uniform vec2 u_res;uniform float u_dpr;uniform float u_time;\n' +
             'uniform vec2 u_mouse;uniform float u_mouseOn;uniform float u_alpha;\n' +
-            'uniform float u_ring;uniform float u_lw;\n' +
+            'uniform float u_ring;uniform float u_lw;uniform float u_veil;\n' +
             '#define PI 3.14159265359\n' +
             'void main(){\n' +
             '  float t=u_time;\n' +
@@ -395,7 +395,17 @@
             '  vec2 c0=vec2(res.x*(0.35+0.05*sin(t*0.11)), res.y*(0.40+0.04*cos(t*0.09)));\n' +
             '  vec2 c1=vec2(res.x*(0.62+0.05*cos(t*0.08)), res.y*(0.60+0.05*sin(t*0.10)));\n' +
             '  float phi=distance(vec2(X,Y),c0)+distance(vec2(X,Y),c1)*0.85+(X*0.32+Y*0.58);\n' +
-            '  float idx=phi*u_ring/(2.0*PI);\n' +
+            // Véu (hero): mais denso no CENTRO — a frequência das ristas sobe
+            // rumo ao meio da seção (fase re-ancorada no centro p/ evitar chirp)
+            '  float dens=1.0;\n' +
+            '  if(u_veil>0.5){\n' +
+            '    vec2 Pc=res*0.5;\n' +
+            '    float cd=distance(P,Pc)/(0.55*min(res.x,res.y));\n' +
+            '    dens=1.0+0.5*(1.0-smoothstep(0.0,1.1,cd));\n' +
+            '    float phiC=distance(Pc,c0)+distance(Pc,c1)*0.85+(Pc.x*0.32+Pc.y*0.58);\n' +
+            '    phi-=phiC;\n' +
+            '  }\n' +
+            '  float idx=phi*u_ring*dens/(2.0*PI);\n' +
             '  #ifdef GL_OES_standard_derivatives\n' +
             '    float aa=fwidth(idx);\n' +
             '  #else\n' +
@@ -403,15 +413,36 @@
             '  #endif\n' +
             '  float e=abs(fract(idx)-0.5);\n' +
             '  float line=1.0-smoothstep(u_lw, u_lw+aa*1.5, e);\n' +
-            '  line*=smoothstep(0.55, 0.18, aa);\n' +   // some onde as ristas ficam sub-pixel
+            '  line*=smoothstep(0.60, 0.20, aa);\n' +   // some onde as ristas ficam sub-pixel
             '  vec3 silver=vec3(206.0,212.0,222.0)/255.0;\n' +
-            '  float aRidge=line*u_alpha;\n' +
+            // Véu: "reflexo" — intensidade varia ao longo das linhas (banda de
+            // brilho que desliza + realce especular que acompanha o cursor);
+            // nunca 100% sólidas
+            '  float shade=1.0;\n' +
+            '  if(u_veil>0.5){\n' +
+            '    float sheen=0.5+0.5*sin(P.x*0.0038+P.y*0.0021 - t*0.55);\n' +
+            '    sheen*=sheen;\n' +
+            '    vec2 hl=mix(vec2(res.x*0.62,res.y*0.34), u_mouse, 0.35*u_mouseOn);\n' +
+            '    float spec=exp(-distance(P,hl)/(0.5*min(res.x,res.y)));\n' +
+            '    shade=0.22+0.68*sheen+0.55*spec;\n' +
+            '  }\n' +
+            '  float aRidge=line*u_alpha*shade;\n' +
+            // Flash lateral prata: só nas seções escuras (não no véu do hero)
             '  float ex=clamp(min(fc.x, u_res.x-fc.x)/(u_res.x*0.30), 0.0, 1.0);\n' +
             '  float sideSin = P.x < res.x*0.5 ? sin(t*0.7) : sin(t*0.7+PI);\n' +
-            '  float env=max(0.0, sideSin); env=env*env*env*0.09;\n' +
+            '  float env=max(0.0, sideSin); env=env*env*env*0.09*(1.0-u_veil);\n' +
             '  float vig=(1.0-ex)*env;\n' +
-            '  float a=clamp(aRidge+vig, 0.0, 1.0);\n' +
-            '  gl_FragColor=vec4(silver*a, a);\n' +
+            // Véu: VINHETA — sombras fortes nas extremidades; o centro dela
+            // desliza levemente com o cursor (interação)
+            '  float vshadow=0.0;\n' +
+            '  if(u_veil>0.5){\n' +
+            '    vec2 vc=vec2(0.5)+(u_mouse/res-vec2(0.5))*0.15*u_mouseOn;\n' +
+            '    float vd=distance(P/res, vc);\n' +
+            '    vshadow=smoothstep(0.40,0.86,vd)*0.7;\n' +
+            '  }\n' +
+            '  float aR=clamp(aRidge+vig, 0.0, 1.0);\n' +
+            '  float outA=vshadow+aR*(1.0-vshadow);\n' +
+            '  gl_FragColor=vec4(silver*aR*(1.0-vshadow), outA);\n' +
             '}';
 
         document.querySelectorAll('[data-fingerprint]').forEach(setup);
@@ -456,13 +487,16 @@
                 const uAlpha = gl.getUniformLocation(prog, 'u_alpha');
                 const uRing = gl.getUniformLocation(prog, 'u_ring');
                 const uLw = gl.getUniformLocation(prog, 'u_lw');
+                const uVeil = gl.getUniformLocation(prog, 'u_veil');
 
-                // Variante "véu" no hero: ristas bem mais finas, mais densas e
-                // mais transparentes — película sobre o vídeo, sem roubar a cena
+                // Variante "véu" no hero: ristas finíssimas e densas (+50% no
+                // centro), reflexo deslizante, vinheta com sombra nas bordas.
+                // O alpha das ristas fica baixo (0.20) e a força da vinheta vem
+                // da opacity 0.55 do canvas no CSS.
                 const isVeil = host.classList.contains('hero--editorial');
-                const P_RING = isVeil ? 0.78 : 0.34;    // maior = mais linhas (espaçamento ~8px)
-                const P_LW = isVeil ? 0.032 : 0.065;    // menor = mais fina (fio de cabelo)
-                const P_ALPHA = isVeil ? 0.30 : 0.55;   // menor = mais transparente
+                const P_RING = isVeil ? 0.88 : 0.34;    // maior = mais linhas (centro ~5px)
+                const P_LW = isVeil ? 0.024 : 0.065;    // menor = mais fina
+                const P_ALPHA = isVeil ? 0.20 : 0.55;   // menor = mais transparente
 
                 let DPR = 1;
                 function resize() {
@@ -500,6 +534,7 @@
                     gl.uniform1f(uAlpha, P_ALPHA);
                     gl.uniform1f(uRing, P_RING);
                     gl.uniform1f(uLw, P_LW);
+                    gl.uniform1f(uVeil, isVeil ? 1 : 0);
                     gl.drawArrays(gl.TRIANGLES, 0, 6);
                 }
 
