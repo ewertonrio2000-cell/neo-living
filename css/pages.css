@@ -2516,13 +2516,28 @@ html[data-theme="light"] .hero--editorial__concept em {
     object-fit: cover;
     object-position: center 42%;
     opacity: 0;
-    transition: opacity 1100ms ease;
-    /* grade fosco: contraste e saturação contidos, tom levemente frio */
-    filter: contrast(0.9) saturate(0.78) brightness(0.7);
+    /* fora de cena = ponto de partida da entrada: desfocado e ampliado */
+    filter: contrast(0.9) saturate(0.78) brightness(0.7) blur(12px);
+    transform: scale(1.07);
+    transition:
+        opacity 950ms ease,
+        filter 1050ms ease,
+        transform 1250ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: opacity, filter, transform;
 }
 
 .hero-video__clip.is-active {
     opacity: 1;
+    /* grade fosco: contraste e saturação contidos */
+    filter: contrast(0.9) saturate(0.78) brightness(0.7);
+    transform: scale(1);
+}
+
+/* saída: o vídeo "derrete" — desfoca, amplia e escurece enquanto some */
+.hero-video__clip.is-leaving {
+    opacity: 0;
+    filter: contrast(0.9) saturate(0.78) brightness(0.5) blur(18px);
+    transform: scale(1.12);
 }
 
 /* Véu fosco permanente — levanta os pretos (matte) sem apagar a imagem */
@@ -2540,57 +2555,6 @@ html[data-theme="light"] .hero--editorial__concept em {
     );
 }
 
-/* Véu de TRANSIÇÃO — flash colorido fosco (prata + champanhe) entre vídeos */
-.hero-video__wash {
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    pointer-events: none;
-    opacity: 0;
-    background: linear-gradient(
-        115deg,
-        rgba(214, 222, 234, 0.50) 0%,
-        rgba(233, 183, 112, 0.32) 48%,
-        rgba(164, 174, 192, 0.46) 100%
-    );
-    transition: opacity 620ms ease;
-}
-
-.hero-video__wash.is-on {
-    opacity: 1;
-}
-
-/* Spotlight — luz FORTE que segue o cursor e ilumina o vídeo em volta dele */
-.hero-spotlight {
-    position: absolute;
-    inset: 0;
-    z-index: 2;                /* acima do vídeo (0) e da película (1) */
-    pointer-events: none;
-    background: radial-gradient(
-        circle 440px at var(--mx, 50%) var(--my, 40%),
-        rgba(255, 255, 255, 0.95),
-        rgba(255, 255, 255, 0.55) 32%,
-        rgba(255, 255, 255, 0.22) 58%,
-        transparent 78%
-    );
-    mix-blend-mode: screen;
-    opacity: 0;
-    transition: opacity 400ms ease;
-}
-
-/* Segunda camada — realça ainda mais o núcleo da luz */
-.hero-spotlight::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(
-        circle 220px at var(--mx, 50%) var(--my, 40%),
-        rgba(255, 250, 235, 0.6),
-        transparent 70%
-    );
-    mix-blend-mode: overlay;
-}
 
 html[data-theme="light"] .hero--editorial__house.hero--editorial__house--cutout::after {
     background: rgba(245, 242, 235, 0.18);

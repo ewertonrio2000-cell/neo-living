@@ -460,8 +460,8 @@
                 // Variante "véu" no hero: ristas bem mais finas, mais densas e
                 // mais transparentes — película sobre o vídeo, sem roubar a cena
                 const isVeil = host.classList.contains('hero--editorial');
-                const P_RING = isVeil ? 0.55 : 0.34;    // maior = mais linhas
-                const P_LW = isVeil ? 0.045 : 0.065;    // menor = mais fina
+                const P_RING = isVeil ? 0.78 : 0.34;    // maior = mais linhas (espaçamento ~8px)
+                const P_LW = isVeil ? 0.032 : 0.065;    // menor = mais fina (fio de cabelo)
                 const P_ALPHA = isVeil ? 0.30 : 0.55;   // menor = mais transparente
 
                 let DPR = 1;
@@ -766,43 +766,29 @@
                 clips.forEach((c, i) => { if (i > 0) { try { c.load(); } catch (e) {} } });
             }, { once: true });
 
-            // Véu de transição (flash colorido fosco) criado uma vez
-            const videoWrap = hero.querySelector('.hero-video');
-            const wash = document.createElement('span');
-            wash.className = 'hero-video__wash';
-            wash.setAttribute('aria-hidden', 'true');
-            if (videoWrap) videoWrap.appendChild(wash);
-
             setInterval(() => {
                 const next = (idx + 1) % clips.length;
-                // 1) véu colorido fosco entra…
-                wash.classList.add('is-on');
+                // 1) AQUECE o próximo clipe antes da troca: seek + play com o vídeo
+                //    ainda invisível → decoder pronto, sem engasgo na entrada
+                try { if (clips[next].readyState > 2) clips[next].currentTime = 0; } catch (e) {}
+                playSafe(clips[next]);
                 setTimeout(() => {
-                    // 2) …a troca acontece por baixo do véu (crossfade 1100ms)
-                    try { clips[next].currentTime = 0; } catch (e) {}
-                    playSafe(clips[next]);
-                    clips[next].classList.add('is-active');
-                    clips[idx].classList.remove('is-active');
+                    // 2) o vídeo atual "derrete" (desfoca+amplia+escurece) enquanto
+                    //    o próximo entra desfocado/ampliado e assenta nítido
                     const prev = idx;
-                    setTimeout(() => { try { clips[prev].pause(); } catch (e) {} }, 1300);
+                    clips[prev].classList.remove('is-active');
+                    clips[prev].classList.add('is-leaving');
+                    clips[next].classList.add('is-active');
                     idx = next;
-                    // 3) véu sai revelando o próximo vídeo
-                    wash.classList.remove('is-on');
-                }, 520);
+                    // 3) limpeza após o fim das transições
+                    setTimeout(() => {
+                        clips[prev].classList.remove('is-leaving');
+                        try { clips[prev].pause(); } catch (e) {}
+                    }, 1400);
+                }, 420);
             }, 4000);
         }
 
-        // ---- Spotlight que segue o cursor ----
-        const spot = hero.querySelector('.hero-spotlight');
-        if (spot && window.matchMedia && window.matchMedia('(hover: hover)').matches) {
-            hero.addEventListener('mousemove', (e) => {
-                const r = hero.getBoundingClientRect();
-                spot.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-                spot.style.setProperty('--my', (e.clientY - r.top) + 'px');
-                spot.style.opacity = '1';
-            });
-            hero.addEventListener('mouseleave', () => { spot.style.opacity = '0'; });
-        }
     }
 
     // =====================================================
