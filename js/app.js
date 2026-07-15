@@ -378,6 +378,7 @@
             'precision highp float;\n' +
             'uniform vec2 u_res;uniform float u_dpr;uniform float u_time;\n' +
             'uniform vec2 u_mouse;uniform float u_mouseOn;uniform float u_alpha;\n' +
+            'uniform float u_ring;uniform float u_lw;\n' +
             '#define PI 3.14159265359\n' +
             'void main(){\n' +
             '  float t=u_time;\n' +
@@ -394,14 +395,14 @@
             '  vec2 c0=vec2(res.x*(0.35+0.05*sin(t*0.11)), res.y*(0.40+0.04*cos(t*0.09)));\n' +
             '  vec2 c1=vec2(res.x*(0.62+0.05*cos(t*0.08)), res.y*(0.60+0.05*sin(t*0.10)));\n' +
             '  float phi=distance(vec2(X,Y),c0)+distance(vec2(X,Y),c1)*0.85+(X*0.32+Y*0.58);\n' +
-            '  float RING=0.34; float idx=phi*RING/(2.0*PI);\n' +
+            '  float idx=phi*u_ring/(2.0*PI);\n' +
             '  #ifdef GL_OES_standard_derivatives\n' +
             '    float aa=fwidth(idx);\n' +
             '  #else\n' +
             '    float aa=0.02;\n' +
             '  #endif\n' +
-            '  float e=abs(fract(idx)-0.5); float LW=0.075;\n' +
-            '  float line=1.0-smoothstep(LW, LW+aa*1.5, e);\n' +
+            '  float e=abs(fract(idx)-0.5);\n' +
+            '  float line=1.0-smoothstep(u_lw, u_lw+aa*1.5, e);\n' +
             '  line*=smoothstep(0.55, 0.18, aa);\n' +   // some onde as ristas ficam sub-pixel
             '  vec3 silver=vec3(206.0,212.0,222.0)/255.0;\n' +
             '  float aRidge=line*u_alpha;\n' +
@@ -453,6 +454,15 @@
                 const uMouse = gl.getUniformLocation(prog, 'u_mouse');
                 const uMouseOn = gl.getUniformLocation(prog, 'u_mouseOn');
                 const uAlpha = gl.getUniformLocation(prog, 'u_alpha');
+                const uRing = gl.getUniformLocation(prog, 'u_ring');
+                const uLw = gl.getUniformLocation(prog, 'u_lw');
+
+                // Variante "véu" no hero: ristas bem mais finas, mais densas e
+                // mais transparentes — película sobre o vídeo, sem roubar a cena
+                const isVeil = host.classList.contains('hero--editorial');
+                const P_RING = isVeil ? 0.55 : 0.34;    // maior = mais linhas
+                const P_LW = isVeil ? 0.045 : 0.065;    // menor = mais fina
+                const P_ALPHA = isVeil ? 0.30 : 0.55;   // menor = mais transparente
 
                 let DPR = 1;
                 function resize() {
@@ -487,7 +497,9 @@
                     gl.uniform1f(uTime, t);
                     gl.uniform2f(uMouse, mx, my);
                     gl.uniform1f(uMouseOn, mact ? 1 : 0);
-                    gl.uniform1f(uAlpha, 0.55);
+                    gl.uniform1f(uAlpha, P_ALPHA);
+                    gl.uniform1f(uRing, P_RING);
+                    gl.uniform1f(uLw, P_LW);
                     gl.drawArrays(gl.TRIANGLES, 0, 6);
                 }
 
@@ -754,15 +766,29 @@
                 clips.forEach((c, i) => { if (i > 0) { try { c.load(); } catch (e) {} } });
             }, { once: true });
 
+            // Véu de transição (flash colorido fosco) criado uma vez
+            const videoWrap = hero.querySelector('.hero-video');
+            const wash = document.createElement('span');
+            wash.className = 'hero-video__wash';
+            wash.setAttribute('aria-hidden', 'true');
+            if (videoWrap) videoWrap.appendChild(wash);
+
             setInterval(() => {
                 const next = (idx + 1) % clips.length;
-                try { clips[next].currentTime = 0; } catch (e) {}
-                playSafe(clips[next]);
-                clips[next].classList.add('is-active');
-                clips[idx].classList.remove('is-active');
-                const prev = idx;
-                setTimeout(() => { try { clips[prev].pause(); } catch (e) {} }, 900);
-                idx = next;
+                // 1) véu colorido fosco entra…
+                wash.classList.add('is-on');
+                setTimeout(() => {
+                    // 2) …a troca acontece por baixo do véu (crossfade 1100ms)
+                    try { clips[next].currentTime = 0; } catch (e) {}
+                    playSafe(clips[next]);
+                    clips[next].classList.add('is-active');
+                    clips[idx].classList.remove('is-active');
+                    const prev = idx;
+                    setTimeout(() => { try { clips[prev].pause(); } catch (e) {} }, 1300);
+                    idx = next;
+                    // 3) véu sai revelando o próximo vídeo
+                    wash.classList.remove('is-on');
+                }, 520);
             }, 4000);
         }
 

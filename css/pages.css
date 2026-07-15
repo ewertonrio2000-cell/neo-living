@@ -2516,11 +2516,47 @@ html[data-theme="light"] .hero--editorial__concept em {
     object-fit: cover;
     object-position: center 42%;
     opacity: 0;
-    transition: opacity 850ms ease;
-    filter: contrast(0.98) saturate(0.92) brightness(0.66);  /* mais escuro */
+    transition: opacity 1100ms ease;
+    /* grade fosco: contraste e saturação contidos, tom levemente frio */
+    filter: contrast(0.9) saturate(0.78) brightness(0.7);
 }
 
 .hero-video__clip.is-active {
+    opacity: 1;
+}
+
+/* Véu fosco permanente — levanta os pretos (matte) sem apagar a imagem */
+.hero-video::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+        180deg,
+        rgba(206, 212, 222, 0.10) 0%,
+        rgba(190, 196, 208, 0.05) 50%,
+        rgba(206, 212, 222, 0.08) 100%
+    );
+}
+
+/* Véu de TRANSIÇÃO — flash colorido fosco (prata + champanhe) entre vídeos */
+.hero-video__wash {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(
+        115deg,
+        rgba(214, 222, 234, 0.50) 0%,
+        rgba(233, 183, 112, 0.32) 48%,
+        rgba(164, 174, 192, 0.46) 100%
+    );
+    transition: opacity 620ms ease;
+}
+
+.hero-video__wash.is-on {
     opacity: 1;
 }
 
@@ -3135,5 +3171,5 @@ html[data-theme="light"] .hero.hero--editorial {
 .manifesto-section .container { position: relative; z-index: 3; }
 
 /* No hero: canvas acima do vídeo (z0) e dos gradientes (z4/5), abaixo do
-   texto (top z8, título z10); mais sutil para não competir com o letreiro */
-.hero--editorial .fp-canvas { z-index: 6; opacity: 0.42; }
+   texto (top z8, título z10); película fina — não compete com o letreiro */
+.hero--editorial .fp-canvas { z-index: 6; opacity: 0.34; }
