@@ -362,26 +362,56 @@
     }
 
     // =====================================================
-    // 6f. FINGERPRINT FX — campo de linhas generativas + luzes suaves
-    //     (interativo: as linhas curvam ao redor do cursor)
+    // 6f. FINGERPRINT FX — campo de "digitais" (iso-linhas) em WebGL
+    //     Renderiza por pixel em resolução total na GPU: linhas nítidas
+    //     (AA por derivadas), deformação do cursor e vinheta lateral.
     // =====================================================
     function initFingerprintFX() {
         const mm = window.matchMedia;
         if (!mm) return;
         if (mm('(prefers-reduced-motion: reduce)').matches) return;
         if (mm('(max-width: 768px)').matches) return;
-        if ((navigator.hardwareConcurrency || 4) < 4) return;
 
-        // Flag global de scroll: NÃO recalculamos o campo de digitais enquanto o
-        // usuário rola (mantém o scroll 100% suave); só quando parado o cursor reage.
-        let scrolling = false, scrollTimer = null;
-        function onScroll() {
-            scrolling = true;
-            if (scrollTimer) clearTimeout(scrollTimer);
-            scrollTimer = setTimeout(() => { scrolling = false; }, 130);
-        }
-        window.addEventListener('scroll', onScroll, { passive: true });
-        if (lenis && lenis.on) lenis.on('scroll', onScroll);
+        const VERT = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.0,1.0);}';
+        const FRAG =
+            '#extension GL_OES_standard_derivatives : enable\n' +
+            'precision highp float;\n' +
+            'uniform vec2 u_res;uniform float u_dpr;uniform float u_time;\n' +
+            'uniform vec2 u_mouse;uniform float u_mouseOn;uniform float u_alpha;\n' +
+            '#define PI 3.14159265359\n' +
+            'void main(){\n' +
+            '  float t=u_time;\n' +
+            '  vec2 fc=vec2(gl_FragCoord.x, u_res.y-gl_FragCoord.y);\n' +
+            '  vec2 res=u_res/u_dpr; vec2 P=fc/u_dpr;\n' +
+            '  float WARP=34.0, WF=0.010;\n' +
+            '  float X=P.x + WARP*sin(P.y*WF+t) + WARP*0.5*sin(P.y*WF*2.3-t*0.7);\n' +
+            '  float Y=P.y + WARP*sin(P.x*WF-t*0.9) + WARP*0.5*sin(P.x*WF*1.9+t*0.6);\n' +
+            '  if(u_mouseOn>0.5){\n' +
+            '    vec2 d=vec2(X,Y)-u_mouse; float dd=dot(d,d);\n' +
+            '    float R=min(res.x,res.y)*0.26; float R2=R*R;\n' +
+            '    if(dd<R2){ float push=1.0-dd/R2; float p=push*push*0.5; X+=d.x*p; Y+=d.y*p; }\n' +
+            '  }\n' +
+            '  vec2 c0=vec2(res.x*(0.35+0.05*sin(t*0.11)), res.y*(0.40+0.04*cos(t*0.09)));\n' +
+            '  vec2 c1=vec2(res.x*(0.62+0.05*cos(t*0.08)), res.y*(0.60+0.05*sin(t*0.10)));\n' +
+            '  float phi=distance(vec2(X,Y),c0)+distance(vec2(X,Y),c1)*0.85+(X*0.32+Y*0.58);\n' +
+            '  float RING=0.34; float idx=phi*RING/(2.0*PI);\n' +
+            '  #ifdef GL_OES_standard_derivatives\n' +
+            '    float aa=fwidth(idx);\n' +
+            '  #else\n' +
+            '    float aa=0.02;\n' +
+            '  #endif\n' +
+            '  float e=abs(fract(idx)-0.5); float LW=0.11;\n' +
+            '  float line=1.0-smoothstep(LW, LW+aa*1.5, e);\n' +
+            '  line*=smoothstep(0.55, 0.18, aa);\n' +   // some onde as ristas ficam sub-pixel
+            '  vec3 silver=vec3(206.0,212.0,222.0)/255.0;\n' +
+            '  float aRidge=line*u_alpha;\n' +
+            '  float ex=clamp(min(fc.x, u_res.x-fc.x)/(u_res.x*0.30), 0.0, 1.0);\n' +
+            '  float sideSin = P.x < res.x*0.5 ? sin(t*0.7) : sin(t*0.7+PI);\n' +
+            '  float env=max(0.0, sideSin); env=env*env*env*0.09;\n' +
+            '  float vig=(1.0-ex)*env;\n' +
+            '  float a=clamp(aRidge+vig, 0.0, 1.0);\n' +
+            '  gl_FragColor=vec4(silver*a, a);\n' +
+            '}';
 
         document.querySelectorAll('[data-fingerprint]').forEach(setup);
 
@@ -389,181 +419,78 @@
             try {
                 const canvas = document.createElement('canvas');
                 canvas.className = 'fp-canvas';
-                const ctx = canvas.getContext('2d');
-                if (!ctx) return;
                 host.insertBefore(canvas, host.firstChild);
 
-                // Buffer offscreen de baixa resolução p/ o campo de digitais (ristas)
-                const buf = document.createElement('canvas');
-                const bctx = buf.getContext('2d');
-                const BUF_SCALE = 0.38;
-                const N_BANDS = 4;   // campo renderizado em faixas (1 por quadro) → sem quadros longos
-                const RING = 0.34;   // rad/px → controla o espaçamento das ristas (maior = + juntas)
-                const WARP = 34;     // amplitude do domain-warp em px (organicidade das digitais)
-                const WF = 0.010;    // frequência espacial do warp
-                const RIDGE_A = 140; // opacidade máxima das ristas (0-255) — mais transparente
-                const CYCLE_MS = 150;// descanso entre ciclos completos quando ocioso (poupa CPU)
-                const DEF_R = 0.26;  // raio da deformação do cursor (fração de min(W,H))
-                const DEF_STR = 0.5; // força do empurrão das ristas ao redor do cursor
+                const opts = { alpha: true, premultipliedAlpha: true, antialias: false, depth: false };
+                const gl = canvas.getContext('webgl', opts) || canvas.getContext('experimental-webgl', opts);
+                if (!gl) { canvas.remove(); return; }
+                gl.getExtension('OES_standard_derivatives');
 
-                // Núcleos das digitais (cores dos laços/verticilos) — derivam devagar
-                const cores = [];
-                const NC = 2;
-                for (let i = 0; i < NC; i++) {
-                    cores.push({
-                        x: 0.28 + Math.random() * 0.44, y: 0.26 + Math.random() * 0.48,
-                        vx: (Math.random() - 0.5) * 0.00035, vy: (Math.random() - 0.5) * 0.00035
-                    });
+                function compile(type, src) {
+                    const s = gl.createShader(type);
+                    gl.shaderSource(s, src); gl.compileShader(s);
+                    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) return null;
+                    return s;
                 }
+                const vs = compile(gl.VERTEX_SHADER, VERT);
+                const fs = compile(gl.FRAGMENT_SHADER, FRAG);
+                if (!vs || !fs) { canvas.remove(); return; }
+                const prog = gl.createProgram();
+                gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+                if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { canvas.remove(); return; }
+                gl.useProgram(prog);
 
-                let W = 0, H = 0, BW = 0, BH = 0, imgData = null, data32 = null;
-                let t = 0, last = 0, visible = false, raf = null;
-                let sxA = null, syA = null, warpRow = null, warpCol = null;   // coords/warp pré-computados
-                let band = 0, cycleT = 0, lastCycle = 0;                      // estado do render em faixas
-                let snMx = 0, snMy = 0, snAct = false;                        // mouse congelado por ciclo
-                // tx/ty = alvo cru do cursor; x/y = posição suavizada (lerp)
-                const mouse = { tx: 0.5, ty: 0.5, x: 0.5, y: 0.5, active: false };
+                const quad = gl.createBuffer();
+                gl.bindBuffer(gl.ARRAY_BUFFER, quad);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
+                const aLoc = gl.getAttribLocation(prog, 'a');
+                gl.enableVertexAttribArray(aLoc);
+                gl.vertexAttribPointer(aLoc, 2, gl.FLOAT, false, 0, 0);
 
+                const uRes = gl.getUniformLocation(prog, 'u_res');
+                const uDpr = gl.getUniformLocation(prog, 'u_dpr');
+                const uTime = gl.getUniformLocation(prog, 'u_time');
+                const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+                const uMouseOn = gl.getUniformLocation(prog, 'u_mouseOn');
+                const uAlpha = gl.getUniformLocation(prog, 'u_alpha');
+
+                let DPR = 1;
                 function resize() {
                     const r = host.getBoundingClientRect();
-                    W = canvas.width = Math.max(2, Math.round(r.width));
-                    H = canvas.height = Math.max(2, Math.round(r.height));
-                    BW = buf.width = Math.max(2, Math.round(W * BUF_SCALE));
-                    BH = buf.height = Math.max(2, Math.round(H * BUF_SCALE));
-                    imgData = bctx.createImageData(BW, BH);
-                    data32 = new Uint32Array(imgData.data.buffer);
-                    // coordenadas de tela pré-computadas (elimina 2 divisões por pixel)
-                    sxA = new Float64Array(BW); for (let i = 0; i < BW; i++) sxA[i] = (i / BW) * W;
-                    syA = new Float64Array(BH); for (let i = 0; i < BH; i++) syA[i] = (i / BH) * H;
-                    warpRow = new Float64Array(BH);
-                    warpCol = new Float64Array(BW);
-                    band = 0;
+                    DPR = Math.min(window.devicePixelRatio || 1, 2);
+                    canvas.width = Math.max(2, Math.round(r.width * DPR));
+                    canvas.height = Math.max(2, Math.round(r.height * DPR));
+                    gl.viewport(0, 0, canvas.width, canvas.height);
                 }
                 resize();
                 window.addEventListener('resize', resize, { passive: true });
 
+                // cursor: alvo (mtx/mty) + posição suavizada (mx/my), em px CSS
+                let mtx = 0, mty = 0, mx = 0, my = 0, mact = false;
                 host.addEventListener('mousemove', (e) => {
                     const r = host.getBoundingClientRect();
-                    mouse.tx = (e.clientX - r.left) / r.width;
-                    mouse.ty = (e.clientY - r.top) / r.height;
-                    mouse.active = true;
+                    mtx = e.clientX - r.left; mty = e.clientY - r.top; mact = true;
                 }, { passive: true });
-                host.addEventListener('mouseleave', () => { mouse.active = false; });
+                host.addEventListener('mouseleave', () => { mact = false; });
 
-                // ---- CAMPO DE DIGITAIS: iso-linhas de um campo escalar ----
-                // As ristas são os cumes de sin(phi·RING); como phi combina distâncias
-                // aos núcleos + gradiente + warp, elas se fundem em deltas e nunca se cruzam.
-                // Renderizado em FAIXAS: uma faixa por quadro (nunca o campo todo de uma vez),
-                // então nenhum quadro é longo → sem travamento.
-                function renderBand() {
-                    // No início de cada ciclo, congela o tempo/mouse e recomputa o warp separável
-                    if (band === 0) {
-                        cycleT = t;
-                        snMx = mouse.x * W; snMy = mouse.y * H; snAct = mouse.active;
-                        for (let py = 0; py < BH; py++) {
-                            const syp = syA[py];
-                            warpRow[py] = WARP * Math.sin(syp * WF + cycleT) + WARP * 0.5 * Math.sin(syp * WF * 2.3 - cycleT * 0.7);
-                        }
-                        for (let px = 0; px < BW; px++) {
-                            const sxp = sxA[px];
-                            warpCol[px] = WARP * Math.sin(sxp * WF - cycleT * 0.9) + WARP * 0.5 * Math.sin(sxp * WF * 1.9 + cycleT * 0.6);
-                        }
-                    }
-                    const y0 = Math.floor(band * BH / N_BANDS);
-                    const y1 = Math.floor((band + 1) * BH / N_BANDS);
-                    const c0x = cores[0].x * W, c0y = cores[0].y * H;
-                    const c1x = cores[1].x * W, c1y = cores[1].y * H;
-                    const R2 = (Math.min(W, H) * DEF_R) * (Math.min(W, H) * DEF_R);
-                    let i = y0 * BW;
-                    for (let py = y0; py < y1; py++) {
-                        const syp = syA[py], fr = warpRow[py];
-                        for (let px = 0; px < BW; px++, i++) {
-                            let X = sxA[px] + fr, Y = syp + warpCol[px];
-                            // deformação do cursor: empurra as ristas ao redor do mouse
-                            // (sem sqrt → só multiplicações; barato o bastante p/ rodar por pixel)
-                            if (snAct) {
-                                const ddx = X - snMx, ddy = Y - snMy, dd = ddx * ddx + ddy * ddy;
-                                if (dd < R2) {
-                                    const push = (1 - dd / R2);   // 1 no centro → 0 na borda
-                                    const p = push * push * DEF_STR;
-                                    X += ddx * p; Y += ddy * p;
-                                }
-                            }
-                            const dx0 = X - c0x, dy0 = Y - c0y;
-                            const dx1 = X - c1x, dy1 = Y - c1y;
-                            const phi = Math.sqrt(dx0 * dx0 + dy0 * dy0)
-                                      + Math.sqrt(dx1 * dx1 + dy1 * dy1) * 0.85
-                                      + (X * 0.32 + Y * 0.58);   // viés linear → laços
-                            const s = Math.sin(phi * RING);
-                            if (s > 0.12) {
-                                const inten = s * s * s;             // s^3 → ristas finas
-                                const a = (inten * RIDGE_A) | 0;
-                                // prata (206,212,222) em ABGR little-endian
-                                data32[i] = (a << 24) | (222 << 16) | (212 << 8) | 206;
-                            } else {
-                                data32[i] = 0;
-                            }
-                        }
-                    }
-                    // sobe só a faixa recém-calculada (dirty rect) — upload barato
-                    bctx.putImageData(imgData, 0, 0, 0, y0, BW, y1 - y0);
-                    band = (band + 1) % N_BANDS;
-                }
-
+                let t = 0, last = 0, visible = false, raf = null;
                 function frame(now) {
                     raf = requestAnimationFrame(frame);
                     if (!visible) return;
                     const dt = now - last;
-                    if (dt < 24) return;          // ~40fps no laço principal (vinheta fluida)
+                    if (dt < 16) return;              // ~60fps
                     last = now;
-                    const dts = Math.min(0.05, dt / 1000);
-                    t += 0.7 * dts;
-                    mouse.x += (mouse.tx - mouse.x) * 0.14;   // suaviza o cursor (sem tremor)
-                    mouse.y += (mouse.ty - mouse.y) * 0.14;
-                    for (const co of cores) {
-                        co.x += co.vx; co.y += co.vy;
-                        if (co.x < 0.14 || co.x > 0.86) co.vx *= -1;
-                        if (co.y < 0.14 || co.y > 0.86) co.vy *= -1;
-                    }
-
-                    // Render em faixas: 1 faixa por quadro (cada faixa ~2ms → nunca trava).
-                    // Com o cursor sobre a seção, renderiza contínuo p/ a deformação acompanhar;
-                    // ocioso, descansa entre ciclos (poupa CPU). Nunca recalcula durante o scroll.
-                    if (!scrolling && (band !== 0 || mouse.active || now - lastCycle > CYCLE_MS)) {
-                        if (band === 0) lastCycle = now;
-                        renderBand();
-                    }
-
-                    ctx.clearRect(0, 0, W, H);
-                    ctx.globalCompositeOperation = 'source-over';
-                    ctx.imageSmoothingEnabled = true;
-                    ctx.drawImage(buf, 0, 0, W, H);   // upscale suave do campo
-
-                    // ---- VINHETA LATERAL: flash de câmera lento e sutil nas bordas ----
-                    // Duas luzes prateadas suaves (esq/dir) que surgem devagar e alternam.
-                    ctx.globalCompositeOperation = 'lighter';
-                    const vw = W * 0.30;                 // largura da vinheta
-                    const PEAK = 0.09;                   // opacidade máxima (bem discreta)
-                    // envelope^3 => escuro na maior parte do tempo, breve "flash" lento
-                    const lp = Math.sin(t * 0.7);
-                    const rp = Math.sin(t * 0.7 + Math.PI);
-                    const le = lp > 0 ? lp * lp * lp * PEAK : 0;
-                    const re = rp > 0 ? rp * rp * rp * PEAK : 0;
-                    if (le > 0.004) {
-                        const gl = ctx.createLinearGradient(0, 0, vw, 0);
-                        gl.addColorStop(0, 'rgba(214,222,234,' + le + ')');
-                        gl.addColorStop(1, 'rgba(214,222,234,0)');
-                        ctx.fillStyle = gl; ctx.fillRect(0, 0, vw, H);
-                    }
-                    if (re > 0.004) {
-                        const gr = ctx.createLinearGradient(W, 0, W - vw, 0);
-                        gr.addColorStop(0, 'rgba(214,222,234,' + re + ')');
-                        gr.addColorStop(1, 'rgba(214,222,234,0)');
-                        ctx.fillStyle = gr; ctx.fillRect(W - vw, 0, vw, H);
-                    }
+                    t += 0.7 * Math.min(0.05, dt / 1000);
+                    mx += (mtx - mx) * 0.15; my += (mty - my) * 0.15;
+                    gl.uniform2f(uRes, canvas.width, canvas.height);
+                    gl.uniform1f(uDpr, DPR);
+                    gl.uniform1f(uTime, t);
+                    gl.uniform2f(uMouse, mx, my);
+                    gl.uniform1f(uMouseOn, mact ? 1 : 0);
+                    gl.uniform1f(uAlpha, 0.55);
+                    gl.drawArrays(gl.TRIANGLES, 0, 6);
                 }
 
-                // Só anima quando a seção está visível (economia de CPU)
                 if ('IntersectionObserver' in window) {
                     new IntersectionObserver((entries) => {
                         visible = entries[0].isIntersecting;
