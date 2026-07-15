@@ -3135,6 +3135,21 @@ html[data-theme="light"] .hero.hero--editorial {
 .manifesto-section .container,
 .services-section .container { position: relative; z-index: 3; }
 
+/* Faixa escura contínua (Our Practice + Three-Step): um único fundo e um
+   único canvas — as seções internas ficam transparentes e o vão é apertado
+   para ler como um bloco só */
+.dark-band { position: relative; }
+.dark-band .services-section,
+.dark-band .process-section { background-color: transparent; }
+.dark-band .services-section { padding-bottom: var(--space-xl); }
+.dark-band .process-section { padding-top: var(--space-xl); }
+
+/* a imagem de fundo do Process emerge do preto sem borda dura */
+.dark-band .process-section__media {
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 80%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 80%, transparent 100%);
+}
+
 /* No hero: canvas acima do vídeo (z0) e dos gradientes (z4/5), abaixo do
    texto (top z8, título z10). Opacity 0.55: as ristas seguem sutis (alpha
    baixo no shader) e a vinheta de sombra das bordas ganha presença */
