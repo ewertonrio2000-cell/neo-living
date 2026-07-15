@@ -3131,8 +3131,9 @@ html[data-theme="light"] .hero.hero--editorial {
     pointer-events: none;
     opacity: 0.6;
 }
-/* mantém o conteúdo do manifesto acima do canvas */
-.manifesto-section .container { position: relative; z-index: 3; }
+/* mantém o conteúdo do manifesto e do Our Practice acima do canvas (z2) */
+.manifesto-section .container,
+.services-section .container { position: relative; z-index: 3; }
 
 /* No hero: canvas acima do vídeo (z0) e dos gradientes (z4/5), abaixo do
    texto (top z8, título z10). Opacity 0.55: as ristas seguem sutis (alpha

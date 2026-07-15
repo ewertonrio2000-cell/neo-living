@@ -494,9 +494,9 @@
                 // O alpha das ristas fica baixo (0.20) e a força da vinheta vem
                 // da opacity 0.55 do canvas no CSS.
                 const isVeil = host.classList.contains('hero--editorial');
-                const P_RING = isVeil ? 0.88 : 0.34;    // maior = mais linhas (centro ~5px)
-                const P_LW = isVeil ? 0.024 : 0.065;    // menor = mais fina
-                const P_ALPHA = isVeil ? 0.20 : 0.55;   // menor = mais transparente
+                const P_RING = 0.88;                    // mesmo espaçamento do hero em todas
+                const P_LW = 0.024;                     // mesma espessura (fio de cabelo)
+                const P_ALPHA = isVeil ? 0.20 : 0.42;   // seções escuras um pouco mais presentes
 
                 let DPR = 1;
                 function resize() {
