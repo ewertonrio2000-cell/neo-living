@@ -370,7 +370,10 @@
         const mm = window.matchMedia;
         if (!mm) return;
         if (mm('(prefers-reduced-motion: reduce)').matches) return;
-        if (mm('(max-width: 768px)').matches) return;
+        // Celular: efeito ativo (WebGL é barato), mas com DPR limitado a 1.5
+        // p/ poupar a GPU (telas de celular têm DPR 3+)
+        const isTouch = mm('(pointer: coarse)').matches;
+        const DPR_CAP = isTouch ? 1.5 : 2;
 
         const VERT = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.0,1.0);}';
         const FRAG =
@@ -501,7 +504,11 @@
                 let DPR = 1;
                 function resize() {
                     const r = host.getBoundingClientRect();
-                    DPR = Math.min(window.devicePixelRatio || 1, 2);
+                    DPR = Math.min(window.devicePixelRatio || 1, DPR_CAP);
+                    // GPUs de celular podem limitar buffers a 4096px — em seções
+                    // muito altas (ex.: dark-band no mobile) reduz o DPR p/ caber
+                    const maxSide = Math.max(r.width, r.height);
+                    if (maxSide * DPR > 4096) DPR = 4096 / maxSide;
                     canvas.width = Math.max(2, Math.round(r.width * DPR));
                     canvas.height = Math.max(2, Math.round(r.height * DPR));
                     gl.viewport(0, 0, canvas.width, canvas.height);
@@ -516,6 +523,20 @@
                     mtx = e.clientX - r.left; mty = e.clientY - r.top; mact = true;
                 }, { passive: true });
                 host.addEventListener('mouseleave', () => { mact = false; });
+
+                // Toque (celular): o dedo deforma as linhas e move o reflexo,
+                // igual ao cursor no desktop
+                function onTouch(e) {
+                    if (!e.touches || !e.touches[0]) return;
+                    const r = host.getBoundingClientRect();
+                    mtx = e.touches[0].clientX - r.left;
+                    mty = e.touches[0].clientY - r.top;
+                    mact = true;
+                }
+                host.addEventListener('touchstart', onTouch, { passive: true });
+                host.addEventListener('touchmove', onTouch, { passive: true });
+                host.addEventListener('touchend', () => { mact = false; }, { passive: true });
+                host.addEventListener('touchcancel', () => { mact = false; }, { passive: true });
 
                 let t = 0, last = 0, visible = false, raf = null;
                 function frame(now) {

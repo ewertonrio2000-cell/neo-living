@@ -2540,6 +2540,19 @@ html[data-theme="light"] .hero--editorial__concept em {
     transform: scale(1.12);
 }
 
+/* Celular: mesmo efeito com desfoque menor (GPU de celular agradece) */
+@media (max-width: 768px) {
+    .hero-video__clip {
+        filter: contrast(0.9) saturate(0.78) brightness(0.7) blur(7px);
+    }
+    .hero-video__clip.is-active {
+        filter: contrast(0.9) saturate(0.78) brightness(0.7);
+    }
+    .hero-video__clip.is-leaving {
+        filter: contrast(0.9) saturate(0.78) brightness(0.5) blur(9px);
+    }
+}
+
 /* Véu fosco permanente — levanta os pretos (matte) sem apagar a imagem */
 .hero-video::after {
     content: "";
