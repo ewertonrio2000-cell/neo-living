@@ -2644,32 +2644,29 @@ html[data-theme="light"] .hero.hero--editorial {
    sobreposto na base; conteúdo de apoio (pill/lede/métricas) abaixo.
    ========================================================= */
 @media (max-width: 768px) {
+    /* Mesma distribuição do desktop: pill/lede no topo, letreiro na BASE
+       do hero, degradê preto na extremidade inferior */
     .hero.hero--editorial {
-        min-height: auto;
-        padding: 0;                 /* full-bleed */
-        gap: 0;
-        overflow: visible;
+        min-height: 100svh;
+        padding: 110px var(--gutter-mobile) var(--space-lg);
+        gap: var(--space-md);
+        overflow: hidden;
     }
 
-    /* Scrim de seção desligado no mobile — cada bloco cuida do seu */
-    .hero.hero--editorial::after,
-    html[data-theme="light"] .hero.hero--editorial::after {
-        display: none;
-    }
-
-    /* STAGE = hero de imagem em tela cheia, vem primeiro */
+    /* STAGE (letreiro) empurrado para a base do hero, como no desktop */
     .hero--editorial__stage {
-        order: 1;
+        order: 2;
         position: relative;
         width: 100%;
-        min-height: 88vh;
+        min-height: 0;
         margin: 0;
-        padding: 0 var(--gutter-mobile) 150px;  /* espaço p/ os cards abaixo do subtítulo */
+        margin-top: auto;           /* ancora na extremidade de baixo */
+        padding: 0;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;  /* título na base */
+        justify-content: flex-end;
         align-items: center;
-        overflow: hidden;
+        overflow: visible;
     }
 
     /* Vídeo/imagem cobre todo o stage à largura TOTAL da viewport */
@@ -2698,26 +2695,7 @@ html[data-theme="light"] .hero.hero--editorial {
         filter: none;
     }
 
-    /* Scrim próprio do stage — escurece a base para o título saltar */
-    .hero--editorial__stage::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 62%;
-        z-index: 2;
-        pointer-events: none;
-        background: linear-gradient(
-            180deg,
-            rgba(8, 8, 8, 0) 0%,
-            rgba(8, 8, 8, 0.35) 42%,
-            rgba(8, 8, 8, 0.80) 72%,
-            #0A0A0A 100%
-        );
-    }
-
-    /* Letreiro sobre o scrim, na base da imagem */
+    /* Letreiro sobre o scrim da seção, na base da imagem */
     .hero--editorial__brand {
         order: 1;
         position: relative;
@@ -2756,11 +2734,11 @@ html[data-theme="light"] .hero.hero--editorial {
         padding: 0 var(--space-2xs);
     }
 
-    /* Conteúdo de apoio vem ABAIXO da imagem, sobre fundo escuro */
+    /* Conteúdo de apoio no TOPO, sobre o vídeo (como no desktop) */
     .hero--editorial__top {
-        order: 2;
+        order: 1;
         gap: var(--space-md);
-        padding: var(--space-xl) var(--gutter-mobile) var(--space-lg);
+        padding: 0;
     }
 
     .hero--editorial__lede {
@@ -3072,36 +3050,19 @@ html[data-theme="light"] .hero.hero--editorial {
     padding: 0 var(--gutter-mobile) var(--space-lg);
 }
 
+/* Mesmo TABULEIRO do desktop no celular: duas linhas, ímpar em cima /
+   par embaixo, imagens se tocando nos cantos — rolagem horizontal nativa.
+   (Os painéis herdam as regras base: media 50% alternada + meta absoluta) */
 .h-gallery--native .h-gallery__track {
     transform: none !important;
-    height: auto;
+    height: 60vh;
     padding: 0 var(--gutter-mobile);
-    gap: var(--space-md);
-}
-
-/* No mobile os painéis voltam ao empilhamento simples (imagem em cima, título embaixo) */
-.h-gallery--native .h-panel {
-    width: 78vw;
-    height: auto;
-    scroll-snap-align: start;
-    display: flex;
-    flex-direction: column;
-}
-
-.h-gallery--native .h-panel__media {
-    position: static;
-    height: auto;
-    aspect-ratio: 4 / 3;
-}
-
-.h-gallery--native .h-panel__meta {
-    position: static;
-    margin-top: var(--space-md);
-    padding: 0 !important;
+    gap: 0;
 }
 
 .h-gallery--native .h-panel {
-    width: 78vw;
+    width: min(84vw, 60vh);
+    height: 100%;
     scroll-snap-align: start;
 }
 
