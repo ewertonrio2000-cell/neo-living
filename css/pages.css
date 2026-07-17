@@ -2049,11 +2049,34 @@ a.contact-direct__value:hover {
     .hero__metric { padding-left: var(--space-md); }
     .hero__scroll-indicator { display: none; }
 
-    .projects-grid { grid-template-columns: 1fr; }
     .diferenciais-grid { grid-template-columns: 1fr; }
 
     .services-watermark { display: none; }
-    .services-grid { grid-template-columns: 1fr; }
+
+    /* Our Practice e Our Projects: cards deslizando para a LATERAL
+       (carrossel por toque com snap), em vez de empilhar para baixo */
+    .services-grid,
+    .projects-grid {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        gap: var(--space-md);
+        margin-left: calc(-1 * var(--gutter-mobile));
+        margin-right: calc(-1 * var(--gutter-mobile));
+        padding: 0 var(--gutter-mobile) var(--space-sm);
+        scrollbar-width: none;              /* Firefox */
+    }
+    .services-grid::-webkit-scrollbar,
+    .projects-grid::-webkit-scrollbar { display: none; }
+
+    .service-card,
+    .project-card {
+        flex: 0 0 auto;
+        width: 72vw;                        /* card dominante + espiada do próximo */
+        scroll-snap-align: start;
+    }
 
     .highlights-item__location { display: none; }
 
