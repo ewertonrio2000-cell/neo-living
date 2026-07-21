@@ -597,6 +597,131 @@ window.NEO_PROJECTS = [
             photography: '',
             year: ''
         }
+    },
+    {
+        id: 'apto-sheila-chor',
+        category: 'interior',
+        index: '27',
+        name: 'Apartamento Sheila Chor',
+        location: '',
+        tag: 'Interiores',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Interiores autorais — atmosfera, arte e materialidade.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/interior/sheila-chor-1.jpg',
+        gallery: [
+            'assets/images/interior/sheila-chor-1.jpg',
+            'assets/images/interior/sheila-chor-2.jpg',
+            'assets/images/interior/sheila-chor-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'cobertura-golden-green',
+        category: 'interior',
+        index: '28',
+        name: 'Cobertura Golden Green',
+        location: 'Barra da Tijuca · RJ',
+        tag: 'Interiores',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Sala e suítes em diálogo — interiores de cobertura à beira-mar.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/interior/golden-green-1.jpg',
+        gallery: [
+            'assets/images/interior/golden-green-1.jpg',
+            'assets/images/interior/golden-green-2.jpg',
+            'assets/images/interior/golden-green-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'cobertura-moreira-salles',
+        category: 'interior',
+        index: '29',
+        name: 'Cobertura Moreira Salles',
+        location: '',
+        tag: 'Interiores',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Cobertura de interiores contemporâneos e luz natural.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/interior/moreira-salles-1.jpg',
+        gallery: [
+            'assets/images/interior/moreira-salles-1.jpg',
+            'assets/images/interior/moreira-salles-2.jpg',
+            'assets/images/interior/moreira-salles-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'flats-colecao',
+        category: 'interior',
+        index: '30',
+        name: 'Flats & Lofts — Coleção',
+        location: '',
+        tag: 'Interiores',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Saint Barth, Ipanema, Le Park — interiores de estadia assinados.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/interior/flats-1.jpg',
+        gallery: [
+            'assets/images/interior/flats-1.jpg',
+            'assets/images/interior/flats-2.jpg',
+            'assets/images/interior/flats-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'riserva-uno',
+        category: 'interior',
+        index: '31',
+        name: 'Riserva Uno',
+        location: 'Barra da Tijuca · RJ',
+        tag: 'Interiores',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Interiores contemporâneos em edifício-ícone da Barra.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/interior/riserva-uno-1.jpg',
+        gallery: [
+            'assets/images/interior/riserva-uno-1.jpg',
+            'assets/images/interior/riserva-uno-2.jpg',
+            'assets/images/interior/riserva-uno-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
     }
 ];
 
