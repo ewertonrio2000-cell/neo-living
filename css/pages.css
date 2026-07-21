@@ -3197,7 +3197,7 @@ html[data-theme="light"] .hero.hero--editorial {
     transition: border-color 400ms var(--ease-out), background-color 400ms var(--ease-out);
 }
 
-/* Corpo da pasta */
+/* Corpo da pasta — digital WebGL no lugar de imagem */
 .cat-folder__media {
     position: relative;
     display: block;
@@ -3205,23 +3205,16 @@ html[data-theme="light"] .hero.hero--editorial {
     aspect-ratio: 4 / 3;
     overflow: hidden;
     border: 1px solid var(--accent-line);
-    background-color: #111;
+    background-color: #0E0E0E;
     transition: border-color 400ms var(--ease-out);
 }
 
-.cat-folder__media img {
+.cat-folder__media canvas {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
     display: block;
-    filter: grayscale(1) contrast(1.05);
-    transition: transform 900ms var(--ease-out), filter 600ms var(--ease-out);
-}
-
-.cat-folder:hover .cat-folder__media img,
-.cat-folder.is-open .cat-folder__media img {
-    transform: scale(1.06);
-    filter: sepia(0.55) saturate(1.5) hue-rotate(-12deg) contrast(1.02);
 }
 
 .cat-folder:hover .cat-folder__tab,

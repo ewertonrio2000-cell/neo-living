@@ -637,6 +637,196 @@
     }
 
     // =====================================================
+    // 6e2. DIGITAIS DOS CARDS DE CATEGORIA
+    //      Cada pasta ganha um desenho de digital diferente
+    //      (espiral, laço duplo, arcos, diagonais, alvo) em
+    //      WebGL — animado, deformável pelo cursor, dourando
+    //      no hover.
+    // =====================================================
+    function initCategoryFingerprints() {
+        const medias = document.querySelectorAll('.cat-folder .cat-folder__media');
+        if (!medias.length) return;
+        const mm = window.matchMedia;
+        const reduce = mm && mm('(prefers-reduced-motion: reduce)').matches;
+        const DPR_CAP = (mm && mm('(pointer: coarse)').matches) ? 1.5 : 2;
+
+        const VERT = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.0,1.0);}';
+        const FRAG =
+            '#extension GL_OES_standard_derivatives : enable\n' +
+            'precision highp float;\n' +
+            'uniform vec2 u_res;uniform float u_dpr;uniform float u_time;\n' +
+            'uniform vec2 u_mouse;uniform float u_mouseOn;uniform float u_hover;\n' +
+            'uniform vec2 u_c0;uniform vec2 u_c1;uniform float u_w0;uniform float u_w1;\n' +
+            'uniform vec2 u_bias;uniform float u_ring;uniform float u_lw;uniform float u_alpha;\n' +
+            '#define PI 3.14159265359\n' +
+            'void main(){\n' +
+            '  float t=u_time;\n' +
+            '  vec2 fc=vec2(gl_FragCoord.x, u_res.y-gl_FragCoord.y);\n' +
+            '  vec2 res=u_res/u_dpr; vec2 P=fc/u_dpr;\n' +
+            '  float WARP=16.0, WF=0.022;\n' +
+            '  float X=P.x + WARP*sin(P.y*WF+t) + WARP*0.5*sin(P.y*WF*2.3-t*0.7);\n' +
+            '  float Y=P.y + WARP*sin(P.x*WF-t*0.9) + WARP*0.5*sin(P.x*WF*1.9+t*0.6);\n' +
+            '  if(u_mouseOn>0.5){\n' +
+            '    vec2 d=vec2(X,Y)-u_mouse; float dd=dot(d,d);\n' +
+            '    float R=min(res.x,res.y)*0.45; float R2=R*R;\n' +
+            '    if(dd<R2){ float push=1.0-dd/R2; float p=push*push*0.42; X+=d.x*p; Y+=d.y*p; }\n' +
+            '  }\n' +
+            '  vec2 c0=u_c0*res; vec2 c1=u_c1*res;\n' +
+            '  float phi=u_w0*distance(vec2(X,Y),c0)+u_w1*distance(vec2(X,Y),c1)+dot(vec2(X,Y),u_bias);\n' +
+            '  float idx=phi*u_ring/(2.0*PI);\n' +
+            '  #ifdef GL_OES_standard_derivatives\n' +
+            '    float aa=fwidth(idx);\n' +
+            '  #else\n' +
+            '    float aa=0.02;\n' +
+            '  #endif\n' +
+            '  float e=abs(fract(idx)-0.5);\n' +
+            '  float line=1.0-smoothstep(u_lw, u_lw+aa*1.5, e);\n' +
+            '  line*=smoothstep(0.60, 0.20, aa);\n' +
+            '  vec3 silver=vec3(206.0,212.0,222.0)/255.0;\n' +
+            '  vec3 gold=vec3(233.0,183.0,112.0)/255.0;\n' +
+            '  vec3 col=mix(silver, gold, u_hover);\n' +
+            '  float a=line*u_alpha;\n' +
+            '  gl_FragColor=vec4(col*a, a);\n' +
+            '}';
+
+        // Um desenho de digital por categoria
+        const VARIANTS = {
+            casas:     { c0: [0.50, 0.46], w0: 1.00, c1: [0.50, 0.46], w1: 0.00, bias: [0.06, 0.10], ring: 0.52, lw: 0.15 },  // espiral concêntrica
+            hotel:     { c0: [0.30, 0.34], w0: 1.00, c1: [0.72, 0.68], w1: 0.85, bias: [0.20, 0.28], ring: 0.55, lw: 0.15 },  // laço duplo
+            interior:  { c0: [0.50, 1.85], w0: 0.55, c1: [0.50, 1.85], w1: 0.00, bias: [0.05, 0.55], ring: 0.60, lw: 0.15 },  // arcos horizontais
+            offices:   { c0: [0.92, 0.10], w0: 0.30, c1: [0.92, 0.10], w1: 0.00, bias: [0.78, 0.52], ring: 0.62, lw: 0.15 },  // diagonais
+            retrofits: { c0: [0.60, 0.42], w0: 1.25, c1: [0.60, 0.42], w1: 0.00, bias: [0.08, 0.06], ring: 0.80, lw: 0.15 }   // alvo denso
+        };
+
+        const cards = [];
+        let visible = false, last = 0, raf = null;
+
+        medias.forEach((media) => {
+            try {
+                const folder = media.closest('.cat-folder');
+                const variant = VARIANTS[folder && folder.dataset.cat] || VARIANTS.casas;
+
+                const canvas = document.createElement('canvas');
+                media.appendChild(canvas);
+                const opts = { alpha: true, premultipliedAlpha: true, antialias: false, depth: false };
+                const gl = canvas.getContext('webgl', opts) || canvas.getContext('experimental-webgl', opts);
+                if (!gl) { canvas.remove(); return; }
+                gl.getExtension('OES_standard_derivatives');
+
+                function compile(type, src) {
+                    const s = gl.createShader(type);
+                    gl.shaderSource(s, src); gl.compileShader(s);
+                    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) return null;
+                    return s;
+                }
+                const vs = compile(gl.VERTEX_SHADER, VERT);
+                const fs = compile(gl.FRAGMENT_SHADER, FRAG);
+                if (!vs || !fs) { canvas.remove(); return; }
+                const prog = gl.createProgram();
+                gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+                if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { canvas.remove(); return; }
+                gl.useProgram(prog);
+
+                const quad = gl.createBuffer();
+                gl.bindBuffer(gl.ARRAY_BUFFER, quad);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
+                const aLoc = gl.getAttribLocation(prog, 'a');
+                gl.enableVertexAttribArray(aLoc);
+                gl.vertexAttribPointer(aLoc, 2, gl.FLOAT, false, 0, 0);
+
+                const U = {};
+                ['u_res', 'u_dpr', 'u_time', 'u_mouse', 'u_mouseOn', 'u_hover',
+                 'u_c0', 'u_c1', 'u_w0', 'u_w1', 'u_bias', 'u_ring', 'u_lw', 'u_alpha']
+                    .forEach((n) => { U[n] = gl.getUniformLocation(prog, n); });
+
+                const card = {
+                    gl, canvas, U, variant, media,
+                    DPR: 1, mtx: 0, mty: 0, mx: 0, my: 0, mact: false,
+                    hover: 0, hoverTarget: 0, phase: Math.random() * 6
+                };
+
+                function resize() {
+                    const r = media.getBoundingClientRect();
+                    card.DPR = Math.min(window.devicePixelRatio || 1, DPR_CAP);
+                    canvas.width = Math.max(2, Math.round(r.width * card.DPR));
+                    canvas.height = Math.max(2, Math.round(r.height * card.DPR));
+                    gl.viewport(0, 0, canvas.width, canvas.height);
+                }
+                resize();
+                window.addEventListener('resize', resize, { passive: true });
+
+                if (folder) {
+                    folder.addEventListener('mousemove', (e) => {
+                        const r = media.getBoundingClientRect();
+                        card.mtx = e.clientX - r.left; card.mty = e.clientY - r.top; card.mact = true;
+                    }, { passive: true });
+                    folder.addEventListener('mouseenter', () => { card.hoverTarget = 1; });
+                    folder.addEventListener('mouseleave', () => { card.hoverTarget = 0; card.mact = false; });
+                    folder.addEventListener('touchmove', (e) => {
+                        if (!e.touches || !e.touches[0]) return;
+                        const r = media.getBoundingClientRect();
+                        card.mtx = e.touches[0].clientX - r.left;
+                        card.mty = e.touches[0].clientY - r.top;
+                        card.mact = true;
+                    }, { passive: true });
+                    folder.addEventListener('touchend', () => { card.mact = false; }, { passive: true });
+                }
+
+                cards.push(card);
+            } catch (e) { /* falha graciosa */ }
+        });
+        if (!cards.length) return;
+
+        let t = 0;
+        function draw(card) {
+            const gl = card.gl, U = card.U, v = card.variant;
+            card.mx += (card.mtx - card.mx) * 0.15;
+            card.my += (card.mty - card.my) * 0.15;
+            card.hover += (card.hoverTarget - card.hover) * 0.10;
+            gl.uniform2f(U.u_res, card.canvas.width, card.canvas.height);
+            gl.uniform1f(U.u_dpr, card.DPR);
+            gl.uniform1f(U.u_time, t * 0.5 + card.phase);
+            gl.uniform2f(U.u_mouse, card.mx, card.my);
+            gl.uniform1f(U.u_mouseOn, card.mact ? 1 : 0);
+            gl.uniform1f(U.u_hover, card.hover);
+            gl.uniform2f(U.u_c0, v.c0[0], v.c0[1]);
+            gl.uniform2f(U.u_c1, v.c1[0], v.c1[1]);
+            gl.uniform1f(U.u_w0, v.w0);
+            gl.uniform1f(U.u_w1, v.w1);
+            gl.uniform2f(U.u_bias, v.bias[0], v.bias[1]);
+            gl.uniform1f(U.u_ring, v.ring);
+            gl.uniform1f(U.u_lw, v.lw);
+            gl.uniform1f(U.u_alpha, 0.5 + 0.22 * card.hover);
+            gl.drawArrays(gl.TRIANGLES, 0, 6);
+        }
+
+        // Com reduced-motion: um único quadro estático por card (sem loop)
+        if (reduce) { cards.forEach(draw); return; }
+
+        function frame(now) {
+            raf = requestAnimationFrame(frame);
+            if (!visible) return;
+            const dt = now - last;
+            if (dt < 24) return;              // ~40fps
+            last = now;
+            t += Math.min(0.05, dt / 1000) * 0.7;
+            cards.forEach(draw);
+        }
+
+        const section = document.querySelector('.cat-section');
+        if (section && 'IntersectionObserver' in window) {
+            new IntersectionObserver((entries) => {
+                visible = entries[0].isIntersecting;
+            }, { threshold: 0.05 }).observe(section);
+        } else {
+            visible = true;
+        }
+        raf = requestAnimationFrame(frame);
+        // primeiro quadro imediato (mesmo antes do scroll chegar à seção)
+        cards.forEach(draw);
+    }
+
+    // =====================================================
     // 6d. GALERIA HORIZONTAL — pin + scroll horizontal
     // =====================================================
     function initHorizontalGallery() {
@@ -934,6 +1124,7 @@
         initHeroVideo();
         initFingerprintFX();
         initCategoryFolders();
+        initCategoryFingerprints();
     }
 
     if (document.readyState === 'loading') {
