@@ -271,19 +271,23 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'forest-life',
-        category: 'casas',
+        category: 'hotel',
         index: '13',
         name: 'Forest Life',
         location: 'Rio de Janeiro · RJ',
-        tag: 'Residencial',
+        tag: 'Hospitality',
         year: '',
         area: '',
         status: '',
-        tagline: 'Residência em diálogo direto com a mata.',
+        tagline: 'Refúgio em diálogo direto com a mata.',
         description1: '[Descrição do projeto a ser adicionada.]',
         description2: '[Texto complementar a ser adicionado.]',
         coverImage: 'assets/images/forestlife.jpg',
-        gallery: ['assets/images/forestlife.jpg'],
+        gallery: [
+            'assets/images/forestlife.jpg',
+            'assets/images/hotel/forest-life-2.jpg',
+            'assets/images/hotel/forest-life-3.jpg'
+        ],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
             photography: '',
@@ -292,19 +296,23 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'urb-x-hub',
-        category: 'offices',
+        category: 'hotel',
         index: '14',
-        name: 'Urb x Hub',
+        name: 'Urban X Hub',
         location: 'Rio de Janeiro · RJ',
-        tag: 'Corporativo',
+        tag: 'Hospitality / Uso misto',
         year: '',
         area: '',
         status: '',
-        tagline: 'Hub corporativo de uso misto — urbanidade e produtividade.',
+        tagline: 'Hotel, offices, lojas e skate park — lifestyle de uso misto.',
         description1: '[Descrição do projeto a ser adicionada.]',
         description2: '[Texto complementar a ser adicionado.]',
-        coverImage: '',
-        gallery: [],
+        coverImage: 'assets/images/hotel/urban-x-1.jpg',
+        gallery: [
+            'assets/images/hotel/urban-x-1.jpg',
+            'assets/images/hotel/urban-x-2.jpg',
+            'assets/images/hotel/urban-x-3.jpg'
+        ],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
             photography: '',
@@ -716,6 +724,254 @@ window.NEO_PROJECTS = [
             'assets/images/interior/riserva-uno-1.jpg',
             'assets/images/interior/riserva-uno-2.jpg',
             'assets/images/interior/riserva-uno-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'hotel-nacional',
+        category: 'hotel',
+        index: '32',
+        name: 'Hotel Nacional',
+        location: 'São Conrado · RJ',
+        tag: 'Hospitality',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Art gallery, café e lounge em um ícone modernista.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/hotel/nacional-1.jpg',
+        gallery: [
+            'assets/images/hotel/nacional-1.jpg',
+            'assets/images/hotel/nacional-2.jpg',
+            'assets/images/hotel/nacional-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'hotel-paineras',
+        category: 'hotel',
+        index: '33',
+        name: 'Hotel Paineiras',
+        location: '',
+        tag: 'Hospitality',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Hospitalidade contemporânea em meio à floresta.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/hotel/paineras-1.jpg',
+        gallery: [
+            'assets/images/hotel/paineras-1.jpg',
+            'assets/images/hotel/paineras-2.jpg',
+            'assets/images/hotel/paineras-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'k-haus-marina',
+        category: 'hotel',
+        index: '34',
+        name: 'K_Haus Marina',
+        location: '',
+        tag: 'Hospitality',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Estadia design à beira da marina.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/hotel/k-haus-1.jpg',
+        gallery: [
+            'assets/images/hotel/k-haus-1.jpg',
+            'assets/images/hotel/k-haus-2.jpg',
+            'assets/images/hotel/k-haus-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'lsh-barra',
+        category: 'hotel',
+        index: '35',
+        name: 'LSH Barra',
+        location: 'Barra da Tijuca · RJ',
+        tag: 'Hospitality',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Lifestyle hotel — hospitalidade contemporânea na Barra.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/hotel/lsh-1.jpg',
+        gallery: [
+            'assets/images/hotel/lsh-1.jpg',
+            'assets/images/hotel/lsh-2.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'panorama-rooftop',
+        category: 'hotel',
+        index: '36',
+        name: 'Panorama Rooftop',
+        location: '',
+        tag: 'Hospitality',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Rooftop panorâmico — lounge, paisagem e céu aberto.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/hotel/panorama-1.jpg',
+        gallery: [
+            'assets/images/hotel/panorama-1.jpg',
+            'assets/images/hotel/panorama-2.jpg',
+            'assets/images/hotel/panorama-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'rio-flat-leblon',
+        category: 'hotel',
+        index: '37',
+        name: 'Rio Flat Leblon',
+        location: 'Leblon · RJ',
+        tag: 'Hospitality',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Flat de estadia design no coração do Leblon.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/hotel/rio-flat-1.jpg',
+        gallery: [
+            'assets/images/hotel/rio-flat-1.jpg',
+            'assets/images/hotel/rio-flat-2.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'suites-copacabana',
+        category: 'hotel',
+        index: '38',
+        name: 'Suítes Copacabana',
+        location: 'Copacabana · RJ',
+        tag: 'Hospitality',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Suítes de short-stay com assinatura de design.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/hotel/suites-copa-1.jpg',
+        gallery: [
+            'assets/images/hotel/suites-copa-1.jpg',
+            'assets/images/hotel/suites-copa-2.jpg',
+            'assets/images/hotel/suites-copa-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'suites-leblon',
+        category: 'hotel',
+        index: '39',
+        name: 'Suítes Leblon',
+        location: 'Leblon · RJ',
+        tag: 'Hospitality',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Suítes de short-stay com assinatura de design.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/hotel/suites-leblon-1.jpg',
+        gallery: [
+            'assets/images/hotel/suites-leblon-1.jpg',
+            'assets/images/hotel/suites-leblon-2.jpg',
+            'assets/images/hotel/suites-leblon-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'suites-sheraton-barra',
+        category: 'hotel',
+        index: '40',
+        name: 'Suítes Sheraton Barra',
+        location: 'Barra da Tijuca · RJ',
+        tag: 'Hospitality',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Suítes de hotel repaginadas — conforto e contemporaneidade.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/hotel/sheraton-1.jpg',
+        gallery: [
+            'assets/images/hotel/sheraton-1.jpg',
+            'assets/images/hotel/sheraton-2.jpg',
+            'assets/images/hotel/sheraton-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'z-bra-hostel',
+        category: 'hotel',
+        index: '41',
+        name: 'Z.Bra Hostel Leblon',
+        location: 'Leblon · RJ',
+        tag: 'Hospitality',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Hostel design — coletividade com estética autoral.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/hotel/zbra-1.jpg',
+        gallery: [
+            'assets/images/hotel/zbra-1.jpg',
+            'assets/images/hotel/zbra-2.jpg',
+            'assets/images/hotel/zbra-3.jpg'
         ],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
