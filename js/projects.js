@@ -66,7 +66,10 @@ window.NEO_PROJECTS = [
         description2: '[Texto complementar a ser adicionado.] Preservação de elementos originais, atualização de instalações, materiais e estratégia de modernização.',
         coverImage: 'assets/images/chopin.png',
         gallery: [
-            'assets/images/chopin.png'
+            'assets/images/chopin.png',
+            'assets/images/retrofits/chopin-2.jpg',
+            'assets/images/retrofits/chopin-3.jpg',
+            'assets/images/retrofits/chopin-4.jpg'
         ],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
@@ -178,7 +181,12 @@ window.NEO_PROJECTS = [
         description1: '[Descrição do projeto a ser adicionada.]',
         description2: '[Texto complementar a ser adicionado.]',
         coverImage: 'assets/images/epitaciopessoa.png',
-        gallery: ['assets/images/epitaciopessoa.png'],
+        gallery: [
+            'assets/images/epitaciopessoa.png',
+            'assets/images/retrofits/epitacio-2.jpg',
+            'assets/images/retrofits/epitacio-3.jpg',
+            'assets/images/retrofits/epitacio-4.jpg'
+        ],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
             photography: '',
@@ -972,6 +980,56 @@ window.NEO_PROJECTS = [
             'assets/images/hotel/zbra-1.jpg',
             'assets/images/hotel/zbra-2.jpg',
             'assets/images/hotel/zbra-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'academia-brasileira-filosofia',
+        category: 'retrofits',
+        index: '42',
+        name: 'Academia Brasileira de Filosofia',
+        location: '',
+        tag: 'Retrofit Institucional',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Retrofit institucional — memória e contemporaneidade.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/retrofits/academia-1.jpg',
+        gallery: [
+            'assets/images/retrofits/academia-1.jpg',
+            'assets/images/retrofits/academia-2.jpg',
+            'assets/images/retrofits/academia-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'cobertura-triplex-lagoa',
+        category: 'retrofits',
+        index: '43',
+        name: 'Cobertura Triplex Lagoa',
+        location: 'Lagoa · RJ',
+        tag: 'Retrofit Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Triplex sobre a Lagoa — retrofit de cobertura em três níveis.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/retrofits/triplex-lagoa-1.jpg',
+        gallery: [
+            'assets/images/retrofits/triplex-lagoa-1.jpg',
+            'assets/images/retrofits/triplex-lagoa-2.jpg',
+            'assets/images/retrofits/triplex-lagoa-3.jpg'
         ],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
