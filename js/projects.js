@@ -1036,6 +1036,306 @@ window.NEO_PROJECTS = [
             photography: '',
             year: ''
         }
+    },
+    {
+        id: 'cani-tv',
+        category: 'offices',
+        index: '44',
+        name: 'Cani TV',
+        location: '',
+        tag: 'Corporativo',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Estúdio e escritório — ambiente de mídia com identidade.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/offices/cani-tv-1.jpg',
+        gallery: [
+            'assets/images/offices/cani-tv-1.jpg',
+            'assets/images/offices/cani-tv-2.jpg',
+            'assets/images/offices/cani-tv-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'expertise-sp',
+        category: 'offices',
+        index: '45',
+        name: 'Expertise SP',
+        location: 'São Paulo · SP',
+        tag: 'Corporativo',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Escritório corporativo com assinatura contemporânea.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/offices/expertise-sp-1.jpg',
+        gallery: [
+            'assets/images/offices/expertise-sp-1.jpg',
+            'assets/images/offices/expertise-sp-2.jpg',
+            'assets/images/offices/expertise-sp-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'interyachts',
+        category: 'offices',
+        index: '46',
+        name: 'InterYachts',
+        location: '',
+        tag: 'Corporativo',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Escritório náutico — o mar como linguagem de projeto.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/offices/interyachts-1.jpg',
+        gallery: [
+            'assets/images/offices/interyachts-1.jpg',
+            'assets/images/offices/interyachts-2.jpg',
+            'assets/images/offices/interyachts-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'le-canton-office',
+        category: 'offices',
+        index: '47',
+        name: 'Le Canton Office',
+        location: '',
+        tag: 'Corporativo',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Escritório de hospitalidade — gestão com atmosfera de resort.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/offices/le-canton-1.jpg',
+        gallery: [
+            'assets/images/offices/le-canton-1.jpg',
+            'assets/images/offices/le-canton-2.jpg',
+            'assets/images/offices/le-canton-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'office-gevaerd',
+        category: 'offices',
+        index: '48',
+        name: 'Office Gevaerd',
+        location: '',
+        tag: 'Corporativo',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Escritório executivo — madeira, luz e sobriedade.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/offices/gevaerd-1.jpg',
+        gallery: [
+            'assets/images/offices/gevaerd-1.jpg',
+            'assets/images/offices/gevaerd-2.jpg',
+            'assets/images/offices/gevaerd-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'office-miguel',
+        category: 'offices',
+        index: '49',
+        name: 'Office Miguel',
+        location: '',
+        tag: 'Corporativo',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Hall, lounge e reunião — escritório com curadoria de arte.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/offices/miguel-1.jpg',
+        gallery: [
+            'assets/images/offices/miguel-1.jpg',
+            'assets/images/offices/miguel-2.jpg',
+            'assets/images/offices/miguel-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'office-uchoa',
+        category: 'offices',
+        index: '50',
+        name: 'Office Uchoa',
+        location: '',
+        tag: 'Corporativo',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Escritório contemporâneo — funcionalidade com identidade.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/offices/uchoa-1.jpg',
+        gallery: [
+            'assets/images/offices/uchoa-1.jpg',
+            'assets/images/offices/uchoa-2.jpg',
+            'assets/images/offices/uchoa-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'oil-gas',
+        category: 'offices',
+        index: '51',
+        name: 'Oil & Gas',
+        location: '',
+        tag: 'Corporativo',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Sede corporativa do setor de energia.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/offices/oil-gas-1.jpg',
+        gallery: [
+            'assets/images/offices/oil-gas-1.jpg',
+            'assets/images/offices/oil-gas-2.jpg',
+            'assets/images/offices/oil-gas-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'petrogold',
+        category: 'offices',
+        index: '52',
+        name: 'Petrogold',
+        location: '',
+        tag: 'Corporativo',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Sede corporativa — energia com estética premium.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/offices/petrogold-1.jpg',
+        gallery: [
+            'assets/images/offices/petrogold-1.jpg',
+            'assets/images/offices/petrogold-2.jpg',
+            'assets/images/offices/petrogold-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'office-rai',
+        category: 'offices',
+        index: '53',
+        name: 'Office RAI',
+        location: '',
+        tag: 'Corporativo',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Escritório contemporâneo com identidade própria.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/offices/rai-1.jpg',
+        gallery: [
+            'assets/images/offices/rai-1.jpg',
+            'assets/images/offices/rai-2.jpg',
+            'assets/images/offices/rai-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'roxtec-sweden',
+        category: 'offices',
+        index: '54',
+        name: 'Roxtec Sweden',
+        location: 'Suécia',
+        tag: 'Corporativo',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Projeto corporativo internacional — precisão escandinava.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/offices/roxtec-1.jpg',
+        gallery: [
+            'assets/images/offices/roxtec-1.jpg',
+            'assets/images/offices/roxtec-2.jpg',
+            'assets/images/offices/roxtec-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'royal-holiday',
+        category: 'offices',
+        index: '55',
+        name: 'Royal Holiday',
+        location: '',
+        tag: 'Corporativo',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Escritório de turismo — hospitalidade desde a recepção.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/offices/royal-holiday-1.jpg',
+        gallery: [
+            'assets/images/offices/royal-holiday-1.jpg',
+            'assets/images/offices/royal-holiday-2.jpg',
+            'assets/images/offices/royal-holiday-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
     }
 ];
 
