@@ -3197,7 +3197,7 @@ html[data-theme="light"] .hero.hero--editorial {
     transition: border-color 400ms var(--ease-out), background-color 400ms var(--ease-out);
 }
 
-/* Corpo da pasta — digital WebGL no lugar de imagem */
+/* Corpo da pasta — arte wireframe (grid/malha/topografia) sobre preto */
 .cat-folder__media {
     position: relative;
     display: block;
@@ -3205,16 +3205,23 @@ html[data-theme="light"] .hero.hero--editorial {
     aspect-ratio: 4 / 3;
     overflow: hidden;
     border: 1px solid var(--accent-line);
-    background-color: #0E0E0E;
+    background-color: #050505;
     transition: border-color 400ms var(--ease-out);
 }
 
-.cat-folder__media canvas {
-    position: absolute;
-    inset: 0;
+.cat-folder__media img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
     display: block;
+    transition: transform 900ms var(--ease-out), filter 600ms var(--ease-out);
+}
+
+/* hover: as linhas brancas ganham tom champanhe + leve zoom */
+.cat-folder:hover .cat-folder__media img,
+.cat-folder.is-open .cat-folder__media img {
+    transform: scale(1.05);
+    filter: sepia(0.85) saturate(1.9) hue-rotate(-14deg) brightness(1.08);
 }
 
 .cat-folder:hover .cat-folder__tab,
