@@ -89,7 +89,9 @@ window.NEO_PROJECTS = [
         description2: '[Texto complementar a ser adicionado.] Programa, materiais naturais, integração com paisagem e soluções de sustentabilidade.',
         coverImage: 'assets/images/life-house.jpg',
         gallery: [
-            'assets/images/life-house.jpg'
+            'assets/images/life-house.jpg',
+            'assets/images/casas/life-house-2.jpg',
+            'assets/images/casas/life-house-3.jpg'
         ],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
@@ -366,6 +368,230 @@ window.NEO_PROJECTS = [
         description2: '[Texto complementar a ser adicionado.]',
         coverImage: '',
         gallery: [],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'casa-capuri',
+        category: 'casas',
+        index: '18',
+        name: 'Casa Capuri',
+        location: '',
+        tag: 'Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Residência contemporânea de linhas puras.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/casas/capuri-1.jpg',
+        gallery: [
+            'assets/images/casas/capuri-1.jpg',
+            'assets/images/casas/capuri-2.jpg',
+            'assets/images/casas/capuri-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'casa-diamond',
+        category: 'casas',
+        index: '19',
+        name: 'Casa Diamond',
+        location: '',
+        tag: 'Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Acessos, lounge e deck em sequência cênica.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/casas/diamond-1.jpg',
+        gallery: [
+            'assets/images/casas/diamond-1.jpg',
+            'assets/images/casas/diamond-2.jpg',
+            'assets/images/casas/diamond-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'casa-duda-canoas',
+        category: 'casas',
+        index: '20',
+        name: 'Casa Duda Canoas',
+        location: '',
+        tag: 'Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Residência contemporânea integrada à topografia.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/casas/duda-canoas-1.jpg',
+        gallery: [
+            'assets/images/casas/duda-canoas-1.jpg',
+            'assets/images/casas/duda-canoas-2.jpg',
+            'assets/images/casas/duda-canoas-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'casa-gavea-golf',
+        category: 'casas',
+        index: '21',
+        name: 'Casa Gávea Golf Club',
+        location: 'Gávea Golf · RJ',
+        tag: 'Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Residência contemporânea junto ao green.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/casas/gavea-golf-1.jpg',
+        gallery: [
+            'assets/images/casas/gavea-golf-1.jpg',
+            'assets/images/casas/gavea-golf-2.jpg',
+            'assets/images/casas/gavea-golf-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'casa-mag',
+        category: 'casas',
+        index: '22',
+        name: 'Casa Mag',
+        location: '',
+        tag: 'Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Volumes horizontais em continuidade com o exterior.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/casas/mag-1.jpg',
+        gallery: [
+            'assets/images/casas/mag-1.jpg',
+            'assets/images/casas/mag-2.jpg',
+            'assets/images/casas/mag-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'casa-praia-joatinga',
+        category: 'casas',
+        index: '23',
+        name: 'Casa Praia da Joatinga',
+        location: 'Praia da Joatinga · RJ',
+        tag: 'Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Casa de praia contemporânea sobre o mar da Joatinga.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/casas/joatinga-1.jpg',
+        gallery: [
+            'assets/images/casas/joatinga-1.jpg',
+            'assets/images/casas/joatinga-2.jpg',
+            'assets/images/casas/joatinga-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'casa-quebra-mar',
+        category: 'casas',
+        index: '24',
+        name: 'Casa Quebra-Mar',
+        location: '',
+        tag: 'Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Residência contemporânea de frente para o mar.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/casas/quebra-mar-1.jpg',
+        gallery: [
+            'assets/images/casas/quebra-mar-1.jpg',
+            'assets/images/casas/quebra-mar-2.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'casa-valverde',
+        category: 'casas',
+        index: '25',
+        name: 'Casa Valverde',
+        location: '',
+        tag: 'Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Luz, pedra e vegetação em equilíbrio.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/casas/valverde-1.jpg',
+        gallery: [
+            'assets/images/casas/valverde-1.jpg',
+            'assets/images/casas/valverde-2.jpg',
+            'assets/images/casas/valverde-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'casa-zayed',
+        category: 'casas',
+        index: '26',
+        name: 'Casa Zayed',
+        location: '',
+        tag: 'Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Residência contemporânea assinada NEO.LIVING.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/casas/zayed-1.jpg',
+        gallery: [
+            'assets/images/casas/zayed-1.jpg',
+            'assets/images/casas/zayed-2.jpg',
+            'assets/images/casas/zayed-3.jpg'
+        ],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
             photography: '',
