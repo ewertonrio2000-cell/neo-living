@@ -7,6 +7,7 @@
 window.NEO_PROJECTS = [
     {
         id: 'horizon-joa',
+        category: 'casas',
         index: '01',
         name: 'Horizon Joá',
         location: 'Rua Iposeira · São Conrado · RJ',
@@ -29,6 +30,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'cobertura-costa-del-sol',
+        category: 'interior',
         index: '02',
         name: 'Cobertura Costa del Sol',
         location: 'Avenida Lúcio Costa · Barra · RJ',
@@ -51,6 +53,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'retrofit-chopin',
+        category: 'retrofits',
         index: '03',
         name: 'Retrofit Edifício Chopin',
         location: 'Avenida Atlântica · Copacabana · RJ',
@@ -73,6 +76,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'life-house-itanhanga',
+        category: 'casas',
         index: '04',
         name: 'Life.House Itanhangá Golf',
         location: 'Itanhangá · RJ',
@@ -95,6 +99,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'sexy-house',
+        category: 'casas',
         index: '05',
         name: 'Sexy House',
         location: 'Residencial · RJ',
@@ -117,6 +122,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'office-le-monde',
+        category: 'offices',
         index: '06',
         name: 'Office Le Monde',
         location: 'Rio de Janeiro · RJ',
@@ -137,6 +143,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'retrofit-nova-joatinga',
+        category: 'retrofits',
         index: '07',
         name: 'Retrofit Nova Joatinga',
         location: 'Joatinga · RJ',
@@ -157,6 +164,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'retrofit-epitacio-pessoa',
+        category: 'retrofits',
         index: '08',
         name: 'Retrofit Epitácio Pessoa 800',
         location: 'Ipanema · RJ',
@@ -177,6 +185,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'retrofit-nascimento-silva',
+        category: 'retrofits',
         index: '09',
         name: 'Retrofit Nascimento Silva 543',
         location: 'Ipanema · RJ',
@@ -197,6 +206,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'club-house-jockey',
+        category: 'hotel',
         index: '10',
         name: 'Club House Jockey',
         location: 'Jockey Club · RJ',
@@ -217,6 +227,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'retrospectiva-niemeyer',
+        category: 'interior',
         index: '11',
         name: 'Retrospectiva Niemeyer',
         location: 'Galeria Hotel Nacional · RJ',
@@ -237,6 +248,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'retrofit-shopping-citta',
+        category: 'retrofits',
         index: '12',
         name: 'Retrofit Shopping Città — Office Mall',
         location: 'Av. das Américas · Barra · RJ',
@@ -257,6 +269,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'forest-life',
+        category: 'casas',
         index: '13',
         name: 'Forest Life',
         location: 'Rio de Janeiro · RJ',
@@ -277,6 +290,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'urb-x-hub',
+        category: 'offices',
         index: '14',
         name: 'Urb x Hub',
         location: 'Rio de Janeiro · RJ',
@@ -297,6 +311,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'match-point-pub',
+        category: 'hotel',
         index: '15',
         name: 'Match.Point Pub',
         location: 'Hotel Nacional Rio · RJ',
@@ -317,6 +332,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'kult-lifestyle-club',
+        category: 'hotel',
         index: '16',
         name: 'KULT Lifestyle Club',
         location: 'Rio de Janeiro · RJ',
@@ -337,6 +353,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'kult-kolector',
+        category: 'interior',
         index: '17',
         name: 'KULT Kolector — Art & Rock',
         location: 'Rio de Janeiro · RJ',

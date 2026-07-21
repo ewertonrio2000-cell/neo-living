@@ -572,6 +572,71 @@
     }
 
     // =====================================================
+    // 6e. CATEGORIAS — pastas de projetos por tipologia
+    //     Clique abre a "gaveta" com os projetos da categoria
+    // =====================================================
+    function initCategoryFolders() {
+        const strip = document.querySelector('.cat-strip');
+        const drawer = document.querySelector('.cat-drawer');
+        const grid = drawer && drawer.querySelector('.cat-drawer__grid');
+        if (!strip || !drawer || !grid || !window.NEO_PROJECTS) return;
+
+        const folders = Array.from(strip.querySelectorAll('.cat-folder'));
+
+        // Agrupa os projetos por categoria
+        const byCat = {};
+        window.NEO_PROJECTS.forEach((p) => {
+            if (!p.category) return;
+            (byCat[p.category] = byCat[p.category] || []).push(p);
+        });
+
+        // Contadores nas pastas ("4 projetos")
+        folders.forEach((f) => {
+            const n = (byCat[f.dataset.cat] || []).length;
+            const el = f.querySelector('.cat-folder__count');
+            if (el) el.textContent = n + (n === 1 ? ' projeto' : ' projetos');
+        });
+
+        let open = null;
+        folders.forEach((f) => {
+            f.addEventListener('click', () => {
+                const cat = f.dataset.cat;
+
+                // Clicou na pasta já aberta → fecha a gaveta
+                if (open === cat) {
+                    open = null;
+                    drawer.hidden = true;
+                    drawer.classList.remove('is-open');
+                    folders.forEach((x) => { x.classList.remove('is-open'); x.setAttribute('aria-expanded', 'false'); });
+                    return;
+                }
+
+                open = cat;
+                folders.forEach((x) => {
+                    const on = x === f;
+                    x.classList.toggle('is-open', on);
+                    x.setAttribute('aria-expanded', on ? 'true' : 'false');
+                });
+
+                grid.innerHTML = (byCat[cat] || []).map((p) => {
+                    const media = p.coverImage
+                        ? '<span class="cat-item__media"><img src="' + p.coverImage + '" alt="" loading="lazy"></span>'
+                        : '<span class="cat-item__media cat-item__media--blank"><span>' + p.index + '</span></span>';
+                    return '<a class="cat-item" href="project.html?id=' + p.id + '">' + media +
+                           '<span class="cat-item__name">' + p.name + '</span>' +
+                           '<span class="cat-item__loc">' + p.location + '</span></a>';
+                }).join('');
+
+                drawer.hidden = false;
+                // reinicia a animação de abertura da gaveta
+                drawer.classList.remove('is-open');
+                void drawer.offsetWidth;
+                drawer.classList.add('is-open');
+            });
+        });
+    }
+
+    // =====================================================
     // 6d. GALERIA HORIZONTAL — pin + scroll horizontal
     // =====================================================
     function initHorizontalGallery() {
@@ -868,6 +933,7 @@
         initHeroRally();
         initHeroVideo();
         initFingerprintFX();
+        initCategoryFolders();
     }
 
     if (document.readyState === 'loading') {

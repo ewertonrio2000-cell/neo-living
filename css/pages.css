@@ -3147,6 +3147,247 @@ html[data-theme="light"] .hero.hero--editorial {
     mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 80%, transparent 100%);
 }
 
+/* =========================================================
+   CATEGORIAS — pastas de projetos por tipologia (abaixo do hero)
+   Metáfora de pasta/fichário: aba no topo, corpo com imagem P&B
+   que ganha o tratamento dourado no hover; clique abre a gaveta
+   com os projetos daquela categoria.
+   ========================================================= */
+.cat-section {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-xl);
+    background-color: #FFFFFF;
+}
+
+.cat-section__head { margin-bottom: var(--space-lg); }
+
+.cat-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-sm);
+    align-items: end;
+}
+
+.cat-folder {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    background: none;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+    font: inherit;
+    color: var(--text-primary);
+    transition: transform 500ms var(--ease-out);
+}
+
+.cat-folder:hover,
+.cat-folder.is-open { transform: translateY(-6px); }
+
+/* Aba da pasta (estilo fichário) */
+.cat-folder__tab {
+    display: block;
+    width: 46%;
+    height: 13px;
+    border: 1px solid var(--accent-line);
+    border-bottom: 0;
+    clip-path: polygon(0 0, 78% 0, 100% 100%, 0 100%);
+    background-color: #FFFFFF;
+    transition: border-color 400ms var(--ease-out), background-color 400ms var(--ease-out);
+}
+
+/* Corpo da pasta */
+.cat-folder__media {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border: 1px solid var(--accent-line);
+    background-color: #111;
+    transition: border-color 400ms var(--ease-out);
+}
+
+.cat-folder__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(1) contrast(1.05);
+    transition: transform 900ms var(--ease-out), filter 600ms var(--ease-out);
+}
+
+.cat-folder:hover .cat-folder__media img,
+.cat-folder.is-open .cat-folder__media img {
+    transform: scale(1.06);
+    filter: sepia(0.55) saturate(1.5) hue-rotate(-12deg) contrast(1.02);
+}
+
+.cat-folder:hover .cat-folder__tab,
+.cat-folder:hover .cat-folder__media,
+.cat-folder.is-open .cat-folder__tab,
+.cat-folder.is-open .cat-folder__media {
+    border-color: var(--accent-amber);
+}
+
+.cat-folder.is-open .cat-folder__tab { background-color: var(--accent-amber); }
+
+.cat-folder__info {
+    display: block;
+    padding-top: 12px;
+}
+
+.cat-folder__idx {
+    display: block;
+    font-family: var(--font-condensed);
+    font-size: 0.8125rem;
+    color: var(--accent-amber);
+    margin-bottom: 4px;
+}
+
+.cat-folder__name {
+    display: block;
+    font-family: var(--font-condensed);
+    font-weight: 600;
+    font-size: clamp(0.9375rem, 1.35vw, 1.125rem);
+    line-height: 1.15;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.cat-folder__count {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* Gaveta — projetos da pasta aberta */
+.cat-drawer { margin-top: var(--space-xl); }
+
+.cat-drawer__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+}
+
+.cat-drawer.is-open .cat-drawer__grid { animation: catDrawerIn 620ms var(--ease-out) both; }
+
+@keyframes catDrawerIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.cat-item {
+    display: block;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.cat-item__media {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background-color: #101010;
+}
+
+.cat-item__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(1) contrast(1.04);
+    transition: transform 900ms var(--ease-out), filter 600ms var(--ease-out);
+}
+
+.cat-item:hover .cat-item__media img {
+    transform: scale(1.05);
+    filter: none;
+}
+
+/* Projeto ainda sem foto — bloco escuro com o índice */
+.cat-item__media--blank {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cat-item__media--blank span {
+    font-family: var(--font-condensed);
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.28);
+}
+
+.cat-item__name {
+    display: block;
+    margin-top: 10px;
+    font-family: var(--font-condensed);
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.cat-item:hover .cat-item__name { color: var(--accent-amber); }
+
+.cat-item__loc {
+    display: block;
+    margin-top: 3px;
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+@media (max-width: 1024px) {
+    .cat-strip { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+    .cat-drawer__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    /* Pastas deslizando para a lateral, como os demais carrosséis do site */
+    .cat-strip {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        gap: var(--space-md);
+        margin-left: calc(-1 * var(--gutter-mobile));
+        margin-right: calc(-1 * var(--gutter-mobile));
+        padding: 0 var(--gutter-mobile) var(--space-sm);
+        scrollbar-width: none;
+    }
+    .cat-strip::-webkit-scrollbar { display: none; }
+    .cat-folder {
+        flex: 0 0 auto;
+        width: 58vw;
+        scroll-snap-align: start;
+    }
+
+    .cat-drawer__grid {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        gap: var(--space-md);
+        margin-left: calc(-1 * var(--gutter-mobile));
+        margin-right: calc(-1 * var(--gutter-mobile));
+        padding: 0 var(--gutter-mobile) var(--space-sm);
+        scrollbar-width: none;
+    }
+    .cat-drawer__grid::-webkit-scrollbar { display: none; }
+    .cat-item {
+        flex: 0 0 auto;
+        width: 72vw;
+        scroll-snap-align: start;
+    }
+}
+
 /* No hero: canvas acima do vídeo (z0) e dos gradientes (z4/5), abaixo do
    texto (top z8, título z10). Opacity 0.55: as ristas seguem sutis (alpha
    baixo no shader) e a vinheta de sombra das bordas ganha presença */
