@@ -936,7 +936,8 @@
             const offB = document.getElementById('hwB');
             const isCoarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
             const WARP_PEAK = isCoarse ? 24 : 40;     // deslocamento sutil (px)
-            const CHROMA_PEAK = isCoarse ? 10 : 18;   // separação R/B FORTE (px)
+            const CHROMA_PEAK = isCoarse ? 20 : 18;   // separação R/B — no celular AINDA mais forte
+                                                      // (20px em tela de ~375px ≈ 5% da largura)
             let warpRaf = null;
             function warpBurst() {
                 if (!videoWrap || !dispMap) return;
