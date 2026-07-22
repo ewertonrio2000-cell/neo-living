@@ -2531,6 +2531,12 @@ html[data-theme="light"] .hero--editorial__concept em {
     overflow: hidden;
 }
 
+/* Durante a troca: deslocamento de pixels (turbulência SVG) distorce o
+   próprio quadro do vídeo — classe adicionada/removida pelo JS */
+.hero-video.is-warping {
+    filter: url(#heroWarp);
+}
+
 .hero-video__clip {
     position: absolute;
     inset: 0;
@@ -2540,8 +2546,8 @@ html[data-theme="light"] .hero--editorial__concept em {
     object-position: center 42%;
     opacity: 0;
     /* fora de cena = ponto de partida da entrada: desfocado e ampliado */
-    filter: contrast(0.9) saturate(0.78) brightness(0.7) blur(12px);
-    transform: scale(1.07);
+    filter: contrast(0.9) saturate(0.78) brightness(0.7) blur(14px);
+    transform: scale(1.09);
     transition:
         opacity 950ms ease,
         filter 1050ms ease,
@@ -2559,8 +2565,8 @@ html[data-theme="light"] .hero--editorial__concept em {
 /* saída: o vídeo "derrete" — desfoca, amplia e escurece enquanto some */
 .hero-video__clip.is-leaving {
     opacity: 0;
-    filter: contrast(0.9) saturate(0.78) brightness(0.5) blur(18px);
-    transform: scale(1.12);
+    filter: contrast(0.9) saturate(0.78) brightness(0.45) blur(22px);
+    transform: scale(1.16);
 }
 
 /* Celular: mesmo efeito com desfoque menor (GPU de celular agradece) */

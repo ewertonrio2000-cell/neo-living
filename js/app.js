@@ -394,11 +394,11 @@
             '  vec2 res=u_res/u_dpr; vec2 P=fc/u_dpr;\n' +
             // Surge (troca de vídeo): o warp cresce e uma ondulação rápida
             // percorre o campo — as ristas se distorcem visivelmente
-            '  float WARP=34.0+52.0*u_surge, WF=0.010;\n' +
+            '  float WARP=34.0+74.0*u_surge, WF=0.010;\n' +
             '  float X=P.x + WARP*sin(P.y*WF+t) + WARP*0.5*sin(P.y*WF*2.3-t*0.7);\n' +
             '  float Y=P.y + WARP*sin(P.x*WF-t*0.9) + WARP*0.5*sin(P.x*WF*1.9+t*0.6);\n' +
-            '  X += u_surge*11.0*sin(P.y*0.045+t*7.0);\n' +
-            '  Y += u_surge*9.0*sin(P.x*0.052-t*6.2);\n' +
+            '  X += u_surge*17.0*sin(P.y*0.045+t*7.0);\n' +
+            '  Y += u_surge*14.0*sin(P.x*0.052-t*6.2);\n' +
             '  if(u_mouseOn>0.5){\n' +
             '    vec2 d=vec2(X,Y)-u_mouse; float dd=dot(d,d);\n' +
             '    float R=min(res.x,res.y)*0.26; float R2=R*R;\n' +
@@ -438,7 +438,7 @@
             '    float spec=exp(-distance(P,hl)/(0.5*min(res.x,res.y)));\n' +
             '    shade=0.22+0.68*sheen+0.55*spec;\n' +
             '  }\n' +
-            '  float aRidge=line*u_alpha*shade*(1.0+2.4*u_surge);\n' +   // acende na troca
+            '  float aRidge=line*u_alpha*shade*(1.0+3.6*u_surge);\n' +   // acende na troca
             // Flash lateral prata: só nas seções escuras (não no véu do hero)
             '  float ex=clamp(min(fc.x, u_res.x-fc.x)/(u_res.x*0.30), 0.0, 1.0);\n' +
             '  float sideSin = P.x < res.x*0.5 ? sin(t*0.7) : sin(t*0.7+PI);\n' +
@@ -452,7 +452,7 @@
             '    float vd=distance(P/res, vc);\n' +
             '    vshadow=smoothstep(0.40,0.86,vd)*0.7;\n' +
             '  }\n' +
-            '  vec3 col=mix(silver, vec3(1.0,0.93,0.78), u_surge*0.6);\n' +   // esquenta p/ champanhe
+            '  vec3 col=mix(silver, vec3(1.0,0.93,0.78), u_surge*0.8);\n' +   // esquenta p/ champanhe
             '  float aR=clamp(aRidge+vig, 0.0, 1.0);\n' +
             '  float outA=vshadow+aR*(1.0-vshadow);\n' +
             '  gl_FragColor=vec4(col*aR*(1.0-vshadow), outA);\n' +
@@ -908,11 +908,38 @@
                 clips.forEach((c, i) => { if (i > 0) { try { c.load(); } catch (e) {} } });
             }, { once: true });
 
+            // Distorção do PRÓPRIO VÍDEO na troca: anima a escala do
+            // feDisplacementMap (turbulência SVG) com ataque/decaimento,
+            // no mesmo envelope do surge das digitais
+            const videoWrap = hero.querySelector('.hero-video');
+            const dispMap = document.querySelector('#heroWarp feDisplacementMap');
+            const WARP_PEAK = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) ? 46 : 78;
+            let warpRaf = null;
+            function warpBurst() {
+                if (!videoWrap || !dispMap) return;
+                if (warpRaf) cancelAnimationFrame(warpRaf);
+                const t0 = performance.now();
+                videoWrap.classList.add('is-warping');
+                (function step(now) {
+                    const el = (now - t0) / 1000;
+                    if (el >= 1.6) {
+                        dispMap.setAttribute('scale', '0');
+                        videoWrap.classList.remove('is-warping');
+                        warpRaf = null;
+                        return;
+                    }
+                    const env = el < 0.28 ? (el / 0.28) : Math.pow(1 - (el - 0.28) / 1.32, 1.5);
+                    dispMap.setAttribute('scale', String((env * WARP_PEAK).toFixed(1)));
+                    warpRaf = requestAnimationFrame(step);
+                })(t0);
+            }
+
             setInterval(() => {
                 const next = (idx + 1) % clips.length;
-                // dispara o SURGE do véu de digitais: acende/distorce no pico
-                // exatamente quando o melt começa (ataque 300ms ≈ swap 420ms)
+                // dispara o SURGE do véu de digitais + a DISTORÇÃO do vídeo:
+                // pico casa com o início do melt (ataque ~300ms ≈ swap 420ms)
                 heroSurgeStart = performance.now();
+                warpBurst();
                 // 1) AQUECE o próximo clipe antes da troca: seek + play com o vídeo
                 //    ainda invisível → decoder pronto, sem engasgo na entrada
                 try { if (clips[next].readyState > 2) clips[next].currentTime = 0; } catch (e) {}
