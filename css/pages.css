@@ -2546,8 +2546,8 @@ html[data-theme="light"] .hero--editorial__concept em {
     object-position: center 42%;
     opacity: 0;
     /* fora de cena = ponto de partida da entrada: desfocado e ampliado */
-    filter: contrast(0.9) saturate(0.78) brightness(0.7) blur(14px);
-    transform: scale(1.09);
+    filter: contrast(0.9) saturate(0.78) brightness(0.7) blur(10px);
+    transform: scale(1.05);
     transition:
         opacity 950ms ease,
         filter 1050ms ease,
@@ -2565,8 +2565,8 @@ html[data-theme="light"] .hero--editorial__concept em {
 /* saída: o vídeo "derrete" — desfoca, amplia e escurece enquanto some */
 .hero-video__clip.is-leaving {
     opacity: 0;
-    filter: contrast(0.9) saturate(0.78) brightness(0.4) blur(26px);
-    transform: scale(1.20);
+    filter: contrast(0.9) saturate(0.78) brightness(0.5) blur(18px);
+    transform: scale(1.10);
 }
 
 /* Celular: mesmo efeito com desfoque menor (GPU de celular agradece) */

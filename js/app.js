@@ -394,11 +394,11 @@
             '  vec2 res=u_res/u_dpr; vec2 P=fc/u_dpr;\n' +
             // Surge (troca de vídeo): o warp cresce e uma ondulação rápida
             // percorre o campo — as ristas se distorcem visivelmente
-            '  float WARP=34.0+74.0*u_surge, WF=0.010;\n' +
+            '  float WARP=34.0+18.0*u_surge, WF=0.010;\n' +
             '  float X=P.x + WARP*sin(P.y*WF+t) + WARP*0.5*sin(P.y*WF*2.3-t*0.7);\n' +
             '  float Y=P.y + WARP*sin(P.x*WF-t*0.9) + WARP*0.5*sin(P.x*WF*1.9+t*0.6);\n' +
-            '  X += u_surge*17.0*sin(P.y*0.045+t*7.0);\n' +
-            '  Y += u_surge*14.0*sin(P.x*0.052-t*6.2);\n' +
+            '  X += u_surge*6.0*sin(P.y*0.045+t*7.0);\n' +
+            '  Y += u_surge*5.0*sin(P.x*0.052-t*6.2);\n' +
             '  if(u_mouseOn>0.5){\n' +
             '    vec2 d=vec2(X,Y)-u_mouse; float dd=dot(d,d);\n' +
             '    float R=min(res.x,res.y)*0.26; float R2=R*R;\n' +
@@ -424,7 +424,7 @@
             '    float aa=0.02;\n' +
             '  #endif\n' +
             '  float e=abs(fract(idx)-0.5);\n' +
-            '  float fade=smoothstep(0.60, 0.20, aa);\n' +   // some onde as ristas ficam sub-pixel
+            '  float fade=smoothstep(0.85, 0.32, aa);\n' +   // tolera densidade alta antes de sumir
             '  float line=(1.0-smoothstep(u_lw, u_lw+aa*1.5, e))*fade;\n' +
             // Aberração cromática nas ristas durante o surge: os canais R e B
             // se deslocam em fases opostas → franjas espectrais nas linhas
@@ -444,7 +444,7 @@
             '    float spec=exp(-distance(P,hl)/(0.5*min(res.x,res.y)));\n' +
             '    shade=0.22+0.68*sheen+0.55*spec;\n' +
             '  }\n' +
-            '  vec3 ridge=lineRGB*u_alpha*shade*(1.0+3.6*u_surge);\n' +   // acende na troca
+            '  vec3 ridge=lineRGB*u_alpha*shade*(1.0+4.6*u_surge);\n' +   // acende FORTE na troca
             // Flash lateral prata: só nas seções escuras (não no véu do hero)
             '  float ex=clamp(min(fc.x, u_res.x-fc.x)/(u_res.x*0.30), 0.0, 1.0);\n' +
             '  float sideSin = P.x < res.x*0.5 ? sin(t*0.7) : sin(t*0.7+PI);\n' +
@@ -515,8 +515,8 @@
                 // O alpha das ristas fica baixo (0.20) e a força da vinheta vem
                 // da opacity 0.55 do canvas no CSS.
                 const isVeil = host.classList.contains('hero--editorial');
-                const P_RING = 0.88;                    // mesmo espaçamento do hero em todas
-                const P_LW = 0.024;                     // mesma espessura (fio de cabelo)
+                const P_RING = 1.12;                    // linhas bem mais juntas (~5.6px; centro do hero ~3.7px)
+                const P_LW = 0.024;                     // espessura fio de cabelo
                 const P_ALPHA = isVeil ? 0.20 : 0.42;   // seções escuras um pouco mais presentes
 
                 let DPR = 1;
@@ -923,9 +923,8 @@
             const offR = document.getElementById('hwR');
             const offB = document.getElementById('hwB');
             const isCoarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
-            const WARP_PEAK = isCoarse ? 60 : 110;    // deslocamento (px)
-            const CHROMA_PEAK = isCoarse ? 8 : 15;    // separação R/B (px)
-            const SHAKE_PEAK = isCoarse ? 4 : 7;      // tremor de câmera (px)
+            const WARP_PEAK = isCoarse ? 24 : 40;     // deslocamento sutil (px)
+            const CHROMA_PEAK = isCoarse ? 10 : 18;   // separação R/B FORTE (px)
             let warpRaf = null;
             function warpBurst() {
                 if (!videoWrap || !dispMap) return;
@@ -934,25 +933,20 @@
                 videoWrap.classList.add('is-warping');
                 (function step(now) {
                     const el = (now - t0) / 1000;
-                    if (el >= 1.6) {
+                    if (el >= 1.8) {
                         dispMap.setAttribute('scale', '0');
                         if (offR) { offR.setAttribute('dx', '0'); offR.setAttribute('dy', '0'); }
                         if (offB) { offB.setAttribute('dx', '0'); offB.setAttribute('dy', '0'); }
-                        videoWrap.style.transform = '';
                         videoWrap.classList.remove('is-warping');
                         warpRaf = null;
                         return;
                     }
-                    const env = el < 0.28 ? (el / 0.28) : Math.pow(1 - (el - 0.28) / 1.32, 1.5);
+                    const env = el < 0.3 ? (el / 0.3) : Math.pow(1 - (el - 0.3) / 1.5, 1.5);
                     dispMap.setAttribute('scale', String((env * WARP_PEAK).toFixed(1)));
                     // chromatic aberration: R e B puxam em direções opostas
                     const ch = env * CHROMA_PEAK;
                     if (offR) { offR.setAttribute('dx', ch.toFixed(1)); offR.setAttribute('dy', (-ch * 0.35).toFixed(1)); }
                     if (offB) { offB.setAttribute('dx', (-ch).toFixed(1)); offB.setAttribute('dy', (ch * 0.35).toFixed(1)); }
-                    // tremor de câmera de alta frequência, decaindo com o envelope
-                    const sx = env * SHAKE_PEAK * Math.sin(el * 71);
-                    const sy = env * SHAKE_PEAK * 0.8 * Math.cos(el * 57);
-                    videoWrap.style.transform = 'translate(' + sx.toFixed(1) + 'px,' + sy.toFixed(1) + 'px)';
                     warpRaf = requestAnimationFrame(step);
                 })(t0);
             }
