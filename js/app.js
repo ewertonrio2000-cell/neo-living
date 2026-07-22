@@ -374,10 +374,9 @@
         const mm = window.matchMedia;
         if (!mm) return;
         if (mm('(prefers-reduced-motion: reduce)').matches) return;
-        // Celular: efeito ativo (WebGL é barato), mas com DPR limitado a 1.5
-        // p/ poupar a GPU (telas de celular têm DPR 3+)
-        const isTouch = mm('(pointer: coarse)').matches;
-        const DPR_CAP = isTouch ? 1.5 : 2;
+        // Celular: efeito ativo com DPR pleno (cap 2) — linhas finas nítidas
+        // em telas de celular; o guarda de 4096px protege as seções altas
+        const DPR_CAP = 2;
 
         const VERT = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.0,1.0);}';
         const FRAG =
@@ -907,6 +906,19 @@
         const clips = Array.from(hero.querySelectorAll('.hero-video__clip'));
         if (clips.length) {
             const playSafe = (el) => { try { const p = el.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {} };
+
+            // Celular: vídeos VERTICAIS dedicados (9:16, recorte composto em
+            // resolução plena) — mais nítidos e ~metade do peso dos horizontais
+            if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
+                clips.forEach((c, i) => {
+                    try {
+                        if (i === 0) c.poster = 'assets/images/hero/hero-poster-v.jpg';
+                        c.src = 'assets/videos/hero-' + (i + 1) + '-v.mp4';
+                        c.load();
+                    } catch (e) {}
+                });
+            }
+
             let idx = 0;
             clips[0].classList.add('is-active');
             playSafe(clips[0]);
