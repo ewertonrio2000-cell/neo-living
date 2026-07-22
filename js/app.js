@@ -403,20 +403,11 @@
             '    float R=min(res.x,res.y)*0.26; float R2=R*R;\n' +
             '    if(dd<R2){ float push=1.0-dd/R2; float p=push*push*0.5; X+=d.x*p; Y+=d.y*p; }\n' +
             '  }\n' +
-            '  vec2 c0=vec2(res.x*(0.35+0.05*sin(t*0.11)), res.y*(0.40+0.04*cos(t*0.09)));\n' +
-            '  vec2 c1=vec2(res.x*(0.62+0.05*cos(t*0.08)), res.y*(0.60+0.05*sin(t*0.10)));\n' +
-            '  float phi=distance(vec2(X,Y),c0)+distance(vec2(X,Y),c1)*0.85+(X*0.32+Y*0.58);\n' +
-            // Véu (hero): mais denso no CENTRO — a frequência das ristas sobe
-            // rumo ao meio da seção (fase re-ancorada no centro p/ evitar chirp)
-            '  float dens=1.0;\n' +
-            '  if(u_veil>0.5){\n' +
-            '    vec2 Pc=res*0.5;\n' +
-            '    float cd=distance(P,Pc)/(0.55*min(res.x,res.y));\n' +
-            '    dens=1.0+0.5*(1.0-smoothstep(0.0,1.1,cd));\n' +
-            '    float phiC=distance(Pc,c0)+distance(Pc,c1)*0.85+(Pc.x*0.32+Pc.y*0.58);\n' +
-            '    phi-=phiC;\n' +
-            '  }\n' +
-            '  float idx=phi*u_ring*dens/(2.0*PI);\n' +
+            // Campo de direção UNITÁRIA (|∇φ|=1): espaçamento IDÊNTICO em todo
+            // o campo — a organicidade vem só do warp/ondulação, que não muda
+            // a densidade média das linhas
+            '  float phi=dot(vec2(X,Y), vec2(0.4832, 0.8755));\n' +
+            '  float idx=phi*u_ring/(2.0*PI);\n' +
             '  #ifdef GL_OES_standard_derivatives\n' +
             '    float aa=fwidth(idx);\n' +
             '  #else\n' +
@@ -514,7 +505,7 @@
                 // O alpha das ristas fica baixo (0.20) e a força da vinheta vem
                 // da opacity 0.55 do canvas no CSS.
                 const isVeil = host.classList.contains('hero--editorial');
-                const P_RING = 1.12;                    // linhas bem mais juntas (~5.6px; centro do hero ~3.7px)
+                const P_RING = 1.30;                    // linhas bem juntas e UNIFORMES (~4.8px em todo o campo)
                 const P_LW = 0.024;                     // espessura fio de cabelo
                 const P_ALPHA = isVeil ? 0.20 : 0.42;   // seções escuras um pouco mais presentes
 
