@@ -2565,8 +2565,8 @@ html[data-theme="light"] .hero--editorial__concept em {
 /* saída: o vídeo "derrete" — desfoca, amplia e escurece enquanto some */
 .hero-video__clip.is-leaving {
     opacity: 0;
-    filter: contrast(0.9) saturate(0.78) brightness(0.45) blur(22px);
-    transform: scale(1.16);
+    filter: contrast(0.9) saturate(0.78) brightness(0.4) blur(26px);
+    transform: scale(1.20);
 }
 
 /* Celular: mesmo efeito com desfoque menor (GPU de celular agradece) */
