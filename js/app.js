@@ -935,12 +935,117 @@
             const offR = document.getElementById('hwR');
             const offB = document.getElementById('hwB');
             const isCoarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+            const isNarrow = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
             const WARP_PEAK = isCoarse ? 24 : 40;     // deslocamento sutil (px)
-            const CHROMA_PEAK = isCoarse ? 20 : 18;   // separação R/B — no celular AINDA mais forte
-                                                      // (20px em tela de ~375px ≈ 5% da largura)
+            const CHROMA_PEAK = (isCoarse || isNarrow) ? 20 : 18;   // separação R/B — celular mais forte
+
+            // Celular: navegadores móveis (sobretudo iOS/Safari) IGNORAM filtros
+            // SVG em elementos HTML — a aberração do vídeo não aparecia. Aqui ela
+            // é feita em WebGL: o vídeo vira textura e os canais R/B são amostrados
+            // deslocados, com o mesmo grade fosco do CSS por cima.
+            const useGlChroma = isCoarse || isNarrow;
+            let chromaFx;
+            function ensureChromaFx() {
+                if (chromaFx !== undefined) return chromaFx;
+                chromaFx = null;
+                try {
+                    const cv = document.createElement('canvas');
+                    cv.className = 'hero-chroma';
+                    videoWrap.appendChild(cv);
+                    const gl = cv.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false, depth: false });
+                    if (!gl) { cv.remove(); return chromaFx; }
+                    const VS = 'attribute vec2 a;varying vec2 v;void main(){v=a*0.5+0.5;gl_Position=vec4(a,0.0,1.0);}';
+                    const FS = 'precision mediump float;varying vec2 v;' +
+                        'uniform sampler2D u_tex;uniform float u_alpha;uniform vec2 u_off;uniform vec2 u_warp;uniform float u_time;uniform vec2 u_scale;' +
+                        'void main(){' +
+                        '  vec2 uv=(v-0.5)*u_scale+0.5;' +
+                        '  uv+=u_warp*vec2(sin(uv.y*9.0+u_time*3.1), sin(uv.x*8.0-u_time*2.7));' +
+                        '  float r=texture2D(u_tex, clamp(uv+u_off, 0.0, 1.0)).r;' +
+                        '  float g=texture2D(u_tex, clamp(uv, 0.0, 1.0)).g;' +
+                        '  float b=texture2D(u_tex, clamp(uv-u_off, 0.0, 1.0)).b;' +
+                        '  vec3 c=vec3(r,g,b);' +
+                        '  c=(c-0.5)*0.9+0.5;' +                                       // contrast .9
+                        '  float l=dot(c,vec3(0.2126,0.7152,0.0722));' +
+                        '  c=mix(vec3(l),c,0.78)*0.7;' +                               // saturate .78 * brightness .7
+                        '  gl_FragColor=vec4(c*u_alpha, u_alpha);' +
+                        '}';
+                    function sh(t, s) {
+                        const o = gl.createShader(t);
+                        gl.shaderSource(o, s); gl.compileShader(o);
+                        return gl.getShaderParameter(o, gl.COMPILE_STATUS) ? o : null;
+                    }
+                    const vs = sh(gl.VERTEX_SHADER, VS), fs = sh(gl.FRAGMENT_SHADER, FS);
+                    if (!vs || !fs) { cv.remove(); return chromaFx; }
+                    const pr = gl.createProgram();
+                    gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr);
+                    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) { cv.remove(); return chromaFx; }
+                    gl.useProgram(pr);
+                    const buf = gl.createBuffer();
+                    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+                    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
+                    const aL = gl.getAttribLocation(pr, 'a');
+                    gl.enableVertexAttribArray(aL);
+                    gl.vertexAttribPointer(aL, 2, gl.FLOAT, false, 0, 0);
+                    const tex = gl.createTexture();
+                    gl.bindTexture(gl.TEXTURE_2D, tex);
+                    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+                    const U = {};
+                    ['u_alpha', 'u_off', 'u_warp', 'u_time', 'u_scale'].forEach((n) => { U[n] = gl.getUniformLocation(pr, n); });
+                    chromaFx = {
+                        show() { cv.classList.add('is-on'); },
+                        hide() { cv.classList.remove('is-on'); },
+                        draw(video, env, el) {
+                            if (!video || video.readyState < 2 || !video.videoWidth) return;
+                            const r = videoWrap.getBoundingClientRect();
+                            const DPR = Math.min(window.devicePixelRatio || 1, 2);
+                            const w = Math.max(2, Math.round(r.width * DPR));
+                            const h = Math.max(2, Math.round(r.height * DPR));
+                            if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
+                            gl.viewport(0, 0, w, h);
+                            gl.bindTexture(gl.TEXTURE_2D, tex);
+                            try { gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video); } catch (e) { return; }
+                            // mapeamento "cover" (mesma lógica do object-fit do CSS)
+                            const ca = r.width / r.height, ta = video.videoWidth / video.videoHeight;
+                            if (ta > ca) gl.uniform2f(U.u_scale, ca / ta, 1);
+                            else gl.uniform2f(U.u_scale, 1, ta / ca);
+                            const off = (CHROMA_PEAK * env) / r.width;
+                            gl.uniform2f(U.u_off, off, -off * 0.35);
+                            const wamp = (WARP_PEAK * env * 0.5) / r.width;
+                            gl.uniform2f(U.u_warp, wamp, wamp * 0.8);
+                            gl.uniform1f(U.u_time, el);
+                            gl.uniform1f(U.u_alpha, Math.min(1, env * 0.85));
+                            gl.drawArrays(gl.TRIANGLES, 0, 6);
+                        }
+                    };
+                } catch (e) { chromaFx = null; }
+                return chromaFx;
+            }
+
             let warpRaf = null;
             function warpBurst() {
-                if (!videoWrap || !dispMap) return;
+                if (!videoWrap) return;
+                // Celular: overlay WebGL (croma + warp) — funciona em todos os browsers
+                if (useGlChroma) {
+                    const fx = ensureChromaFx();
+                    if (!fx) return;
+                    if (warpRaf) cancelAnimationFrame(warpRaf);
+                    const t0 = performance.now();
+                    fx.show();
+                    (function step(now) {
+                        const el = (now - t0) / 1000;
+                        if (el >= 1.8) { fx.hide(); warpRaf = null; return; }
+                        const env = el < 0.3 ? (el / 0.3) : Math.pow(1 - (el - 0.3) / 1.5, 1.5);
+                        const active = hero.querySelector('.hero-video__clip.is-active') || clips[idx];
+                        fx.draw(active, env, el);
+                        warpRaf = requestAnimationFrame(step);
+                    })(t0);
+                    return;
+                }
+                if (!dispMap) return;
                 if (warpRaf) cancelAnimationFrame(warpRaf);
                 const t0 = performance.now();
                 videoWrap.classList.add('is-warping');
