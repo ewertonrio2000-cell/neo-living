@@ -8,6 +8,10 @@
 (() => {
     'use strict';
 
+    // Surge do véu de digitais no hero: disparado pela troca de vídeo
+    // (initHeroVideo) e lido pelo shader (initFingerprintFX)
+    let heroSurgeStart = -1e9;
+
     // =====================================================
     // 1. SMOOTH SCROLL (Lenis)
     // =====================================================
@@ -382,14 +386,19 @@
             'uniform vec2 u_res;uniform float u_dpr;uniform float u_time;\n' +
             'uniform vec2 u_mouse;uniform float u_mouseOn;uniform float u_alpha;\n' +
             'uniform float u_ring;uniform float u_lw;uniform float u_veil;\n' +
+            'uniform float u_surge;\n' +
             '#define PI 3.14159265359\n' +
             'void main(){\n' +
             '  float t=u_time;\n' +
             '  vec2 fc=vec2(gl_FragCoord.x, u_res.y-gl_FragCoord.y);\n' +
             '  vec2 res=u_res/u_dpr; vec2 P=fc/u_dpr;\n' +
-            '  float WARP=34.0, WF=0.010;\n' +
+            // Surge (troca de vídeo): o warp cresce e uma ondulação rápida
+            // percorre o campo — as ristas se distorcem visivelmente
+            '  float WARP=34.0+52.0*u_surge, WF=0.010;\n' +
             '  float X=P.x + WARP*sin(P.y*WF+t) + WARP*0.5*sin(P.y*WF*2.3-t*0.7);\n' +
             '  float Y=P.y + WARP*sin(P.x*WF-t*0.9) + WARP*0.5*sin(P.x*WF*1.9+t*0.6);\n' +
+            '  X += u_surge*11.0*sin(P.y*0.045+t*7.0);\n' +
+            '  Y += u_surge*9.0*sin(P.x*0.052-t*6.2);\n' +
             '  if(u_mouseOn>0.5){\n' +
             '    vec2 d=vec2(X,Y)-u_mouse; float dd=dot(d,d);\n' +
             '    float R=min(res.x,res.y)*0.26; float R2=R*R;\n' +
@@ -429,7 +438,7 @@
             '    float spec=exp(-distance(P,hl)/(0.5*min(res.x,res.y)));\n' +
             '    shade=0.22+0.68*sheen+0.55*spec;\n' +
             '  }\n' +
-            '  float aRidge=line*u_alpha*shade;\n' +
+            '  float aRidge=line*u_alpha*shade*(1.0+2.4*u_surge);\n' +   // acende na troca
             // Flash lateral prata: só nas seções escuras (não no véu do hero)
             '  float ex=clamp(min(fc.x, u_res.x-fc.x)/(u_res.x*0.30), 0.0, 1.0);\n' +
             '  float sideSin = P.x < res.x*0.5 ? sin(t*0.7) : sin(t*0.7+PI);\n' +
@@ -443,9 +452,10 @@
             '    float vd=distance(P/res, vc);\n' +
             '    vshadow=smoothstep(0.40,0.86,vd)*0.7;\n' +
             '  }\n' +
+            '  vec3 col=mix(silver, vec3(1.0,0.93,0.78), u_surge*0.6);\n' +   // esquenta p/ champanhe
             '  float aR=clamp(aRidge+vig, 0.0, 1.0);\n' +
             '  float outA=vshadow+aR*(1.0-vshadow);\n' +
-            '  gl_FragColor=vec4(silver*aR*(1.0-vshadow), outA);\n' +
+            '  gl_FragColor=vec4(col*aR*(1.0-vshadow), outA);\n' +
             '}';
 
         document.querySelectorAll('[data-fingerprint]').forEach(setup);
@@ -491,6 +501,7 @@
                 const uRing = gl.getUniformLocation(prog, 'u_ring');
                 const uLw = gl.getUniformLocation(prog, 'u_lw');
                 const uVeil = gl.getUniformLocation(prog, 'u_veil');
+                const uSurge = gl.getUniformLocation(prog, 'u_surge');
 
                 // Variante "véu" no hero: ristas finíssimas e densas (+50% no
                 // centro), reflexo deslizante, vinheta com sombra nas bordas.
@@ -556,6 +567,16 @@
                     gl.uniform1f(uRing, P_RING);
                     gl.uniform1f(uLw, P_LW);
                     gl.uniform1f(uVeil, isVeil ? 1 : 0);
+                    // Surge da troca de vídeo (só no véu do hero): ataque
+                    // rápido (~300ms) e decaimento suave (~1.9s)
+                    let surge = 0;
+                    if (isVeil) {
+                        const el = (now - heroSurgeStart) / 1000;
+                        if (el > 0 && el < 2.2) {
+                            surge = el < 0.3 ? (el / 0.3) : Math.pow(1 - (el - 0.3) / 1.9, 1.6);
+                        }
+                    }
+                    gl.uniform1f(uSurge, surge);
                     gl.drawArrays(gl.TRIANGLES, 0, 6);
                 }
 
@@ -889,6 +910,9 @@
 
             setInterval(() => {
                 const next = (idx + 1) % clips.length;
+                // dispara o SURGE do véu de digitais: acende/distorce no pico
+                // exatamente quando o melt começa (ataque 300ms ≈ swap 420ms)
+                heroSurgeStart = performance.now();
                 // 1) AQUECE o próximo clipe antes da troca: seek + play com o vídeo
                 //    ainda invisível → decoder pronto, sem engasgo na entrada
                 try { if (clips[next].readyState > 2) clips[next].currentTime = 0; } catch (e) {}
