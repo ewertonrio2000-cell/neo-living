@@ -450,9 +450,33 @@
             '    vshadow=smoothstep(0.40,0.86,vd)*0.7;\n' +
             '  }\n' +
             '  vec3 col=mix(silver, vec3(1.0,0.93,0.78), u_surge*0.8);\n' +   // esquenta p/ champanhe
-            '  float aR=clamp(max(max(ridge.r,ridge.g),ridge.b)+vig, 0.0, 1.0);\n' +
+            // LUZES com aberração cromática na transição: dois brilhos suaves
+            // + um feixe anamórfico horizontal, cada um com canais R/B
+            // deslocados em direções opostas (halo espectral)
+            '  vec3 lum=vec3(0.0);\n' +
+            '  if(u_veil>0.5 && u_surge>0.004){\n' +
+            '    vec2 co=vec2(res.x*0.020, -res.y*0.007)*u_surge;\n' +
+            '    vec2 L1=res*vec2(0.27+0.05*sin(t*0.5), 0.32+0.05*cos(t*0.42));\n' +
+            '    vec2 L2=res*vec2(0.74+0.05*cos(t*0.47), 0.58+0.06*sin(t*0.53));\n' +
+            '    float s1q=res.y*res.y*0.048, s2q=res.y*res.y*0.023;\n' +
+            '    vec2 dA=P-(L1+co); float r1=exp(-dot(dA,dA)/s1q);\n' +
+            '    dA=P-L1;      float g1=exp(-dot(dA,dA)/s1q);\n' +
+            '    dA=P-(L1-co); float b1=exp(-dot(dA,dA)/s1q);\n' +
+            '    lum += vec3(r1,g1,b1);\n' +
+            '    dA=P-(L2+co); float r2=exp(-dot(dA,dA)/s2q);\n' +
+            '    dA=P-L2;      float g2=exp(-dot(dA,dA)/s2q);\n' +
+            '    dA=P-(L2-co); float b2=exp(-dot(dA,dA)/s2q);\n' +
+            '    lum += 0.85*vec3(r2,g2,b2);\n' +
+            '    float sy=res.y*0.030, sx=res.x*0.60;\n' +
+            '    float yb=res.y*(0.45+0.03*sin(t*0.6));\n' +
+            '    float cy=res.y*0.014*u_surge;\n' +
+            '    float fx=exp(-abs(P.x-res.x*0.5)/sx);\n' +
+            '    lum += 0.9*vec3(exp(-abs(P.y-yb+cy)/sy)*fx, exp(-abs(P.y-yb)/sy)*fx, exp(-abs(P.y-yb-cy)/sy)*fx);\n' +
+            '    lum *= u_surge*0.85;\n' +
+            '  }\n' +
+            '  float aR=clamp(max(max(ridge.r,ridge.g),ridge.b)+vig+max(lum.r,max(lum.g,lum.b)), 0.0, 1.0);\n' +
             '  float outA=vshadow+aR*(1.0-vshadow);\n' +
-            '  vec3 rgb=clamp(col*ridge + silver*vig, 0.0, 1.0);\n' +
+            '  vec3 rgb=clamp(col*ridge + silver*vig + lum, 0.0, 1.0);\n' +
             '  gl_FragColor=vec4(rgb*(1.0-vshadow), outA);\n' +
             '}';
 
