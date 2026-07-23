@@ -64,115 +64,47 @@
         </section>
 
         <!-- ============================================
-             CATEGORIAS — pastas de projetos por tipologia
+             GALERIA HORIZONTAL — logo abaixo do hero (sticky + scroll horizontal)
              ============================================ -->
-        <section class="cat-section" id="categorias">
+        <div class="h-gallery-wrap" id="categorias">
+        <section class="h-gallery" aria-label="Projetos por categoria">
+            <div class="h-gallery__head">
+                <p class="t-eyebrow">_ Portfólio</p>
+                <h2 class="t-h2">Projetos por categoria</h2>
+            </div>
+            <div class="h-gallery__track">
+                <a class="h-panel" href="#categorias-drawer" data-cat="casas" data-cursor="Abrir categoria" aria-expanded="false">
+                    <span class="h-panel__media"><img src="assets/images/categorias/casas.svg" alt="Casas contemporâneas" loading="lazy"></span>
+                    <span class="h-panel__meta"><span class="h-panel__idx">_01</span><span class="h-panel__name">Casas contemporâneas</span><span class="h-panel__loc"></span></span>
+                </a>
+                <a class="h-panel" href="#categorias-drawer" data-cat="hotel" data-cursor="Abrir categoria" aria-expanded="false">
+                    <span class="h-panel__media"><img src="assets/images/categorias/hotel.svg" alt="Hotel design" loading="lazy"></span>
+                    <span class="h-panel__meta"><span class="h-panel__idx">_02</span><span class="h-panel__name">Hotel design</span><span class="h-panel__loc"></span></span>
+                </a>
+                <a class="h-panel" href="#categorias-drawer" data-cat="interior" data-cursor="Abrir categoria" aria-expanded="false">
+                    <span class="h-panel__media"><img src="assets/images/categorias/interior.svg" alt="Interior design" loading="lazy"></span>
+                    <span class="h-panel__meta"><span class="h-panel__idx">_03</span><span class="h-panel__name">Interior design</span><span class="h-panel__loc"></span></span>
+                </a>
+                <a class="h-panel" href="#categorias-drawer" data-cat="offices" data-cursor="Abrir categoria" aria-expanded="false">
+                    <span class="h-panel__media"><img src="assets/images/categorias/offices.svg" alt="Design offices" loading="lazy"></span>
+                    <span class="h-panel__meta"><span class="h-panel__idx">_04</span><span class="h-panel__name">Design offices</span><span class="h-panel__loc"></span></span>
+                </a>
+                <a class="h-panel" href="#categorias-drawer" data-cat="retrofits" data-cursor="Abrir categoria" aria-expanded="false">
+                    <span class="h-panel__media"><img src="assets/images/categorias/retrofits.svg" alt="Retrofits" loading="lazy"></span>
+                    <span class="h-panel__meta"><span class="h-panel__idx">_05</span><span class="h-panel__name">Retrofits</span><span class="h-panel__loc"></span></span>
+                </a>
+            </div>
+        </section>
+        </div>
+
+        <!-- Gaveta: abre com os projetos da categoria clicada no tabuleiro -->
+        <section class="cat-drawer-host" id="categorias-drawer">
             <div class="container">
-                <div class="cat-section__head fade-in">
-                    <p class="t-eyebrow" style="margin-bottom: 16px;">_ Explore</p>
-                    <h2 class="t-h1">Projetos por categoria</h2>
-                </div>
-
-                <div class="cat-strip">
-                    <button type="button" class="cat-folder fade-in" data-cat="casas" aria-expanded="false">
-                        <span class="cat-folder__tab" aria-hidden="true"></span>
-                        <span class="cat-folder__media"><img src="assets/images/categorias/casas.svg" alt="" loading="lazy"></span>
-                        <span class="cat-folder__info">
-                            <span class="cat-folder__idx">_01</span>
-                            <span class="cat-folder__name">Casas<br>contemporâneas</span>
-                            <span class="cat-folder__count"></span>
-                        </span>
-                    </button>
-
-                    <button type="button" class="cat-folder fade-in fade-in-delay-1" data-cat="hotel" aria-expanded="false">
-                        <span class="cat-folder__tab" aria-hidden="true"></span>
-                        <span class="cat-folder__media"><img src="assets/images/categorias/hotel.svg" alt="" loading="lazy"></span>
-                        <span class="cat-folder__info">
-                            <span class="cat-folder__idx">_02</span>
-                            <span class="cat-folder__name">Hotel<br>design</span>
-                            <span class="cat-folder__count"></span>
-                        </span>
-                    </button>
-
-                    <button type="button" class="cat-folder fade-in fade-in-delay-2" data-cat="interior" aria-expanded="false">
-                        <span class="cat-folder__tab" aria-hidden="true"></span>
-                        <span class="cat-folder__media"><img src="assets/images/categorias/interior.svg" alt="" loading="lazy"></span>
-                        <span class="cat-folder__info">
-                            <span class="cat-folder__idx">_03</span>
-                            <span class="cat-folder__name">Interior<br>design</span>
-                            <span class="cat-folder__count"></span>
-                        </span>
-                    </button>
-
-                    <button type="button" class="cat-folder fade-in fade-in-delay-3" data-cat="offices" aria-expanded="false">
-                        <span class="cat-folder__tab" aria-hidden="true"></span>
-                        <span class="cat-folder__media"><img src="assets/images/categorias/offices.svg" alt="" loading="lazy"></span>
-                        <span class="cat-folder__info">
-                            <span class="cat-folder__idx">_04</span>
-                            <span class="cat-folder__name">Design<br>offices</span>
-                            <span class="cat-folder__count"></span>
-                        </span>
-                    </button>
-
-                    <button type="button" class="cat-folder fade-in fade-in-delay-4" data-cat="retrofits" aria-expanded="false">
-                        <span class="cat-folder__tab" aria-hidden="true"></span>
-                        <span class="cat-folder__media"><img src="assets/images/categorias/retrofits.svg" alt="" loading="lazy"></span>
-                        <span class="cat-folder__info">
-                            <span class="cat-folder__idx">_05</span>
-                            <span class="cat-folder__name">Retrofits</span>
-                            <span class="cat-folder__count"></span>
-                        </span>
-                    </button>
-                </div>
-
-                <!-- Gaveta: abre com os projetos da pasta clicada -->
                 <div class="cat-drawer" hidden>
                     <div class="cat-drawer__grid"></div>
                 </div>
             </div>
         </section>
-
-        <!-- ============================================
-             GALERIA HORIZONTAL — logo abaixo do hero (sticky + scroll horizontal)
-             ============================================ -->
-        <div class="h-gallery-wrap">
-        <section class="h-gallery" aria-label="Portfólio selecionado">
-            <div class="h-gallery__head">
-                <p class="t-eyebrow">_ Selected Works</p>
-                <h2 class="t-h2">Portfólio</h2>
-            </div>
-            <div class="h-gallery__track">
-                <a class="h-panel" href="project.html?id=horizon-joa" data-cursor="Ver projeto">
-                    <span class="h-panel__media"><img src="assets/images/horizon-joa.jpg" alt="Horizon Joá" loading="lazy"></span>
-                    <span class="h-panel__meta"><span class="h-panel__idx">01</span><span class="h-panel__name">Horizon Joá</span><span class="h-panel__loc">São Conrado · RJ</span></span>
-                </a>
-                <a class="h-panel" href="project.html?id=cobertura-costa-del-sol" data-cursor="Ver projeto">
-                    <span class="h-panel__media"><img src="assets/images/costa-del-sol.png" alt="Cobertura Costa del Sol" loading="lazy"></span>
-                    <span class="h-panel__meta"><span class="h-panel__idx">02</span><span class="h-panel__name">Cobertura Costa del Sol</span><span class="h-panel__loc">Barra · RJ</span></span>
-                </a>
-                <a class="h-panel" href="project.html?id=retrofit-chopin" data-cursor="Ver projeto">
-                    <span class="h-panel__media"><img src="assets/images/chopin.png" alt="Retrofit Edifício Chopin" loading="lazy"></span>
-                    <span class="h-panel__meta"><span class="h-panel__idx">03</span><span class="h-panel__name">Retrofit Chopin</span><span class="h-panel__loc">Av. Atlântica · RJ</span></span>
-                </a>
-                <a class="h-panel" href="project.html?id=retrofit-epitacio-pessoa" data-cursor="Ver projeto">
-                    <span class="h-panel__media"><img src="assets/images/epitaciopessoa.png" alt="Retrofit Epitácio Pessoa 800" loading="lazy"></span>
-                    <span class="h-panel__meta"><span class="h-panel__idx">04</span><span class="h-panel__name">Epitácio Pessoa 800</span><span class="h-panel__loc">Ipanema · RJ</span></span>
-                </a>
-                <a class="h-panel" href="project.html?id=retrofit-nova-joatinga" data-cursor="Ver projeto">
-                    <span class="h-panel__media"><img src="assets/images/nova-joatinga.png" alt="Retrofit Nova Joatinga" loading="lazy"></span>
-                    <span class="h-panel__meta"><span class="h-panel__idx">05</span><span class="h-panel__name">Nova Joatinga</span><span class="h-panel__loc">Joatinga · RJ</span></span>
-                </a>
-                <a class="h-panel" href="project.html?id=forest-life" data-cursor="Ver projeto">
-                    <span class="h-panel__media"><img src="assets/images/forestlife.jpg" alt="Forest Life" loading="lazy"></span>
-                    <span class="h-panel__meta"><span class="h-panel__idx">06</span><span class="h-panel__name">Forest Life</span><span class="h-panel__loc">Residencial · RJ</span></span>
-                </a>
-                <a class="h-panel" href="project.html?id=retrofit-shopping-citta" data-cursor="Ver projeto">
-                    <span class="h-panel__media"><img src="assets/images/citta-office-mall.png" alt="Retrofit Shopping Città" loading="lazy"></span>
-                    <span class="h-panel__meta"><span class="h-panel__idx">07</span><span class="h-panel__name">Shopping Città</span><span class="h-panel__loc">Barra · RJ</span></span>
-                </a>
-            </div>
-        </section>
-        </div>
 
         <!-- ============================================
              SECTION 2 — ALL SERVICES (4 columns + watermark)

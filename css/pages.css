@@ -3170,125 +3170,33 @@ html[data-theme="light"] .hero.hero--editorial {
 }
 
 /* =========================================================
-   CATEGORIAS — pastas de projetos por tipologia (abaixo do hero)
-   Metáfora de pasta/fichário: aba no topo, corpo com imagem P&B
-   que ganha o tratamento dourado no hover; clique abre a gaveta
-   com os projetos daquela categoria.
+   PORTFÓLIO POR CATEGORIA — os painéis do tabuleiro horizontal
+   SÃO as categorias (arte wireframe sobre preto); clique abre a
+   gaveta com os projetos, logo abaixo do tabuleiro.
    ========================================================= */
-.cat-section {
-    padding-top: var(--space-2xl);
-    padding-bottom: var(--space-xl);
-    background-color: #FFFFFF;
-}
-
-.cat-section__head { margin-bottom: var(--space-lg); }
-
-.cat-strip {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: var(--space-sm);
-    align-items: end;
-}
-
-.cat-folder {
-    position: relative;
-    display: block;
-    width: 100%;
-    padding: 0;
-    background: none;
-    border: 0;
-    text-align: left;
-    cursor: pointer;
-    font: inherit;
-    color: var(--text-primary);
-    transition: transform 500ms var(--ease-out);
-}
-
-.cat-folder:hover,
-.cat-folder.is-open { transform: translateY(-6px); }
-
-/* Aba da pasta (estilo fichário) */
-.cat-folder__tab {
-    display: block;
-    width: 46%;
-    height: 13px;
-    border: 1px solid var(--accent-line);
-    border-bottom: 0;
-    clip-path: polygon(0 0, 78% 0, 100% 100%, 0 100%);
-    background-color: #FFFFFF;
-    transition: border-color 400ms var(--ease-out), background-color 400ms var(--ease-out);
-}
-
-/* Corpo da pasta — arte wireframe (grid/malha/topografia) sobre preto */
-.cat-folder__media {
-    position: relative;
-    display: block;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-    border: 1px solid var(--accent-line);
+/* painéis-categoria: arte wireframe limpa; hover/aberto = champanhe */
+.h-panel[data-cat] .h-panel__media {
     background-color: #050505;
+    border: 1px solid var(--accent-line);
     transition: border-color 400ms var(--ease-out);
 }
 
-.cat-folder__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 900ms var(--ease-out), filter 600ms var(--ease-out);
-}
-
-/* hover: as linhas brancas ganham tom champanhe + leve zoom */
-.cat-folder:hover .cat-folder__media img,
-.cat-folder.is-open .cat-folder__media img {
-    transform: scale(1.05);
-    filter: sepia(0.85) saturate(1.9) hue-rotate(-14deg) brightness(1.08);
-}
-
-.cat-folder:hover .cat-folder__tab,
-.cat-folder:hover .cat-folder__media,
-.cat-folder.is-open .cat-folder__tab,
-.cat-folder.is-open .cat-folder__media {
+.h-panel[data-cat]:hover .h-panel__media,
+.h-panel[data-cat].is-open .h-panel__media {
     border-color: var(--accent-amber);
 }
 
-.cat-folder.is-open .cat-folder__tab { background-color: var(--accent-amber); }
-
-.cat-folder__info {
-    display: block;
-    padding-top: 12px;
+.h-panel[data-cat]:hover .h-panel__media img,
+.h-panel[data-cat].is-open .h-panel__media img {
+    transform: scale(1.04);
+    filter: sepia(0.85) saturate(1.9) hue-rotate(-14deg) brightness(1.08);
 }
 
-.cat-folder__idx {
-    display: block;
-    font-family: var(--font-condensed);
-    font-size: 0.8125rem;
-    color: var(--accent-amber);
-    margin-bottom: 4px;
-}
+.h-panel[data-cat].is-open .h-panel__name { color: var(--accent-amber); }
 
-.cat-folder__name {
-    display: block;
-    font-family: var(--font-condensed);
-    font-weight: 600;
-    font-size: clamp(0.9375rem, 1.35vw, 1.125rem);
-    line-height: 1.15;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-}
-
-.cat-folder__count {
-    display: block;
-    margin-top: 5px;
-    font-size: 0.6875rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-}
-
-/* Gaveta — projetos da pasta aberta */
-.cat-drawer { margin-top: var(--space-xl); }
+/* Gaveta — projetos da categoria aberta (host logo após o tabuleiro) */
+.cat-drawer-host { background-color: #FFFFFF; }
+.cat-drawer { padding: var(--space-lg) 0 var(--space-2xl); }
 
 .cat-drawer__grid {
     display: grid;
@@ -3365,31 +3273,10 @@ html[data-theme="light"] .hero.hero--editorial {
 }
 
 @media (max-width: 1024px) {
-    .cat-strip { grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
     .cat-drawer__grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
-    /* Pastas deslizando para a lateral, como os demais carrosséis do site */
-    .cat-strip {
-        display: flex;
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
-        gap: var(--space-md);
-        margin-left: calc(-1 * var(--gutter-mobile));
-        margin-right: calc(-1 * var(--gutter-mobile));
-        padding: 0 var(--gutter-mobile) var(--space-sm);
-        scrollbar-width: none;
-    }
-    .cat-strip::-webkit-scrollbar { display: none; }
-    .cat-folder {
-        flex: 0 0 auto;
-        width: 58vw;
-        scroll-snap-align: start;
-    }
-
     .cat-drawer__grid {
         display: flex;
         overflow-x: auto;

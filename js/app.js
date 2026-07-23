@@ -398,10 +398,11 @@
             '  float Y=P.y + WARP*sin(P.x*WF-t*0.9) + WARP*0.5*sin(P.x*WF*1.9+t*0.6);\n' +
             '  X += u_surge*6.0*sin(P.y*0.045+t*7.0);\n' +
             '  Y += u_surge*5.0*sin(P.x*0.052-t*6.2);\n' +
+            // Deformação do cursor BEM SUTIL: leve respiro nas linhas, sem abrir clareira
             '  if(u_mouseOn>0.5){\n' +
             '    vec2 d=vec2(X,Y)-u_mouse; float dd=dot(d,d);\n' +
-            '    float R=min(res.x,res.y)*0.26; float R2=R*R;\n' +
-            '    if(dd<R2){ float push=1.0-dd/R2; float p=push*push*0.5; X+=d.x*p; Y+=d.y*p; }\n' +
+            '    float R=min(res.x,res.y)*0.22; float R2=R*R;\n' +
+            '    if(dd<R2){ float push=1.0-dd/R2; float p=push*push*0.14; X+=d.x*p; Y+=d.y*p; }\n' +
             '  }\n' +
             // Campo de direção UNITÁRIA (|∇φ|=1): espaçamento IDÊNTICO em todo
             // o campo — a organicidade vem só do warp/ondulação, que não muda
@@ -505,7 +506,7 @@
                 // O alpha das ristas fica baixo (0.20) e a força da vinheta vem
                 // da opacity 0.55 do canvas no CSS.
                 const isVeil = host.classList.contains('hero--editorial');
-                const P_RING = 1.30;                    // linhas bem juntas e UNIFORMES (~4.8px em todo o campo)
+                const P_RING = 1.90;                    // linhas bem juntas e UNIFORMES (~3.3px em todo o campo)
                 const P_LW = 0.024;                     // espessura fio de cabelo
                 const P_ALPHA = isVeil ? 0.20 : 0.42;   // seções escuras um pouco mais presentes
 
@@ -569,8 +570,8 @@
                     let surge = 0;
                     if (isVeil) {
                         const el = (now - heroSurgeStart) / 1000;
-                        if (el > 0 && el < 2.2) {
-                            surge = el < 0.3 ? (el / 0.3) : Math.pow(1 - (el - 0.3) / 1.9, 1.6);
+                        if (el > 0 && el < 2.6) {
+                            surge = el < 0.45 ? (el / 0.45) : Math.pow(1 - (el - 0.45) / 2.15, 1.4);
                         }
                     }
                     gl.uniform1f(uSurge, surge);
@@ -594,12 +595,10 @@
     //     Clique abre a "gaveta" com os projetos da categoria
     // =====================================================
     function initCategoryFolders() {
-        const strip = document.querySelector('.cat-strip');
+        const folders = Array.from(document.querySelectorAll('.h-panel[data-cat]'));
         const drawer = document.querySelector('.cat-drawer');
         const grid = drawer && drawer.querySelector('.cat-drawer__grid');
-        if (!strip || !drawer || !grid || !window.NEO_PROJECTS) return;
-
-        const folders = Array.from(strip.querySelectorAll('.cat-folder'));
+        if (!folders.length || !drawer || !grid || !window.NEO_PROJECTS) return;
 
         // Agrupa os projetos por categoria
         const byCat = {};
@@ -608,16 +607,17 @@
             (byCat[p.category] = byCat[p.category] || []).push(p);
         });
 
-        // Contadores nas pastas ("4 projetos")
+        // Contadores nos painéis ("12 projetos") — no lugar da localização
         folders.forEach((f) => {
             const n = (byCat[f.dataset.cat] || []).length;
-            const el = f.querySelector('.cat-folder__count');
+            const el = f.querySelector('.h-panel__loc');
             if (el) el.textContent = n + (n === 1 ? ' projeto' : ' projetos');
         });
 
         let open = null;
         folders.forEach((f) => {
-            f.addEventListener('click', () => {
+            f.addEventListener('click', (ev) => {
+                ev.preventDefault();
                 const cat = f.dataset.cat;
 
                 // Clicou na pasta já aberta → fecha a gaveta
@@ -650,6 +650,9 @@
                 drawer.classList.remove('is-open');
                 void drawer.offsetWidth;
                 drawer.classList.add('is-open');
+                // leva o visitante até a gaveta (logo abaixo do tabuleiro)
+                if (lenis && lenis.scrollTo) lenis.scrollTo(drawer, { offset: -90, duration: 1.1 });
+                else drawer.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
     }
@@ -928,7 +931,7 @@
             const isCoarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
             const isNarrow = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
             const WARP_PEAK = isCoarse ? 24 : 40;     // deslocamento sutil (px)
-            const CHROMA_PEAK = (isCoarse || isNarrow) ? 20 : 18;   // separação R/B — celular mais forte
+            const CHROMA_PEAK = (isCoarse || isNarrow) ? 26 : 24;   // separação R/B — forte e presente
 
             // Celular: navegadores móveis (sobretudo iOS/Safari) IGNORAM filtros
             // SVG em elementos HTML — a aberração do vídeo não aparecia. Aqui ela
@@ -1028,8 +1031,10 @@
                     fx.show();
                     (function step(now) {
                         const el = (now - t0) / 1000;
-                        if (el >= 1.8) { fx.hide(); warpRaf = null; return; }
-                        const env = el < 0.3 ? (el / 0.3) : Math.pow(1 - (el - 0.3) / 1.5, 1.5);
+                        if (el >= 2.6) { fx.hide(); warpRaf = null; return; }
+                        // ataque mais lento (450ms) e decaimento longo (2.15s):
+                        // a aberração fica em cena, dá tempo de ser presenciada
+                        const env = el < 0.45 ? (el / 0.45) : Math.pow(1 - (el - 0.45) / 2.15, 1.4);
                         const active = hero.querySelector('.hero-video__clip.is-active') || clips[idx];
                         fx.draw(active, env, el);
                         warpRaf = requestAnimationFrame(step);
@@ -1042,7 +1047,7 @@
                 videoWrap.classList.add('is-warping');
                 (function step(now) {
                     const el = (now - t0) / 1000;
-                    if (el >= 1.8) {
+                    if (el >= 2.6) {
                         dispMap.setAttribute('scale', '0');
                         if (offR) { offR.setAttribute('dx', '0'); offR.setAttribute('dy', '0'); }
                         if (offB) { offB.setAttribute('dx', '0'); offB.setAttribute('dy', '0'); }
@@ -1050,7 +1055,7 @@
                         warpRaf = null;
                         return;
                     }
-                    const env = el < 0.3 ? (el / 0.3) : Math.pow(1 - (el - 0.3) / 1.5, 1.5);
+                    const env = el < 0.45 ? (el / 0.45) : Math.pow(1 - (el - 0.45) / 2.15, 1.4);
                     dispMap.setAttribute('scale', String((env * WARP_PEAK).toFixed(1)));
                     // chromatic aberration: R e B puxam em direções opostas
                     const ch = env * CHROMA_PEAK;
