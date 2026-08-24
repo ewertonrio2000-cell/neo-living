@@ -860,9 +860,9 @@
             else if (e.key === 'ArrowRight') { show(cur + 1); restartAuto(); }
         });
 
-        // intercepta TODOS os projetos da gaveta (delegação — sobrevive a re-render)
+        // intercepta os projetos da gaveta E os destaques (delegação)
         document.addEventListener('click', (e) => {
-            const a = e.target.closest && e.target.closest('.cat-item');
+            const a = e.target.closest && e.target.closest('.cat-item, .f-card');
             if (!a) return;
             const m = (a.getAttribute('href') || '').match(/id=([\w-]+)/);
             if (!m) return;
@@ -1069,6 +1069,8 @@
             // Skip externals, anchors, mailto/tel
             if (href.startsWith('http') || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
             if (a.target === '_blank') return;
+            // links de projeto abrem o MODAL na própria página (não navegam)
+            if (a.classList.contains('f-card') || a.classList.contains('cat-item')) return;
 
             a.addEventListener('click', (e) => {
                 // Allow modifier-clicks
