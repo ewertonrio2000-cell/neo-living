@@ -2977,13 +2977,14 @@ html[data-theme="light"] .hero.hero--editorial {
     height: 100vh;
     overflow: hidden;
     background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
 }
 
+/* Cabeçalho em faixa PRÓPRIA acima dos quadros (não sobrepõe os painéis) */
 .h-gallery__head {
-    position: absolute;
-    top: var(--space-lg);
-    left: var(--gutter-desktop);
-    z-index: 3;
+    position: static;
+    padding: var(--space-lg) var(--gutter-desktop) var(--space-sm);
     pointer-events: none;
 }
 
@@ -2994,8 +2995,10 @@ html[data-theme="light"] .hero.hero--editorial {
     display: flex;
     align-items: stretch;
     gap: 0;
-    height: 100%;
-    padding: 12vh var(--gutter-desktop) 6vh;
+    flex: 1;
+    min-height: 0;
+    height: auto;
+    padding: var(--space-sm) var(--gutter-desktop) 5vh;
     box-sizing: border-box;
     will-change: transform;
 }
