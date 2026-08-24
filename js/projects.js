@@ -109,6 +109,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'sexy-house',
+        video: 'qxjqEy1p17A',
         category: 'casas',
         index: '05',
         name: 'Sexy House',
@@ -244,6 +245,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'retrospectiva-niemeyer',
+        video: 'RUJ8YqjnSDQ',
         category: 'interior',
         index: '11',
         name: 'Retrospectiva Niemeyer',
@@ -265,6 +267,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'retrofit-shopping-citta',
+        video: 'yfpsWf022AA',
         category: 'retrofits',
         index: '12',
         name: 'Retrofit Shopping Città — Office Mall',
@@ -336,6 +339,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'match-point-pub',
+        video: 'dkSsb_XOkTM',
         category: 'comercial',
         index: '15',
         name: 'Match.Point Pub',
@@ -1808,6 +1812,54 @@ window.NEO_PROJECTS = [
         coverImage: 'assets/images/casas/pedra-bonita-1.jpg',
         gallery: [
             'assets/images/casas/pedra-bonita-1.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'town-houses',
+        video: 'WwHL2jzN9I8',
+        category: 'casas',
+        index: '75',
+        name: 'Town Houses',
+        location: '',
+        tag: 'Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Town houses contemporâneas — densidade com privacidade.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/casas/town-houses-1.jpg',
+        gallery: [
+            'assets/images/casas/town-houses-1.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'road-office-mall',
+        video: 'NXOyuNFWC2o',
+        category: 'comercial',
+        index: '76',
+        name: 'Road Office Mall — Itaipava',
+        location: 'Itaipava · Petrópolis · RJ',
+        tag: 'Comercial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Office mall de estrada — trabalho e conveniência na serra.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/comercial/road-office-1.jpg',
+        gallery: [
+            'assets/images/comercial/road-office-1.jpg'
         ],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
