@@ -1718,6 +1718,102 @@ window.NEO_PROJECTS = [
             photography: '',
             year: ''
         }
+    },
+    {
+        id: 'penthouse-ns-paz',
+        video: 'lzuSI7lj8EU',
+        category: 'interior',
+        index: '71',
+        name: 'Penthouse Nossa Senhora da Paz',
+        location: 'Ipanema · RJ',
+        tag: 'Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Penthouse sobre a praça — Ipanema em cota alta.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/interior/ns-paz-1.jpg',
+        gallery: [
+            'assets/images/interior/ns-paz-1.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'barao-da-torre',
+        video: 'VuQArvctLmg',
+        category: 'retrofits',
+        index: '72',
+        name: 'Barão da Torre',
+        location: 'Ipanema · RJ',
+        tag: 'Retrofit Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Releitura contemporânea em endereço clássico de Ipanema.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/retrofits/barao-torre-1.jpg',
+        gallery: [
+            'assets/images/retrofits/barao-torre-1.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'village-ranch',
+        video: 'lH0rKmi-kK8',
+        category: 'casas',
+        index: '73',
+        name: 'Condomínio Village Ranch',
+        location: '',
+        tag: 'Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Condomínio de casas — natureza e vida em comunidade.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/casas/village-ranch-1.jpg',
+        gallery: [
+            'assets/images/casas/village-ranch-1.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'reserva-pedra-bonita',
+        video: 'At44QkOJor4',
+        category: 'casas',
+        index: '74',
+        name: 'Casas Reserva Pedra Bonita',
+        location: 'São Conrado · RJ',
+        tag: 'Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Casas contemporâneas aos pés da Pedra Bonita.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/casas/pedra-bonita-1.jpg',
+        gallery: [
+            'assets/images/casas/pedra-bonita-1.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
     }
 ];
 
