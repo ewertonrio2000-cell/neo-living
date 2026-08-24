@@ -3051,30 +3051,55 @@ html[data-theme="light"] .hero.hero--editorial {
 .h-panel:nth-child(odd) .h-panel__meta { top: 50%; padding-top: var(--space-md); }
 .h-panel:nth-child(even) .h-panel__meta { bottom: 50%; padding-bottom: var(--space-md); }
 
-/* Linha-guia dourada ligando o NOME ao quadrado da respectiva categoria
-   (no tabuleiro alternado, elimina a dúvida de qual legenda é de qual) */
+/* Linha-guia dourada em "L": passa POR BAIXO do nome da categoria e
+   termina numa SETA apontando para o respectivo quadrado */
+.h-panel__meta { padding-left: 16px; }
+
 .h-panel__meta::before {
     content: "";
     position: absolute;
-    left: 2px;
-    width: 1px;
-    background: var(--accent-amber);
+    left: 3px;
+    width: min(320px, 82%);
+    border: 0 solid var(--accent-amber);
 }
 
+/* ímpar: quadrado em cima → sublinha TODO o texto e sobe até o quadrado
+   (âncoras em % da caixa: funciona mesmo com nome em 2 linhas) */
+.h-panel:nth-child(odd) .h-panel__meta::before {
+    top: 0;
+    height: calc(100% + 6px);
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+}
+
+/* par: quadrado embaixo → sublinha o texto e desce até o quadrado */
+.h-panel:nth-child(even) .h-panel__meta::before {
+    top: calc(100% - var(--space-md) + 6px);
+    bottom: 0;
+    border-left-width: 1px;
+    border-top-width: 1px;
+}
+
+/* a SETA, na ponta da vertical, entrando no quadrado */
 .h-panel__meta::after {
     content: "";
     position: absolute;
-    left: 0;
-    width: 5px;
-    height: 5px;
-    border-radius: 999px;
-    background: var(--accent-amber);
+    left: -0.5px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
 }
 
-.h-panel:nth-child(odd) .h-panel__meta::before { top: 0; height: calc(var(--space-md) - 6px); }
-.h-panel:nth-child(odd) .h-panel__meta::after { top: -2px; }
-.h-panel:nth-child(even) .h-panel__meta::before { bottom: 0; height: calc(var(--space-md) - 6px); }
-.h-panel:nth-child(even) .h-panel__meta::after { bottom: -2px; }
+.h-panel:nth-child(odd) .h-panel__meta::after {
+    top: -7px;
+    border-bottom: 7px solid var(--accent-amber);
+}
+
+.h-panel:nth-child(even) .h-panel__meta::after {
+    bottom: -7px;
+    border-top: 7px solid var(--accent-amber);
+}
 
 .h-panel__idx {
     font-family: var(--font-condensed);
