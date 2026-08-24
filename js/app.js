@@ -682,6 +682,150 @@
     }
 
     // =====================================================
+    // 6f2. MODAL DE PROJETO — janela cinematográfica na página
+    //      Ficha técnica + carrossel (crossfade + Ken Burns),
+    //      título dourado; intercepta os cliques da gaveta.
+    // =====================================================
+    function initProjectModal() {
+        if (!window.NEO_PROJECTS) return;
+
+        // ---- estrutura (criada uma vez) ----
+        const modal = document.createElement('div');
+        modal.className = 'pmodal';
+        modal.hidden = true;
+        modal.innerHTML =
+            '<div class="pmodal__backdrop"></div>' +
+            '<div class="pmodal__dialog" role="dialog" aria-modal="true">' +
+            '  <button type="button" class="pmodal__close" aria-label="Fechar">✕</button>' +
+            '  <div class="pmodal__media">' +
+            '    <div class="pmodal__slides"></div>' +
+            '    <button type="button" class="pmodal__nav pmodal__nav--prev" aria-label="Anterior">←</button>' +
+            '    <button type="button" class="pmodal__nav pmodal__nav--next" aria-label="Próxima">→</button>' +
+            '    <span class="pmodal__count"></span>' +
+            '  </div>' +
+            '  <div class="pmodal__sheet">' +
+            '    <p class="pmodal__idx"></p>' +
+            '    <h3 class="pmodal__title"></h3>' +
+            '    <p class="pmodal__tagline"></p>' +
+            '    <dl class="pmodal__specs"></dl>' +
+            '    <div class="pmodal__desc"></div>' +
+            '  </div>' +
+            '</div>';
+        document.body.appendChild(modal);
+
+        const slides = modal.querySelector('.pmodal__slides');
+        const count = modal.querySelector('.pmodal__count');
+        const elIdx = modal.querySelector('.pmodal__idx');
+        const elTitle = modal.querySelector('.pmodal__title');
+        const elTagline = modal.querySelector('.pmodal__tagline');
+        const elSpecs = modal.querySelector('.pmodal__specs');
+        const elDesc = modal.querySelector('.pmodal__desc');
+
+        let imgs = [], cur = 0, timer = null, isOpen = false;
+
+        function pad2(n) { return n < 10 ? '0' + n : String(n); }
+        function esc(s) {
+            return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function show(i) {
+            if (!imgs.length) return;
+            cur = (i + imgs.length) % imgs.length;
+            imgs.forEach((im, j) => im.classList.toggle('is-active', j === cur));
+            count.textContent = pad2(cur + 1) + ' / ' + pad2(imgs.length);
+        }
+        function restartAuto() {
+            if (timer) clearInterval(timer);
+            timer = setInterval(() => { show(cur + 1); }, 4500);
+        }
+
+        function open(id) {
+            const p = window.NEO_findProject ? window.NEO_findProject(id)
+                    : window.NEO_PROJECTS.find((x) => x.id === id);
+            if (!p) return;
+
+            // carrossel — galeria do projeto (fallback: arte da categoria)
+            const gal = (p.gallery && p.gallery.length) ? p.gallery
+                      : ['assets/images/categorias/' + (p.category || 'casas') + '.svg'];
+            slides.innerHTML = '';
+            imgs = gal.map((src) => {
+                const im = document.createElement('img');
+                im.src = src; im.alt = p.name; im.loading = 'eager';
+                slides.appendChild(im);
+                return im;
+            });
+            const nav = imgs.length > 1;
+            modal.querySelector('.pmodal__nav--prev').style.display = nav ? '' : 'none';
+            modal.querySelector('.pmodal__nav--next').style.display = nav ? '' : 'none';
+            count.style.display = nav ? '' : 'none';
+            show(0);
+            if (nav) restartAuto();
+
+            // ficha técnica
+            elIdx.textContent = '_' + (p.index || '');
+            elTitle.textContent = p.name || '';
+            const tl = (p.tagline || '').trim();
+            elTagline.textContent = tl;
+            elTagline.style.display = tl ? '' : 'none';
+            const rows = [
+                ['Localização', p.location],
+                ['Tipologia', p.tag],
+                ['Ano', p.year],
+                ['Área', p.area],
+                ['Status', p.status],
+                ['Arquitetura', p.credits && p.credits.architecture]
+            ].filter((r) => r[1] && String(r[1]).trim());
+            elSpecs.innerHTML = rows.map((r) =>
+                '<div><dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1]) + '</dd></div>').join('');
+            // descrições: pula os placeholders "[...]"
+            const descs = [p.description1, p.description2]
+                .filter((d) => d && d.trim() && d.trim().charAt(0) !== '[');
+            elDesc.innerHTML = descs.map((d) => '<p>' + esc(d) + '</p>').join('');
+
+            // abre
+            isOpen = true;
+            modal.hidden = false;
+            document.body.classList.add('no-scroll');
+            if (lenis) lenis.stop();
+            requestAnimationFrame(() => { requestAnimationFrame(() => { modal.classList.add('is-open'); }); });
+        }
+
+        function close() {
+            if (!isOpen) return;
+            isOpen = false;
+            modal.classList.remove('is-open');
+            if (timer) { clearInterval(timer); timer = null; }
+            setTimeout(() => {
+                modal.hidden = true;
+                document.body.classList.remove('no-scroll');
+                if (lenis) lenis.start();
+            }, 420);
+        }
+
+        // navegação do carrossel
+        modal.querySelector('.pmodal__nav--prev').addEventListener('click', () => { show(cur - 1); restartAuto(); });
+        modal.querySelector('.pmodal__nav--next').addEventListener('click', () => { show(cur + 1); restartAuto(); });
+        modal.querySelector('.pmodal__close').addEventListener('click', close);
+        modal.querySelector('.pmodal__backdrop').addEventListener('click', close);
+        document.addEventListener('keydown', (e) => {
+            if (!isOpen) return;
+            if (e.key === 'Escape') close();
+            else if (e.key === 'ArrowLeft') { show(cur - 1); restartAuto(); }
+            else if (e.key === 'ArrowRight') { show(cur + 1); restartAuto(); }
+        });
+
+        // intercepta TODOS os projetos da gaveta (delegação — sobrevive a re-render)
+        document.addEventListener('click', (e) => {
+            const a = e.target.closest && e.target.closest('.cat-item');
+            if (!a) return;
+            const m = (a.getAttribute('href') || '').match(/id=([\w-]+)/);
+            if (!m) return;
+            e.preventDefault();
+            open(m[1]);
+        });
+    }
+
+    // =====================================================
     // 6d. GALERIA HORIZONTAL — pin + scroll horizontal
     // =====================================================
     function initHorizontalGallery() {
@@ -1140,7 +1284,7 @@
         initHeroVideo();
         initFingerprintFX();
         initCategoryFolders();
-
+        initProjectModal();
     }
 
     if (document.readyState === 'loading') {

@@ -3326,3 +3326,244 @@ html[data-theme="light"] .hero.hero--editorial {
    texto (top z8, título z10). Opacity 0.55: as ristas seguem sutis (alpha
    baixo no shader) e a vinheta de sombra das bordas ganha presença */
 .hero--editorial .fp-canvas { z-index: 6; opacity: 0.55; }
+
+/* =========================================================
+   MODAL DE PROJETO — janela cinematográfica na própria página
+   Ficha técnica + carrossel com crossfade e Ken Burns discreto;
+   título em dourado contrastando com o fundo escuro.
+   ========================================================= */
+.pmodal {
+    position: fixed;
+    inset: 0;
+    z-index: 220;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(14px, 4vw, 52px);
+}
+
+.pmodal[hidden] { display: none; }
+
+.pmodal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 4, 4, 0.9);
+    -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+    opacity: 0;
+    transition: opacity 420ms ease;
+}
+
+.pmodal.is-open .pmodal__backdrop { opacity: 1; }
+
+.pmodal__dialog {
+    position: relative;
+    width: min(1180px, 100%);
+    max-height: min(760px, 92vh);
+    height: min(680px, 86vh);
+    display: grid;
+    grid-template-columns: 58% 42%;
+    background-color: #0A0A0A;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(28px) scale(0.97);
+    transition: opacity 560ms var(--ease-out), transform 640ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.pmodal.is-open .pmodal__dialog {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.pmodal__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 5;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(8, 8, 8, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    color: #F4F4F4;
+    font-size: 1.15rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: border-color 300ms, color 300ms, transform 300ms;
+}
+
+.pmodal__close:hover {
+    border-color: var(--accent-amber);
+    color: #E9B770;
+    transform: rotate(90deg);
+}
+
+/* --- Carrossel --- */
+.pmodal__media {
+    position: relative;
+    overflow: hidden;
+    background-color: #060606;
+}
+
+.pmodal__slides { position: absolute; inset: 0; }
+
+.pmodal__slides img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 950ms ease;
+}
+
+.pmodal__slides img.is-active {
+    opacity: 1;
+    animation: pmKenburns 7s ease-in-out both;
+}
+
+@keyframes pmKenburns {
+    from { transform: scale(1.0); }
+    to   { transform: scale(1.065); }
+}
+
+.pmodal__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(8, 8, 8, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    color: #F4F4F4;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: border-color 300ms, color 300ms, background-color 300ms;
+}
+
+.pmodal__nav:hover { border-color: var(--accent-amber); color: #E9B770; }
+.pmodal__nav--prev { left: 14px; }
+.pmodal__nav--next { right: 14px; }
+
+.pmodal__count {
+    position: absolute;
+    right: 16px;
+    bottom: 12px;
+    z-index: 4;
+    font-family: var(--font-condensed);
+    font-size: 0.8125rem;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* --- Ficha técnica --- */
+.pmodal__sheet {
+    padding: clamp(22px, 3.2vw, 44px);
+    overflow-y: auto;
+    color: #E8E8E8;
+    scrollbar-width: thin;
+}
+
+.pmodal__idx {
+    font-family: var(--font-condensed);
+    font-size: 0.8125rem;
+    letter-spacing: 0.2em;
+    color: var(--accent-amber);
+    margin-bottom: 8px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 500ms ease 200ms, transform 500ms ease 200ms;
+}
+
+/* TÍTULO DOURADO — entra com brilho e respiro de tracking */
+.pmodal__title {
+    font-family: var(--font-condensed);
+    font-weight: 600;
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: #E9B770;
+    letter-spacing: 0.16em;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 620ms ease 300ms, transform 620ms ease 300ms,
+                letter-spacing 900ms var(--ease-out) 300ms;
+    margin-bottom: 10px;
+}
+
+.pmodal.is-open .pmodal__idx { opacity: 1; transform: translateY(0); }
+
+.pmodal.is-open .pmodal__title {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 0.04em;
+}
+
+.pmodal__tagline {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: #B9B9B9;
+    margin-bottom: 20px;
+    opacity: 0;
+    transition: opacity 600ms ease 460ms;
+}
+
+.pmodal.is-open .pmodal__tagline { opacity: 1; }
+
+.pmodal__specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 20px;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 600ms ease 560ms, transform 600ms ease 560ms;
+}
+
+.pmodal.is-open .pmodal__specs { opacity: 1; transform: translateY(0); }
+
+.pmodal__specs dt {
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #8A8A8A;
+    margin-bottom: 3px;
+}
+
+.pmodal__specs dd {
+    font-size: 0.875rem;
+    color: #EDEDED;
+    margin: 0;
+}
+
+.pmodal__desc p {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: #C9C9C9;
+    margin-bottom: 12px;
+}
+
+/* --- Mobile: empilha carrossel + ficha --- */
+@media (max-width: 768px) {
+    .pmodal { padding: 0; }
+    .pmodal__dialog {
+        grid-template-columns: 1fr;
+        grid-template-rows: 44% 56%;
+        width: 100%;
+        height: 100%;
+        max-height: none;
+        border: 0;
+    }
+    .pmodal__nav { width: 38px; height: 38px; }
+}
