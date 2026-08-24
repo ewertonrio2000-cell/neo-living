@@ -3555,7 +3555,7 @@ html[data-theme="light"] .hero.hero--editorial {
 .pmodal__backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(4, 4, 4, 0.9);
+    background: rgba(4, 4, 4, 0.55);
     -webkit-backdrop-filter: blur(12px);
             backdrop-filter: blur(12px);
     opacity: 0;
@@ -3571,7 +3571,7 @@ html[data-theme="light"] .hero.hero--editorial {
     height: min(680px, 86vh);
     display: grid;
     grid-template-columns: 58% 42%;
-    background-color: #0A0A0A;
+    background-color: transparent;
     border: 1px solid rgba(255, 255, 255, 0.12);
     overflow: hidden;
     opacity: 0;
@@ -3674,11 +3674,15 @@ html[data-theme="light"] .hero.hero--editorial {
 }
 
 /* --- Ficha técnica --- */
+/* Ficha técnica em VIDRO preto translúcido — o site aparece desfocado atrás */
 .pmodal__sheet {
     padding: clamp(22px, 3.2vw, 44px);
     overflow-y: auto;
     color: #E8E8E8;
     scrollbar-width: thin;
+    background-color: rgba(8, 8, 8, 0.55);
+    -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
 }
 
 .pmodal__idx {
