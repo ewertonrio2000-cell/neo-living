@@ -7,6 +7,7 @@
 window.NEO_PROJECTS = [
     {
         id: 'horizon-joa',
+        video: 'ypANByhzfEc',
         category: 'casas',
         index: '01',
         name: 'Horizon Joá',
@@ -55,6 +56,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'retrofit-chopin',
+        video: 'beeeInHa5G4',
         category: 'retrofits',
         index: '03',
         name: 'Retrofit Edifício Chopin',
@@ -81,6 +83,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'life-house-itanhanga',
+        video: 'v6jXH3xkCEQ',
         category: 'casas',
         index: '04',
         name: 'Life.House Itanhangá Golf',
@@ -150,6 +153,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'retrofit-nova-joatinga',
+        video: 'SfCpdgC_Eos',
         category: 'retrofits',
         index: '07',
         name: 'Retrofit Nova Joatinga',
@@ -197,6 +201,7 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'retrofit-nascimento-silva',
+        video: 'B8KUkkU1-9U',
         category: 'retrofits',
         index: '09',
         name: 'Retrofit Nascimento Silva 543',
@@ -1370,9 +1375,10 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'artsy-clubhouse',
+        video: 'SlrX6OSKYUI',
         category: 'comercial',
         index: '57',
-        name: 'Artsy Clubhouse — Tribuna Pixbet',
+        name: 'Artsy Clubhouse — Tribuna Estrela Bet',
         location: 'Jockey Club · RJ',
         tag: 'Comercial',
         year: '',
