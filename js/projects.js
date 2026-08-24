@@ -32,6 +32,8 @@ window.NEO_PROJECTS = [
         id: 'cobertura-costa-del-sol',
         category: 'interior',
         index: '02',
+        video: 'Z3TEdKoYfAA',
+        videoStart: 24,
         name: 'Cobertura Costa del Sol',
         location: 'Avenida Lúcio Costa · Barra · RJ',
         tag: 'Residencial',

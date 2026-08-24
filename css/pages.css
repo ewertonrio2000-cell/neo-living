@@ -3554,6 +3554,96 @@ html[data-theme="light"] .hero.hero--editorial {
     margin-bottom: 12px;
 }
 
+/* --- Vídeo do projeto: miniatura no canto inferior direito do quadro --- */
+.pmodal__filmbtn {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    z-index: 6;
+    width: 172px;
+    aspect-ratio: 16 / 9;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background-color: #000;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 300ms, transform 400ms var(--ease-out), box-shadow 400ms;
+}
+
+.pmodal__filmbtn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.8;
+    transition: opacity 300ms, transform 700ms var(--ease-out);
+}
+
+.pmodal__filmbtn:hover {
+    border-color: var(--accent-amber);
+    transform: translateY(-4px);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
+}
+
+.pmodal__filmbtn:hover img { opacity: 1; transform: scale(1.06); }
+
+/* play + rótulo */
+.pmodal__filmbtn::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -58%);
+    border-style: solid;
+    border-width: 9px 0 9px 15px;
+    border-color: transparent transparent transparent #E9B770;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+}
+
+.pmodal__filmbtn::after {
+    content: "Assistir filme";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 5px 8px;
+    font-family: var(--font-condensed);
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-align: center;
+    color: #E9B770;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0));
+}
+
+/* camada do player: nasce do canto e PREENCHE A TELA */
+.pmodal__video {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background-color: #000;
+    opacity: 0;
+    transform-origin: 92% 92%;
+    transform: scale(0.16);
+    transition: transform 620ms cubic-bezier(0.22, 0.61, 0.36, 1), opacity 380ms ease;
+}
+
+.pmodal__video[hidden] { display: none; }
+
+.pmodal__video.is-on {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.pmodal__video iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
+.pmodal__video .pmodal__close { z-index: 5; }
+
 /* --- Mobile: empilha carrossel + ficha --- */
 @media (max-width: 768px) {
     .pmodal { padding: 0; }
@@ -3566,4 +3656,5 @@ html[data-theme="light"] .hero.hero--editorial {
         border: 0;
     }
     .pmodal__nav { width: 38px; height: 38px; }
+    .pmodal__filmbtn { width: 138px; right: 12px; bottom: 12px; }
 }

@@ -722,6 +722,36 @@
         const elDesc = modal.querySelector('.pmodal__desc');
 
         let imgs = [], cur = 0, timer = null, isOpen = false;
+        let videoLayer = null, videoOpen = false;
+
+        // ---- vídeo do projeto (miniatura no canto → preenche a tela) ----
+        function openVideo(p) {
+            if (!p.video) return;
+            if (!videoLayer) {
+                videoLayer = document.createElement('div');
+                videoLayer.className = 'pmodal__video';
+                videoLayer.hidden = true;
+                modal.appendChild(videoLayer);
+            }
+            const start = p.videoStart ? '&start=' + p.videoStart : '';
+            videoLayer.innerHTML =
+                '<iframe src="https://www.youtube-nocookie.com/embed/' + p.video +
+                '?autoplay=1&rel=0&modestbranding=1&playsinline=1' + start +
+                '" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>' +
+                '<button type="button" class="pmodal__close" aria-label="Fechar vídeo">✕</button>';
+            videoLayer.querySelector('.pmodal__close').addEventListener('click', closeVideo);
+            videoOpen = true;
+            videoLayer.hidden = false;
+            requestAnimationFrame(() => { requestAnimationFrame(() => { videoLayer.classList.add('is-on'); }); });
+        }
+
+        function closeVideo(immediate) {
+            if (!videoLayer || !videoOpen) return;
+            videoOpen = false;
+            videoLayer.classList.remove('is-on');
+            const finish = () => { videoLayer.hidden = true; videoLayer.innerHTML = ''; };  // remove o iframe → para o áudio
+            if (immediate === true) finish(); else setTimeout(finish, 620);
+        }
 
         function pad2(n) { return n < 10 ? '0' + n : String(n); }
         function esc(s) {
@@ -782,6 +812,20 @@
                 .filter((d) => d && d.trim() && d.trim().charAt(0) !== '[');
             elDesc.innerHTML = descs.map((d) => '<p>' + esc(d) + '</p>').join('');
 
+            // vídeo do projeto: miniatura no canto inferior direito do quadro
+            const oldBtn = modal.querySelector('.pmodal__filmbtn');
+            if (oldBtn) oldBtn.remove();
+            if (p.video) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'pmodal__filmbtn';
+                btn.setAttribute('aria-label', 'Assistir filme do projeto');
+                btn.innerHTML = '<img src="https://i.ytimg.com/vi/' + p.video +
+                                '/hqdefault.jpg" alt="" loading="lazy">';
+                btn.addEventListener('click', () => { openVideo(p); });
+                modal.querySelector('.pmodal__dialog').appendChild(btn);
+            }
+
             // abre
             isOpen = true;
             modal.hidden = false;
@@ -793,6 +837,7 @@
         function close() {
             if (!isOpen) return;
             isOpen = false;
+            closeVideo(true);
             modal.classList.remove('is-open');
             if (timer) { clearInterval(timer); timer = null; }
             setTimeout(() => {
@@ -809,7 +854,8 @@
         modal.querySelector('.pmodal__backdrop').addEventListener('click', close);
         document.addEventListener('keydown', (e) => {
             if (!isOpen) return;
-            if (e.key === 'Escape') close();
+            if (e.key === 'Escape') { if (videoOpen) closeVideo(); else close(); }
+            else if (videoOpen) { /* setas não navegam com o vídeo aberto */ }
             else if (e.key === 'ArrowLeft') { show(cur - 1); restartAuto(); }
             else if (e.key === 'ArrowRight') { show(cur + 1); restartAuto(); }
         });
