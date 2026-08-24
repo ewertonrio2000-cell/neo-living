@@ -3051,6 +3051,31 @@ html[data-theme="light"] .hero.hero--editorial {
 .h-panel:nth-child(odd) .h-panel__meta { top: 50%; padding-top: var(--space-md); }
 .h-panel:nth-child(even) .h-panel__meta { bottom: 50%; padding-bottom: var(--space-md); }
 
+/* Linha-guia dourada ligando o NOME ao quadrado da respectiva categoria
+   (no tabuleiro alternado, elimina a dúvida de qual legenda é de qual) */
+.h-panel__meta::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    width: 1px;
+    background: var(--accent-amber);
+}
+
+.h-panel__meta::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background: var(--accent-amber);
+}
+
+.h-panel:nth-child(odd) .h-panel__meta::before { top: 0; height: calc(var(--space-md) - 6px); }
+.h-panel:nth-child(odd) .h-panel__meta::after { top: -2px; }
+.h-panel:nth-child(even) .h-panel__meta::before { bottom: 0; height: calc(var(--space-md) - 6px); }
+.h-panel:nth-child(even) .h-panel__meta::after { bottom: -2px; }
+
 .h-panel__idx {
     font-family: var(--font-condensed);
     font-weight: 400;

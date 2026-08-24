@@ -329,11 +329,11 @@ window.NEO_PROJECTS = [
     },
     {
         id: 'match-point-pub',
-        category: 'hotel',
+        category: 'comercial',
         index: '15',
         name: 'Match.Point Pub',
         location: 'Hotel Nacional Rio · RJ',
-        tag: 'Hospitality',
+        tag: 'Comercial',
         year: '',
         area: '',
         status: '',
@@ -341,7 +341,11 @@ window.NEO_PROJECTS = [
         description1: '[Descrição do projeto a ser adicionada.]',
         description2: '[Texto complementar a ser adicionado.]',
         coverImage: 'assets/images/matchpoint.png',
-        gallery: ['assets/images/matchpoint.png'],
+        gallery: [
+            'assets/images/matchpoint.png',
+            'assets/images/comercial/matchpoint-2.jpg',
+            'assets/images/comercial/matchpoint-3.jpg'
+        ],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
             photography: '',
@@ -1330,6 +1334,376 @@ window.NEO_PROJECTS = [
             'assets/images/offices/royal-holiday-1.jpg',
             'assets/images/offices/royal-holiday-2.jpg',
             'assets/images/offices/royal-holiday-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'club-021',
+        category: 'comercial',
+        index: '56',
+        name: '021',
+        location: '',
+        tag: 'Comercial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Espaço comercial com assinatura carioca.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/comercial/021-1.jpg',
+        gallery: [
+            'assets/images/comercial/021-1.jpg',
+            'assets/images/comercial/021-2.jpg',
+            'assets/images/comercial/021-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'artsy-clubhouse',
+        category: 'comercial',
+        index: '57',
+        name: 'Artsy Clubhouse — Tribuna Pixbet',
+        location: 'Jockey Club · RJ',
+        tag: 'Comercial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Club house no Jockey — arte, tribuna e experiência.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/comercial/artsy-1.jpg',
+        gallery: [
+            'assets/images/comercial/artsy-1.jpg',
+            'assets/images/comercial/artsy-2.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'capela-golf-olimpico',
+        category: 'comercial',
+        index: '58',
+        name: 'Capela Golf Olímpico',
+        location: 'Rio de Janeiro · RJ',
+        tag: 'Institucional',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Capela contemporânea junto ao campo de golfe.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/comercial/capela-golf-1.jpg',
+        gallery: [
+            'assets/images/comercial/capela-golf-1.jpg',
+            'assets/images/comercial/capela-golf-2.jpg',
+            'assets/images/comercial/capela-golf-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'club-baronneti',
+        category: 'comercial',
+        index: '59',
+        name: 'Club Baronneti',
+        location: 'Ipanema · RJ',
+        tag: 'Comercial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Club noturno em Ipanema.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/comercial/baronneti-1.jpg',
+        gallery: [
+            'assets/images/comercial/baronneti-1.jpg',
+            'assets/images/comercial/baronneti-2.jpg',
+            'assets/images/comercial/baronneti-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'club-rio-rock-blues',
+        category: 'comercial',
+        index: '60',
+        name: 'Club Rio Rock&Blues',
+        location: 'Barra da Tijuca · RJ',
+        tag: 'Comercial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Casa de shows — rock, blues e arquitetura de palco.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/comercial/rock-blues-1.jpg',
+        gallery: [
+            'assets/images/comercial/rock-blues-1.jpg',
+            'assets/images/comercial/rock-blues-2.jpg',
+            'assets/images/comercial/rock-blues-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'johnnie-walker-lounge',
+        category: 'comercial',
+        index: '61',
+        name: 'Johnnie Walker VIP Lounge',
+        location: 'Ipanema · RJ',
+        tag: 'Comercial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Lounge de marca — experiência VIP à beira-mar.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/comercial/johnnie-1.jpg',
+        gallery: [
+            'assets/images/comercial/johnnie-1.jpg',
+            'assets/images/comercial/johnnie-2.jpg',
+            'assets/images/comercial/johnnie-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'loja-royal-holiday',
+        category: 'comercial',
+        index: '62',
+        name: 'Loja Royal Holiday',
+        location: 'São Paulo · SP',
+        tag: 'Comercial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Varejo de turismo com atmosfera premium.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/comercial/loja-royal-1.jpg',
+        gallery: [
+            'assets/images/comercial/loja-royal-1.jpg',
+            'assets/images/comercial/loja-royal-2.jpg',
+            'assets/images/comercial/loja-royal-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'neo-san',
+        category: 'comercial',
+        index: '63',
+        name: 'Neo San — Village Mall',
+        location: 'Barra da Tijuca · RJ',
+        tag: 'Comercial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Espaço comercial no Village Mall.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/comercial/neo-san-1.jpg',
+        gallery: [
+            'assets/images/comercial/neo-san-1.jpg',
+            'assets/images/comercial/neo-san-2.jpg',
+            'assets/images/comercial/neo-san-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'casa-alba',
+        category: 'geral',
+        index: '64',
+        name: 'Casa Alba',
+        location: '',
+        tag: 'Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Residência contemporânea — estudo completo.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/geral/casa-alba-1.jpg',
+        gallery: [
+            'assets/images/geral/casa-alba-1.jpg',
+            'assets/images/geral/casa-alba-2.jpg',
+            'assets/images/geral/casa-alba-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'casa-gaia',
+        category: 'geral',
+        index: '65',
+        name: 'Casa Gaia',
+        location: '',
+        tag: 'Residencial',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Residência contemporânea do portfólio geral.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/geral/casa-gaia-1.jpg',
+        gallery: [
+            'assets/images/geral/casa-gaia-1.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'edmundo',
+        category: 'geral',
+        index: '66',
+        name: 'Edmundo',
+        location: '',
+        tag: 'Portfólio',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Projeto Edmundo — arquitetura e interiores.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/geral/edmundo-1.jpg',
+        gallery: [
+            'assets/images/geral/edmundo-1.jpg',
+            'assets/images/geral/edmundo-2.jpg',
+            'assets/images/geral/edmundo-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'portaria-acessos',
+        category: 'geral',
+        index: '67',
+        name: 'Portaria & Acessos',
+        location: '',
+        tag: 'Portfólio',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Portarias e acessos com identidade.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/geral/portaria-1.jpg',
+        gallery: [
+            'assets/images/geral/portaria-1.jpg',
+            'assets/images/geral/portaria-2.jpg',
+            'assets/images/geral/portaria-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'stand-vendas',
+        category: 'geral',
+        index: '68',
+        name: 'Stand de Vendas',
+        location: '',
+        tag: 'Portfólio',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Stand imobiliário — experiência de venda.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/geral/stand-1.jpg',
+        gallery: [
+            'assets/images/geral/stand-1.jpg',
+            'assets/images/geral/stand-2.jpg',
+            'assets/images/geral/stand-3.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'sketchbook',
+        category: 'geral',
+        index: '69',
+        name: 'Sketchbook',
+        location: '',
+        tag: 'Portfólio',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'O traço por trás dos projetos.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/geral/sketchbook-1.jpg',
+        gallery: [
+            'assets/images/geral/sketchbook-1.jpg',
+            'assets/images/geral/sketchbook-2.jpg'
+        ],
+        credits: {
+            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
+            photography: '',
+            year: ''
+        }
+    },
+    {
+        id: 'art-custom',
+        category: 'geral',
+        index: '70',
+        name: 'Art & Custom',
+        location: '',
+        tag: 'Portfólio',
+        year: '',
+        area: '',
+        status: '',
+        tagline: 'Arte e customização — peças únicas.',
+        description1: '[Descrição do projeto a ser adicionada.]',
+        description2: '[Texto complementar a ser adicionado.]',
+        coverImage: 'assets/images/geral/art-custom-1.jpg',
+        gallery: [
+            'assets/images/geral/art-custom-1.jpg',
+            'assets/images/geral/art-custom-2.jpg'
         ],
         credits: {
             architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
