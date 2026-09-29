@@ -802,6 +802,71 @@ html[data-theme="light"] .site-header.is-scrolled {
     color: var(--text-primary);
 }
 
+.form__note a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* =========================================================
+   LEGAL — política de privacidade
+   ========================================================= */
+.legal {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 160px var(--space-md) var(--space-2xl);
+    font-family: var(--font-body);
+    color: var(--text-primary);
+}
+
+.legal__eyebrow {
+    margin-bottom: var(--space-sm);
+}
+
+.legal__title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: var(--space-xs);
+}
+
+.legal__meta {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-lg);
+}
+
+.legal h2 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: var(--space-lg) 0 var(--space-xs);
+}
+
+.legal h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: var(--space-md) 0 var(--space-2xs);
+}
+
+.legal p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+}
+
+.legal a {
+    color: var(--text-primary);
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .legal {
+        padding-top: 120px;
+    }
+}
+
 /* =========================================================
    RESPONSIVE — Components
    ========================================================= */

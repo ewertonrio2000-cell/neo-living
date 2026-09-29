@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /logo-showcase
+
+Sitemap: https://neoliving.com.br/sitemap.xml

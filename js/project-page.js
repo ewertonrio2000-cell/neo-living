@@ -34,14 +34,14 @@
                 </a>
             </section>
         `;
-        document.title = 'NEO.LIVING — Projeto não encontrado';
+        document.title = 'Projeto não encontrado · Neo Living Arquitetura';
     }
 
     // =====================================================
     // 3. RENDER PROJECT
     // =====================================================
     function renderProject(root, project) {
-        document.title = `NEO.LIVING — ${project.name}`;
+        document.title = `${project.name} · Neo Living Arquitetura`;
 
         const meta = document.querySelector('meta[name="description"]');
         if (meta) {

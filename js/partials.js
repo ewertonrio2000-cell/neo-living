@@ -121,7 +121,7 @@
 
             <div class="site-footer__bottom">
                 <p>NEO.LIVING © 2023 — Rio de Janeiro · BRA</p>
-                <p><a href="mailto:contato@neoliving.com.br">contato@neoliving.com.br</a></p>
+                <p><a href="privacidade.html">Política de privacidade</a> · <a href="mailto:contato@neoliving.com.br">contato@neoliving.com.br</a></p>
             </div>
         </div>
     </footer>
