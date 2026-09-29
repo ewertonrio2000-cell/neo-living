@@ -1015,26 +1015,40 @@
         const form = document.querySelector('#contact-form');
         if (!form) return;
 
+        // O formulário não tem servidor: monta a mensagem e abre o WhatsApp oficial
+        // (atendimento da Natacha). O site não guarda nenhum dado.
+        const status = form.querySelector('.form__status');
+
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            const btn = form.querySelector('button[type="submit"]');
-            if (btn) {
-                const original = btn.querySelector('.btn-label')?.textContent || btn.textContent;
-                if (btn.querySelector('.btn-label')) {
-                    btn.querySelector('.btn-label').textContent = 'Enviado.';
-                } else {
-                    btn.textContent = 'Enviado.';
-                }
-                btn.style.color = 'var(--accent-amber)';
-                setTimeout(() => {
-                    if (btn.querySelector('.btn-label')) {
-                        btn.querySelector('.btn-label').textContent = original;
-                    } else {
-                        btn.textContent = original;
-                    }
-                    btn.style.color = '';
-                    form.reset();
-                }, 2400);
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const data = new FormData(form);
+            const subject = form.querySelector('#subject');
+            const subjectLabel = subject && subject.selectedIndex > 0 ? subject.options[subject.selectedIndex].text : '';
+            const email = String(data.get('email') || '').trim();
+
+            const lines = ['Olá, Neo Living. Quero conversar sobre um projeto.', '', 'Nome: ' + String(data.get('name')).trim()];
+            if (email) lines.push('E-mail: ' + email);
+            if (subjectLabel) lines.push('Assunto: ' + subjectLabel);
+            lines.push('', String(data.get('message')).trim());
+            const message = lines.join('\n');
+
+            const url = window.NL_WHATSAPP
+                ? window.NL_WHATSAPP.link(message)
+                : 'https://wa.me/5521976309999?text=' + encodeURIComponent(message);
+
+            // Nova aba; se o navegador bloquear, abre na mesma
+            const win = window.open(url, '_blank');
+            if (win) win.opener = null;
+            else window.location.href = url;
+
+            if (status) {
+                status.textContent = 'Abrimos o WhatsApp com a sua mensagem. Se ele não abriu, escreva para +55 21 97630.9999.';
+                status.hidden = false;
             }
         });
     }
@@ -1120,10 +1134,13 @@
             // Celular: vídeos VERTICAIS dedicados (9:16, recorte composto em
             // resolução plena) — mais nítidos e ~metade do peso dos horizontais
             if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
-                clips.forEach((c, i) => {
+                clips.forEach((c) => {
                     try {
-                        if (i === 0) c.poster = 'assets/images/hero/hero-poster-v.jpg';
-                        c.src = 'assets/videos/hero-' + (i + 1) + '-v.mp4';
+                        // A versão vertical segue o arquivo do próprio clipe (hero-N.mp4 → hero-N-v.mp4)
+                        const source = c.querySelector('source');
+                        if (!source) return;
+                        if (c.dataset.posterV) c.poster = c.dataset.posterV;
+                        c.src = source.getAttribute('src').replace(/\.mp4$/, '-v.mp4');
                         c.load();
                     } catch (e) {}
                 });

@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link rel="stylesheet" href="css/globals.css">
-    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/components.css?v=20260929">
     <link rel="stylesheet" href="css/pages.css">
 </head>
 <body>
@@ -31,8 +31,8 @@
 
                         <div class="contact-direct fade-in fade-in-delay-3">
                             <div class="contact-direct__row">
-                                <span class="contact-direct__label">Telefone</span>
-                                <a href="tel:+5521976309999" class="contact-direct__value">+55 21 97630.9999</a>
+                                <span class="contact-direct__label">WhatsApp</span>
+                                <a href="https://wa.me/5521976309999" data-wa target="_blank" rel="noopener" class="contact-direct__value">+55 21 97630.9999</a>
                             </div>
                             <div class="contact-direct__row">
                                 <span class="contact-direct__label">E-mail</span>
@@ -59,8 +59,8 @@
                             </div>
 
                             <div class="form__field">
-                                <label for="email" class="form__label">E-mail</label>
-                                <input id="email" name="email" type="email" class="form__input" required autocomplete="email">
+                                <label for="email" class="form__label">E-mail (opcional)</label>
+                                <input id="email" name="email" type="email" class="form__input" autocomplete="email">
                             </div>
 
                             <div class="form__field">
@@ -80,10 +80,14 @@
                                 <textarea id="message" name="message" class="form__textarea" rows="4" required></textarea>
                             </div>
 
-                            <button type="submit" class="btn btn-primary" style="align-self: flex-start; margin-top: 8px;">
-                                <span class="btn-label">Enviar mensagem</span>
-                                <span class="arrow" aria-hidden="true">→</span>
-                            </button>
+                            <div class="form__actions">
+                                <button type="submit" class="btn btn-primary" style="align-self: flex-start; margin-top: 8px;">
+                                    <span class="btn-label">Enviar pelo WhatsApp</span>
+                                    <span class="arrow" aria-hidden="true">→</span>
+                                </button>
+                                <p class="form__note">Ao enviar, o WhatsApp abre com a sua mensagem para a Neo Living. O site não guarda os seus dados.</p>
+                                <p class="form__status" role="status" aria-live="polite" hidden></p>
+                            </div>
                         </form>
                     </div>
 
@@ -109,7 +113,7 @@
     <script src="https://unpkg.com/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="js/partials.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/partials.js?v=20260929"></script>
+    <script src="js/app.js?v=20260929"></script>
 </body>
 </html>
