@@ -3,22 +3,20 @@
    Global tokens, reset, base typography, utilities
    ========================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&family=Oswald:wght@500;600;700&family=Saira:wght@300;400;500;600;700;800&display=swap');
-
-/* Fonte autoral para o letreiro NEO.LIVING */
+/* Fontes da marca (Brand System, Fase 05): Josefin Sans (títulos) + Jost (texto), autohospedadas, OFL.
+   Saira, Inter, Bebas Neue, Oswald, Horizondrift e Lagency saíram do carregamento (BS-05-13). */
 @font-face {
-    font-family: 'Horizondrift';
-    src: url('../assets/fonts/horizondrift-oblique.otf') format('opentype');
-    font-weight: normal;
+    font-family: 'Josefin Sans';
+    src: url('../assets/fonts/JosefinSans-variable.woff') format('woff');
+    font-weight: 100 700;
     font-style: normal;
     font-display: swap;
 }
 
-/* Lagency — camada dourada na frente do letreiro */
 @font-face {
-    font-family: 'Lagency';
-    src: url('../assets/fonts/lagency-regular.otf') format('opentype');
-    font-weight: normal;
+    font-family: 'Jost';
+    src: url('../assets/fonts/Jost-variable.woff') format('woff');
+    font-weight: 100 900;
     font-style: normal;
     font-display: swap;
 }
@@ -32,8 +30,14 @@
     --bg-overlay:     rgba(255, 255, 255, 0.82);
     --bg-overlay-strong: rgba(255, 255, 255, 0.94);
 
-    --accent-amber:   #B8860B;   /* dourado — usado como acento de luxo */
-    --accent-amber-soft: #9A7100;
+    /* Acento da marca: Latão (paleta Grafite & Latão, DEC-013). Latão Profundo para texto pequeno sobre claro;
+       Champanhe é o acento sobre fundo escuro. O dourado #B8860B foi aposentado. */
+    --accent-amber:   #A8813A;
+    --accent-amber-soft: #7D5F28;
+    --accent-champagne: #D9BC85;
+    --neo-latao: #A8813A;
+    --neo-latao-texto: #7D5F28;
+    --neo-champanhe: #D9BC85;
     --accent-line:    #DCDCDC;
     --accent-line-soft: rgba(0, 0, 0, 0.10);
 
@@ -44,10 +48,10 @@
     --text-watermark-strong: rgba(0, 0, 0, 0.07);
 
     /* ---------- TYPOGRAPHY ---------- */
-    --font-condensed: 'Saira', 'Bebas Neue', 'Oswald', sans-serif;                 /* Display / títulos */
-    --font-display:   'Saira', 'Inter', -apple-system, sans-serif;                 /* Headlines de seção */
-    --font-body:      'Saira', 'Inter', -apple-system, sans-serif;                 /* Parágrafos / labels */
-    --font-serif:     'Saira', 'Bebas Neue', 'Oswald', sans-serif;                 /* Acentos editoriais */
+    --font-condensed: 'Josefin Sans', 'Jost', -apple-system, sans-serif;           /* Display / títulos */
+    --font-display:   'Josefin Sans', 'Jost', -apple-system, sans-serif;           /* Headlines de seção */
+    --font-body:      'Jost', 'Josefin Sans', -apple-system, sans-serif;           /* Parágrafos / labels */
+    --font-serif:     'Josefin Sans', 'Jost', -apple-system, sans-serif;           /* Acentos editoriais */
 
     /* ---------- SPACING ---------- */
     --space-3xs: 4px;

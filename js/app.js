@@ -862,7 +862,7 @@
 
         // intercepta os projetos da gaveta E os destaques (delegação)
         document.addEventListener('click', (e) => {
-            const a = e.target.closest && e.target.closest('.cat-item, .f-card');
+            const a = e.target.closest && e.target.closest('.cat-item, .f-card, .h-panel[data-project]');
             if (!a) return;
             const m = (a.getAttribute('href') || '').match(/id=([\w-]+)/);
             if (!m) return;
@@ -875,8 +875,10 @@
     // 6d. GALERIA HORIZONTAL — pin + scroll horizontal
     // =====================================================
     function initHorizontalGallery() {
-        const wrap = document.querySelector('.h-gallery-wrap');
-        if (!wrap) return;
+        document.querySelectorAll('.h-gallery-wrap').forEach(setupGallery);
+    }
+
+    function setupGallery(wrap) {
         const section = wrap.querySelector('.h-gallery');
         const track = section && section.querySelector('.h-gallery__track');
         if (!section || !track) return;
@@ -888,6 +890,12 @@
         if (reduce || isMobile) {
             wrap.style.height = 'auto';
             section.classList.add('h-gallery--native');
+            // o canvas do efeito (absoluto) rolaria junto com o conteúdo —
+            // compensa o scroll para ele ficar "pregado" na janela da faixa
+            section.addEventListener('scroll', () => {
+                const cv = section.querySelector('.fp-canvas');
+                if (cv) cv.style.transform = 'translate3d(' + section.scrollLeft + 'px,0,0)';
+            }, { passive: true });
             return;
         }
 
@@ -1084,7 +1092,7 @@
             if (href.startsWith('http') || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
             if (a.target === '_blank') return;
             // links de projeto abrem o MODAL na própria página (não navegam)
-            if (a.classList.contains('f-card') || a.classList.contains('cat-item')) return;
+            if (a.classList.contains('f-card') || a.classList.contains('cat-item') || a.hasAttribute('data-project')) return;
 
             a.addEventListener('click', (e) => {
                 // Allow modifier-clicks

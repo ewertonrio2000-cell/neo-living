@@ -41,9 +41,11 @@
     const HEADER_HTML = `
     <header class="site-header">
         <div class="site-header__inner">
-            <a href="index.html" class="site-logo" aria-label="NEO.LIVING — Home">
-                <span class="site-logo__monogram" aria-hidden="true"></span>
-                <span>NEO.LIVING</span>
+            <a href="index.html" class="site-logo" aria-label="Neo Living — Home">
+                <img class="site-logo__lockup site-logo__lockup--claro" src="assets/logos/lockup-mono-branco.svg" alt="Neo Living" width="140" height="31">
+                <img class="site-logo__lockup site-logo__lockup--escuro" src="assets/logos/lockup-positivo.svg" alt="" width="140" height="31" aria-hidden="true">
+                <img class="site-logo__simbolo site-logo__simbolo--claro" src="assets/logos/simbolo-mono-branco.svg" alt="" width="32" height="32" aria-hidden="true">
+                <img class="site-logo__simbolo site-logo__simbolo--escuro" src="assets/logos/simbolo-positivo.svg" alt="" width="32" height="32" aria-hidden="true">
             </a>
 
             <nav class="site-nav" aria-label="Navegação principal">
@@ -85,8 +87,7 @@
         <div class="site-footer__inner">
             <div class="site-footer__grid">
                 <div>
-                    <p class="site-footer__col-title">_ NEO.LIVING</p>
-                    <p class="site-footer__brand">NEO.LIVING</p>
+                    <img class="site-footer__logo" src="assets/logos/lockup-positivo.svg" alt="Neo Living" width="160" height="35">
                     <p class="site-footer__tagline">Arquitetura Contemporânea — Design &amp; Lifestyle.</p>
                 </div>
 
@@ -120,7 +121,7 @@
             </div>
 
             <div class="site-footer__bottom">
-                <p>NEO.LIVING © 2023 — Rio de Janeiro · BRA</p>
+                <p>© ${new Date().getFullYear()} Neo Living Arquitetura — Rio de Janeiro · BRA</p>
                 <p><a href="privacidade.html">Política de privacidade</a> · <a href="mailto:contato@neoliving.com.br">contato@neoliving.com.br</a></p>
             </div>
         </div>

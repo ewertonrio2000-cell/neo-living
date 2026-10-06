@@ -157,6 +157,22 @@ body.has-custom-cursor select {
     background-color: var(--accent-amber);
 }
 
+/* Logo da marca (DEC-023/DEC-025): lockup mono Branco sobre o hero, positivo depois da rolagem;
+   abaixo de 768 px entra só o símbolo (lockup com menos de 120 px não entra, BS-03-06). */
+.site-logo img { display: none; height: 31px; width: auto; }
+.site-logo .site-logo__lockup--claro { display: block; }
+.site-header.is-scrolled .site-logo .site-logo__lockup--claro { display: none; }
+.site-header.is-scrolled .site-logo .site-logo__lockup--escuro { display: block; }
+@media (max-width: 767px) {
+    .site-logo img { height: 32px; }
+    .site-header .site-logo .site-logo__lockup--claro, .site-header.is-scrolled .site-logo .site-logo__lockup--escuro { display: none; }
+    .site-header .site-logo .site-logo__simbolo--claro { display: block; }
+    .site-header.is-scrolled .site-logo .site-logo__simbolo--claro { display: none; }
+    .site-header.is-scrolled .site-logo .site-logo__simbolo--escuro { display: block; }
+}
+.site-logo:hover img { opacity: 0.8; }
+.site-footer__logo { display: block; height: 35px; width: auto; margin-bottom: var(--space-sm); }
+
 /* ---------- NAV ---------- */
 .site-nav {
     display: flex;
@@ -592,7 +608,7 @@ html[data-theme="light"] .site-header.is-scrolled {
     flex-direction: column;
     gap: 8px;
     padding: var(--space-md);
-    background: linear-gradient(180deg, rgba(184, 134, 11, 0.92), #B8860B);
+    background: linear-gradient(180deg, rgba(184, 134, 11, 0.92), #A8813A);
     transform: translateY(101%);
     transition: transform 560ms var(--ease-out);
     will-change: transform;

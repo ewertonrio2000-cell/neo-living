@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/icons/favicon.ico" sizes="32x32">
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-180.png">
+    <link rel="manifest" href="assets/icons/site.webmanifest">
+    <meta name="theme-color" content="#0A0A0A">
     <title>Ateliê de arquitetura no Rio de Janeiro · Neo Living Arquitetura</title>
     <meta name="description" content="Arquitetura que cria e proporciona novas formas de viver. Ateliê de Alexandre Ribeiro e H. Natacha Weibel, arquitetos e urbanistas no Rio de Janeiro.">
     <link rel="canonical" href="https://neoliving.com.br/">
@@ -20,8 +27,7 @@
     <meta name="google-site-verification" content="Xdcg0hJ1A-Rr4k_zCZbYU-8-kaPEiSlq9v_STwVjIg0">
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Neo Living Arquitetura","alternateName":["Neo Living","NEO.LIVING"],"description":"Ateliê de arquitetura no Rio de Janeiro.","url":"https://neoliving.com.br/","image":"https://neoliving.com.br/assets/og/neo-living-og.jpg","telephone":"+55 21 97630-9999","email":"contato@neoliving.com.br","areaServed":{"@type":"City","name":"Rio de Janeiro"},"founder":[{"@type":"Person","name":"Alexandre Ribeiro","jobTitle":"Arquiteto e urbanista"},{"@type":"Person","name":"H. Natacha Weibel","jobTitle":"Arquiteta e urbanista"}],"sameAs":["https://www.instagram.com/neoliving_br/","https://www.youtube.com/@NeoLiving2023"]}</script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="assets/fonts/Jost-variable.woff" as="font" type="font/woff" crossorigin>
 
     <link rel="stylesheet" href="css/globals.css">
     <link rel="stylesheet" href="css/components.css?v=20260929b">
@@ -77,38 +83,59 @@
         </section>
 
         <!-- ============================================
-             PROJETOS RECENTES EM DESTAQUE — 1 linha, cards colados
+             HIGHLIGHTS PROJECTS — tabuleiro diagonal (como as categorias)
+             sobre PRETO com o efeito de digitais; clique abre o modal
              ============================================ -->
-        <section class="featured-section">
-            <div class="container">
-                <div class="featured-section__head fade-in">
-                    <p class="t-eyebrow" style="margin-bottom: 16px;">_ Destaques</p>
-                    <h2 class="t-h1 t-frame">Projetos recentes</h2>
-                </div>
+        <div class="h-gallery-wrap h-gallery-wrap--featured section--dark" id="destaques">
+        <section class="h-gallery h-gallery--featured" aria-label="Highlights Projects" data-fingerprint="dark">
+            <div class="h-gallery__head">
+                <p class="t-eyebrow">_ Destaques</p>
+                <h2 class="t-h2 t-frame">Highlights Projects</h2>
             </div>
-            <div class="featured-row">
-                <a class="f-card" href="project.html?id=cobertura-costa-del-sol" data-cursor="Ver projeto">
-                    <span class="f-card__media"><img src="assets/images/costa-del-sol.png" alt="Cobertura Costa del Sol" loading="lazy"></span>
-                    <span class="f-card__meta"><span class="f-card__idx">_01</span><span class="f-card__name">Costa del Sol</span></span>
+            <div class="h-gallery__track">
+                <a class="h-panel" data-project href="project.html?id=cobertura-costa-del-sol" data-cursor="Ver projeto">
+                    <span class="h-panel__media"><img src="assets/images/costa-del-sol.png" alt="Cobertura Costa del Sol" loading="lazy"></span>
+                    <span class="h-panel__meta"><span class="h-panel__idx">_01</span><span class="h-panel__name">Costa del Sol</span><span class="h-panel__loc">Barra · RJ</span></span>
                 </a>
-                <a class="f-card" href="project.html?id=horizon-joa" data-cursor="Ver projeto">
-                    <span class="f-card__media"><img src="assets/images/horizon-joa.jpg" alt="Horizon Joá" loading="lazy"></span>
-                    <span class="f-card__meta"><span class="f-card__idx">_02</span><span class="f-card__name">Horizon Joá</span></span>
+                <a class="h-panel" data-project href="project.html?id=horizon-joa" data-cursor="Ver projeto">
+                    <span class="h-panel__media"><img src="assets/images/horizon-joa.jpg" alt="Horizon Joá" loading="lazy"></span>
+                    <span class="h-panel__meta"><span class="h-panel__idx">_02</span><span class="h-panel__name">Horizon Joá</span><span class="h-panel__loc">São Conrado · RJ</span></span>
                 </a>
-                <a class="f-card" href="project.html?id=retrofit-nascimento-silva" data-cursor="Ver projeto">
-                    <span class="f-card__media"><img src="assets/images/nascimentosilva.png" alt="Nascimento Silva" loading="lazy"></span>
-                    <span class="f-card__meta"><span class="f-card__idx">_03</span><span class="f-card__name">Nascimento Silva</span></span>
+                <a class="h-panel" data-project href="project.html?id=retrofit-nascimento-silva" data-cursor="Ver projeto">
+                    <span class="h-panel__media"><img src="assets/images/nascimentosilva.png" alt="Nascimento Silva" loading="lazy"></span>
+                    <span class="h-panel__meta"><span class="h-panel__idx">_03</span><span class="h-panel__name">Nascimento Silva</span><span class="h-panel__loc">Ipanema · RJ</span></span>
                 </a>
-                <a class="f-card" href="project.html?id=sexy-house" data-cursor="Ver projeto">
-                    <span class="f-card__media"><img src="assets/images/sexy-house.png" alt="Sexy House" loading="lazy"></span>
-                    <span class="f-card__meta"><span class="f-card__idx">_04</span><span class="f-card__name">Sexy House</span></span>
+                <a class="h-panel" data-project href="project.html?id=sexy-house" data-cursor="Ver projeto">
+                    <span class="h-panel__media"><img src="assets/images/sexy-house.png" alt="Sexy House" loading="lazy"></span>
+                    <span class="h-panel__meta"><span class="h-panel__idx">_04</span><span class="h-panel__name">Sexy House</span><span class="h-panel__loc">Residencial · RJ</span></span>
                 </a>
-                <a class="f-card" href="project.html?id=barao-da-torre" data-cursor="Ver projeto">
-                    <span class="f-card__media"><img src="assets/images/retrofits/barao-torre-1.jpg" alt="Barão da Torre" loading="lazy"></span>
-                    <span class="f-card__meta"><span class="f-card__idx">_05</span><span class="f-card__name">Barão da Torre</span></span>
+                <a class="h-panel" data-project href="project.html?id=barao-da-torre" data-cursor="Ver projeto">
+                    <span class="h-panel__media"><img src="assets/images/retrofits/barao-torre-1.jpg" alt="Barão da Torre" loading="lazy"></span>
+                    <span class="h-panel__meta"><span class="h-panel__idx">_05</span><span class="h-panel__name">Barão da Torre</span><span class="h-panel__loc">Ipanema · RJ</span></span>
+                </a>
+                <a class="h-panel" data-project href="project.html?id=retrofit-chopin" data-cursor="Ver projeto">
+                    <span class="h-panel__media"><img src="assets/images/chopin.png" alt="Retrofit Edifício Chopin" loading="lazy"></span>
+                    <span class="h-panel__meta"><span class="h-panel__idx">_06</span><span class="h-panel__name">Edifício Chopin</span><span class="h-panel__loc">Copacabana · RJ</span></span>
+                </a>
+                <a class="h-panel" data-project href="project.html?id=life-house-itanhanga" data-cursor="Ver projeto">
+                    <span class="h-panel__media"><img src="assets/images/life-house.jpg" alt="Life.House Itanhangá Golf" loading="lazy"></span>
+                    <span class="h-panel__meta"><span class="h-panel__idx">_07</span><span class="h-panel__name">Life.House Itanhangá</span><span class="h-panel__loc">Itanhangá · RJ</span></span>
+                </a>
+                <a class="h-panel" data-project href="project.html?id=penthouse-ns-paz" data-cursor="Ver projeto">
+                    <span class="h-panel__media"><img src="assets/images/interior/ns-paz-1.jpg" alt="Penthouse Nossa Senhora da Paz" loading="lazy"></span>
+                    <span class="h-panel__meta"><span class="h-panel__idx">_08</span><span class="h-panel__name">Penthouse N. S. da Paz</span><span class="h-panel__loc">Ipanema · RJ</span></span>
+                </a>
+                <a class="h-panel" data-project href="project.html?id=reserva-pedra-bonita" data-cursor="Ver projeto">
+                    <span class="h-panel__media"><img src="assets/images/casas/pedra-bonita-1.jpg" alt="Casas Reserva Pedra Bonita" loading="lazy"></span>
+                    <span class="h-panel__meta"><span class="h-panel__idx">_09</span><span class="h-panel__name">Reserva Pedra Bonita</span><span class="h-panel__loc">São Conrado · RJ</span></span>
+                </a>
+                <a class="h-panel" data-project href="project.html?id=casa-zayed" data-cursor="Ver projeto">
+                    <span class="h-panel__media"><img src="assets/images/casas/zayed-1.jpg" alt="Casa Zayed" loading="lazy"></span>
+                    <span class="h-panel__meta"><span class="h-panel__idx">_10</span><span class="h-panel__name">Casa Zayed</span><span class="h-panel__loc">Residencial</span></span>
                 </a>
             </div>
         </section>
+        </div>
 
         <!-- ============================================
              GALERIA HORIZONTAL — logo abaixo do hero (sticky + scroll horizontal)

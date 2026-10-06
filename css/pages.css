@@ -3153,6 +3153,7 @@ html[data-theme="light"] .hero.hero--editorial {
    (Os painéis herdam as regras base: media 50% alternada + meta absoluta) */
 .h-gallery--native .h-gallery__track {
     transform: none !important;
+    flex: 0 0 auto;   /* anula o flex:1 (basis 0) do desktop — sem isso o track colapsa a 0px */
     height: 60vh;
     padding: 0 var(--gutter-mobile);
     gap: 0;
@@ -3366,121 +3367,29 @@ html[data-theme="light"] .hero.hero--editorial {
 }
 
 /* =========================================================
-   PROJETOS RECENTES EM DESTAQUE — 1 linha, cards colados,
-   título abaixo com linha em L + seta apontando o quadro
+   HIGHLIGHTS PROJECTS — mesmo tabuleiro diagonal das categorias,
+   sobre PRETO com o efeito de digitais (canvas no sticky).
+   Os painéis levam data-project e abrem o modal do projeto.
    ========================================================= */
-.featured-section {
-    padding: var(--space-2xl) 0 var(--space-xl);
-    background-color: #FFFFFF;
-}
+.h-gallery-wrap--featured { margin-top: 0; }   /* emenda direto no hero (preto contínuo) */
 
-.featured-section__head { margin-bottom: var(--space-lg); }
+.h-gallery--featured { background-color: #0A0A0A; }
 
-.featured-row {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 2px;                              /* praticamente colados */
-    padding: 0 var(--gutter-desktop);
-}
+/* [data-fingerprint] (relative) viria DEPOIS de .h-gallery no CSS e
+   desligaria o pin — reafirma o sticky no desktop (não no modo nativo) */
+.h-gallery--featured:not(.h-gallery--native) { position: sticky; }
 
-.f-card {
+/* conteúdo acima do canvas do efeito (z-index 2) */
+.h-gallery--featured .h-gallery__head,
+.h-gallery--featured .h-gallery__track {
     position: relative;
-    display: block;
-    text-decoration: none;
-    color: var(--text-primary);
+    z-index: 3;
 }
 
-.f-card__media {
-    position: relative;
-    display: block;
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
-    background-color: #101010;
-}
+/* célula vazia sob a foto lê como o próprio fundo */
+.h-panel[data-project] .h-panel__media { background-color: #101010; }
 
-.f-card__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    filter: grayscale(1) contrast(1.04);
-    transition: transform 900ms var(--ease-out), filter 600ms var(--ease-out);
-}
-
-.f-card:hover .f-card__media img {
-    transform: scale(1.05);
-    filter: none;
-}
-
-.f-card__meta {
-    position: relative;
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    padding: 14px 0 8px 16px;
-}
-
-.f-card__idx {
-    font-family: var(--font-condensed);
-    font-size: 0.8125rem;
-    color: var(--accent-amber);
-}
-
-.f-card__name {
-    font-family: var(--font-condensed);
-    font-weight: 600;
-    font-size: clamp(0.875rem, 1.15vw, 1.0625rem);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    transition: color 300ms;
-}
-
-.f-card:hover .f-card__name { color: var(--accent-amber); }
-
-/* linha em L: sublinha o nome e sobe com SETA entrando no quadro */
-.f-card__meta::before {
-    content: "";
-    position: absolute;
-    left: 3px;
-    top: 0;
-    height: calc(100% - 2px);
-    width: min(240px, 86%);
-    border: 0 solid var(--accent-amber);
-    border-left-width: 1px;
-    border-bottom-width: 1px;
-}
-
-.f-card__meta::after {
-    content: "";
-    position: absolute;
-    left: -0.5px;
-    top: -7px;
-    width: 0;
-    height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-bottom: 7px solid var(--accent-amber);
-}
-
-@media (max-width: 768px) {
-    /* 1 linha rolável no celular, cards ainda colados */
-    .featured-row {
-        display: flex;
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
-        gap: 2px;
-        padding: 0 var(--gutter-mobile);
-        scrollbar-width: none;
-    }
-    .featured-row::-webkit-scrollbar { display: none; }
-    .f-card {
-        flex: 0 0 auto;
-        width: 56vw;
-        scroll-snap-align: start;
-    }
-}
+.h-panel[data-project]:hover .h-panel__name { color: var(--accent-amber); }
 
 /* =========================================================
    LETREIRO DIVIDIDO DO HERO
@@ -3500,7 +3409,7 @@ html[data-theme="light"] .hero.hero--editorial {
     display: flex;
     flex-direction: column;
     margin: 0;
-    font-family: 'Bebas Neue', var(--font-condensed);
+    font-family: var(--font-condensed);
     font-weight: 600;
     line-height: 0.9;
     text-transform: uppercase;
