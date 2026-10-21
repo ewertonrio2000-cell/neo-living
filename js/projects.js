@@ -108,33 +108,9 @@ window.NEO_PROJECTS = [
         }
     },
     {
-        id: 'sexy-house',
-        video: 'qxjqEy1p17A',
-        category: 'casas',
-        index: '05',
-        name: 'Sexy House',
-        location: 'Residencial · RJ',
-        tag: 'Residencial',
-        year: '',
-        area: '',
-        status: '',
-        tagline: 'Desejo, contraste e luz em arquitetura premium autoral.',
-        description1: '[Descrição do projeto a ser adicionada.] Texto editorial sobre a Sexy House, o conceito autoral e a abordagem ousada para arquitetura residencial premium.',
-        description2: '[Texto complementar a ser adicionado.] Linguagem material, jogo de luz e sombra, atmosferas internas.',
-        coverImage: 'assets/images/sexy-house.png',
-        gallery: [
-            'assets/images/sexy-house.png'
-        ],
-        credits: {
-            architecture: 'NEO.LIVING — Alexandre Ribeiro & H. Natacha Weibel',
-            photography: '',
-            year: ''
-        }
-    },
-    {
         id: 'office-le-monde',
         category: 'offices',
-        index: '06',
+        index: '05',
         name: 'Office Le Monde',
         location: 'Rio de Janeiro · RJ',
         tag: 'Corporativo',
@@ -156,7 +132,7 @@ window.NEO_PROJECTS = [
         id: 'retrofit-nova-joatinga',
         video: 'SfCpdgC_Eos',
         category: 'retrofits',
-        index: '07',
+        index: '06',
         name: 'Retrofit Nova Joatinga',
         location: 'Joatinga · RJ',
         tag: 'Retrofit Residencial',
@@ -177,7 +153,7 @@ window.NEO_PROJECTS = [
     {
         id: 'retrofit-epitacio-pessoa',
         category: 'retrofits',
-        index: '08',
+        index: '07',
         name: 'Retrofit Epitácio Pessoa 800',
         location: 'Ipanema · RJ',
         tag: 'Retrofit Residencial',
@@ -204,7 +180,7 @@ window.NEO_PROJECTS = [
         id: 'retrofit-nascimento-silva',
         video: 'B8KUkkU1-9U',
         category: 'retrofits',
-        index: '09',
+        index: '08',
         name: 'Retrofit Nascimento Silva 543',
         location: 'Ipanema · RJ',
         tag: 'Retrofit Residencial',
@@ -225,7 +201,7 @@ window.NEO_PROJECTS = [
     {
         id: 'club-house-jockey',
         category: 'hotel',
-        index: '10',
+        index: '09',
         name: 'Club House Jockey',
         location: 'Jockey Club · RJ',
         tag: 'Hospitality',
@@ -247,7 +223,7 @@ window.NEO_PROJECTS = [
         id: 'retrospectiva-niemeyer',
         video: 'RUJ8YqjnSDQ',
         category: 'interior',
-        index: '11',
+        index: '10',
         name: 'Retrospectiva Niemeyer',
         location: 'Galeria Hotel Nacional · RJ',
         tag: 'Cultural / Expositivo',
@@ -269,7 +245,7 @@ window.NEO_PROJECTS = [
         id: 'retrofit-shopping-citta',
         video: 'yfpsWf022AA',
         category: 'retrofits',
-        index: '12',
+        index: '11',
         name: 'Retrofit Shopping Città — Office Mall',
         location: 'Av. das Américas · Barra · RJ',
         tag: 'Retrofit Comercial',
@@ -290,7 +266,7 @@ window.NEO_PROJECTS = [
     {
         id: 'forest-life',
         category: 'hotel',
-        index: '13',
+        index: '12',
         name: 'Forest Life',
         location: 'Rio de Janeiro · RJ',
         tag: 'Hospitality',
@@ -315,7 +291,7 @@ window.NEO_PROJECTS = [
     {
         id: 'urb-x-hub',
         category: 'hotel',
-        index: '14',
+        index: '13',
         name: 'Urban X Hub',
         location: 'Rio de Janeiro · RJ',
         tag: 'Hospitality / Uso misto',
@@ -341,7 +317,7 @@ window.NEO_PROJECTS = [
         id: 'match-point-pub',
         video: 'dkSsb_XOkTM',
         category: 'comercial',
-        index: '15',
+        index: '14',
         name: 'Match.Point Pub',
         location: 'Hotel Nacional Rio · RJ',
         tag: 'Comercial',
@@ -366,7 +342,7 @@ window.NEO_PROJECTS = [
     {
         id: 'kult-lifestyle-club',
         category: 'hotel',
-        index: '16',
+        index: '15',
         name: 'KULT Lifestyle Club',
         location: 'Rio de Janeiro · RJ',
         tag: 'Lifestyle / Club',
@@ -387,7 +363,7 @@ window.NEO_PROJECTS = [
     {
         id: 'kult-kolector',
         category: 'interior',
-        index: '17',
+        index: '16',
         name: 'KULT Kolector — Art & Rock',
         location: 'Rio de Janeiro · RJ',
         tag: 'Concept Store',
@@ -408,7 +384,7 @@ window.NEO_PROJECTS = [
     {
         id: 'casa-capuri',
         category: 'casas',
-        index: '18',
+        index: '17',
         name: 'Casa Capuri',
         location: '',
         tag: 'Residencial',
@@ -433,7 +409,7 @@ window.NEO_PROJECTS = [
     {
         id: 'casa-diamond',
         category: 'casas',
-        index: '19',
+        index: '18',
         name: 'Casa Diamond',
         location: '',
         tag: 'Residencial',
@@ -458,7 +434,7 @@ window.NEO_PROJECTS = [
     {
         id: 'casa-duda-canoas',
         category: 'casas',
-        index: '20',
+        index: '19',
         name: 'Casa Duda Canoas',
         location: '',
         tag: 'Residencial',
@@ -483,7 +459,7 @@ window.NEO_PROJECTS = [
     {
         id: 'casa-gavea-golf',
         category: 'casas',
-        index: '21',
+        index: '20',
         name: 'Casa Gávea Golf Club',
         location: 'Gávea Golf · RJ',
         tag: 'Residencial',
@@ -508,7 +484,7 @@ window.NEO_PROJECTS = [
     {
         id: 'casa-mag',
         category: 'casas',
-        index: '22',
+        index: '21',
         name: 'Casa Mag',
         location: '',
         tag: 'Residencial',
@@ -533,7 +509,7 @@ window.NEO_PROJECTS = [
     {
         id: 'casa-praia-joatinga',
         category: 'casas',
-        index: '23',
+        index: '22',
         name: 'Casa Praia da Joatinga',
         location: 'Praia da Joatinga · RJ',
         tag: 'Residencial',
@@ -558,7 +534,7 @@ window.NEO_PROJECTS = [
     {
         id: 'casa-quebra-mar',
         category: 'casas',
-        index: '24',
+        index: '23',
         name: 'Casa Quebra-Mar',
         location: '',
         tag: 'Residencial',
@@ -582,7 +558,7 @@ window.NEO_PROJECTS = [
     {
         id: 'casa-valverde',
         category: 'casas',
-        index: '25',
+        index: '24',
         name: 'Casa Valverde',
         location: '',
         tag: 'Residencial',
@@ -607,7 +583,7 @@ window.NEO_PROJECTS = [
     {
         id: 'casa-zayed',
         category: 'casas',
-        index: '26',
+        index: '25',
         name: 'Casa Zayed',
         location: '',
         tag: 'Residencial',
@@ -632,7 +608,7 @@ window.NEO_PROJECTS = [
     {
         id: 'apto-sheila-chor',
         category: 'interior',
-        index: '27',
+        index: '26',
         name: 'Apartamento Sheila Chor',
         location: '',
         tag: 'Interiores',
@@ -657,7 +633,7 @@ window.NEO_PROJECTS = [
     {
         id: 'cobertura-golden-green',
         category: 'interior',
-        index: '28',
+        index: '27',
         name: 'Cobertura Golden Green',
         location: 'Barra da Tijuca · RJ',
         tag: 'Interiores',
@@ -682,7 +658,7 @@ window.NEO_PROJECTS = [
     {
         id: 'cobertura-moreira-salles',
         category: 'interior',
-        index: '29',
+        index: '28',
         name: 'Cobertura Moreira Salles',
         location: '',
         tag: 'Interiores',
@@ -707,7 +683,7 @@ window.NEO_PROJECTS = [
     {
         id: 'flats-colecao',
         category: 'interior',
-        index: '30',
+        index: '29',
         name: 'Flats & Lofts — Coleção',
         location: '',
         tag: 'Interiores',
@@ -732,7 +708,7 @@ window.NEO_PROJECTS = [
     {
         id: 'riserva-uno',
         category: 'interior',
-        index: '31',
+        index: '30',
         name: 'Riserva Uno',
         location: 'Barra da Tijuca · RJ',
         tag: 'Interiores',
@@ -757,7 +733,7 @@ window.NEO_PROJECTS = [
     {
         id: 'hotel-nacional',
         category: 'hotel',
-        index: '32',
+        index: '31',
         name: 'Hotel Nacional',
         location: 'São Conrado · RJ',
         tag: 'Hospitality',
@@ -782,7 +758,7 @@ window.NEO_PROJECTS = [
     {
         id: 'hotel-paineras',
         category: 'hotel',
-        index: '33',
+        index: '32',
         name: 'Hotel Paineiras',
         location: '',
         tag: 'Hospitality',
@@ -807,7 +783,7 @@ window.NEO_PROJECTS = [
     {
         id: 'k-haus-marina',
         category: 'hotel',
-        index: '34',
+        index: '33',
         name: 'K_Haus Marina',
         location: '',
         tag: 'Hospitality',
@@ -832,7 +808,7 @@ window.NEO_PROJECTS = [
     {
         id: 'lsh-barra',
         category: 'hotel',
-        index: '35',
+        index: '34',
         name: 'LSH Barra',
         location: 'Barra da Tijuca · RJ',
         tag: 'Hospitality',
@@ -856,7 +832,7 @@ window.NEO_PROJECTS = [
     {
         id: 'panorama-rooftop',
         category: 'hotel',
-        index: '36',
+        index: '35',
         name: 'Panorama Rooftop',
         location: '',
         tag: 'Hospitality',
@@ -881,7 +857,7 @@ window.NEO_PROJECTS = [
     {
         id: 'rio-flat-leblon',
         category: 'hotel',
-        index: '37',
+        index: '36',
         name: 'Rio Flat Leblon',
         location: 'Leblon · RJ',
         tag: 'Hospitality',
@@ -905,7 +881,7 @@ window.NEO_PROJECTS = [
     {
         id: 'suites-copacabana',
         category: 'hotel',
-        index: '38',
+        index: '37',
         name: 'Suítes Copacabana',
         location: 'Copacabana · RJ',
         tag: 'Hospitality',
@@ -930,7 +906,7 @@ window.NEO_PROJECTS = [
     {
         id: 'suites-leblon',
         category: 'hotel',
-        index: '39',
+        index: '38',
         name: 'Suítes Leblon',
         location: 'Leblon · RJ',
         tag: 'Hospitality',
@@ -955,7 +931,7 @@ window.NEO_PROJECTS = [
     {
         id: 'suites-sheraton-barra',
         category: 'hotel',
-        index: '40',
+        index: '39',
         name: 'Suítes Sheraton Barra',
         location: 'Barra da Tijuca · RJ',
         tag: 'Hospitality',
@@ -980,7 +956,7 @@ window.NEO_PROJECTS = [
     {
         id: 'z-bra-hostel',
         category: 'hotel',
-        index: '41',
+        index: '40',
         name: 'Z.Bra Hostel Leblon',
         location: 'Leblon · RJ',
         tag: 'Hospitality',
@@ -1005,7 +981,7 @@ window.NEO_PROJECTS = [
     {
         id: 'academia-brasileira-filosofia',
         category: 'retrofits',
-        index: '42',
+        index: '41',
         name: 'Academia Brasileira de Filosofia',
         location: '',
         tag: 'Retrofit Institucional',
@@ -1030,7 +1006,7 @@ window.NEO_PROJECTS = [
     {
         id: 'cobertura-triplex-lagoa',
         category: 'retrofits',
-        index: '43',
+        index: '42',
         name: 'Cobertura Triplex Lagoa',
         location: 'Lagoa · RJ',
         tag: 'Retrofit Residencial',
@@ -1055,7 +1031,7 @@ window.NEO_PROJECTS = [
     {
         id: 'cani-tv',
         category: 'offices',
-        index: '44',
+        index: '43',
         name: 'Cani TV',
         location: '',
         tag: 'Corporativo',
@@ -1080,7 +1056,7 @@ window.NEO_PROJECTS = [
     {
         id: 'expertise-sp',
         category: 'offices',
-        index: '45',
+        index: '44',
         name: 'Expertise SP',
         location: 'São Paulo · SP',
         tag: 'Corporativo',
@@ -1105,7 +1081,7 @@ window.NEO_PROJECTS = [
     {
         id: 'interyachts',
         category: 'offices',
-        index: '46',
+        index: '45',
         name: 'InterYachts',
         location: '',
         tag: 'Corporativo',
@@ -1130,7 +1106,7 @@ window.NEO_PROJECTS = [
     {
         id: 'le-canton-office',
         category: 'offices',
-        index: '47',
+        index: '46',
         name: 'Le Canton Office',
         location: '',
         tag: 'Corporativo',
@@ -1155,7 +1131,7 @@ window.NEO_PROJECTS = [
     {
         id: 'office-gevaerd',
         category: 'offices',
-        index: '48',
+        index: '47',
         name: 'Office Gevaerd',
         location: '',
         tag: 'Corporativo',
@@ -1180,7 +1156,7 @@ window.NEO_PROJECTS = [
     {
         id: 'office-miguel',
         category: 'offices',
-        index: '49',
+        index: '48',
         name: 'Office Miguel',
         location: '',
         tag: 'Corporativo',
@@ -1205,7 +1181,7 @@ window.NEO_PROJECTS = [
     {
         id: 'office-uchoa',
         category: 'offices',
-        index: '50',
+        index: '49',
         name: 'Office Uchoa',
         location: '',
         tag: 'Corporativo',
@@ -1230,7 +1206,7 @@ window.NEO_PROJECTS = [
     {
         id: 'oil-gas',
         category: 'offices',
-        index: '51',
+        index: '50',
         name: 'Oil & Gas',
         location: '',
         tag: 'Corporativo',
@@ -1255,7 +1231,7 @@ window.NEO_PROJECTS = [
     {
         id: 'petrogold',
         category: 'offices',
-        index: '52',
+        index: '51',
         name: 'Petrogold',
         location: '',
         tag: 'Corporativo',
@@ -1280,7 +1256,7 @@ window.NEO_PROJECTS = [
     {
         id: 'office-rai',
         category: 'offices',
-        index: '53',
+        index: '52',
         name: 'Office RAI',
         location: '',
         tag: 'Corporativo',
@@ -1305,7 +1281,7 @@ window.NEO_PROJECTS = [
     {
         id: 'roxtec-sweden',
         category: 'offices',
-        index: '54',
+        index: '53',
         name: 'Roxtec Sweden',
         location: 'Suécia',
         tag: 'Corporativo',
@@ -1330,7 +1306,7 @@ window.NEO_PROJECTS = [
     {
         id: 'royal-holiday',
         category: 'offices',
-        index: '55',
+        index: '54',
         name: 'Royal Holiday',
         location: '',
         tag: 'Corporativo',
@@ -1355,7 +1331,7 @@ window.NEO_PROJECTS = [
     {
         id: 'club-021',
         category: 'comercial',
-        index: '56',
+        index: '55',
         name: '021',
         location: '',
         tag: 'Comercial',
@@ -1381,7 +1357,7 @@ window.NEO_PROJECTS = [
         id: 'artsy-clubhouse',
         video: 'SlrX6OSKYUI',
         category: 'comercial',
-        index: '57',
+        index: '56',
         name: 'Artsy Clubhouse — Tribuna Estrela Bet',
         location: 'Jockey Club · RJ',
         tag: 'Comercial',
@@ -1405,7 +1381,7 @@ window.NEO_PROJECTS = [
     {
         id: 'capela-golf-olimpico',
         category: 'comercial',
-        index: '58',
+        index: '57',
         name: 'Capela Golf Olímpico',
         location: 'Rio de Janeiro · RJ',
         tag: 'Institucional',
@@ -1430,7 +1406,7 @@ window.NEO_PROJECTS = [
     {
         id: 'club-baronneti',
         category: 'comercial',
-        index: '59',
+        index: '58',
         name: 'Club Baronneti',
         location: 'Ipanema · RJ',
         tag: 'Comercial',
@@ -1455,7 +1431,7 @@ window.NEO_PROJECTS = [
     {
         id: 'club-rio-rock-blues',
         category: 'comercial',
-        index: '60',
+        index: '59',
         name: 'Club Rio Rock&Blues',
         location: 'Barra da Tijuca · RJ',
         tag: 'Comercial',
@@ -1480,7 +1456,7 @@ window.NEO_PROJECTS = [
     {
         id: 'johnnie-walker-lounge',
         category: 'comercial',
-        index: '61',
+        index: '60',
         name: 'Johnnie Walker VIP Lounge',
         location: 'Ipanema · RJ',
         tag: 'Comercial',
@@ -1505,7 +1481,7 @@ window.NEO_PROJECTS = [
     {
         id: 'loja-royal-holiday',
         category: 'comercial',
-        index: '62',
+        index: '61',
         name: 'Loja Royal Holiday',
         location: 'São Paulo · SP',
         tag: 'Comercial',
@@ -1530,7 +1506,7 @@ window.NEO_PROJECTS = [
     {
         id: 'neo-san',
         category: 'comercial',
-        index: '63',
+        index: '62',
         name: 'Neo San — Village Mall',
         location: 'Barra da Tijuca · RJ',
         tag: 'Comercial',
@@ -1555,7 +1531,7 @@ window.NEO_PROJECTS = [
     {
         id: 'casa-alba',
         category: 'geral',
-        index: '64',
+        index: '63',
         name: 'Casa Alba',
         location: '',
         tag: 'Residencial',
@@ -1580,7 +1556,7 @@ window.NEO_PROJECTS = [
     {
         id: 'casa-gaia',
         category: 'geral',
-        index: '65',
+        index: '64',
         name: 'Casa Gaia',
         location: '',
         tag: 'Residencial',
@@ -1603,7 +1579,7 @@ window.NEO_PROJECTS = [
     {
         id: 'edmundo',
         category: 'geral',
-        index: '66',
+        index: '65',
         name: 'Edmundo',
         location: '',
         tag: 'Portfólio',
@@ -1628,7 +1604,7 @@ window.NEO_PROJECTS = [
     {
         id: 'portaria-acessos',
         category: 'geral',
-        index: '67',
+        index: '66',
         name: 'Portaria & Acessos',
         location: '',
         tag: 'Portfólio',
@@ -1653,7 +1629,7 @@ window.NEO_PROJECTS = [
     {
         id: 'stand-vendas',
         category: 'geral',
-        index: '68',
+        index: '67',
         name: 'Stand de Vendas',
         location: '',
         tag: 'Portfólio',
@@ -1678,7 +1654,7 @@ window.NEO_PROJECTS = [
     {
         id: 'sketchbook',
         category: 'geral',
-        index: '69',
+        index: '68',
         name: 'Sketchbook',
         location: '',
         tag: 'Portfólio',
@@ -1702,7 +1678,7 @@ window.NEO_PROJECTS = [
     {
         id: 'art-custom',
         category: 'geral',
-        index: '70',
+        index: '69',
         name: 'Art & Custom',
         location: '',
         tag: 'Portfólio',
@@ -1727,7 +1703,7 @@ window.NEO_PROJECTS = [
         id: 'penthouse-ns-paz',
         video: 'lzuSI7lj8EU',
         category: 'interior',
-        index: '71',
+        index: '70',
         name: 'Penthouse Nossa Senhora da Paz',
         location: 'Ipanema · RJ',
         tag: 'Residencial',
@@ -1751,7 +1727,7 @@ window.NEO_PROJECTS = [
         id: 'barao-da-torre',
         video: 'VuQArvctLmg',
         category: 'retrofits',
-        index: '72',
+        index: '71',
         name: 'Barão da Torre',
         location: 'Ipanema · RJ',
         tag: 'Retrofit Residencial',
@@ -1775,7 +1751,7 @@ window.NEO_PROJECTS = [
         id: 'village-ranch',
         video: 'lH0rKmi-kK8',
         category: 'casas',
-        index: '73',
+        index: '72',
         name: 'Condomínio Village Ranch',
         location: '',
         tag: 'Residencial',
@@ -1799,7 +1775,7 @@ window.NEO_PROJECTS = [
         id: 'reserva-pedra-bonita',
         video: 'At44QkOJor4',
         category: 'casas',
-        index: '74',
+        index: '73',
         name: 'Casas Reserva Pedra Bonita',
         location: 'São Conrado · RJ',
         tag: 'Residencial',
@@ -1823,7 +1799,7 @@ window.NEO_PROJECTS = [
         id: 'town-houses',
         video: 'WwHL2jzN9I8',
         category: 'casas',
-        index: '75',
+        index: '74',
         name: 'Town Houses',
         location: '',
         tag: 'Residencial',
@@ -1847,7 +1823,7 @@ window.NEO_PROJECTS = [
         id: 'road-office-mall',
         video: 'NXOyuNFWC2o',
         category: 'comercial',
-        index: '76',
+        index: '75',
         name: 'Road Office Mall — Itaipava',
         location: 'Itaipava · Petrópolis · RJ',
         tag: 'Comercial',
