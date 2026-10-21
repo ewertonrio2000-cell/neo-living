@@ -3,8 +3,17 @@
    Global tokens, reset, base typography, utilities
    ========================================================= */
 
-/* Fontes da marca (Brand System, Fase 05): Josefin Sans (títulos) + Jost (texto), autohospedadas, OFL.
-   Saira, Inter, Bebas Neue, Oswald, Horizondrift e Lagency saíram do carregamento (BS-05-13). */
+/* Fonte do site (decisão do operador, 21/10/2026): Oswald em todo o site, autohospedada (OFL), variável 200–700.
+   Padrão tipográfico: palavra principal em MAIÚSCULA, complemento em minúscula, tudo alinhado.
+   Josefin Sans e Jost ficam só como reserva (as apresentações em HTML continuam com a fonte delas). */
+@font-face {
+    font-family: 'Oswald';
+    src: url('../assets/fonts/Oswald-variable.ttf') format('truetype');
+    font-weight: 200 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 @font-face {
     font-family: 'Josefin Sans';
     src: url('../assets/fonts/JosefinSans-variable.woff') format('woff');
@@ -48,10 +57,10 @@
     --text-watermark-strong: rgba(0, 0, 0, 0.07);
 
     /* ---------- TYPOGRAPHY ---------- */
-    --font-condensed: 'Josefin Sans', 'Jost', -apple-system, sans-serif;           /* Display / títulos */
-    --font-display:   'Josefin Sans', 'Jost', -apple-system, sans-serif;           /* Headlines de seção */
-    --font-body:      'Jost', 'Josefin Sans', -apple-system, sans-serif;           /* Parágrafos / labels */
-    --font-serif:     'Josefin Sans', 'Jost', -apple-system, sans-serif;           /* Acentos editoriais */
+    --font-condensed: 'Oswald', 'Josefin Sans', -apple-system, sans-serif;         /* Display / títulos */
+    --font-display:   'Oswald', 'Josefin Sans', -apple-system, sans-serif;         /* Headlines de seção */
+    --font-body:      'Oswald', 'Jost', -apple-system, sans-serif;                 /* Parágrafos / labels */
+    --font-serif:     'Oswald', 'Josefin Sans', -apple-system, sans-serif;         /* Acentos editoriais */
 
     /* ---------- SPACING ---------- */
     --space-3xs: 4px;
