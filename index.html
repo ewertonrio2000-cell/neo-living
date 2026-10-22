@@ -31,7 +31,7 @@
 
     <link rel="stylesheet" href="css/globals.css">
     <link rel="stylesheet" href="css/components.css?v=20260929b">
-    <link rel="stylesheet" href="css/pages.css?v=20261022">
+    <link rel="stylesheet" href="css/pages.css?v=20261022b">
 </head>
 <body>
     <!-- Header (injected) -->
@@ -83,197 +83,81 @@
         </section>
 
         <!-- ============================================
-             HIGHLIGHTS PROJECTS — tabuleiro 4×4 de cards NEO.LIVING
-             (padrão dos cards de 21/10: foto + película escura, Oswald,
-             palavra principal MAIÚSCULA, gota de vidro, cunha branca).
-             Oito colunas: os cards ocupam células alternadas e cada linha
-             desloca uma célula → tocam-se apenas pelos vértices. Sem rolagem.
+             HIGHLIGHTS PROJECTS — tabuleiro 4×4 (16 projetos), sem rolagem.
+             Cada card ocupa 2 células: foto 3:2 numa e o nome na outra
+             (índice, nome, local, fio de latão com seta, como no antigo).
+             Linhas ímpares: foto à esquerda; pares: foto à direita → as fotos
+             formam o tabuleiro e se tocam só pelos vértices.
              ============================================ -->
         <section class="destaques section--dark" id="destaques" aria-label="Highlights Projects" data-fingerprint="dark">
-            <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-                <linearGradient id="pcLip" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#55544F"/><stop offset="1" stop-color="#2C2C2A"/></linearGradient>
-                <linearGradient id="pcFace" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E7E6E1"/></linearGradient>
-            </defs></svg>
             <div class="destaques__head">
                 <p class="t-eyebrow">_ Destaques</p>
                 <h2 class="t-h2 t-frame">Highlights Projects</h2>
             </div>
             <div class="tab" role="list">
-                <a class="pc" data-project href="project.html?id=horizon-joa" data-cursor="Ver projeto" aria-label="Horizon Joá · São Conrado"
-                   style="--col:1;--row:1;--colt:1;--rowt:1;--fx:50%;--fy:38%;--p:30cqw">
-                    <img class="pc__foto" src="assets/images/horizon-joa.jpg" alt="Horizon Joá, São Conrado" loading="lazy" decoding="async">
-                    <span class="pc__pelicula" aria-hidden="true"></span>
-                    <span class="pc__gota" aria-hidden="true"></span>
-                    <span class="pc__topo" aria-hidden="true"><img class="pc__lockup" src="assets/logos/lockup-mono-branco.svg" alt=""><span class="pc__idx">01 · casa</span></span>
-                    <span class="pc__titulo" aria-hidden="true"><span class="pc__c">horizon</span><span class="pc__p">JOÁ</span><span class="pc__c">casa · são conrado</span></span>
-                    <svg class="pc__cunha" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,11.3 100,1.7 100,20 0,20" fill="#A8813A"/><polygon points="0,11.55 100,2.1 100,20 0,20" fill="url(#pcLip)"/><polygon points="0,12 100,4 100,20 0,20" fill="url(#pcFace)"/></svg>
-                    <span class="pc__rodape" aria-hidden="true"><span class="pc__nome">Horizon Joá · São Conrado</span><span class="pc__site">neoliving.com.br</span></span>
-                    <span class="pc__grao" aria-hidden="true"></span>
+                <a class="pc" data-project href="project.html?id=horizon-joa" data-cursor="Ver projeto" aria-label="Horizon Joá" style="--fx:50%;--fy:38%">
+                    <span class="pc__media"><img class="pc__foto" src="assets/images/horizon-joa.jpg" alt="Horizon Joá" loading="lazy" decoding="async"></span>
+                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_01</span><span class="pc__nome">Horizon Joá</span><span class="pc__loc">São Conrado · RJ</span></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=cobertura-costa-del-sol" data-cursor="Ver projeto" aria-label="Costa del Sol · Barra"
-                   style="--col:3;--row:1;--colt:3;--rowt:1;--fx:50%;--fy:50%;--p:25cqw">
-                    <img class="pc__foto" src="assets/images/costa-del-sol.png" alt="Costa del Sol, Barra" loading="lazy" decoding="async">
-                    <span class="pc__pelicula" aria-hidden="true"></span>
-                    <span class="pc__gota" aria-hidden="true"></span>
-                    <span class="pc__topo" aria-hidden="true"><img class="pc__lockup" src="assets/logos/lockup-mono-branco.svg" alt=""><span class="pc__idx">02 · interior</span></span>
-                    <span class="pc__titulo" aria-hidden="true"><span class="pc__c">cobertura</span><span class="pc__p">COSTA</span><span class="pc__c">del sol · barra</span></span>
-                    <svg class="pc__cunha" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,11.3 100,1.7 100,20 0,20" fill="#A8813A"/><polygon points="0,11.55 100,2.1 100,20 0,20" fill="url(#pcLip)"/><polygon points="0,12 100,4 100,20 0,20" fill="url(#pcFace)"/></svg>
-                    <span class="pc__rodape" aria-hidden="true"><span class="pc__nome">Costa del Sol · Barra</span><span class="pc__site">neoliving.com.br</span></span>
-                    <span class="pc__grao" aria-hidden="true"></span>
+                <a class="pc" data-project href="project.html?id=cobertura-costa-del-sol" data-cursor="Ver projeto" aria-label="Costa del Sol" style="--fx:50%;--fy:50%">
+                    <span class="pc__media"><img class="pc__foto" src="assets/images/costa-del-sol.png" alt="Costa del Sol" loading="lazy" decoding="async"></span>
+                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_02</span><span class="pc__nome">Costa del Sol</span><span class="pc__loc">Barra · RJ</span></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=retrofit-nascimento-silva" data-cursor="Ver projeto" aria-label="Nascimento Silva 543 · Ipanema"
-                   style="--col:5;--row:1;--colt:2;--rowt:2;--fx:50%;--fy:45%;--p:30cqw">
-                    <img class="pc__foto" src="assets/images/nascimentosilva.png" alt="Nascimento Silva 543, Ipanema" loading="lazy" decoding="async">
-                    <span class="pc__pelicula" aria-hidden="true"></span>
-                    <span class="pc__gota" aria-hidden="true"></span>
-                    <span class="pc__topo" aria-hidden="true"><img class="pc__lockup" src="assets/logos/lockup-mono-branco.svg" alt=""><span class="pc__idx">03 · retrofit</span></span>
-                    <span class="pc__titulo" aria-hidden="true"><span class="pc__c">retrofit · ipanema</span><span class="pc__p">543</span><span class="pc__c">nascimento silva</span></span>
-                    <svg class="pc__cunha" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,11.3 100,1.7 100,20 0,20" fill="#A8813A"/><polygon points="0,11.55 100,2.1 100,20 0,20" fill="url(#pcLip)"/><polygon points="0,12 100,4 100,20 0,20" fill="url(#pcFace)"/></svg>
-                    <span class="pc__rodape" aria-hidden="true"><span class="pc__nome">Nascimento Silva 543 · Ipanema</span><span class="pc__site">neoliving.com.br</span></span>
-                    <span class="pc__grao" aria-hidden="true"></span>
+                <a class="pc" data-project href="project.html?id=retrofit-nascimento-silva" data-cursor="Ver projeto" aria-label="Nascimento Silva 543" style="--fx:50%;--fy:45%">
+                    <span class="pc__media"><img class="pc__foto" src="assets/images/nascimentosilva.png" alt="Nascimento Silva 543" loading="lazy" decoding="async"></span>
+                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_03</span><span class="pc__nome">Nascimento Silva 543</span><span class="pc__loc">Ipanema · RJ</span></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=barao-da-torre" data-cursor="Ver projeto" aria-label="Barão da Torre · Ipanema"
-                   style="--col:7;--row:1;--colt:4;--rowt:2;--fx:50%;--fy:50%;--p:25cqw">
-                    <img class="pc__foto" src="assets/images/retrofits/barao-torre-1.jpg" alt="Barão da Torre, Ipanema" loading="lazy" decoding="async">
-                    <span class="pc__pelicula" aria-hidden="true"></span>
-                    <span class="pc__gota" aria-hidden="true"></span>
-                    <span class="pc__topo" aria-hidden="true"><img class="pc__lockup" src="assets/logos/lockup-mono-branco.svg" alt=""><span class="pc__idx">04 · retrofit</span></span>
-                    <span class="pc__titulo" aria-hidden="true"><span class="pc__c">retrofit · ipanema</span><span class="pc__p">BARÃO</span><span class="pc__c">da torre</span></span>
-                    <svg class="pc__cunha" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,11.3 100,1.7 100,20 0,20" fill="#A8813A"/><polygon points="0,11.55 100,2.1 100,20 0,20" fill="url(#pcLip)"/><polygon points="0,12 100,4 100,20 0,20" fill="url(#pcFace)"/></svg>
-                    <span class="pc__rodape" aria-hidden="true"><span class="pc__nome">Barão da Torre · Ipanema</span><span class="pc__site">neoliving.com.br</span></span>
-                    <span class="pc__grao" aria-hidden="true"></span>
+                <a class="pc" data-project href="project.html?id=barao-da-torre" data-cursor="Ver projeto" aria-label="Barão da Torre" style="--fx:50%;--fy:50%">
+                    <span class="pc__media"><img class="pc__foto" src="assets/images/retrofits/barao-torre-1.jpg" alt="Barão da Torre" loading="lazy" decoding="async"></span>
+                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_04</span><span class="pc__nome">Barão da Torre</span><span class="pc__loc">Ipanema · RJ</span></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=retrofit-chopin" data-cursor="Ver projeto" aria-label="Edifício Chopin · Copacabana"
-                   style="--col:2;--row:2;--colt:1;--rowt:3;--fx:50%;--fy:50%;--p:22cqw">
-                    <img class="pc__foto" src="assets/images/chopin.png" alt="Edifício Chopin, Copacabana" loading="lazy" decoding="async">
-                    <span class="pc__pelicula" aria-hidden="true"></span>
-                    <span class="pc__gota" aria-hidden="true"></span>
-                    <span class="pc__topo" aria-hidden="true"><img class="pc__lockup" src="assets/logos/lockup-mono-branco.svg" alt=""><span class="pc__idx">05 · retrofit</span></span>
-                    <span class="pc__titulo" aria-hidden="true"><span class="pc__c">retrofit · copacabana</span><span class="pc__p">CHOPIN</span><span class="pc__c">edifício · av. atlântica</span></span>
-                    <svg class="pc__cunha" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,11.3 100,1.7 100,20 0,20" fill="#A8813A"/><polygon points="0,11.55 100,2.1 100,20 0,20" fill="url(#pcLip)"/><polygon points="0,12 100,4 100,20 0,20" fill="url(#pcFace)"/></svg>
-                    <span class="pc__rodape" aria-hidden="true"><span class="pc__nome">Edifício Chopin · Copacabana</span><span class="pc__site">neoliving.com.br</span></span>
-                    <span class="pc__grao" aria-hidden="true"></span>
+                <a class="pc" data-project href="project.html?id=retrofit-chopin" data-cursor="Ver projeto" aria-label="Edifício Chopin" style="--fx:50%;--fy:50%">
+                    <span class="pc__media"><img class="pc__foto" src="assets/images/chopin.png" alt="Edifício Chopin" loading="lazy" decoding="async"></span>
+                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_05</span><span class="pc__nome">Edifício Chopin</span><span class="pc__loc">Copacabana · RJ</span></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=life-house-itanhanga" data-cursor="Ver projeto" aria-label="Life.House · Itanhangá"
-                   style="--col:4;--row:2;--colt:3;--rowt:3;--fx:50%;--fy:55%;--p:27cqw">
-                    <img class="pc__foto" src="assets/images/life-house.jpg" alt="Life.House, Itanhangá" loading="lazy" decoding="async">
-                    <span class="pc__pelicula" aria-hidden="true"></span>
-                    <span class="pc__gota" aria-hidden="true"></span>
-                    <span class="pc__topo" aria-hidden="true"><img class="pc__lockup" src="assets/logos/lockup-mono-branco.svg" alt=""><span class="pc__idx">06 · casa</span></span>
-                    <span class="pc__titulo" aria-hidden="true"><span class="pc__c">itanhangá golf</span><span class="pc__p">LIFE</span><span class="pc__c">house · casa</span></span>
-                    <svg class="pc__cunha" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,11.3 100,1.7 100,20 0,20" fill="#A8813A"/><polygon points="0,11.55 100,2.1 100,20 0,20" fill="url(#pcLip)"/><polygon points="0,12 100,4 100,20 0,20" fill="url(#pcFace)"/></svg>
-                    <span class="pc__rodape" aria-hidden="true"><span class="pc__nome">Life.House · Itanhangá</span><span class="pc__site">neoliving.com.br</span></span>
-                    <span class="pc__grao" aria-hidden="true"></span>
+                <a class="pc" data-project href="project.html?id=life-house-itanhanga" data-cursor="Ver projeto" aria-label="Life.House Itanhangá" style="--fx:50%;--fy:55%">
+                    <span class="pc__media"><img class="pc__foto" src="assets/images/life-house.jpg" alt="Life.House Itanhangá" loading="lazy" decoding="async"></span>
+                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_06</span><span class="pc__nome">Life.House Itanhangá</span><span class="pc__loc">Itanhangá · RJ</span></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=reserva-pedra-bonita" data-cursor="Ver projeto" aria-label="Reserva Pedra Bonita · São Conrado"
-                   style="--col:6;--row:2;--colt:2;--rowt:4;--fx:50%;--fy:50%;--p:25cqw">
-                    <img class="pc__foto" src="assets/images/casas/pedra-bonita-1.jpg" alt="Reserva Pedra Bonita, São Conrado" loading="lazy" decoding="async">
-                    <span class="pc__pelicula" aria-hidden="true"></span>
-                    <span class="pc__gota" aria-hidden="true"></span>
-                    <span class="pc__topo" aria-hidden="true"><img class="pc__lockup" src="assets/logos/lockup-mono-branco.svg" alt=""><span class="pc__idx">07 · casas</span></span>
-                    <span class="pc__titulo" aria-hidden="true"><span class="pc__c">casas · são conrado</span><span class="pc__p">PEDRA</span><span class="pc__c">bonita · reserva</span></span>
-                    <svg class="pc__cunha" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,11.3 100,1.7 100,20 0,20" fill="#A8813A"/><polygon points="0,11.55 100,2.1 100,20 0,20" fill="url(#pcLip)"/><polygon points="0,12 100,4 100,20 0,20" fill="url(#pcFace)"/></svg>
-                    <span class="pc__rodape" aria-hidden="true"><span class="pc__nome">Reserva Pedra Bonita · São Conrado</span><span class="pc__site">neoliving.com.br</span></span>
-                    <span class="pc__grao" aria-hidden="true"></span>
+                <a class="pc" data-project href="project.html?id=reserva-pedra-bonita" data-cursor="Ver projeto" aria-label="Reserva Pedra Bonita" style="--fx:50%;--fy:50%">
+                    <span class="pc__media"><img class="pc__foto" src="assets/images/casas/pedra-bonita-1.jpg" alt="Reserva Pedra Bonita" loading="lazy" decoding="async"></span>
+                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_07</span><span class="pc__nome">Reserva Pedra Bonita</span><span class="pc__loc">São Conrado · RJ</span></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=casa-zayed" data-cursor="Ver projeto" aria-label="Casa Zayed"
-                   style="--col:8;--row:2;--colt:4;--rowt:4;--fx:50%;--fy:50%;--p:25cqw">
-                    <img class="pc__foto" src="assets/images/casas/zayed-1.jpg" alt="Casa Zayed" loading="lazy" decoding="async">
-                    <span class="pc__pelicula" aria-hidden="true"></span>
-                    <span class="pc__gota" aria-hidden="true"></span>
-                    <span class="pc__topo" aria-hidden="true"><img class="pc__lockup" src="assets/logos/lockup-mono-branco.svg" alt=""><span class="pc__idx">08 · casa</span></span>
-                    <span class="pc__titulo" aria-hidden="true"><span class="pc__c">casa</span><span class="pc__p">ZAYED</span><span class="pc__c">residencial</span></span>
-                    <svg class="pc__cunha" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,11.3 100,1.7 100,20 0,20" fill="#A8813A"/><polygon points="0,11.55 100,2.1 100,20 0,20" fill="url(#pcLip)"/><polygon points="0,12 100,4 100,20 0,20" fill="url(#pcFace)"/></svg>
-                    <span class="pc__rodape" aria-hidden="true"><span class="pc__nome">Casa Zayed</span><span class="pc__site">neoliving.com.br</span></span>
-                    <span class="pc__grao" aria-hidden="true"></span>
+                <a class="pc" data-project href="project.html?id=casa-zayed" data-cursor="Ver projeto" aria-label="Casa Zayed" style="--fx:50%;--fy:50%">
+                    <span class="pc__media"><img class="pc__foto" src="assets/images/casas/zayed-1.jpg" alt="Casa Zayed" loading="lazy" decoding="async"></span>
+                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_08</span><span class="pc__nome">Casa Zayed</span><span class="pc__loc">Residencial</span></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=casa-quebra-mar" data-cursor="Ver projeto" aria-label="Casa Quebra-Mar"
-                   style="--col:1;--row:3;--colt:1;--rowt:5;--fx:55%;--fy:50%;--p:22cqw">
-                    <img class="pc__foto" src="assets/images/casas/quebra-mar-1.jpg" alt="Casa Quebra-Mar" loading="lazy" decoding="async">
-                    <span class="pc__pelicula" aria-hidden="true"></span>
-                    <span class="pc__gota" aria-hidden="true"></span>
-                    <span class="pc__topo" aria-hidden="true"><img class="pc__lockup" src="assets/logos/lockup-mono-branco.svg" alt=""><span class="pc__idx">09 · casa</span></span>
-                    <span class="pc__titulo" aria-hidden="true"><span class="pc__c">casa</span><span class="pc__p">QUEBRA</span><span class="pc__c">mar · residencial</span></span>
-                    <svg class="pc__cunha" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,11.3 100,1.7 100,20 0,20" fill="#A8813A"/><polygon points="0,11.55 100,2.1 100,20 0,20" fill="url(#pcLip)"/><polygon points="0,12 100,4 100,20 0,20" fill="url(#pcFace)"/></svg>
-                    <span class="pc__rodape" aria-hidden="true"><span class="pc__nome">Casa Quebra-Mar</span><span class="pc__site">neoliving.com.br</span></span>
-                    <span class="pc__grao" aria-hidden="true"></span>
+                <a class="pc" data-project href="project.html?id=casa-quebra-mar" data-cursor="Ver projeto" aria-label="Casa Quebra-Mar" style="--fx:55%;--fy:50%">
+                    <span class="pc__media"><img class="pc__foto" src="assets/images/casas/quebra-mar-1.jpg" alt="Casa Quebra-Mar" loading="lazy" decoding="async"></span>
+                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_09</span><span class="pc__nome">Casa Quebra-Mar</span><span class="pc__loc">Residencial</span></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=retrofit-epitacio-pessoa" data-cursor="Ver projeto" aria-label="Epitácio Pessoa 800 · Ipanema"
-                   style="--col:3;--row:3;--colt:3;--rowt:5;--fx:50%;--fy:50%;--p:30cqw">
-                    <img class="pc__foto" src="assets/images/epitaciopessoa.png" alt="Epitácio Pessoa 800, Ipanema" loading="lazy" decoding="async">
-                    <span class="pc__pelicula" aria-hidden="true"></span>
-                    <span class="pc__gota" aria-hidden="true"></span>
-                    <span class="pc__topo" aria-hidden="true"><img class="pc__lockup" src="assets/logos/lockup-mono-branco.svg" alt=""><span class="pc__idx">10 · retrofit</span></span>
-                    <span class="pc__titulo" aria-hidden="true"><span class="pc__c">retrofit · ipanema</span><span class="pc__p">800</span><span class="pc__c">epitácio pessoa</span></span>
-                    <svg class="pc__cunha" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,11.3 100,1.7 100,20 0,20" fill="#A8813A"/><polygon points="0,11.55 100,2.1 100,20 0,20" fill="url(#pcLip)"/><polygon points="0,12 100,4 100,20 0,20" fill="url(#pcFace)"/></svg>
-                    <span class="pc__rodape" aria-hidden="true"><span class="pc__nome">Epitácio Pessoa 800 · Ipanema</span><span class="pc__site">neoliving.com.br</span></span>
-                    <span class="pc__grao" aria-hidden="true"></span>
+                <a class="pc" data-project href="project.html?id=retrofit-epitacio-pessoa" data-cursor="Ver projeto" aria-label="Epitácio Pessoa 800" style="--fx:50%;--fy:50%">
+                    <span class="pc__media"><img class="pc__foto" src="assets/images/epitaciopessoa.png" alt="Epitácio Pessoa 800" loading="lazy" decoding="async"></span>
+                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_10</span><span class="pc__nome">Epitácio Pessoa 800</span><span class="pc__loc">Ipanema · RJ</span></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=forest-life" data-cursor="Ver projeto" aria-label="Forest Life"
-                   style="--col:5;--row:3;--colt:2;--rowt:6;--fx:45%;--fy:50%;--p:22cqw">
-                    <img class="pc__foto" src="assets/images/forestlife.jpg" alt="Forest Life" loading="lazy" decoding="async">
-                    <span class="pc__pelicula" aria-hidden="true"></span>
-                    <span class="pc__gota" aria-hidden="true"></span>
-                    <span class="pc__topo" aria-hidden="true"><img class="pc__lockup" src="assets/logos/lockup-mono-branco.svg" alt=""><span class="pc__idx">11 · hospitalidade</span></span>
-                    <span class="pc__titulo" aria-hidden="true"><span class="pc__c">hospitalidade</span><span class="pc__p">FOREST</span><span class="pc__c">life</span></span>
-                    <svg class="pc__cunha" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,11.3 100,1.7 100,20 0,20" fill="#A8813A"/><polygon points="0,11.55 100,2.1 100,20 0,20" fill="url(#pcLip)"/><polygon points="0,12 100,4 100,20 0,20" fill="url(#pcFace)"/></svg>
-                    <span class="pc__rodape" aria-hidden="true"><span class="pc__nome">Forest Life</span><span class="pc__site">neoliving.com.br</span></span>
-                    <span class="pc__grao" aria-hidden="true"></span>
+                <a class="pc" data-project href="project.html?id=forest-life" data-cursor="Ver projeto" aria-label="Forest Life" style="--fx:45%;--fy:50%">
+                    <span class="pc__media"><img class="pc__foto" src="assets/images/forestlife.jpg" alt="Forest Life" loading="lazy" decoding="async"></span>
+                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_11</span><span class="pc__nome">Forest Life</span><span class="pc__loc">Hospitalidade · RJ</span></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=retrofit-nova-joatinga" data-cursor="Ver projeto" aria-label="Nova Joatinga · Joatinga"
-                   style="--col:7;--row:3;--colt:4;--rowt:6;--fx:50%;--fy:50%;--p:27cqw">
-                    <img class="pc__foto" src="assets/images/nova-joatinga.png" alt="Nova Joatinga, Joatinga" loading="lazy" decoding="async">
-                    <span class="pc__pelicula" aria-hidden="true"></span>
-                    <span class="pc__gota" aria-hidden="true"></span>
-                    <span class="pc__topo" aria-hidden="true"><img class="pc__lockup" src="assets/logos/lockup-mono-branco.svg" alt=""><span class="pc__idx">12 · retrofit</span></span>
-                    <span class="pc__titulo" aria-hidden="true"><span class="pc__c">retrofit · joatinga</span><span class="pc__p">NOVA</span><span class="pc__c">joatinga</span></span>
-                    <svg class="pc__cunha" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,11.3 100,1.7 100,20 0,20" fill="#A8813A"/><polygon points="0,11.55 100,2.1 100,20 0,20" fill="url(#pcLip)"/><polygon points="0,12 100,4 100,20 0,20" fill="url(#pcFace)"/></svg>
-                    <span class="pc__rodape" aria-hidden="true"><span class="pc__nome">Nova Joatinga · Joatinga</span><span class="pc__site">neoliving.com.br</span></span>
-                    <span class="pc__grao" aria-hidden="true"></span>
+                <a class="pc" data-project href="project.html?id=retrofit-nova-joatinga" data-cursor="Ver projeto" aria-label="Nova Joatinga" style="--fx:50%;--fy:50%">
+                    <span class="pc__media"><img class="pc__foto" src="assets/images/nova-joatinga.png" alt="Nova Joatinga" loading="lazy" decoding="async"></span>
+                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_12</span><span class="pc__nome">Nova Joatinga</span><span class="pc__loc">Joatinga · RJ</span></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=casa-capuri" data-cursor="Ver projeto" aria-label="Casa Capuri"
-                   style="--col:2;--row:4;--colt:1;--rowt:7;--fx:50%;--fy:55%;--p:22cqw">
-                    <img class="pc__foto" src="assets/images/casas/capuri-1.jpg" alt="Casa Capuri" loading="lazy" decoding="async">
-                    <span class="pc__pelicula" aria-hidden="true"></span>
-                    <span class="pc__gota" aria-hidden="true"></span>
-                    <span class="pc__topo" aria-hidden="true"><img class="pc__lockup" src="assets/logos/lockup-mono-branco.svg" alt=""><span class="pc__idx">13 · casa</span></span>
-                    <span class="pc__titulo" aria-hidden="true"><span class="pc__c">casa</span><span class="pc__p">CAPURI</span><span class="pc__c">residencial</span></span>
-                    <svg class="pc__cunha" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,11.3 100,1.7 100,20 0,20" fill="#A8813A"/><polygon points="0,11.55 100,2.1 100,20 0,20" fill="url(#pcLip)"/><polygon points="0,12 100,4 100,20 0,20" fill="url(#pcFace)"/></svg>
-                    <span class="pc__rodape" aria-hidden="true"><span class="pc__nome">Casa Capuri</span><span class="pc__site">neoliving.com.br</span></span>
-                    <span class="pc__grao" aria-hidden="true"></span>
+                <a class="pc" data-project href="project.html?id=casa-capuri" data-cursor="Ver projeto" aria-label="Casa Capuri" style="--fx:50%;--fy:55%">
+                    <span class="pc__media"><img class="pc__foto" src="assets/images/casas/capuri-1.jpg" alt="Casa Capuri" loading="lazy" decoding="async"></span>
+                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_13</span><span class="pc__nome">Casa Capuri</span><span class="pc__loc">Residencial</span></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=hotel-nacional" data-cursor="Ver projeto" aria-label="Hotel Nacional · São Conrado"
-                   style="--col:4;--row:4;--colt:3;--rowt:7;--fx:50%;--fy:50%;--p:17cqw">
-                    <img class="pc__foto" src="assets/images/hotel/nacional-1.jpg" alt="Hotel Nacional, São Conrado" loading="lazy" decoding="async">
-                    <span class="pc__pelicula" aria-hidden="true"></span>
-                    <span class="pc__gota" aria-hidden="true"></span>
-                    <span class="pc__topo" aria-hidden="true"><img class="pc__lockup" src="assets/logos/lockup-mono-branco.svg" alt=""><span class="pc__idx">14 · hospitalidade</span></span>
-                    <span class="pc__titulo" aria-hidden="true"><span class="pc__c">hospitalidade · são conrado</span><span class="pc__p">NACIONAL</span><span class="pc__c">hotel</span></span>
-                    <svg class="pc__cunha" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,11.3 100,1.7 100,20 0,20" fill="#A8813A"/><polygon points="0,11.55 100,2.1 100,20 0,20" fill="url(#pcLip)"/><polygon points="0,12 100,4 100,20 0,20" fill="url(#pcFace)"/></svg>
-                    <span class="pc__rodape" aria-hidden="true"><span class="pc__nome">Hotel Nacional · São Conrado</span><span class="pc__site">neoliving.com.br</span></span>
-                    <span class="pc__grao" aria-hidden="true"></span>
+                <a class="pc" data-project href="project.html?id=hotel-nacional" data-cursor="Ver projeto" aria-label="Hotel Nacional" style="--fx:50%;--fy:50%">
+                    <span class="pc__media"><img class="pc__foto" src="assets/images/hotel/nacional-1.jpg" alt="Hotel Nacional" loading="lazy" decoding="async"></span>
+                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_14</span><span class="pc__nome">Hotel Nacional</span><span class="pc__loc">São Conrado · RJ</span></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=cobertura-triplex-lagoa" data-cursor="Ver projeto" aria-label="Cobertura Triplex · Lagoa"
-                   style="--col:6;--row:4;--colt:2;--rowt:8;--fx:50%;--fy:35%;--p:19cqw">
-                    <img class="pc__foto" src="assets/images/retrofits/triplex-lagoa-1.jpg" alt="Cobertura Triplex, Lagoa" loading="lazy" decoding="async">
-                    <span class="pc__pelicula" aria-hidden="true"></span>
-                    <span class="pc__gota" aria-hidden="true"></span>
-                    <span class="pc__topo" aria-hidden="true"><img class="pc__lockup" src="assets/logos/lockup-mono-branco.svg" alt=""><span class="pc__idx">15 · retrofit</span></span>
-                    <span class="pc__titulo" aria-hidden="true"><span class="pc__c">retrofit · lagoa</span><span class="pc__p">TRIPLEX</span><span class="pc__c">cobertura</span></span>
-                    <svg class="pc__cunha" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,11.3 100,1.7 100,20 0,20" fill="#A8813A"/><polygon points="0,11.55 100,2.1 100,20 0,20" fill="url(#pcLip)"/><polygon points="0,12 100,4 100,20 0,20" fill="url(#pcFace)"/></svg>
-                    <span class="pc__rodape" aria-hidden="true"><span class="pc__nome">Cobertura Triplex · Lagoa</span><span class="pc__site">neoliving.com.br</span></span>
-                    <span class="pc__grao" aria-hidden="true"></span>
+                <a class="pc" data-project href="project.html?id=cobertura-triplex-lagoa" data-cursor="Ver projeto" aria-label="Triplex Lagoa" style="--fx:50%;--fy:35%">
+                    <span class="pc__media"><img class="pc__foto" src="assets/images/retrofits/triplex-lagoa-1.jpg" alt="Triplex Lagoa" loading="lazy" decoding="async"></span>
+                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_15</span><span class="pc__nome">Triplex Lagoa</span><span class="pc__loc">Lagoa · RJ</span></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=riserva-uno" data-cursor="Ver projeto" aria-label="Riserva Uno · Barra"
-                   style="--col:8;--row:4;--colt:4;--rowt:8;--fx:50%;--fy:40%;--p:19cqw">
-                    <img class="pc__foto" src="assets/images/interior/riserva-uno-1.jpg" alt="Riserva Uno, Barra" loading="lazy" decoding="async">
-                    <span class="pc__pelicula" aria-hidden="true"></span>
-                    <span class="pc__gota" aria-hidden="true"></span>
-                    <span class="pc__topo" aria-hidden="true"><img class="pc__lockup" src="assets/logos/lockup-mono-branco.svg" alt=""><span class="pc__idx">16 · interior</span></span>
-                    <span class="pc__titulo" aria-hidden="true"><span class="pc__c">interior · barra</span><span class="pc__p">RISERVA</span><span class="pc__c">uno</span></span>
-                    <svg class="pc__cunha" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,11.3 100,1.7 100,20 0,20" fill="#A8813A"/><polygon points="0,11.55 100,2.1 100,20 0,20" fill="url(#pcLip)"/><polygon points="0,12 100,4 100,20 0,20" fill="url(#pcFace)"/></svg>
-                    <span class="pc__rodape" aria-hidden="true"><span class="pc__nome">Riserva Uno · Barra</span><span class="pc__site">neoliving.com.br</span></span>
-                    <span class="pc__grao" aria-hidden="true"></span>
+                <a class="pc" data-project href="project.html?id=riserva-uno" data-cursor="Ver projeto" aria-label="Riserva Uno" style="--fx:50%;--fy:40%">
+                    <span class="pc__media"><img class="pc__foto" src="assets/images/interior/riserva-uno-1.jpg" alt="Riserva Uno" loading="lazy" decoding="async"></span>
+                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_16</span><span class="pc__nome">Riserva Uno</span><span class="pc__loc">Barra · RJ</span></span></span>
                 </a>
             </div>
         </section>

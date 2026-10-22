@@ -3368,22 +3368,22 @@ html[data-theme="light"] .hero.hero--editorial {
 
 /* =========================================================
    HIGHLIGHTS PROJECTS — tabuleiro 4×4 de cards NEO.LIVING
-   Padrão dos cards (21/10/2026): foto do projeto + película escura,
-   Oswald com a palavra principal MAIÚSCULA e complementos em
-   minúscula, lockup e índice no topo, gota de vidro, cunha branca
-   com fio de latão. Oito colunas: cada linha desloca uma célula e
-   os cards se tocam só pelos vértices. Tudo visível, sem rolagem.
+   16 projetos, sem rolagem. Cada card ocupa 2 das 8 colunas: a foto
+   (3:2) numa célula e o nome na célula vizinha, como no tabuleiro
+   antigo (índice em latão, nome, local, fio de latão com seta
+   apontando para a foto). Linhas ímpares com a foto à esquerda e
+   pares à direita: as fotos se tocam só pelos vértices.
    ========================================================= */
 .destaques {
     position: relative;
-    padding: var(--space-xl) var(--space-md) var(--space-2xl);
+    padding: var(--space-xl) var(--space-md) var(--space-lg);
     overflow: hidden;
 }
 
 .destaques__head {
     position: relative;
     z-index: 3;
-    padding: 0 calc(var(--gutter-desktop) - var(--space-md)) var(--space-lg);
+    padding: 0 calc(var(--gutter-desktop) - var(--space-md)) var(--space-md);
 }
 
 .destaques__head .t-eyebrow { margin-bottom: 8px; }
@@ -3398,195 +3398,165 @@ html[data-theme="light"] .hero.hero--editorial {
     margin: 0 auto;
 }
 
-/* o card é o contêiner das suas medidas (cqw = % da largura do card) */
+/* card = foto + nome, 2 colunas da grade; cqw = % da largura do card */
 .pc {
-    grid-column: var(--col);
-    grid-row: var(--row);
+    grid-column: span 2;
     position: relative;
-    display: block;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    background-color: #141414;
-    color: #FFFFFF;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    color: var(--text-primary);
     text-decoration: none;
     container-type: inline-size;
-    isolation: isolate;
-    transform: translateZ(0);
-    transition: transform 720ms var(--ease-out), box-shadow 720ms var(--ease-out);
 }
 
-.pc:hover,
-.pc:focus-visible {
-    transform: scale(1.28);
-    z-index: 6;
-    box-shadow: 0 34px 90px rgba(0, 0, 0, 0.7);
-    outline: none;
+/* linhas pares (cards 5–8 e 13–16): foto à direita, nome à esquerda */
+.pc:nth-child(n+5):nth-child(-n+8) .pc__media,
+.pc:nth-child(n+13):nth-child(-n+16) .pc__media { order: 2; }
+
+.pc:nth-child(n+5):nth-child(-n+8) .pc__meta,
+.pc:nth-child(n+13):nth-child(-n+16) .pc__meta { order: 1; }
+
+.pc__media {
+    position: relative;
+    display: block;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    background-color: #101010;
 }
 
 .pc__foto {
-    position: absolute;
-    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: var(--fx, 50%) var(--fy, 50%);
-    transform: scale(1.02);
-    filter: saturate(0.9);
-    transition: transform 1600ms var(--ease-out), filter 720ms var(--ease-out);
+    filter: saturate(0.86) brightness(0.92);
+    transition: transform 1100ms var(--ease-out), filter 700ms var(--ease-out);
 }
 
-.pc:hover .pc__foto { transform: scale(1.08); filter: saturate(1); }
+.pc:hover .pc__foto,
+.pc:focus-visible .pc__foto { transform: scale(1.06); filter: saturate(1) brightness(1); }
 
-/* película escura (igual ao card 03), mais fechada na base atrás do título */
-.pc__pelicula {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg,
-        rgba(10, 10, 10, 0.48) 0%, rgba(10, 10, 10, 0.36) 34%, rgba(10, 10, 10, 0.46) 56%,
-        rgba(10, 10, 10, 0.72) 78%, rgba(10, 10, 10, 0.84) 100%);
-    transition: opacity 720ms var(--ease-out);
-}
-
-.pc:hover .pc__pelicula { opacity: 0.86; }
-
-.pc__grao {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.55 0 0 0 0 0.55 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 180px 180px;
-    mix-blend-mode: screen;
-    opacity: 0.10;
-    pointer-events: none;
-}
-
-/* topo: lockup à esquerda, índice à direita */
-.pc__topo {
-    position: absolute;
-    left: 6.6cqw;
-    right: 6.6cqw;
-    top: 5.6cqw;
+/* nome na célula vizinha, centrado na vertical */
+.pc__meta {
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    min-width: 0;
 }
 
-.pc__lockup { height: max(11px, 4.4cqw); width: auto; opacity: 0.94; }
+.pc__txt {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6cqw;
+    margin-left: 7cqw;
+    margin-right: 3cqw;
+    padding-bottom: 2.2cqw;
+    border-bottom: 1px solid var(--accent-amber);
+    min-width: 0;
+}
+
+/* fio que continua até a foto, com a seta na ponta (como a linha-guia antiga) */
+.pc__txt::before {
+    content: "";
+    position: absolute;
+    left: -7cqw;
+    bottom: -1px;
+    width: 7cqw;
+    height: 1px;
+    background: var(--accent-amber);
+}
+
+.pc__txt::after {
+    content: "";
+    position: absolute;
+    left: -7cqw;
+    bottom: -4px;
+    width: 0;
+    height: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-right: 7px solid var(--accent-amber);
+}
+
+/* espelho nas linhas pares: texto encostado na foto, fio e seta para a direita */
+.pc:nth-child(n+5):nth-child(-n+8) .pc__txt,
+.pc:nth-child(n+13):nth-child(-n+16) .pc__txt { margin-left: 3cqw; margin-right: 7cqw; align-items: flex-end; text-align: right; }
+
+.pc:nth-child(n+5):nth-child(-n+8) .pc__txt::before,
+.pc:nth-child(n+13):nth-child(-n+16) .pc__txt::before { left: auto; right: -7cqw; }
+
+.pc:nth-child(n+5):nth-child(-n+8) .pc__txt::after,
+.pc:nth-child(n+13):nth-child(-n+16) .pc__txt::after { left: auto; right: -7cqw; border-right: 0; border-left: 7px solid var(--accent-amber); }
 
 .pc__idx {
     font-family: var(--font-condensed);
-    font-weight: 500;
-    font-size: max(7.5px, 1.75cqw);
-    letter-spacing: 0.28em;
-    color: #B5B5B5;
-    text-transform: lowercase;
-    white-space: nowrap;
-}
-
-/* gota de vidro fosco com a geometria do símbolo (círculo + vértice a 31°) */
-.pc__gota {
-    position: absolute;
-    width: 35cqw;
-    height: 35cqw;
-    left: 74cqw;
-    top: 31cqw;
-    border-radius: 50% 50% 0 50%;
-    transform: rotate(-13.6deg);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.13) 38%, rgba(255, 255, 255, 0.13) 100%);
-    -webkit-backdrop-filter: blur(12px) saturate(1.15);
-    backdrop-filter: blur(12px) saturate(1.15);
-    box-shadow: 10px 18px 22px rgba(0, 0, 0, 0.35);
-    pointer-events: none;
-}
-
-/* título: complemento · PALAVRA · complemento, na mesma margem esquerda */
-.pc__titulo {
-    position: absolute;
-    left: 6.6cqw;
-    right: 2cqw;
-    bottom: 23cqw;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    line-height: 1;
-}
-
-.pc__c {
-    font-family: var(--font-condensed);
     font-weight: 400;
-    font-size: max(8.5px, 3.6cqw);
-    line-height: 1.1;
-    letter-spacing: 0.14em;
-    color: #DCDCDC;
-    text-transform: lowercase;
-    white-space: nowrap;
+    font-size: clamp(0.8rem, 2.4cqw, 1rem);
+    color: var(--accent-amber);
 }
 
-.pc__p {
+.pc__nome {
     font-family: var(--font-condensed);
-    font-weight: 600;
-    font-size: var(--p, 26cqw);
-    line-height: 0.92;
-    letter-spacing: 0;
-    margin: 0.8cqw 0 1.2cqw -0.4cqw;
-    color: #FFFFFF;
+    font-weight: 700;
+    font-size: clamp(0.95rem, 3.6cqw, 1.5rem);
+    line-height: 1.05;
     text-transform: uppercase;
-    white-space: nowrap;
+    letter-spacing: 0.01em;
+    color: var(--text-primary);
+    transition: color 320ms var(--ease-out);
 }
 
-/* cunha de contraste: placa branca inclinada com lábio escuro e fio de latão (SVG) */
-.pc__cunha {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: block;
-    width: 100%;
-    height: 20cqw;
-    filter: drop-shadow(0 -8px 14px rgba(0, 0, 0, 0.22));
+.pc:hover .pc__nome,
+.pc:focus-visible .pc__nome { color: var(--accent-amber); }
+
+.pc__loc {
+    font-family: var(--font-body);
+    font-size: clamp(0.6rem, 1.7cqw, 0.72rem);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
 }
 
-.pc__rodape {
-    position: absolute;
-    left: 6.6cqw;
-    right: 6.6cqw;
-    bottom: 3.2cqw;
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 2cqw;
-    font-family: var(--font-condensed);
-    color: #0A0A0A;
-    white-space: nowrap;
-}
-
-.pc__nome { font-weight: 600; font-size: max(7px, 1.8cqw); letter-spacing: 0.22em; text-transform: uppercase; overflow: hidden; text-overflow: ellipsis; }
-.pc__site { font-weight: 600; font-size: max(7px, 1.8cqw); letter-spacing: 0.12em; text-transform: lowercase; flex: 0 0 auto; }
-
-/* card estreito (celular / tabuleiro em telas menores): a cunha fica só com o nome do projeto */
-@container (max-width: 250px) {
-    .pc__site { display: none; }
-}
-
-/* telas médias: 4 colunas (2 cards por linha, 8 linhas), mesmo encaixe pelos vértices */
+/* telas médias: 2 cards por linha (4 colunas), mesmo encaixe pelos vértices */
 @media (max-width: 1100px) {
     .tab { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .pc { grid-column: var(--colt); grid-row: var(--rowt); }
+    .pc:nth-child(n+5):nth-child(-n+8) .pc__media, .pc:nth-child(n+13):nth-child(-n+16) .pc__media,
+    .pc:nth-child(n+5):nth-child(-n+8) .pc__meta,  .pc:nth-child(n+13):nth-child(-n+16) .pc__meta { order: 0; }
+    .pc:nth-child(n+5):nth-child(-n+8) .pc__txt, .pc:nth-child(n+13):nth-child(-n+16) .pc__txt { margin-left: 7cqw; margin-right: 3cqw; align-items: flex-start; text-align: left; }
+    .pc:nth-child(n+5):nth-child(-n+8) .pc__txt::before, .pc:nth-child(n+13):nth-child(-n+16) .pc__txt::before { left: -7cqw; right: auto; }
+    .pc:nth-child(n+5):nth-child(-n+8) .pc__txt::after,  .pc:nth-child(n+13):nth-child(-n+16) .pc__txt::after { left: -7cqw; right: auto; border-left: 0; border-right: 7px solid var(--accent-amber); }
+    /* linhas pares da grade de 2 por linha: cards 3-4, 7-8, 11-12, 15-16 */
+    .pc:nth-child(4n+3) .pc__media, .pc:nth-child(4n+4) .pc__media { order: 2; }
+    .pc:nth-child(4n+3) .pc__meta,  .pc:nth-child(4n+4) .pc__meta { order: 1; }
+    .pc:nth-child(4n+3) .pc__txt, .pc:nth-child(4n+4) .pc__txt { margin-left: 3cqw; margin-right: 7cqw; align-items: flex-end; text-align: right; }
+    .pc:nth-child(4n+3) .pc__txt::before, .pc:nth-child(4n+4) .pc__txt::before { left: auto; right: -7cqw; }
+    .pc:nth-child(4n+3) .pc__txt::after,  .pc:nth-child(4n+4) .pc__txt::after { left: auto; right: -7cqw; border-right: 0; border-left: 7px solid var(--accent-amber); }
 }
 
-/* celular: 2 colunas, a segunda meio card abaixo */
+/* celular: 1 card por linha (foto + nome lado a lado), alternando o lado da foto */
 @media (max-width: 768px) {
-    .destaques { padding: var(--space-lg) var(--space-sm) calc(var(--space-xl) + 25vw); }
+    .destaques { padding: var(--space-lg) var(--space-sm) var(--space-lg); }
     .destaques__head { padding: 0 var(--space-2xs) var(--space-md); }
     .tab { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .pc { grid-column: auto; grid-row: auto; }
-    .pc:nth-child(even) { transform: translateY(50%); }
-    .pc:hover, .pc:focus-visible { transform: none; box-shadow: none; }
-    .pc:nth-child(even):hover, .pc:nth-child(even):focus-visible { transform: translateY(50%); }
+    .pc:nth-child(n) .pc__media, .pc:nth-child(n) .pc__meta { order: 0; }
+    .pc:nth-child(n) .pc__txt { margin-left: 7cqw; margin-right: 3cqw; align-items: flex-start; text-align: left; }
+    .pc:nth-child(n) .pc__txt::before { left: -7cqw; right: auto; }
+    .pc:nth-child(n) .pc__txt::after { left: -7cqw; right: auto; border-left: 0; border-right: 7px solid var(--accent-amber); }
+    .pc:nth-child(even) .pc__media { order: 2; }
+    .pc:nth-child(even) .pc__meta { order: 1; }
+    .pc:nth-child(even) .pc__txt { margin-left: 3cqw; margin-right: 7cqw; align-items: flex-end; text-align: right; }
+    .pc:nth-child(even) .pc__txt::before { left: auto; right: -7cqw; }
+    .pc:nth-child(even) .pc__txt::after { left: auto; right: -7cqw; border-right: 0; border-left: 7px solid var(--accent-amber); }
+    .pc__nome { font-size: 1rem; }
+    .pc__idx { font-size: 0.8rem; }
+    .pc__loc { font-size: 0.6rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .pc, .pc__foto, .pc__pelicula { transition: none; }
-    .pc:hover { transform: none; }
+    .pc__foto, .pc__nome { transition: none; }
+    .pc:hover .pc__foto { transform: none; }
 }
 
 /* =========================================================
