@@ -862,7 +862,7 @@
 
         // intercepta os projetos da gaveta E os destaques (delegação)
         document.addEventListener('click', (e) => {
-            const a = e.target.closest && e.target.closest('.cat-item, .f-card, .h-panel[data-project]');
+            const a = e.target.closest && e.target.closest('.cat-item, .f-card, .h-panel[data-project], .pc[data-project]');
             if (!a) return;
             const m = (a.getAttribute('href') || '').match(/id=([\w-]+)/);
             if (!m) return;
