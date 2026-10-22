@@ -31,7 +31,7 @@
 
     <link rel="stylesheet" href="css/globals.css">
     <link rel="stylesheet" href="css/components.css?v=20260929b">
-    <link rel="stylesheet" href="css/pages.css?v=20261022b">
+    <link rel="stylesheet" href="css/pages.css?v=20261022c">
 </head>
 <body>
     <!-- Header (injected) -->
@@ -46,15 +46,25 @@
             <!-- Vídeo de fundo cobrindo o hero inteiro -->
             <figure class="hero--editorial__house hero--editorial__house--cutout hero--editorial__house--video">
                 <div class="hero-video" aria-hidden="true">
-                    <!-- hero-1 (Urban X Hub) fora da rotação: o render mostra marca de terceiro -->
-                    <video class="hero-video__clip is-active" muted playsinline loop preload="auto" poster="assets/images/hero/hero-poster-3.jpg" data-poster-v="assets/images/hero/hero-poster-3-v.jpg">
-                        <source src="assets/videos/hero-3.mp4" type="video/mp4">
+                    <!-- 6 clipes em fusão contínua (o grade fosco já vem embutido nos arquivos);
+                         hero-1 (Urban X Hub) fora da rotação: o render mostra marca de terceiro -->
+                    <video class="hero-video__clip" muted playsinline preload="auto" poster="assets/images/hero/hero-poster-5.jpg" data-poster-v="assets/images/hero/hero-poster-5-v.jpg">
+                        <source src="assets/videos/hero-5.mp4" type="video/mp4">
                     </video>
-                    <video class="hero-video__clip" muted playsinline loop preload="auto">
-                        <source src="assets/videos/hero-2.mp4" type="video/mp4">
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-6.mp4" type="video/mp4">
                     </video>
-                    <video class="hero-video__clip" muted playsinline loop preload="auto">
-                        <source src="assets/videos/hero-4.mp4" type="video/mp4">
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-7.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-3b.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-2b.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-4b.mp4" type="video/mp4">
                     </video>
                 </div>
             </figure>
@@ -556,27 +566,11 @@
     <div data-include="footer"></div>
 
     <!-- Scripts -->
-    <!-- Filtro de distorção + chromatic aberration da transição do hero
-         (escala e offsets R/B animados via JS) -->
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-        <filter id="heroWarp" x="-12%" y="-12%" width="124%" height="124%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.010 0.018" numOctaves="2" seed="7" result="n"/>
-            <feDisplacementMap in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G" result="disp"/>
-            <feColorMatrix in="disp" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="cr"/>
-            <feColorMatrix in="disp" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="cg"/>
-            <feColorMatrix in="disp" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="cb"/>
-            <feOffset id="hwR" in="cr" dx="0" dy="0" result="ro"/>
-            <feOffset id="hwB" in="cb" dx="0" dy="0" result="bo"/>
-            <feComposite in="ro" in2="cg" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="rg"/>
-            <feComposite in="rg" in2="bo" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
-        </filter>
-    </svg>
-
     <script src="https://unpkg.com/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="js/partials.js?v=20260929b"></script>
     <script src="js/projects.js"></script>
-    <script src="js/app.js?v=20261022"></script>
+    <script src="js/app.js?v=20261022c"></script>
 </body>
 </html>

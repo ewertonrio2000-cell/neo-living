@@ -8,8 +8,7 @@
 (() => {
     'use strict';
 
-    // Surge do véu de digitais no hero: disparado pela troca de vídeo
-    // (initHeroVideo) e lido pelo shader (initFingerprintFX)
+    // (o surge do véu na troca de vídeo foi desligado em 22/10/2026; fica em 0)
     let heroSurgeStart = -1e9;
 
     // =====================================================
@@ -29,17 +28,17 @@
             touchMultiplier: 2,
         });
 
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        // Sync with GSAP ScrollTrigger
+        // Um só laço por quadro: o ticker do GSAP (quando existe) move o Lenis
         if (typeof ScrollTrigger !== 'undefined') {
             lenis.on('scroll', ScrollTrigger.update);
             gsap.ticker.add((time) => lenis.raf(time * 1000));
             gsap.ticker.lagSmoothing(0);
+        } else {
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
         }
     }
 
@@ -177,47 +176,11 @@
     }
 
     // =====================================================
-    // 6a. CURSOR CUSTOMIZADO + HOVERS MAGNÉTICOS
+    // 6a. HOVERS MAGNÉTICOS (o cursor customizado foi removido em 22/10/2026:
+    //     o site usa o cursor tradicional do sistema)
     // =====================================================
-    function initCustomCursor() {
+    function initMagneticHover() {
         if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-
-        const cursor = document.createElement('div');
-        cursor.className = 'cursor';
-        document.body.appendChild(cursor);
-        document.body.classList.add('has-custom-cursor');
-
-        // Seletores que mudam o cursor para dourado
-        const HOVER_SEL = 'a[href], button, .service-card, .project-card, .highlights-item, .step-card';
-
-        // Movimento suave (lerp)
-        let mx = window.innerWidth / 2, my = window.innerHeight / 2;
-        let cx = mx, cy = my;
-        window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
-        (function raf() {
-            cx += (mx - cx) * 0.2;
-            cy += (my - cy) * 0.2;
-            cursor.style.transform = 'translate(' + cx + 'px, ' + cy + 'px) translate(-50%, -50%)';
-            requestAnimationFrame(raf);
-        })();
-
-        // Delegação (cobre header/footer injetados dinamicamente)
-        document.addEventListener('mouseover', (e) => {
-            const t = e.target.closest ? e.target.closest(HOVER_SEL) : null;
-            if (!t) return;
-            cursor.classList.add('is-hover');
-            cursor.style.backgroundColor = '#E6B325';
-            cursor.style.mixBlendMode = 'normal';
-        });
-        document.addEventListener('mouseout', (e) => {
-            const t = e.target.closest ? e.target.closest(HOVER_SEL) : null;
-            if (!t) return;
-            const to = e.relatedTarget && e.relatedTarget.closest ? e.relatedTarget.closest(HOVER_SEL) : null;
-            if (to) return; // ainda sobre um alvo
-            cursor.classList.remove('is-hover');
-            cursor.style.backgroundColor = '';
-            cursor.style.mixBlendMode = '';
-        });
 
         // ---- Hovers magnéticos (botões) ----
         let magnet = null;
@@ -576,7 +539,7 @@
                     raf = requestAnimationFrame(frame);
                     if (!visible) return;
                     const dt = now - last;
-                    if (dt < 16) return;              // ~60fps
+                    if (dt < (mact ? 16 : 33)) return;   // 60 qps com o ponteiro na seção, 30 qps parado
                     last = now;
                     t += 0.7 * Math.min(0.05, dt / 1000);
                     mx += (mtx - mx) * 0.15; my += (mty - my) * 0.15;
@@ -1128,211 +1091,84 @@
     }
 
     // =====================================================
-    // 12d. HERO VÍDEO (4 clipes, 4s cada) + SPOTLIGHT do cursor
+    // 12d. HERO VÍDEO — 6 clipes em fusão contínua
+    //     Dois <video> tocam ao mesmo tempo na troca: o próximo entra por
+    //     opacidade (1,2 s, CSS) enquanto o atual continua rodando; nada de
+    //     filtro SVG, desfoque ou escala (o grade fosco já vem embutido nos
+    //     arquivos). Cada clipe toca inteiro e emenda no seguinte 1,5 s antes
+    //     do fim. Só o 1º é pré-carregado; o próximo é carregado quando o
+    //     atual começa (sempre um à frente, sem baixar os seis de uma vez).
     // =====================================================
     function initHeroVideo() {
         const hero = document.querySelector('.hero--editorial');
         if (!hero) return;
-
-        // ---- Carrossel de vídeo ----
         const clips = Array.from(hero.querySelectorAll('.hero-video__clip'));
-        if (clips.length) {
-            const playSafe = (el) => { try { const p = el.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {} };
+        if (!clips.length) return;
+        const FADE = 1.2;           // s — igual à transition do CSS
+        const ANTES = FADE + 0.3;   // s antes do fim em que a fusão começa
+        const playSafe = (el) => { try { const p = el.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {} };
 
-            // Celular: vídeos VERTICAIS dedicados (9:16, recorte composto em
-            // resolução plena) — mais nítidos e ~metade do peso dos horizontais
-            if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
-                clips.forEach((c) => {
-                    try {
-                        // A versão vertical segue o arquivo do próprio clipe (hero-N.mp4 → hero-N-v.mp4)
-                        const source = c.querySelector('source');
-                        if (!source) return;
-                        if (c.dataset.posterV) c.poster = c.dataset.posterV;
-                        c.src = source.getAttribute('src').replace(/\.mp4$/, '-v.mp4');
-                        c.load();
-                    } catch (e) {}
-                });
-            }
-
-            let idx = 0;
-            clips[0].classList.add('is-active');
-            playSafe(clips[0]);
-            // Pré-carrega os demais clipes em segundo plano
-            window.addEventListener('load', () => {
-                clips.forEach((c, i) => { if (i > 0) { try { c.load(); } catch (e) {} } });
-            }, { once: true });
-
-            // Distorção do PRÓPRIO VÍDEO na troca: anima a escala do
-            // feDisplacementMap (turbulência SVG) com ataque/decaimento,
-            // no mesmo envelope do surge das digitais
-            const videoWrap = hero.querySelector('.hero-video');
-            const dispMap = document.querySelector('#heroWarp feDisplacementMap');
-            const offR = document.getElementById('hwR');
-            const offB = document.getElementById('hwB');
-            const isCoarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
-            const isNarrow = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
-            const WARP_PEAK = isCoarse ? 24 : 40;     // deslocamento sutil (px)
-            const CHROMA_PEAK = (isCoarse || isNarrow) ? 26 : 24;   // separação R/B — forte e presente
-
-            // Celular: navegadores móveis (sobretudo iOS/Safari) IGNORAM filtros
-            // SVG em elementos HTML — a aberração do vídeo não aparecia. Aqui ela
-            // é feita em WebGL: o vídeo vira textura e os canais R/B são amostrados
-            // deslocados, com o mesmo grade fosco do CSS por cima.
-            const useGlChroma = isCoarse || isNarrow;
-            let chromaFx;
-            function ensureChromaFx() {
-                if (chromaFx !== undefined) return chromaFx;
-                chromaFx = null;
+        // Celular: versões verticais dedicadas (9:16) — hero-N.mp4 → hero-N-v.mp4
+        if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
+            clips.forEach((c) => {
                 try {
-                    const cv = document.createElement('canvas');
-                    cv.className = 'hero-chroma';
-                    videoWrap.appendChild(cv);
-                    const gl = cv.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false, depth: false });
-                    if (!gl) { cv.remove(); return chromaFx; }
-                    const VS = 'attribute vec2 a;varying vec2 v;void main(){v=a*0.5+0.5;gl_Position=vec4(a,0.0,1.0);}';
-                    const FS = 'precision mediump float;varying vec2 v;' +
-                        'uniform sampler2D u_tex;uniform float u_alpha;uniform vec2 u_off;uniform vec2 u_warp;uniform float u_time;uniform vec2 u_scale;' +
-                        'void main(){' +
-                        '  vec2 uv=(v-0.5)*u_scale+0.5;' +
-                        '  uv+=u_warp*vec2(sin(uv.y*9.0+u_time*3.1), sin(uv.x*8.0-u_time*2.7));' +
-                        '  float r=texture2D(u_tex, clamp(uv+u_off, 0.0, 1.0)).r;' +
-                        '  float g=texture2D(u_tex, clamp(uv, 0.0, 1.0)).g;' +
-                        '  float b=texture2D(u_tex, clamp(uv-u_off, 0.0, 1.0)).b;' +
-                        '  vec3 c=vec3(r,g,b);' +
-                        '  c=(c-0.5)*0.9+0.5;' +                                       // contrast .9
-                        '  float l=dot(c,vec3(0.2126,0.7152,0.0722));' +
-                        '  c=mix(vec3(l),c,0.78)*0.7;' +                               // saturate .78 * brightness .7
-                        '  gl_FragColor=vec4(c*u_alpha, u_alpha);' +
-                        '}';
-                    function sh(t, s) {
-                        const o = gl.createShader(t);
-                        gl.shaderSource(o, s); gl.compileShader(o);
-                        return gl.getShaderParameter(o, gl.COMPILE_STATUS) ? o : null;
-                    }
-                    const vs = sh(gl.VERTEX_SHADER, VS), fs = sh(gl.FRAGMENT_SHADER, FS);
-                    if (!vs || !fs) { cv.remove(); return chromaFx; }
-                    const pr = gl.createProgram();
-                    gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr);
-                    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) { cv.remove(); return chromaFx; }
-                    gl.useProgram(pr);
-                    const buf = gl.createBuffer();
-                    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-                    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
-                    const aL = gl.getAttribLocation(pr, 'a');
-                    gl.enableVertexAttribArray(aL);
-                    gl.vertexAttribPointer(aL, 2, gl.FLOAT, false, 0, 0);
-                    const tex = gl.createTexture();
-                    gl.bindTexture(gl.TEXTURE_2D, tex);
-                    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-                    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-                    const U = {};
-                    ['u_alpha', 'u_off', 'u_warp', 'u_time', 'u_scale'].forEach((n) => { U[n] = gl.getUniformLocation(pr, n); });
-                    chromaFx = {
-                        show() { cv.classList.add('is-on'); },
-                        hide() { cv.classList.remove('is-on'); },
-                        draw(video, env, el) {
-                            if (!video || video.readyState < 2 || !video.videoWidth) return;
-                            const r = videoWrap.getBoundingClientRect();
-                            const DPR = Math.min(window.devicePixelRatio || 1, 2);
-                            const w = Math.max(2, Math.round(r.width * DPR));
-                            const h = Math.max(2, Math.round(r.height * DPR));
-                            if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
-                            gl.viewport(0, 0, w, h);
-                            gl.bindTexture(gl.TEXTURE_2D, tex);
-                            try { gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video); } catch (e) { return; }
-                            // mapeamento "cover" (mesma lógica do object-fit do CSS)
-                            const ca = r.width / r.height, ta = video.videoWidth / video.videoHeight;
-                            if (ta > ca) gl.uniform2f(U.u_scale, ca / ta, 1);
-                            else gl.uniform2f(U.u_scale, 1, ta / ca);
-                            const off = (CHROMA_PEAK * env) / r.width;
-                            gl.uniform2f(U.u_off, off, -off * 0.35);
-                            const wamp = (WARP_PEAK * env * 0.5) / r.width;
-                            gl.uniform2f(U.u_warp, wamp, wamp * 0.8);
-                            gl.uniform1f(U.u_time, el);
-                            gl.uniform1f(U.u_alpha, Math.min(1, env * 0.85));
-                            gl.drawArrays(gl.TRIANGLES, 0, 6);
-                        }
-                    };
-                } catch (e) { chromaFx = null; }
-                return chromaFx;
-            }
-
-            let warpRaf = null;
-            function warpBurst() {
-                if (!videoWrap) return;
-                // Celular: overlay WebGL (croma + warp) — funciona em todos os browsers
-                if (useGlChroma) {
-                    const fx = ensureChromaFx();
-                    if (!fx) return;
-                    if (warpRaf) cancelAnimationFrame(warpRaf);
-                    const t0 = performance.now();
-                    fx.show();
-                    (function step(now) {
-                        const el = (now - t0) / 1000;
-                        if (el >= 2.6) { fx.hide(); warpRaf = null; return; }
-                        // ataque mais lento (450ms) e decaimento longo (2.15s):
-                        // a aberração fica em cena, dá tempo de ser presenciada
-                        const env = el < 0.45 ? (el / 0.45) : Math.pow(1 - (el - 0.45) / 2.15, 1.4);
-                        const active = hero.querySelector('.hero-video__clip.is-active') || clips[idx];
-                        fx.draw(active, env, el);
-                        warpRaf = requestAnimationFrame(step);
-                    })(t0);
-                    return;
-                }
-                if (!dispMap) return;
-                if (warpRaf) cancelAnimationFrame(warpRaf);
-                const t0 = performance.now();
-                videoWrap.classList.add('is-warping');
-                (function step(now) {
-                    const el = (now - t0) / 1000;
-                    if (el >= 2.6) {
-                        dispMap.setAttribute('scale', '0');
-                        if (offR) { offR.setAttribute('dx', '0'); offR.setAttribute('dy', '0'); }
-                        if (offB) { offB.setAttribute('dx', '0'); offB.setAttribute('dy', '0'); }
-                        videoWrap.classList.remove('is-warping');
-                        warpRaf = null;
-                        return;
-                    }
-                    const env = el < 0.45 ? (el / 0.45) : Math.pow(1 - (el - 0.45) / 2.15, 1.4);
-                    dispMap.setAttribute('scale', String((env * WARP_PEAK).toFixed(1)));
-                    // chromatic aberration: R e B puxam em direções opostas
-                    const ch = env * CHROMA_PEAK;
-                    if (offR) { offR.setAttribute('dx', ch.toFixed(1)); offR.setAttribute('dy', (-ch * 0.35).toFixed(1)); }
-                    if (offB) { offB.setAttribute('dx', (-ch).toFixed(1)); offB.setAttribute('dy', (ch * 0.35).toFixed(1)); }
-                    warpRaf = requestAnimationFrame(step);
-                })(t0);
-            }
-
-            setInterval(() => {
-                const next = (idx + 1) % clips.length;
-                // dispara o SURGE do véu de digitais + a DISTORÇÃO do vídeo:
-                // pico casa com o início do melt (ataque ~300ms ≈ swap 420ms)
-                heroSurgeStart = performance.now();
-                warpBurst();
-                // 1) AQUECE o próximo clipe antes da troca: seek + play com o vídeo
-                //    ainda invisível → decoder pronto, sem engasgo na entrada
-                try { if (clips[next].readyState > 2) clips[next].currentTime = 0; } catch (e) {}
-                playSafe(clips[next]);
-                setTimeout(() => {
-                    // 2) o vídeo atual "derrete" (desfoca+amplia+escurece) enquanto
-                    //    o próximo entra desfocado/ampliado e assenta nítido
-                    const prev = idx;
-                    clips[prev].classList.remove('is-active');
-                    clips[prev].classList.add('is-leaving');
-                    clips[next].classList.add('is-active');
-                    idx = next;
-                    // 3) limpeza após o fim das transições
-                    setTimeout(() => {
-                        clips[prev].classList.remove('is-leaving');
-                        try { clips[prev].pause(); } catch (e) {}
-                    }, 1400);
-                }, 420);
-            }, 4000);
+                    const source = c.querySelector('source');
+                    if (!source) return;
+                    if (c.dataset.posterV) c.poster = c.dataset.posterV;
+                    source.setAttribute('src', source.getAttribute('src').replace(/\.mp4$/, '-v.mp4'));
+                    if (c.getAttribute('preload') !== 'none') c.load();
+                } catch (e) {}
+            });
         }
 
+        let idx = 0, trocando = false;
+        const carregar = (i) => {
+            const c = clips[i];
+            if (c.dataset.pronto) return;
+            c.dataset.pronto = '1';
+            try { c.preload = 'auto'; c.load(); } catch (e) {}
+        };
+
+        function entrar(i) {
+            clips[i].classList.add('is-active');
+            if (clips.length > 1) carregar((i + 1) % clips.length);
+        }
+
+        function trocar() {
+            if (trocando || clips.length < 2) return;
+            trocando = true;
+            const atual = clips[idx], next = (idx + 1) % clips.length, prox = clips[next];
+            let feito = false;
+            const inicio = () => {
+                if (feito) return;
+                feito = true;
+                prox.removeEventListener('playing', inicio);
+                entrar(next);                      // o CSS sobe a opacidade; o atual segue rodando por baixo
+                setTimeout(() => {
+                    atual.classList.remove('is-active');
+                    try { atual.pause(); atual.currentTime = 0; } catch (e) {}
+                    idx = next;
+                    trocando = false;
+                }, FADE * 1000 + 80);
+            };
+            try { prox.currentTime = 0; } catch (e) {}
+            prox.addEventListener('playing', inicio);
+            playSafe(prox);
+            setTimeout(inicio, 1500);              // segurança: não trava se 'playing' não vier
+        }
+
+        clips.forEach((c) => {
+            c.addEventListener('timeupdate', () => {
+                if (c !== clips[idx] || trocando) return;
+                const d = c.duration;
+                if (d && c.currentTime >= d - ANTES) trocar();
+            });
+            c.addEventListener('ended', () => { if (c === clips[idx]) trocar(); });
+        });
+
+        clips[0].dataset.pronto = '1';
+        entrar(0);
+        playSafe(clips[0]);
     }
 
     // =====================================================
@@ -1344,7 +1180,7 @@
         initMobileDrawer();
         initFadeIn();
         initHighlightsHover();
-        initCustomCursor();
+        initMagneticHover();
         initParallax();
         initReveals();
         initHorizontalGallery();
