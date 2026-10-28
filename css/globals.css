@@ -108,6 +108,12 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Com o Lenis ativo, ele mesmo suaviza a rolagem a cada quadro;
+   a suavização nativa por cima atrasaria e embolaria o movimento */
+html.lenis {
+    scroll-behavior: auto !important;
+}
+
 body {
     background-color: var(--bg-deep);
     color: var(--text-primary);

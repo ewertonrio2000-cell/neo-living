@@ -656,6 +656,9 @@
         const modal = document.createElement('div');
         modal.className = 'pmodal';
         modal.hidden = true;
+        // o Lenis fica parado com o modal aberto; sem isto ele bloquearia
+        // a rolagem da ficha técnica (roda e toque)
+        modal.setAttribute('data-lenis-prevent', '');
         modal.innerHTML =
             '<div class="pmodal__backdrop"></div>' +
             '<div class="pmodal__dialog" role="dialog" aria-modal="true">' +
