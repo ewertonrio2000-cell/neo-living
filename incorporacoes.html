@@ -28,137 +28,127 @@
     <link rel="preload" href="assets/fonts/Oswald-variable.ttf" as="font" type="font/ttf" crossorigin>
 
     <link rel="stylesheet" href="css/globals.css?v=20261028a">
-    <link rel="stylesheet" href="css/components.css?v=20260929b">
-    <link rel="stylesheet" href="css/pages.css?v=20261022c">
+    <link rel="stylesheet" href="css/components.css?v=20261105a">
+    <link rel="stylesheet" href="css/pages.css?v=20261105a">
 </head>
 <body>
     <div data-include="header"></div>
 
     <main>
         <!-- HERO -->
-        <section class="hero-inner">
+        <section class="hero-inner hero-inner--video section--dark">
             <div class="hero-inner__media" data-parallax="0.2">
-                <div class="placeholder-img">
-                    <span class="placeholder-img__label">_ Empreendimento NEO.LIVING</span>
+                <div class="hero-video" aria-hidden="true">
+                    <!-- 8 clipes em fusão contínua (o grade fosco já vem embutido nos arquivos);
+                         05/11: saíram hero-2b e hero-4b, entraram hero-8 a hero-11 -->
+                    <video class="hero-video__clip" muted playsinline preload="auto" poster="assets/images/hero/hero-poster-5.jpg" data-poster-v="assets/images/hero/hero-poster-5-v.jpg">
+                        <source src="assets/videos/hero-5.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-8.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-7.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-9.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-6.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-10.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-3b.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-11.mp4" type="video/mp4">
+                    </video>
                 </div>
             </div>
             <div class="hero-inner__overlay"></div>
 
             <div class="hero-inner__content">
                 <p class="t-eyebrow hero-inner__eyebrow fade-in">_ Projetos e Incorporações</p>
-                <h1 class="t-display t-metallic hero-inner__title fade-in fade-in-delay-1" style="font-size: clamp(3rem, 12vw, 12rem); line-height: 0.88;">Investir.<br>Viver.<br>Inovar.</h1>
+                <h1 class="t-h1 t-prata hero-inner__title fade-in fade-in-delay-1">Investir. Viver. Inovar.</h1>
+                <p class="hero-inner__sub t-serif fade-in fade-in-delay-2">
+                    Empreendimentos de alto padrão assinados NEO.LIVING.
+                </p>
             </div>
         </section>
 
-        <!-- MANIFESTO -->
+        <!-- ============================================
+             PORTFOLIO DE INCORPORAÇÕES — as apresentações publicadas (Vercel),
+             em cards horizontais NEO.LIVING, logo após o título; abrem em nova aba.
+             ============================================ -->
+        <section class="destaques section--dark" id="portfolio" aria-label="Portfolio de Incorporações" data-fingerprint="dark">
+            <div class="destaques__head">
+                <p class="t-eyebrow">_ Empreendimentos</p>
+                <h2 class="t-h2 t-frame t-prata">Portfolio de Incorporações</h2>
+            </div>
+            <div class="hl" role="list">
+                <a class="hc fade-in" role="listitem" href="https://prime-sao-conrado.vercel.app" target="_blank" rel="noopener" data-cursor="Ver apresentação" aria-label="Reserva Pedra Bonita — abrir a apresentação" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/incorporacoes/pedra-bonita.jpg" alt="Reserva Pedra Bonita" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">01</span><span class="hc__cat">apresentação · investimento</span></span>
+                    <span class="hc__tit"><span class="hc__c">reserva</span><span class="hc__p">Pedra Bonita</span><span class="hc__c">prime design residential · são conrado</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Reserva Pedra Bonita · São Conrado</b><small>opções master house e studios</small></span><span class="hc__ver"><b>ver apresentação</b><i aria-hidden="true"></i></span></span>
+                </a>
+                <a class="hc fade-in" role="listitem" href="https://prime-sao-conrado-opcao-a.vercel.app" target="_blank" rel="noopener" data-cursor="Ver apresentação" aria-label="Master.House — abrir a apresentação" style="--fx:50%;--fy:55%">
+                    <img class="hc__foto" src="assets/images/practice/arquitetura-master-house.jpg" alt="Master.House" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">02</span><span class="hc__cat">apresentação · investimento</span></span>
+                    <span class="hc__tit"><span class="hc__c">são conrado</span><span class="hc__p">Master.House</span><span class="hc__c">design · business plan</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Master.House · São Conrado</b><small>opção a · casas exclusivas</small></span><span class="hc__ver"><b>ver apresentação</b><i aria-hidden="true"></i></span></span>
+                </a>
+                <a class="hc fade-in" role="listitem" href="https://kult-lifestyle-club.vercel.app" target="_blank" rel="noopener" data-cursor="Ver apresentação" aria-label="KULT Lifestyle Club — abrir a apresentação" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/practice/head-designers-kult.jpg" alt="KULT Lifestyle Club" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">03</span><span class="hc__cat">apresentação · investimento</span></span>
+                    <span class="hc__tit"><span class="hc__c">lifestyle club</span><span class="hc__p">KULT</span><span class="hc__c">culture · taste · attitude</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>KULT Lifestyle Club · Rio de Janeiro</b><small>música, arte e gastronomia</small></span><span class="hc__ver"><b>ver apresentação</b><i aria-hidden="true"></i></span></span>
+                </a>
+                <a class="hc fade-in" role="listitem" href="https://gym-neo-living.vercel.app" target="_blank" rel="noopener" data-cursor="Ver apresentação" aria-label="Gym — abrir a apresentação" style="--fx:50%;--fy:55%">
+                    <img class="hc__foto" src="assets/images/practice/execucao-full-gym.jpg" alt="Gym" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">04</span><span class="hc__cat">apresentação · investimento</span></span>
+                    <span class="hc__tit"><span class="hc__c">private training club</span><span class="hc__p">Gym</span><span class="hc__c">academia premium · wellness</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Gym · Private Training Club</b><small>conceito e business plan</small></span><span class="hc__ver"><b>ver apresentação</b><i aria-hidden="true"></i></span></span>
+                </a>
+                <a class="hc fade-in" role="listitem" href="https://renew-expansao.vercel.app" target="_blank" rel="noopener" data-cursor="Ver apresentação" aria-label="Diamond Sexy.House — abrir a apresentação" style="--fx:50%;--fy:55%">
+                    <img class="hc__foto" src="assets/images/incorporacoes/diamond-sexy-house.jpg" alt="Diamond Sexy.House" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">05</span><span class="hc__cat">apresentação · investimento</span></span>
+                    <span class="hc__tit"><span class="hc__c">projeto renew + expansão</span><span class="hc__p">Diamond</span><span class="hc__c">sexy.house · são conrado</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Diamond Sexy.House · São Conrado</b><small>renew + expansão</small></span><span class="hc__ver"><b>ver apresentação</b><i aria-hidden="true"></i></span></span>
+                </a>
+            </div>
+        </section>
+
+        <!-- MANIFESTO — três frentes, em colunas -->
         <section class="incorp-manifesto">
             <div class="incorp-manifesto__inner">
-                <p class="incorp-manifesto__paragraph fade-in">
-                    Descubra projetos de arquitetura e conceitos NEO.LIVING em incorporações imobiliárias de <strong>alto padrão</strong>.
-                </p>
-                <p class="incorp-manifesto__paragraph fade-in fade-in-delay-1">
-                    Designs exclusivos que combinam <strong>luxo</strong>, novos usos e inovação — para oferecer experiências de vida excepcionais.
-                </p>
-                <p class="incorp-manifesto__paragraph fade-in fade-in-delay-2">
-                    Oportunidades de investimento em empreendimentos que definem <strong>novos padrões</strong> de qualidade, estilo e design.
-                </p>
-            </div>
-        </section>
-
-        <!-- EMPREENDIMENTOS GRID -->
-        <section class="empreendimentos-section">
-            <div class="container">
-                <div class="empreendimentos-section__head fade-in">
-                    <p class="t-eyebrow" style="margin-bottom: 16px;">_ Empreendimentos</p>
-                    <h2 class="t-h1">Portfolio de Incorporações.</h2>
-                </div>
-
-                <div class="empreendimentos-grid">
-                    <article class="empreendimento-card fade-in fade-in-delay-1">
-                        <div class="empreendimento-card__media">
-                            <div class="placeholder-img">
-                                <span class="placeholder-img__label">_ Reserva Pedra Bonita · 2 Cases</span>
-                            </div>
-                        </div>
-                        <div class="empreendimento-card__overlay"></div>
-                        <div class="empreendimento-card__content">
-                            <span class="empreendimento-card__tag">_ Residencial</span>
-                            <h3 class="empreendimento-card__title">Reserva Pedra Bonita<br><span style="font-size: 0.65em; color: var(--text-secondary); font-weight: 500;">2 Cases</span></h3>
-                            <p class="empreendimento-card__location">São Conrado · RJ</p>
-                            <a href="#" class="empreendimento-card__link">
-                                Saiba mais <span class="arrow">→</span>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="empreendimento-card fade-in fade-in-delay-2">
-                        <div class="empreendimento-card__media">
-                            <div class="placeholder-img">
-                                <span class="placeholder-img__label">_ Itaipava Office Mall &amp; Residence</span>
-                            </div>
-                        </div>
-                        <div class="empreendimento-card__overlay"></div>
-                        <div class="empreendimento-card__content">
-                            <span class="empreendimento-card__tag">_ Misto</span>
-                            <h3 class="empreendimento-card__title">Itaipava Office Mall &amp; Residence</h3>
-                            <p class="empreendimento-card__location">Itaipava · RJ</p>
-                            <a href="#" class="empreendimento-card__link">
-                                Saiba mais <span class="arrow">→</span>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="empreendimento-card fade-in fade-in-delay-3">
-                        <div class="empreendimento-card__media">
-                            <div class="placeholder-img">
-                                <span class="placeholder-img__label">_ Village Ranch</span>
-                            </div>
-                        </div>
-                        <div class="empreendimento-card__overlay"></div>
-                        <div class="empreendimento-card__content">
-                            <span class="empreendimento-card__tag">_ Residencial</span>
-                            <h3 class="empreendimento-card__title">Village Ranch</h3>
-                            <p class="empreendimento-card__location">Itaipava · RJ</p>
-                            <a href="#" class="empreendimento-card__link">
-                                Saiba mais <span class="arrow">→</span>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="empreendimento-card fade-in fade-in-delay-4">
-                        <div class="empreendimento-card__media">
-                            <div class="placeholder-img">
-                                <span class="placeholder-img__label">_ Casas Reserva Pedra Bonita</span>
-                            </div>
-                        </div>
-                        <div class="empreendimento-card__overlay"></div>
-                        <div class="empreendimento-card__content">
-                            <span class="empreendimento-card__tag">_ Residencial</span>
-                            <h3 class="empreendimento-card__title">Casas Reserva Pedra Bonita</h3>
-                            <p class="empreendimento-card__location">São Conrado · RJ</p>
-                            <a href="#" class="empreendimento-card__link">
-                                Saiba mais <span class="arrow">→</span>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="empreendimento-card fade-in fade-in-delay-5" style="grid-column: 1 / -1;">
-                        <div class="empreendimento-card__media" style="aspect-ratio: 21 / 9;">
-                            <div class="placeholder-img">
-                                <span class="placeholder-img__label">_ Reserva Pedra Bonita · 4 Cases</span>
-                            </div>
-                        </div>
-                        <div class="empreendimento-card__overlay"></div>
-                        <div class="empreendimento-card__content">
-                            <span class="empreendimento-card__tag">_ Residencial · Conjunto</span>
-                            <h3 class="empreendimento-card__title">Reserva Pedra Bonita<br><span style="font-size: 0.65em; color: var(--text-secondary); font-weight: 500;">4 Cases</span></h3>
-                            <p class="empreendimento-card__location">São Conrado · RJ</p>
-                            <a href="#" class="empreendimento-card__link">
-                                Saiba mais <span class="arrow">→</span>
-                            </a>
-                        </div>
-                    </article>
-                </div>
+                <article class="incorp-manifesto__item fade-in">
+                    <span class="incorp-manifesto__idx">01</span>
+                    <h3 class="incorp-manifesto__titulo">Alto padrão</h3>
+                    <p class="incorp-manifesto__texto">Projetos de arquitetura e conceitos NEO.LIVING em incorporações imobiliárias de <strong>alto padrão</strong>.</p>
+                </article>
+                <article class="incorp-manifesto__item fade-in fade-in-delay-1">
+                    <span class="incorp-manifesto__idx">02</span>
+                    <h3 class="incorp-manifesto__titulo">Design exclusivo</h3>
+                    <p class="incorp-manifesto__texto">Designs exclusivos que combinam <strong>luxo</strong>, novos usos e inovação para oferecer experiências de vida excepcionais.</p>
+                </article>
+                <article class="incorp-manifesto__item fade-in fade-in-delay-2">
+                    <span class="incorp-manifesto__idx">03</span>
+                    <h3 class="incorp-manifesto__titulo">Investimento</h3>
+                    <p class="incorp-manifesto__texto">Oportunidades em empreendimentos que definem <strong>novos padrões</strong> de qualidade, estilo e design.</p>
+                </article>
             </div>
         </section>
 
@@ -186,6 +176,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="js/partials.js?v=20260929b"></script>
-    <script src="js/app.js?v=20261028a"></script>
+    <script src="js/app.js?v=20261105a"></script>
 </body>
 </html>

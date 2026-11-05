@@ -30,8 +30,8 @@
     <link rel="preload" href="assets/fonts/Oswald-variable.ttf" as="font" type="font/ttf" crossorigin>
 
     <link rel="stylesheet" href="css/globals.css?v=20261028a">
-    <link rel="stylesheet" href="css/components.css?v=20260929b">
-    <link rel="stylesheet" href="css/pages.css?v=20261022c">
+    <link rel="stylesheet" href="css/components.css?v=20261105a">
+    <link rel="stylesheet" href="css/pages.css?v=20261105a">
 </head>
 <body>
     <!-- Header (injected) -->
@@ -46,25 +46,31 @@
             <!-- Vídeo de fundo cobrindo o hero inteiro -->
             <figure class="hero--editorial__house hero--editorial__house--cutout hero--editorial__house--video">
                 <div class="hero-video" aria-hidden="true">
-                    <!-- 6 clipes em fusão contínua (o grade fosco já vem embutido nos arquivos);
-                         hero-1 (Urban X Hub) fora da rotação: o render mostra marca de terceiro -->
+                    <!-- 8 clipes em fusão contínua (o grade fosco já vem embutido nos arquivos);
+                         05/11: saíram hero-2b e hero-4b, entraram hero-8 a hero-11 -->
                     <video class="hero-video__clip" muted playsinline preload="auto" poster="assets/images/hero/hero-poster-5.jpg" data-poster-v="assets/images/hero/hero-poster-5-v.jpg">
                         <source src="assets/videos/hero-5.mp4" type="video/mp4">
                     </video>
                     <video class="hero-video__clip" muted playsinline preload="none">
-                        <source src="assets/videos/hero-6.mp4" type="video/mp4">
+                        <source src="assets/videos/hero-8.mp4" type="video/mp4">
                     </video>
                     <video class="hero-video__clip" muted playsinline preload="none">
                         <source src="assets/videos/hero-7.mp4" type="video/mp4">
                     </video>
                     <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-9.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-6.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-10.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
                         <source src="assets/videos/hero-3b.mp4" type="video/mp4">
                     </video>
                     <video class="hero-video__clip" muted playsinline preload="none">
-                        <source src="assets/videos/hero-2b.mp4" type="video/mp4">
-                    </video>
-                    <video class="hero-video__clip" muted playsinline preload="none">
-                        <source src="assets/videos/hero-4b.mp4" type="video/mp4">
+                        <source src="assets/videos/hero-11.mp4" type="video/mp4">
                     </video>
                 </div>
             </figure>
@@ -93,133 +99,148 @@
         </section>
 
         <!-- ============================================
-             HIGHLIGHTS PROJECTS — tabuleiro 4×4 (16 projetos), sem rolagem.
-             Cada card ocupa 2 células: foto 3:2 numa e o nome na outra
-             (índice, nome, local, fio de latão com seta, como no antigo).
-             Linhas ímpares: foto à esquerda; pares: foto à direita → as fotos
-             formam o tabuleiro e se tocam só pelos vértices.
+             HIGHLIGHTS PROJECTS — cards horizontais NEO.LIVING (16 projetos),
+             um embaixo do outro, quase na largura toda da tela.
+             Cada card segue a identidade dos cards da marca: foto do projeto,
+             película em degradê inclinado do lado do título, Oswald com o
+             complemento em minúscula e a PALAVRA principal em maiúscula, e a
+             cunha branca de contraste com o fio de latão na base.
+             Cards ímpares: título à esquerda; pares: espelhados à direita.
              ============================================ -->
         <section class="destaques section--dark" id="destaques" aria-label="Highlights Projects" data-fingerprint="dark">
             <div class="destaques__head">
                 <p class="t-eyebrow">_ Destaques</p>
                 <h2 class="t-h2 t-frame">Highlights Projects</h2>
             </div>
-            <div class="tab" role="list">
-                <a class="pc" data-project href="project.html?id=horizon-joa" data-cursor="Ver projeto" aria-label="Horizon Joá" style="--fx:50%;--fy:38%">
-                    <span class="pc__media"><img class="pc__foto" src="assets/images/horizon-joa.jpg" alt="Horizon Joá" loading="lazy" decoding="async"></span>
-                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_01</span><span class="pc__nome">Horizon Joá</span><span class="pc__loc">São Conrado · RJ</span></span></span>
+            <div class="hl" role="list">
+                <a class="hc fade-in" role="listitem" data-project href="project.html?id=horizon-joa" data-cursor="Ver projeto" aria-label="Horizon Joá" style="--fx:50%;--fy:52%">
+                    <img class="hc__foto" src="assets/images/horizon-joa.jpg" alt="Horizon Joá" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">01</span><span class="hc__cat">casas contemporâneas</span></span>
+                    <span class="hc__tit"><span class="hc__c">são conrado · rj</span><span class="hc__p">Horizon Joá</span><span class="hc__c">residência sobre a floresta</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Horizon Joá · São Conrado</b><small>rua iposeira · são conrado · rj</small></span><span class="hc__ver"><b>ver projeto</b><i aria-hidden="true"></i></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=cobertura-costa-del-sol" data-cursor="Ver projeto" aria-label="Costa del Sol" style="--fx:50%;--fy:50%">
-                    <span class="pc__media"><img class="pc__foto" src="assets/images/costa-del-sol.png" alt="Costa del Sol" loading="lazy" decoding="async"></span>
-                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_02</span><span class="pc__nome">Costa del Sol</span><span class="pc__loc">Barra · RJ</span></span></span>
+                <a class="hc fade-in" role="listitem" data-project href="project.html?id=cobertura-costa-del-sol" data-cursor="Ver projeto" aria-label="Costa del Sol" style="--fx:50%;--fy:56%">
+                    <img class="hc__foto" src="assets/images/costa-del-sol.png" alt="Costa del Sol" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">02</span><span class="hc__cat">interior design</span></span>
+                    <span class="hc__tit"><span class="hc__c">cobertura</span><span class="hc__p">Costa del Sol</span><span class="hc__c">beira-mar · barra</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Costa del Sol · Barra</b><small>av. lúcio costa · barra · rj</small></span><span class="hc__ver"><b>ver projeto</b><i aria-hidden="true"></i></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=retrofit-nascimento-silva" data-cursor="Ver projeto" aria-label="Nascimento Silva 543" style="--fx:50%;--fy:45%">
-                    <span class="pc__media"><img class="pc__foto" src="assets/images/nascimentosilva.png" alt="Nascimento Silva 543" loading="lazy" decoding="async"></span>
-                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_03</span><span class="pc__nome">Nascimento Silva 543</span><span class="pc__loc">Ipanema · RJ</span></span></span>
+                <a class="hc fade-in" role="listitem" data-project href="project.html?id=retrofit-nascimento-silva" data-cursor="Ver projeto" aria-label="Nascimento Silva 543" style="--fx:50%;--fy:40%">
+                    <img class="hc__foto" src="assets/images/nascimentosilva.png" alt="Nascimento Silva 543" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">03</span><span class="hc__cat">retrofits</span></span>
+                    <span class="hc__tit"><span class="hc__c">ipanema · nascimento silva</span><span class="hc__p">543</span><span class="hc__c">retrofit residencial</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Nascimento Silva 543 · Ipanema</b><small>ipanema · rj</small></span><span class="hc__ver"><b>ver projeto</b><i aria-hidden="true"></i></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=barao-da-torre" data-cursor="Ver projeto" aria-label="Barão da Torre" style="--fx:50%;--fy:50%">
-                    <span class="pc__media"><img class="pc__foto" src="assets/images/retrofits/barao-torre-1.jpg" alt="Barão da Torre" loading="lazy" decoding="async"></span>
-                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_04</span><span class="pc__nome">Barão da Torre</span><span class="pc__loc">Ipanema · RJ</span></span></span>
+                <a class="hc fade-in" role="listitem" data-project href="project.html?id=barao-da-torre" data-cursor="Ver projeto" aria-label="Barão da Torre" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/retrofits/barao-torre-1.jpg" alt="Barão da Torre" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">04</span><span class="hc__cat">retrofits</span></span>
+                    <span class="hc__tit"><span class="hc__c">ipanema</span><span class="hc__p">Barão da Torre</span><span class="hc__c">retrofit residencial</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Barão da Torre · Ipanema</b><small>ipanema · rj</small></span><span class="hc__ver"><b>ver projeto</b><i aria-hidden="true"></i></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=retrofit-chopin" data-cursor="Ver projeto" aria-label="Edifício Chopin" style="--fx:50%;--fy:50%">
-                    <span class="pc__media"><img class="pc__foto" src="assets/images/chopin.png" alt="Edifício Chopin" loading="lazy" decoding="async"></span>
-                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_05</span><span class="pc__nome">Edifício Chopin</span><span class="pc__loc">Copacabana · RJ</span></span></span>
+                <a class="hc fade-in" role="listitem" data-project href="project.html?id=retrofit-chopin" data-cursor="Ver projeto" aria-label="Edifício Chopin" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/retrofits/chopin-2.jpg" alt="Edifício Chopin" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">05</span><span class="hc__cat">retrofits</span></span>
+                    <span class="hc__tit"><span class="hc__c">edifício</span><span class="hc__p">Chopin</span><span class="hc__c">retrofit · avenida atlântica</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Edifício Chopin · Copacabana</b><small>copacabana · rj</small></span><span class="hc__ver"><b>ver projeto</b><i aria-hidden="true"></i></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=life-house-itanhanga" data-cursor="Ver projeto" aria-label="Life.House Itanhangá" style="--fx:50%;--fy:55%">
-                    <span class="pc__media"><img class="pc__foto" src="assets/images/life-house.jpg" alt="Life.House Itanhangá" loading="lazy" decoding="async"></span>
-                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_06</span><span class="pc__nome">Life.House Itanhangá</span><span class="pc__loc">Itanhangá · RJ</span></span></span>
+                <a class="hc fade-in" role="listitem" data-project href="project.html?id=life-house-itanhanga" data-cursor="Ver projeto" aria-label="Life.House" style="--fx:50%;--fy:66%">
+                    <img class="hc__foto" src="assets/images/life-house.jpg" alt="Life.House" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">06</span><span class="hc__cat">casas contemporâneas</span></span>
+                    <span class="hc__tit"><span class="hc__c">itanhangá golf</span><span class="hc__p">Life.House</span><span class="hc__c">casa-refúgio · slow living</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Life.House · Itanhangá</b><small>itanhangá · rj</small></span><span class="hc__ver"><b>ver projeto</b><i aria-hidden="true"></i></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=reserva-pedra-bonita" data-cursor="Ver projeto" aria-label="Reserva Pedra Bonita" style="--fx:50%;--fy:50%">
-                    <span class="pc__media"><img class="pc__foto" src="assets/images/casas/pedra-bonita-1.jpg" alt="Reserva Pedra Bonita" loading="lazy" decoding="async"></span>
-                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_07</span><span class="pc__nome">Reserva Pedra Bonita</span><span class="pc__loc">São Conrado · RJ</span></span></span>
+                <a class="hc fade-in" role="listitem" data-project href="project.html?id=reserva-pedra-bonita" data-cursor="Ver projeto" aria-label="Reserva Pedra Bonita" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/casas/pedra-bonita-1.jpg" alt="Reserva Pedra Bonita" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">07</span><span class="hc__cat">casas contemporâneas</span></span>
+                    <span class="hc__tit"><span class="hc__c">reserva</span><span class="hc__p">Pedra Bonita</span><span class="hc__c">casas contemporâneas · são conrado</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Reserva Pedra Bonita · São Conrado</b><small>são conrado · rj</small></span><span class="hc__ver"><b>ver projeto</b><i aria-hidden="true"></i></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=casa-zayed" data-cursor="Ver projeto" aria-label="Casa Zayed" style="--fx:50%;--fy:50%">
-                    <span class="pc__media"><img class="pc__foto" src="assets/images/casas/zayed-1.jpg" alt="Casa Zayed" loading="lazy" decoding="async"></span>
-                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_08</span><span class="pc__nome">Casa Zayed</span><span class="pc__loc">Residencial</span></span></span>
+                <a class="hc fade-in" role="listitem" data-project href="project.html?id=casa-zayed" data-cursor="Ver projeto" aria-label="Casa Zayed" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/casas/zayed-1.jpg" alt="Casa Zayed" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">08</span><span class="hc__cat">casas contemporâneas</span></span>
+                    <span class="hc__tit"><span class="hc__c">casa</span><span class="hc__p">Zayed</span><span class="hc__c">residência contemporânea</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Casa Zayed</b><small>residencial</small></span><span class="hc__ver"><b>ver projeto</b><i aria-hidden="true"></i></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=casa-quebra-mar" data-cursor="Ver projeto" aria-label="Casa Quebra-Mar" style="--fx:55%;--fy:50%">
-                    <span class="pc__media"><img class="pc__foto" src="assets/images/casas/quebra-mar-1.jpg" alt="Casa Quebra-Mar" loading="lazy" decoding="async"></span>
-                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_09</span><span class="pc__nome">Casa Quebra-Mar</span><span class="pc__loc">Residencial</span></span></span>
+                <a class="hc fade-in" role="listitem" data-project href="project.html?id=casa-quebra-mar" data-cursor="Ver projeto" aria-label="Casa Quebra-Mar" style="--fx:55%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/casas/quebra-mar-1.jpg" alt="Casa Quebra-Mar" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">09</span><span class="hc__cat">casas contemporâneas</span></span>
+                    <span class="hc__tit"><span class="hc__c">casa</span><span class="hc__p">Quebra-Mar</span><span class="hc__c">de frente para o mar</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Casa Quebra-Mar</b><small>residencial</small></span><span class="hc__ver"><b>ver projeto</b><i aria-hidden="true"></i></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=retrofit-epitacio-pessoa" data-cursor="Ver projeto" aria-label="Epitácio Pessoa 800" style="--fx:50%;--fy:50%">
-                    <span class="pc__media"><img class="pc__foto" src="assets/images/epitaciopessoa.png" alt="Epitácio Pessoa 800" loading="lazy" decoding="async"></span>
-                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_10</span><span class="pc__nome">Epitácio Pessoa 800</span><span class="pc__loc">Ipanema · RJ</span></span></span>
+                <a class="hc fade-in" role="listitem" data-project href="project.html?id=retrofit-epitacio-pessoa" data-cursor="Ver projeto" aria-label="Epitácio Pessoa 800" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/epitaciopessoa.png" alt="Epitácio Pessoa 800" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">10</span><span class="hc__cat">retrofits</span></span>
+                    <span class="hc__tit"><span class="hc__c">ipanema · epitácio pessoa</span><span class="hc__p">800</span><span class="hc__c">retrofit sobre a lagoa</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Epitácio Pessoa 800 · Ipanema</b><small>ipanema · rj</small></span><span class="hc__ver"><b>ver projeto</b><i aria-hidden="true"></i></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=forest-life" data-cursor="Ver projeto" aria-label="Forest Life" style="--fx:45%;--fy:50%">
-                    <span class="pc__media"><img class="pc__foto" src="assets/images/forestlife.jpg" alt="Forest Life" loading="lazy" decoding="async"></span>
-                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_11</span><span class="pc__nome">Forest Life</span><span class="pc__loc">Hospitalidade · RJ</span></span></span>
+                <a class="hc fade-in" role="listitem" data-project href="project.html?id=forest-life" data-cursor="Ver projeto" aria-label="Forest Life" style="--fx:45%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/forestlife.jpg" alt="Forest Life" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">11</span><span class="hc__cat">hotel design</span></span>
+                    <span class="hc__tit"><span class="hc__c">hospitalidade</span><span class="hc__p">Forest Life</span><span class="hc__c">refúgio na mata</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Forest Life · Rio de Janeiro</b><small>rio de janeiro · rj</small></span><span class="hc__ver"><b>ver projeto</b><i aria-hidden="true"></i></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=retrofit-nova-joatinga" data-cursor="Ver projeto" aria-label="Nova Joatinga" style="--fx:50%;--fy:50%">
-                    <span class="pc__media"><img class="pc__foto" src="assets/images/nova-joatinga.png" alt="Nova Joatinga" loading="lazy" decoding="async"></span>
-                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_12</span><span class="pc__nome">Nova Joatinga</span><span class="pc__loc">Joatinga · RJ</span></span></span>
+                <a class="hc fade-in" role="listitem" data-project href="project.html?id=retrofit-nova-joatinga" data-cursor="Ver projeto" aria-label="Nova Joatinga" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/nova-joatinga.png" alt="Nova Joatinga" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">12</span><span class="hc__cat">retrofits</span></span>
+                    <span class="hc__tit"><span class="hc__c">retrofit</span><span class="hc__p">Nova Joatinga</span><span class="hc__c">endereço icônico carioca</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Nova Joatinga · Joatinga</b><small>joatinga · rj</small></span><span class="hc__ver"><b>ver projeto</b><i aria-hidden="true"></i></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=casa-capuri" data-cursor="Ver projeto" aria-label="Casa Capuri" style="--fx:50%;--fy:55%">
-                    <span class="pc__media"><img class="pc__foto" src="assets/images/casas/capuri-1.jpg" alt="Casa Capuri" loading="lazy" decoding="async"></span>
-                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_13</span><span class="pc__nome">Casa Capuri</span><span class="pc__loc">Residencial</span></span></span>
+                <a class="hc fade-in" role="listitem" data-project href="project.html?id=casa-capuri" data-cursor="Ver projeto" aria-label="Casa Capuri" style="--fx:50%;--fy:55%">
+                    <img class="hc__foto" src="assets/images/casas/capuri-1.jpg" alt="Casa Capuri" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">13</span><span class="hc__cat">casas contemporâneas</span></span>
+                    <span class="hc__tit"><span class="hc__c">casa</span><span class="hc__p">Capuri</span><span class="hc__c">linhas puras</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Casa Capuri</b><small>residencial</small></span><span class="hc__ver"><b>ver projeto</b><i aria-hidden="true"></i></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=hotel-nacional" data-cursor="Ver projeto" aria-label="Hotel Nacional" style="--fx:50%;--fy:50%">
-                    <span class="pc__media"><img class="pc__foto" src="assets/images/hotel/nacional-1.jpg" alt="Hotel Nacional" loading="lazy" decoding="async"></span>
-                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_14</span><span class="pc__nome">Hotel Nacional</span><span class="pc__loc">São Conrado · RJ</span></span></span>
+                <a class="hc fade-in" role="listitem" data-project href="project.html?id=hotel-nacional" data-cursor="Ver projeto" aria-label="Hotel Nacional" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/hotel/nacional-1.jpg" alt="Hotel Nacional" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">14</span><span class="hc__cat">hotel design</span></span>
+                    <span class="hc__tit"><span class="hc__c">são conrado</span><span class="hc__p">Hotel Nacional</span><span class="hc__c">art gallery · café · lounge</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Hotel Nacional · São Conrado</b><small>são conrado · rj</small></span><span class="hc__ver"><b>ver projeto</b><i aria-hidden="true"></i></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=cobertura-triplex-lagoa" data-cursor="Ver projeto" aria-label="Triplex Lagoa" style="--fx:50%;--fy:35%">
-                    <span class="pc__media"><img class="pc__foto" src="assets/images/retrofits/triplex-lagoa-1.jpg" alt="Triplex Lagoa" loading="lazy" decoding="async"></span>
-                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_15</span><span class="pc__nome">Triplex Lagoa</span><span class="pc__loc">Lagoa · RJ</span></span></span>
+                <a class="hc fade-in" role="listitem" data-project href="project.html?id=cobertura-triplex-lagoa" data-cursor="Ver projeto" aria-label="Triplex Lagoa" style="--fx:50%;--fy:52%">
+                    <img class="hc__foto" src="assets/images/retrofits/triplex-lagoa-1.jpg" alt="Triplex Lagoa" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">15</span><span class="hc__cat">retrofits</span></span>
+                    <span class="hc__tit"><span class="hc__c">cobertura triplex</span><span class="hc__p">Lagoa</span><span class="hc__c">retrofit em três níveis</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Triplex Lagoa · Lagoa</b><small>lagoa · rj</small></span><span class="hc__ver"><b>ver projeto</b><i aria-hidden="true"></i></span></span>
                 </a>
-                <a class="pc" data-project href="project.html?id=riserva-uno" data-cursor="Ver projeto" aria-label="Riserva Uno" style="--fx:50%;--fy:40%">
-                    <span class="pc__media"><img class="pc__foto" src="assets/images/interior/riserva-uno-1.jpg" alt="Riserva Uno" loading="lazy" decoding="async"></span>
-                    <span class="pc__meta"><span class="pc__txt"><span class="pc__idx">_16</span><span class="pc__nome">Riserva Uno</span><span class="pc__loc">Barra · RJ</span></span></span>
+                <a class="hc fade-in" role="listitem" data-project href="project.html?id=riserva-uno" data-cursor="Ver projeto" aria-label="Riserva Uno" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/interior/riserva-uno-1.jpg" alt="Riserva Uno" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">16</span><span class="hc__cat">interior design</span></span>
+                    <span class="hc__tit"><span class="hc__c">barra da tijuca</span><span class="hc__p">Riserva Uno</span><span class="hc__c">interiores contemporâneos</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Riserva Uno · Barra da Tijuca</b><small>barra da tijuca · rj</small></span><span class="hc__ver"><b>ver projeto</b><i aria-hidden="true"></i></span></span>
                 </a>
-            </div>
-        </section>
-
-        <!-- ============================================
-             GALERIA HORIZONTAL — logo abaixo do hero (sticky + scroll horizontal)
-             ============================================ -->
-        <div class="h-gallery-wrap" id="categorias">
-        <section class="h-gallery" aria-label="Projetos por categoria">
-            <div class="h-gallery__head">
-                <p class="t-eyebrow">_ Portfólio</p>
-                <h2 class="t-h2 t-frame">Projetos por categoria</h2>
-            </div>
-            <div class="h-gallery__track">
-                <a class="h-panel" href="#categorias-drawer" data-cat="casas" data-cursor="Abrir categoria" aria-expanded="false">
-                    <span class="h-panel__media"><img src="assets/images/categorias/casas.svg" alt="Casas contemporâneas" loading="lazy"></span>
-                    <span class="h-panel__meta"><span class="h-panel__idx">_01</span><span class="h-panel__name">Casas contemporâneas</span><span class="h-panel__loc"></span></span>
-                </a>
-                <a class="h-panel" href="#categorias-drawer" data-cat="hotel" data-cursor="Abrir categoria" aria-expanded="false">
-                    <span class="h-panel__media"><img src="assets/images/categorias/hotel.svg" alt="Hotel design" loading="lazy"></span>
-                    <span class="h-panel__meta"><span class="h-panel__idx">_02</span><span class="h-panel__name">Hotel design</span><span class="h-panel__loc"></span></span>
-                </a>
-                <a class="h-panel" href="#categorias-drawer" data-cat="interior" data-cursor="Abrir categoria" aria-expanded="false">
-                    <span class="h-panel__media"><img src="assets/images/categorias/interior.svg" alt="Interior design" loading="lazy"></span>
-                    <span class="h-panel__meta"><span class="h-panel__idx">_03</span><span class="h-panel__name">Interior design</span><span class="h-panel__loc"></span></span>
-                </a>
-                <a class="h-panel" href="#categorias-drawer" data-cat="offices" data-cursor="Abrir categoria" aria-expanded="false">
-                    <span class="h-panel__media"><img src="assets/images/categorias/offices.svg" alt="Design offices" loading="lazy"></span>
-                    <span class="h-panel__meta"><span class="h-panel__idx">_04</span><span class="h-panel__name">Design offices</span><span class="h-panel__loc"></span></span>
-                </a>
-                <a class="h-panel" href="#categorias-drawer" data-cat="retrofits" data-cursor="Abrir categoria" aria-expanded="false">
-                    <span class="h-panel__media"><img src="assets/images/categorias/retrofits.svg" alt="Retrofits" loading="lazy"></span>
-                    <span class="h-panel__meta"><span class="h-panel__idx">_05</span><span class="h-panel__name">Retrofits</span><span class="h-panel__loc"></span></span>
-                </a>
-                <a class="h-panel" href="#categorias-drawer" data-cat="comercial" data-cursor="Abrir categoria" aria-expanded="false">
-                    <span class="h-panel__media"><img src="assets/images/categorias/comercial.svg" alt="Arquitetura comercial" loading="lazy"></span>
-                    <span class="h-panel__meta"><span class="h-panel__idx">_06</span><span class="h-panel__name">Arquitetura comercial</span><span class="h-panel__loc"></span></span>
-                </a>
-                <a class="h-panel" href="#categorias-drawer" data-cat="geral" data-cursor="Abrir categoria" aria-expanded="false">
-                    <span class="h-panel__media"><img src="assets/images/categorias/geral.svg" alt="Geral" loading="lazy"></span>
-                    <span class="h-panel__meta"><span class="h-panel__idx">_07</span><span class="h-panel__name">Geral</span><span class="h-panel__loc"></span></span>
-                </a>
-            </div>
-        </section>
-        </div>
-
-        <!-- Gaveta: abre com os projetos da categoria clicada no tabuleiro -->
-        <section class="cat-drawer-host" id="categorias-drawer">
-            <div class="container">
-                <div class="cat-drawer" hidden>
-                    <div class="cat-drawer__grid"></div>
-                </div>
             </div>
         </section>
 
@@ -238,63 +259,41 @@
                         Quatro frentes integradas dentro de um único atelier — do conceito autoral à entrega completa.
                     </p>
                 </div>
-
-                <div class="services-grid">
-                    <a href="work-profile.html" class="service-card fade-in fade-in-delay-1">
-                        <span class="service-card__media">
-                            <img src="assets/images/horizon-joa.jpg" alt="Arquitetura contemporânea NEO.LIVING" loading="lazy">
-                            <span class="service-card__number">01</span>
-                            <span class="service-card__caption">
-                                <span class="service-card__title">Arquitetura Contemporânea</span>
-                                <span class="service-card__desc">Projetos residenciais e corporativos premium, com design autoral e olhar Avant-Garde.</span>
-                                <span class="service-card__link">Saiba mais <span class="arrow" aria-hidden="true">→</span></span>
-                            </span>
-                        </span>
-                    </a>
-
-                    <a href="incorporacoes.html" class="service-card fade-in fade-in-delay-2">
-                        <span class="service-card__media">
-                            <img src="assets/images/epitaciopessoa.png" alt="Incorporações imobiliárias de alto padrão" loading="lazy">
-                            <span class="service-card__number">02</span>
-                            <span class="service-card__caption">
-                                <span class="service-card__title">Incorporações</span>
-                                <span class="service-card__desc">Empreendimentos imobiliários de alto padrão para investir, viver e inovar.</span>
-                                <span class="service-card__link">Saiba mais <span class="arrow" aria-hidden="true">→</span></span>
-                            </span>
-                        </span>
-                    </a>
-
-                    <a href="head-designers.html" class="service-card fade-in fade-in-delay-3">
-                        <span class="service-card__media">
-                            <img src="assets/images/costa-del-sol.png" alt="Head Designers — arquitetura autoral" loading="lazy">
-                            <span class="service-card__number">03</span>
-                            <span class="service-card__caption">
-                                <span class="service-card__title">Head Designers</span>
-                                <span class="service-card__desc">Arquitetura assinada por Alexandre Ribeiro &amp; H. Natacha Weibel — +1000 projetos.</span>
-                                <span class="service-card__link">Saiba mais <span class="arrow" aria-hidden="true">→</span></span>
-                            </span>
-                        </span>
-                    </a>
-
-                    <a href="execucao-full.html" class="service-card fade-in fade-in-delay-4">
-                        <span class="service-card__media">
-                            <img src="assets/images/forestlife.jpg" alt="Execução Full — do conceito à entrega" loading="lazy">
-                            <span class="service-card__number">04</span>
-                            <span class="service-card__caption">
-                                <span class="service-card__title">Execução Full</span>
-                                <span class="service-card__desc">Sistema integrado que conduz o projeto do conceito à entrega — sob um único núcleo.</span>
-                                <span class="service-card__link">Saiba mais <span class="arrow" aria-hidden="true">→</span></span>
-                            </span>
-                        </span>
-                    </a>
-                </div>
             </div>
-
-            <div class="services-watermark" data-drift="-1" aria-hidden="true">
-                <span>_01</span>
-                <span>_02</span>
-                <span>_03</span>
-                <span>_04</span>
+            <!-- cards horizontais NEO.LIVING, um embaixo do outro (mesmo padrão do Highlights) -->
+            <div class="hl hl--practice" role="list">
+                <a class="hc fade-in" role="listitem" href="work-profile.html" data-cursor="Saiba mais" aria-label="Arquitetura contemporânea" style="--fx:50%;--fy:55%">
+                    <img class="hc__foto" src="assets/images/practice/arquitetura-master-house.jpg" alt="Arquitetura contemporânea" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">01</span><span class="hc__cat">our practice</span></span>
+                    <span class="hc__tit"><span class="hc__c">arquitetura</span><span class="hc__p">Contemporânea</span><span class="hc__c">residencial e corporativo premium · design autoral</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Master.House · São Conrado</b><small>projeto em destaque</small></span><span class="hc__ver"><b>saiba mais</b><i aria-hidden="true"></i></span></span>
+                </a>
+                <a class="hc fade-in" role="listitem" href="incorporacoes.html" data-cursor="Saiba mais" aria-label="Incorporações" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/practice/incorporacoes-studios-sao-conrado.jpg" alt="Incorporações" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">02</span><span class="hc__cat">our practice</span></span>
+                    <span class="hc__tit"><span class="hc__c">empreendimentos de alto padrão</span><span class="hc__p">Incorporações</span><span class="hc__c">para investir, viver e inovar</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Prime Design Studios · São Conrado</b><small>projeto em destaque</small></span><span class="hc__ver"><b>saiba mais</b><i aria-hidden="true"></i></span></span>
+                </a>
+                <a class="hc fade-in" role="listitem" href="head-designers.html" data-cursor="Saiba mais" aria-label="Head Designers" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/practice/head-designers-kult.jpg" alt="Head Designers" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">03</span><span class="hc__cat">our practice</span></span>
+                    <span class="hc__tit"><span class="hc__c">arquitetura assinada</span><span class="hc__p">Head Designers</span><span class="hc__c">alexandre ribeiro &amp; h. natacha weibel · +1000 projetos</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>KULT Lifestyle Club · Rio de Janeiro</b><small>projeto em destaque</small></span><span class="hc__ver"><b>saiba mais</b><i aria-hidden="true"></i></span></span>
+                </a>
+                <a class="hc fade-in" role="listitem" href="execucao-full.html" data-cursor="Saiba mais" aria-label="Execução Full" style="--fx:50%;--fy:55%">
+                    <img class="hc__foto" src="assets/images/practice/execucao-full-gym.jpg" alt="Execução Full" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">04</span><span class="hc__cat">our practice</span></span>
+                    <span class="hc__tit"><span class="hc__c">do conceito à entrega</span><span class="hc__p">Execução Full</span><span class="hc__c">um sistema integrado sob um único núcleo</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Gym · Private Training Club</b><small>projeto em destaque</small></span><span class="hc__ver"><b>saiba mais</b><i aria-hidden="true"></i></span></span>
+                </a>
             </div>
         </section>
 
@@ -349,187 +348,6 @@
         </div><!-- /dark-band -->
 
         <!-- ============================================
-             SECTION 4 — PROJECT HIGHLIGHTS (vertical list + image-on-hover)
-             ============================================ -->
-        <section class="highlights-section" id="highlights">
-            <div class="container">
-                <div class="highlights-section__head fade-in">
-                    <p class="t-eyebrow" style="margin-bottom: 16px;">_ Highlights</p>
-                    <h2 class="t-h1 t-frame">Project Highlights</h2>
-                </div>
-
-                <div class="highlights-layout">
-                    <ul class="highlights-list fade-in">
-                        <li class="highlights-item" data-index="0">
-                            <a class="highlights-item__link" href="project.html?id=horizon-joa" aria-label="Abrir projeto">
-                                <span class="highlights-item__index">_01</span>
-                            <span class="highlights-item__title">Horizon Joá</span>
-                            <span class="highlights-item__location">Rua Iposeira · São Conrado</span>
-                            </a>
-                        </li>
-                        <li class="highlights-item" data-index="1">
-                            <a class="highlights-item__link" href="project.html?id=cobertura-costa-del-sol" aria-label="Abrir projeto">
-                                <span class="highlights-item__index">_02</span>
-                            <span class="highlights-item__title">Cobertura Costa del Sol</span>
-                            <span class="highlights-item__location">Av. Lúcio Costa · Barra</span>
-                            </a>
-                        </li>
-                        <li class="highlights-item" data-index="2">
-                            <a class="highlights-item__link" href="project.html?id=retrofit-chopin" aria-label="Abrir projeto">
-                                <span class="highlights-item__index">_03</span>
-                            <span class="highlights-item__title">Retrofit Edifício Chopin</span>
-                            <span class="highlights-item__location">Av. Atlântica</span>
-                            </a>
-                        </li>
-                        <li class="highlights-item" data-index="3">
-                            <a class="highlights-item__link" href="project.html?id=life-house-itanhanga" aria-label="Abrir projeto">
-                                <span class="highlights-item__index">_04</span>
-                            <span class="highlights-item__title">Life.House Itanhangá Golf</span>
-                            <span class="highlights-item__location">Itanhangá</span>
-                            </a>
-                        </li>
-                        <li class="highlights-item" data-index="5">
-                            <a class="highlights-item__link" href="project.html?id=office-le-monde" aria-label="Abrir projeto">
-                                <span class="highlights-item__index">_05</span>
-                            <span class="highlights-item__title">Office Le Monde</span>
-                            <span class="highlights-item__location">Corporativo</span>
-                            </a>
-                        </li>
-                        <li class="highlights-item" data-index="6">
-                            <a class="highlights-item__link" href="project.html?id=retrofit-nova-joatinga" aria-label="Abrir projeto">
-                                <span class="highlights-item__index">_06</span>
-                            <span class="highlights-item__title">Retrofit Nova Joatinga</span>
-                            <span class="highlights-item__location">Joatinga</span>
-                            </a>
-                        </li>
-                        <li class="highlights-item" data-index="7">
-                            <a class="highlights-item__link" href="project.html?id=retrofit-epitacio-pessoa" aria-label="Abrir projeto">
-                                <span class="highlights-item__index">_07</span>
-                            <span class="highlights-item__title">Retrofit Epitácio Pessoa 800</span>
-                            <span class="highlights-item__location">Ipanema</span>
-                            </a>
-                        </li>
-                        <li class="highlights-item" data-index="8">
-                            <a class="highlights-item__link" href="project.html?id=retrofit-nascimento-silva" aria-label="Abrir projeto">
-                                <span class="highlights-item__index">_08</span>
-                            <span class="highlights-item__title">Retrofit Nascimento Silva 543</span>
-                            <span class="highlights-item__location">Ipanema</span>
-                            </a>
-                        </li>
-                        <li class="highlights-item" data-index="9">
-                            <a class="highlights-item__link" href="project.html?id=club-house-jockey" aria-label="Abrir projeto">
-                                <span class="highlights-item__index">_09</span>
-                            <span class="highlights-item__title">Club House Jockey</span>
-                            <span class="highlights-item__location">Hospitality</span>
-                            </a>
-                        </li>
-                        <li class="highlights-item" data-index="10">
-                            <a class="highlights-item__link" href="project.html?id=retrospectiva-niemeyer" aria-label="Abrir projeto">
-                                <span class="highlights-item__index">_10</span>
-                            <span class="highlights-item__title">Retrospectiva Niemeyer</span>
-                            <span class="highlights-item__location">Galeria Hotel Nacional</span>
-                            </a>
-                        </li>
-                        <li class="highlights-item" data-index="11">
-                            <a class="highlights-item__link" href="project.html?id=retrofit-shopping-citta" aria-label="Abrir projeto">
-                                <span class="highlights-item__index">_11</span>
-                            <span class="highlights-item__title">Retrofit Shopping Città</span>
-                            <span class="highlights-item__location">Av. das Américas · Barra</span>
-                            </a>
-                        </li>
-                        <li class="highlights-item" data-index="12">
-                            <a class="highlights-item__link" href="project.html?id=forest-life" aria-label="Abrir projeto">
-                                <span class="highlights-item__index">_12</span>
-                            <span class="highlights-item__title">Forest Life</span>
-                            <span class="highlights-item__location">Residencial</span>
-                            </a>
-                        </li>
-                        <li class="highlights-item" data-index="13">
-                            <a class="highlights-item__link" href="project.html?id=urb-x-hub" aria-label="Abrir projeto">
-                                <span class="highlights-item__index">_13</span>
-                            <span class="highlights-item__title">Urb x Hub</span>
-                            <span class="highlights-item__location">Corporativo</span>
-                            </a>
-                        </li>
-                        <li class="highlights-item" data-index="14">
-                            <a class="highlights-item__link" href="project.html?id=match-point-pub" aria-label="Abrir projeto">
-                                <span class="highlights-item__index">_14</span>
-                            <span class="highlights-item__title">Match.Point Pub</span>
-                            <span class="highlights-item__location">Hotel Nacional Rio</span>
-                            </a>
-                        </li>
-                        <li class="highlights-item" data-index="15">
-                            <a class="highlights-item__link" href="project.html?id=kult-lifestyle-club" aria-label="Abrir projeto">
-                                <span class="highlights-item__index">_15</span>
-                            <span class="highlights-item__title">KULT Lifestyle Club</span>
-                            <span class="highlights-item__location">Lifestyle</span>
-                            </a>
-                        </li>
-                        <li class="highlights-item" data-index="16">
-                            <a class="highlights-item__link" href="project.html?id=kult-kolector" aria-label="Abrir projeto">
-                                <span class="highlights-item__index">_16</span>
-                            <span class="highlights-item__title">KULT Kolector — Art &amp; Rock</span>
-                            <span class="highlights-item__location">Concept Store</span>
-                            </a>
-                        </li>
-                    </ul>
-
-                    <div class="highlights-preview" aria-hidden="true">
-                        <div class="highlights-preview__img" data-index="0">
-                            <img src="assets/images/horizon-joa.jpg" alt="Horizon Joá — residência contemporânea sobre a Floresta da Tijuca" loading="lazy">
-                        </div>
-                        <div class="highlights-preview__img" data-index="1">
-                            <img src="assets/images/costa-del-sol.png" alt="Cobertura Costa del Sol — Avenida Lúcio Costa, Barra" loading="lazy">
-                        </div>
-                        <div class="highlights-preview__img" data-index="2">
-                            <img src="assets/images/chopin.png" alt="Retrofit Edifício Chopin — Avenida Atlântica, Copacabana" loading="lazy">
-                        </div>
-                        <div class="highlights-preview__img" data-index="3">
-                            <img src="assets/images/life-house.jpg" alt="Life.House Itanhangá Golf — casa-refúgio em meio ao campo de golfe" loading="lazy">
-                        </div>
-                        <div class="highlights-preview__img" data-index="5">
-                            <div class="placeholder-img"><span class="placeholder-img__label">_ Office Le Monde</span></div>
-                        </div>
-                        <div class="highlights-preview__img" data-index="6">
-                            <img src="assets/images/nova-joatinga.png" alt="Retrofit Nova Joatinga — Joatinga · RJ" loading="lazy">
-                        </div>
-                        <div class="highlights-preview__img" data-index="7">
-                            <img src="assets/images/epitaciopessoa.png" alt="Retrofit Epitácio Pessoa 800 — Ipanema" loading="lazy">
-                        </div>
-                        <div class="highlights-preview__img" data-index="8">
-                            <img src="assets/images/nascimentosilva.png" alt="Retrofit Nascimento Silva 543 — Ipanema" loading="lazy">
-                        </div>
-                        <div class="highlights-preview__img" data-index="9">
-                            <img src="assets/images/jockey.png" alt="Club House Jockey — corrida de cavalos no Jockey Club" loading="lazy">
-                        </div>
-                        <div class="highlights-preview__img" data-index="10">
-                            <img src="assets/images/exponiemayer.png" alt="Retrospectiva Niemeyer — curadores Nat Weibel e Alexandre Ribeiro" loading="lazy">
-                        </div>
-                        <div class="highlights-preview__img" data-index="11">
-                            <img src="assets/images/citta-office-mall.png" alt="Retrofit Shopping Città — Office Mall · Barra" loading="lazy">
-                        </div>
-                        <div class="highlights-preview__img" data-index="12">
-                            <img src="assets/images/forestlife.jpg" alt="Forest Life — residência em diálogo com a mata" loading="lazy">
-                        </div>
-                        <div class="highlights-preview__img" data-index="13">
-                            <div class="placeholder-img"><span class="placeholder-img__label">_ Urb x Hub</span></div>
-                        </div>
-                        <div class="highlights-preview__img" data-index="14">
-                            <img src="assets/images/matchpoint.png" alt="Match.Point Pub — sports bar no Hotel Nacional Rio" loading="lazy">
-                        </div>
-                        <div class="highlights-preview__img" data-index="15">
-                            <div class="placeholder-img"><span class="placeholder-img__label">_ KULT Lifestyle Club</span></div>
-                        </div>
-                        <div class="highlights-preview__img" data-index="16">
-                            <div class="placeholder-img"><span class="placeholder-img__label">_ KULT Kolector</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- ============================================
              SECTION 6 — MANIFESTO
              ============================================ -->
         <section class="manifesto-section section--dark" data-fingerprint="dark">
@@ -571,6 +389,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="js/partials.js?v=20260929b"></script>
     <script src="js/projects.js"></script>
-    <script src="js/app.js?v=20261028a"></script>
+    <script src="js/app.js?v=20261105a"></script>
 </body>
 </html>

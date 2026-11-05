@@ -824,35 +824,62 @@
    ========================================================= */
 .incorp-manifesto {
     padding-top: var(--space-3xl);
-    padding-bottom: var(--space-3xl);
+    padding-bottom: var(--space-2xl);
 }
 
+/* três frentes lado a lado: índice em latão, título MAIÚSCULO, texto corrido */
 .incorp-manifesto__inner {
-    max-width: 920px;
+    max-width: var(--max-content);
     margin: 0 auto;
     padding-left: var(--gutter-desktop);
     padding-right: var(--gutter-desktop);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-xl);
 }
 
-.incorp-manifesto__paragraph {
-    font-family: var(--font-serif);
-    font-style: normal;
+.incorp-manifesto__item {
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--accent-amber);
+}
+
+.incorp-manifesto__idx {
+    display: block;
+    font-family: var(--font-condensed);
     font-weight: 400;
-    font-size: clamp(1.375rem, 2.4vw, 1.875rem);
-    line-height: 1.15;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;       /* tudo em maiúsculo (consistente) */
-    color: var(--text-primary);
-    margin-bottom: var(--space-xl);
-    padding-left: var(--space-md);
-    border-left: 1px solid var(--accent-amber);
+    font-size: 0.875rem;
+    letter-spacing: 0.3em;
+    color: var(--accent-amber);
 }
 
-.incorp-manifesto__paragraph strong {
-    font-style: normal;
-    color: var(--accent-amber);
-    font-family: var(--font-display);
-    font-weight: 700;
+.incorp-manifesto__titulo {
+    margin-top: var(--space-sm);
+    font-family: var(--font-condensed);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    color: var(--text-primary);
+}
+
+.incorp-manifesto__texto {
+    margin-top: var(--space-sm);
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: clamp(1.0625rem, 1.25vw, 1.1875rem);
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+    color: var(--text-secondary);
+}
+
+.incorp-manifesto__texto strong {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+@media (max-width: 900px) {
+    .incorp-manifesto__inner { grid-template-columns: 1fr; gap: var(--space-lg); }
 }
 
 /* =========================================================
@@ -3317,16 +3344,20 @@ html[data-theme="light"] .hero.hero--editorial {
 }
 
 /* =========================================================
-   HIGHLIGHTS PROJECTS — tabuleiro 4×4 de cards NEO.LIVING
-   16 projetos, sem rolagem. Cada card ocupa 2 das 8 colunas: a foto
-   (3:2) numa célula e o nome na célula vizinha, como no tabuleiro
-   antigo (índice em latão, nome, local, fio de latão com seta
-   apontando para a foto). Linhas ímpares com a foto à esquerda e
-   pares à direita: as fotos se tocam só pelos vértices.
+   HIGHLIGHTS PROJECTS — cards horizontais NEO.LIVING
+   16 cards, um embaixo do outro, quase na largura toda da tela.
+   Mesma identidade dos cards da marca (capas e card horizontal de
+   21–22/10): foto do projeto, película em degradê inclinado do lado
+   do título, Oswald com complemento minúsculo + PALAVRA maiúscula,
+   cunha branca inclinada com lábio grafite e fio de latão na base,
+   textura 3D clara bem de leve na cunha e grão por cima.
+   Ímpares: título à esquerda (cunha sobe para a direita);
+   pares: espelhados (título à direita, cunha sobe para a esquerda).
+   Medidas em cqw = % da largura do próprio card.
    ========================================================= */
 .destaques {
     position: relative;
-    padding: var(--space-xl) var(--space-md) var(--space-lg);
+    padding: var(--space-xl) var(--space-md) var(--space-xl);
     overflow: hidden;
 }
 
@@ -3338,175 +3369,363 @@ html[data-theme="light"] .hero.hero--editorial {
 
 .destaques__head .t-eyebrow { margin-bottom: 8px; }
 
-.tab {
+.hl {
     position: relative;
     z-index: 3;
-    display: grid;
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-    gap: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(14px, 1.8vw, 28px);
     max-width: 1880px;
     margin: 0 auto;
 }
 
-/* card = foto + nome, 2 colunas da grade; cqw = % da largura do card */
-.pc {
-    grid-column: span 2;
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: stretch;
-    color: var(--text-primary);
-    text-decoration: none;
-    container-type: inline-size;
-}
+.hc {
+    /* medidas (resolvidas nos filhos, relativas à largura do card) */
+    --m: 3.75cqw;                 /* margem lateral */
+    --top: 3cqw;                  /* topo: índice e categoria */
+    --s-top: max(11px, 1.05cqw);
+    --s-c: 2.1cqw;                /* complementos */
+    --s-p: 8.2cqw;                /* palavra principal */
+    --tit-b: 12.6cqw;             /* base do título */
+    --ch: 11cqw;                  /* altura da área da cunha */
+    --pl: 5.6cqw;  --pr: 8.8cqw;  /* placa: lado baixo / lado alto */
+    --ll: 5.84cqw; --lr: 9.6cqw;  /* lábio grafite */
+    --fl: 6cqw;    --fr: 9.8cqw;  /* fio de latão */
+    --rod-b: 1.9cqw;
+    --s-rb: max(11px, 1.1cqw);
+    --s-rs: max(10px, 0.78cqw);
+    --seta: 4.2cqw;
 
-/* linhas pares (cards 5–8 e 13–16): foto à direita, nome à esquerda */
-.pc:nth-child(n+5):nth-child(-n+8) .pc__media,
-.pc:nth-child(n+13):nth-child(-n+16) .pc__media { order: 2; }
-
-.pc:nth-child(n+5):nth-child(-n+8) .pc__meta,
-.pc:nth-child(n+13):nth-child(-n+16) .pc__meta { order: 1; }
-
-.pc__media {
     position: relative;
     display: block;
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 2.25 / 1;
     overflow: hidden;
-    background-color: #101010;
+    isolation: isolate;
+    container-type: inline-size;
+    background: #0A0A0A;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: var(--font-condensed);
 }
 
-.pc__foto {
+.hc.fade-in.is-visible { will-change: auto; transform: none; filter: none; }
+
+.hc__foto {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: var(--fx, 50%) var(--fy, 50%);
-    filter: saturate(0.86) brightness(0.92);
-    transition: transform 1100ms var(--ease-out), filter 700ms var(--ease-out);
+    /* sem transform/filter fixos: com 16+ fotos grandes na página, camadas
+       permanentes fazem o navegador deixar de pintar algumas (foto preta) */
+    transition: transform 1600ms var(--ease-out);
 }
 
-.pc:hover .pc__foto,
-.pc:focus-visible .pc__foto { transform: scale(1.06); filter: saturate(1) brightness(1); }
+.hc:hover .hc__foto,
+.hc:focus-visible .hc__foto { transform: scale(1.045); }
 
-/* nome na célula vizinha, centrado na vertical */
-.pc__meta {
-    position: relative;
+/* película: degradê inclinado escuro do lado do título + leve fechamento no alto e na base */
+.hc__pel {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(100deg, rgba(10,10,10,.80) 0%, rgba(10,10,10,.56) 30%, rgba(10,10,10,.20) 58%, rgba(10,10,10,0) 80%),
+        linear-gradient(180deg, rgba(10,10,10,.40) 0%, rgba(10,10,10,.08) 26%, rgba(10,10,10,.10) 60%, rgba(10,10,10,.46) 100%);
+}
+
+/* topo: índice do lado do título, categoria do outro lado (minúscula, espaçada) */
+.hc__topo {
+    position: absolute;
+    left: var(--m);
+    right: var(--m);
+    top: var(--top);
     display: flex;
     align-items: center;
-    min-width: 0;
+    justify-content: space-between;
+    font-size: var(--s-top);
+    font-weight: 500;
+    letter-spacing: .3em;
+    line-height: 1;
 }
 
-.pc__txt {
-    position: relative;
+.hc__idx { color: #E2E2E2; }
+.hc__cat { color: rgba(255,255,255,.78); text-transform: lowercase; }
+.hc__topo { text-shadow: 0 1px 14px rgba(0,0,0,.45); }
+
+/* título: complemento · PALAVRA · complemento, todos na mesma margem */
+.hc__tit {
+    position: absolute;
+    left: var(--m);
+    bottom: var(--tit-b);
     display: flex;
     flex-direction: column;
-    gap: 0.6cqw;
-    margin-left: 7cqw;
-    margin-right: 3cqw;
-    padding-bottom: 2.2cqw;
-    border-bottom: 1px solid var(--accent-amber);
-    min-width: 0;
+    align-items: flex-start;
+    line-height: 1;
+    text-shadow: 0 2px 26px rgba(0,0,0,.28);
 }
 
-/* fio que continua até a foto, com a seta na ponta (como a linha-guia antiga) */
-.pc__txt::before {
-    content: "";
-    position: absolute;
-    left: -7cqw;
-    bottom: -1px;
-    width: 7cqw;
-    height: 1px;
-    background: var(--accent-amber);
-}
-
-.pc__txt::after {
-    content: "";
-    position: absolute;
-    left: -7cqw;
-    bottom: -4px;
-    width: 0;
-    height: 0;
-    border-top: 4px solid transparent;
-    border-bottom: 4px solid transparent;
-    border-right: 7px solid var(--accent-amber);
-}
-
-/* espelho nas linhas pares: texto encostado na foto, fio e seta para a direita */
-.pc:nth-child(n+5):nth-child(-n+8) .pc__txt,
-.pc:nth-child(n+13):nth-child(-n+16) .pc__txt { margin-left: 3cqw; margin-right: 7cqw; align-items: flex-end; text-align: right; }
-
-.pc:nth-child(n+5):nth-child(-n+8) .pc__txt::before,
-.pc:nth-child(n+13):nth-child(-n+16) .pc__txt::before { left: auto; right: -7cqw; }
-
-.pc:nth-child(n+5):nth-child(-n+8) .pc__txt::after,
-.pc:nth-child(n+13):nth-child(-n+16) .pc__txt::after { left: auto; right: -7cqw; border-right: 0; border-left: 7px solid var(--accent-amber); }
-
-.pc__idx {
-    font-family: var(--font-condensed);
+.hc__c {
     font-weight: 400;
-    font-size: clamp(0.8rem, 2.4cqw, 1rem);
-    color: var(--accent-amber);
+    font-size: var(--s-c);
+    letter-spacing: .14em;
+    color: #DCDCDC;
+    text-transform: lowercase;
+    white-space: nowrap;
 }
 
-.pc__nome {
-    font-family: var(--font-condensed);
-    font-weight: 700;
-    font-size: clamp(0.95rem, 3.6cqw, 1.5rem);
-    line-height: 1.05;
+.hc__p {
+    font-weight: 600;
+    font-size: var(--s-p);
+    line-height: .96;
+    letter-spacing: 0;
+    color: #FFFFFF;
     text-transform: uppercase;
-    letter-spacing: 0.01em;
-    color: var(--text-primary);
-    transition: color 320ms var(--ease-out);
+    white-space: nowrap;
+    margin: .35cqw 0 .5cqw -.22cqw;
 }
 
-.pc:hover .pc__nome,
-.pc:focus-visible .pc__nome { color: var(--accent-amber); }
+/* cunha de contraste: placa branca inclinada, lábio grafite e fio de latão */
+.hc__cunha {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--ch);
+    pointer-events: none;
+}
 
-.pc__loc {
-    font-family: var(--font-body);
-    font-size: clamp(0.6rem, 1.7cqw, 0.72rem);
-    letter-spacing: 0.16em;
+.hc__fio, .hc__lip, .hc__placa { position: absolute; inset: 0; }
+
+.hc__fio {
+    background: #A8813A;
+    clip-path: polygon(0 calc(100% - var(--fl)), 100% calc(100% - var(--fr)), 100% 100%, 0 100%);
+}
+
+.hc__lip {
+    background: linear-gradient(90deg, #55544F, #2C2C2A);
+    clip-path: polygon(0 calc(100% - var(--ll)), 100% calc(100% - var(--lr)), 100% 100%, 0 100%);
+}
+
+.hc__placa {
+    overflow: hidden;
+    background: linear-gradient(100deg, #FFFFFF 0%, #EDECE7 100%);
+    clip-path: polygon(0 calc(100% - var(--pl)), 100% calc(100% - var(--pr)), 100% 100%, 0 100%);
+}
+
+/* fundo 3D claro da marca, bem de leve */
+.hc__placa::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('../assets/images/marca/kit-claro.jpg') center 74% / 100% auto no-repeat;
+    opacity: .22;
+    mix-blend-mode: multiply;
+}
+
+.hc__placa::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.22) 100%);
+}
+
+/* rodapé dentro da cunha: nome · local e o convite para ver o projeto */
+.hc__rod {
+    position: absolute;
+    left: var(--m);
+    right: var(--m);
+    bottom: var(--rod-b);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2cqw;
+    color: #0A0A0A;
+}
+
+.hc__info b {
+    display: block;
+    font-weight: 600;
+    font-size: var(--s-rb);
+    letter-spacing: .3em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    line-height: 1.35;
+    white-space: nowrap;
 }
 
-/* telas médias: 2 cards por linha (4 colunas), mesmo encaixe pelos vértices */
+.hc__info small {
+    display: block;
+    margin-top: .3cqw;
+    font-weight: 400;
+    font-size: var(--s-rs);
+    letter-spacing: .24em;
+    color: #4A4A4A;
+    text-transform: lowercase;
+    line-height: 1.35;
+    white-space: nowrap;
+}
+
+.hc__ver {
+    display: flex;
+    align-items: center;
+    gap: 1.1cqw;
+    padding-bottom: .15cqw;
+}
+
+.hc__ver b {
+    font-weight: 600;
+    font-size: var(--s-rb);
+    letter-spacing: .14em;
+    text-transform: lowercase;
+    line-height: 1;
+}
+
+.hc__ver i {
+    position: relative;
+    display: block;
+    width: var(--seta);
+    height: 1px;
+    background: #0A0A0A;
+    transition: width 520ms var(--ease-out);
+}
+
+.hc__ver i::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: -3.5px;
+    width: 7px;
+    height: 7px;
+    border-top: 1px solid #0A0A0A;
+    border-right: 1px solid #0A0A0A;
+    transform: rotate(45deg);
+}
+
+.hc:hover .hc__ver i,
+.hc:focus-visible .hc__ver i { width: calc(var(--seta) * 1.6); }
+
+/* grão da marca por cima de tudo */
+.hc::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: .09;
+    mix-blend-mode: screen;
+    background-size: 220px 220px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.55 0 0 0 0 0.55 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.hc:focus-visible { outline: 1px solid var(--accent-amber); outline-offset: 4px; }
+
+/* espelho nos pares (nth-of-type: a gaveta das categorias, um <div>, não conta): título à direita, degradê vindo da direita, cunha subindo para a esquerda */
+.hc:nth-of-type(even) .hc__pel {
+    background:
+        linear-gradient(260deg, rgba(10,10,10,.80) 0%, rgba(10,10,10,.56) 30%, rgba(10,10,10,.20) 58%, rgba(10,10,10,0) 80%),
+        linear-gradient(180deg, rgba(10,10,10,.40) 0%, rgba(10,10,10,.08) 26%, rgba(10,10,10,.10) 60%, rgba(10,10,10,.46) 100%);
+}
+
+.hc:nth-of-type(even) .hc__topo { flex-direction: row-reverse; }
+
+.hc:nth-of-type(even) .hc__tit { left: auto; right: var(--m); align-items: flex-end; text-align: right; }
+
+.hc:nth-of-type(even) .hc__p { margin: .35cqw -.22cqw .5cqw 0; }
+
+.hc:nth-of-type(even) .hc__fio { clip-path: polygon(0 calc(100% - var(--fr)), 100% calc(100% - var(--fl)), 100% 100%, 0 100%); }
+
+.hc:nth-of-type(even) .hc__lip {
+    background: linear-gradient(270deg, #55544F, #2C2C2A);
+    clip-path: polygon(0 calc(100% - var(--lr)), 100% calc(100% - var(--ll)), 100% 100%, 0 100%);
+}
+
+.hc:nth-of-type(even) .hc__placa {
+    background: linear-gradient(260deg, #FFFFFF 0%, #EDECE7 100%);
+    clip-path: polygon(0 calc(100% - var(--pr)), 100% calc(100% - var(--pl)), 100% 100%, 0 100%);
+}
+
+/* telas médias: card um pouco mais alto e textos do rodapé com respiro */
 @media (max-width: 1100px) {
-    .tab { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .pc:nth-child(n+5):nth-child(-n+8) .pc__media, .pc:nth-child(n+13):nth-child(-n+16) .pc__media,
-    .pc:nth-child(n+5):nth-child(-n+8) .pc__meta,  .pc:nth-child(n+13):nth-child(-n+16) .pc__meta { order: 0; }
-    .pc:nth-child(n+5):nth-child(-n+8) .pc__txt, .pc:nth-child(n+13):nth-child(-n+16) .pc__txt { margin-left: 7cqw; margin-right: 3cqw; align-items: flex-start; text-align: left; }
-    .pc:nth-child(n+5):nth-child(-n+8) .pc__txt::before, .pc:nth-child(n+13):nth-child(-n+16) .pc__txt::before { left: -7cqw; right: auto; }
-    .pc:nth-child(n+5):nth-child(-n+8) .pc__txt::after,  .pc:nth-child(n+13):nth-child(-n+16) .pc__txt::after { left: -7cqw; right: auto; border-left: 0; border-right: 7px solid var(--accent-amber); }
-    /* linhas pares da grade de 2 por linha: cards 3-4, 7-8, 11-12, 15-16 */
-    .pc:nth-child(4n+3) .pc__media, .pc:nth-child(4n+4) .pc__media { order: 2; }
-    .pc:nth-child(4n+3) .pc__meta,  .pc:nth-child(4n+4) .pc__meta { order: 1; }
-    .pc:nth-child(4n+3) .pc__txt, .pc:nth-child(4n+4) .pc__txt { margin-left: 3cqw; margin-right: 7cqw; align-items: flex-end; text-align: right; }
-    .pc:nth-child(4n+3) .pc__txt::before, .pc:nth-child(4n+4) .pc__txt::before { left: auto; right: -7cqw; }
-    .pc:nth-child(4n+3) .pc__txt::after,  .pc:nth-child(4n+4) .pc__txt::after { left: auto; right: -7cqw; border-right: 0; border-left: 7px solid var(--accent-amber); }
+    .hc {
+        aspect-ratio: 2 / 1;
+        --s-c: 2.4cqw;
+        --s-p: 9cqw;
+        --tit-b: 14cqw;
+        --ch: 13cqw;
+        --pl: 6.8cqw;  --pr: 10.4cqw;
+        --ll: 7.06cqw; --lr: 11.3cqw;
+        --fl: 7.24cqw; --fr: 11.5cqw;
+        --rod-b: 2.2cqw;
+    }
 }
 
-/* celular: 1 card por linha (foto + nome lado a lado), alternando o lado da foto */
+/* celular: card 4:3, letras proporcionalmente maiores, rodapé só com o nome */
 @media (max-width: 768px) {
     .destaques { padding: var(--space-lg) var(--space-sm) var(--space-lg); }
     .destaques__head { padding: 0 var(--space-2xs) var(--space-md); }
-    .tab { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .pc:nth-child(n) .pc__media, .pc:nth-child(n) .pc__meta { order: 0; }
-    .pc:nth-child(n) .pc__txt { margin-left: 7cqw; margin-right: 3cqw; align-items: flex-start; text-align: left; }
-    .pc:nth-child(n) .pc__txt::before { left: -7cqw; right: auto; }
-    .pc:nth-child(n) .pc__txt::after { left: -7cqw; right: auto; border-left: 0; border-right: 7px solid var(--accent-amber); }
-    .pc:nth-child(even) .pc__media { order: 2; }
-    .pc:nth-child(even) .pc__meta { order: 1; }
-    .pc:nth-child(even) .pc__txt { margin-left: 3cqw; margin-right: 7cqw; align-items: flex-end; text-align: right; }
-    .pc:nth-child(even) .pc__txt::before { left: auto; right: -7cqw; }
-    .pc:nth-child(even) .pc__txt::after { left: auto; right: -7cqw; border-right: 0; border-left: 7px solid var(--accent-amber); }
-    .pc__nome { font-size: 1rem; }
-    .pc__idx { font-size: 0.8rem; }
-    .pc__loc { font-size: 0.6rem; }
+    .hl { gap: 14px; }
+    .hc {
+        aspect-ratio: 4 / 3;
+        --m: 5.2cqw;
+        --top: 5cqw;
+        --s-top: 10px;
+        --s-c: 3.8cqw;
+        --s-p: 12cqw;
+        --tit-b: 19cqw;
+        --ch: 18cqw;
+        --pl: 10cqw;   --pr: 15cqw;
+        --ll: 10.4cqw; --lr: 16.1cqw;
+        --fl: 10.7cqw; --fr: 16.5cqw;
+        --rod-b: 3.6cqw;
+        --s-rb: 10px;
+        --seta: 7cqw;
+    }
+    .hc__pel {
+        background:
+            linear-gradient(100deg, rgba(10,10,10,.70) 0%, rgba(10,10,10,.42) 45%, rgba(10,10,10,.10) 80%),
+            linear-gradient(180deg, rgba(10,10,10,.34) 0%, rgba(10,10,10,.06) 30%, rgba(10,10,10,.18) 60%, rgba(10,10,10,.54) 100%);
+    }
+    .hc:nth-of-type(even) .hc__pel {
+        background:
+            linear-gradient(260deg, rgba(10,10,10,.70) 0%, rgba(10,10,10,.42) 45%, rgba(10,10,10,.10) 80%),
+            linear-gradient(180deg, rgba(10,10,10,.34) 0%, rgba(10,10,10,.06) 30%, rgba(10,10,10,.18) 60%, rgba(10,10,10,.54) 100%);
+    }
+    .hc__info small { display: none; }
+    .hc__info b { letter-spacing: .2em; }
+    .hc__ver b { display: none; }
+}
+
+/* Our Practice: mesma lista de cards horizontais, com o respiro lateral da seção */
+.hl--practice { padding: 0 var(--space-md); }
+
+/* Projetos por categoria (Work Profile): a gaveta abre logo abaixo do card
+   clicado, como uma folha branca que continua a cunha */
+.hl > .cat-drawer {
+    position: relative;
+    z-index: 3;
+    margin-top: calc(-1 * clamp(14px, 1.8vw, 28px));
+    padding: var(--space-lg) var(--space-lg) var(--space-xl);
+    background: linear-gradient(180deg, #EDECE7 0%, #FFFFFF 18%);
+    /* volta às cores do tema claro dentro da seção escura */
+    color: #0A0A0A;
+    --text-primary: #0A0A0A;
+    --text-secondary: #4A4A4A;
+    --text-muted: #6E6E6E;
+}
+
+.hc[data-cat] .hc__ver i { transition: width 520ms var(--ease-out), transform 420ms var(--ease-out); }
+.hc[data-cat].is-open .hc__ver i { transform: rotate(90deg); }
+.hc[data-cat].is-open .hc__ver b { color: var(--accent-amber-soft); }
+
+@media (max-width: 768px) {
+    .hl--practice { padding: 0 var(--space-sm); }
+    .hl > .cat-drawer { margin-top: -14px; padding: var(--space-md) var(--space-sm) var(--space-lg); }
+    .hl > .cat-drawer .cat-drawer__grid { margin-left: calc(-1 * var(--space-sm)); margin-right: calc(-1 * var(--space-sm)); padding: 0 var(--space-sm) var(--space-sm); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .pc__foto, .pc__nome { transition: none; }
-    .pc:hover .pc__foto { transform: none; }
+    .hc__foto, .hc__ver i { transition: none; }
+    .hc:hover .hc__foto { transform: none; }
 }
 
 /* =========================================================
@@ -3896,4 +4115,103 @@ html[data-theme="light"] .hero.hero--editorial {
     }
     .pmodal__nav { width: 38px; height: 38px; }
     .pmodal__filmbtn { width: 138px; right: 12px; bottom: 12px; }
+}
+
+/* =========================================================
+   TÍTULO PRATEADO — mesmo tratamento do letreiro do início
+   (Oswald 600 em maiúsculas, degradê prata no texto, sombra suave).
+   Usado no "Bem-vindo ao mundo NEO.LIVING." e no "Projetos por
+   categoria" do Work Profile. Fica no fim do arquivo para vencer o
+   fundo transparente do .t-frame.
+   ========================================================= */
+.t-prata {
+    font-family: var(--font-condensed);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.015em;
+    background: linear-gradient(180deg, #FFFFFF 0%, #E3E8ED 50%, #BFC7CE 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+}
+
+.t-prata,
+.t-prata.fade-in.is-visible { filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.35)); }
+
+.hero-inner__title.t-prata {
+    font-size: clamp(2.6rem, 5.6vw, 5.75rem);
+    line-height: 0.92;
+}
+
+/* desenhos em linha das categorias: hover/aberto em champanhe, como antes */
+.hc[data-cat] .hc__foto { transition: transform 1600ms var(--ease-out), filter 600ms var(--ease-out); }
+.hc[data-cat]:hover .hc__foto,
+.hc[data-cat].is-open .hc__foto { filter: sepia(0.85) saturate(1.9) hue-rotate(-14deg) brightness(1.08); }
+
+/* =========================================================
+   HERO DAS PÁGINAS INTERNAS COM O VÍDEO DO INÍCIO
+   (Work Profile, Incorporações, Head Designers, Execução Full)
+   Véu mais leve que o do placeholder para o vídeo aparecer;
+   mais fechado embaixo, onde ficam o título e o subtítulo.
+   ========================================================= */
+.hero-inner--video .hero-inner__media { overflow: hidden; }
+
+.hero-inner--video .hero-inner__overlay {
+    background:
+        linear-gradient(180deg, rgba(10, 10, 10, 0.55) 0%, rgba(10, 10, 10, 0.18) 34%, rgba(10, 10, 10, 0.34) 62%, rgba(10, 10, 10, 0.90) 100%),
+        linear-gradient(90deg, rgba(10, 10, 10, 0.45) 0%, rgba(10, 10, 10, 0) 60%);
+}
+
+.hero-inner--video .hero-inner__title { text-shadow: none; }
+
+/* =========================================================
+   HERO DO HEAD DESIGNERS — foto dos curadores com movimento leve
+   Desktop: título à esquerda sobre o escuro, foto ocupando a direita
+   e surgindo por um degradê (máscara); no celular a foto vai de fundo.
+   Movimento = aproximação lenta + leve deriva, ida e volta (só transform).
+   ========================================================= */
+.hero-inner--foto .hero-inner__media {
+    left: 44%;
+    overflow: hidden;
+    /* degradê na esquerda (para o título) e no topo (abaixo do menu) */
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 30%), linear-gradient(180deg, transparent 0, #000 150px);
+    -webkit-mask-composite: source-in;
+            mask-image: linear-gradient(90deg, transparent 0%, #000 30%), linear-gradient(180deg, transparent 0, #000 150px);
+            mask-composite: intersect;
+}
+
+.hero-inner__foto {
+    position: absolute;
+    left: 0;
+    top: 56px;
+    width: 100%;
+    height: calc(100% - 56px);
+    object-fit: cover;
+    object-position: 50% 0%;
+    transform-origin: 55% 25%;
+    animation: heroFotoKB 24s ease-in-out infinite alternate;
+}
+
+@keyframes heroFotoKB {
+    from { transform: scale(1.01) translate3d(0, 0, 0); }
+    to   { transform: scale(1.09) translate3d(-1.2%, 0.6%, 0); }
+}
+
+.hero-inner--foto .hero-inner__overlay {
+    background: linear-gradient(180deg, rgba(10, 10, 10, 0.35) 0%, rgba(10, 10, 10, 0) 26%, rgba(10, 10, 10, 0) 62%, rgba(10, 10, 10, 0.80) 100%);
+}
+
+/* o nome quebra em 3 linhas (<br> no HTML) e fica à esquerda dos rostos */
+.hero-inner--foto .hero-inner__title { max-width: none; }
+
+@media (max-width: 768px) {
+    .hero-inner--foto .hero-inner__media { left: 0; -webkit-mask-image: none; mask-image: none; }
+    .hero-inner__foto { top: 0; height: 100%; object-position: 55% 12%; }
+    .hero-inner--foto .hero-inner__overlay {
+        background: linear-gradient(180deg, rgba(10, 10, 10, 0.45) 0%, rgba(10, 10, 10, 0.08) 30%, rgba(10, 10, 10, 0.45) 62%, rgba(10, 10, 10, 0.92) 100%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-inner__foto { animation: none; }
 }

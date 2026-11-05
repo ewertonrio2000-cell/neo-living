@@ -582,7 +582,7 @@
     //     Clique abre a "gaveta" com os projetos da categoria
     // =====================================================
     function initCategoryFolders() {
-        const folders = Array.from(document.querySelectorAll('.h-panel[data-cat]'));
+        const folders = Array.from(document.querySelectorAll('.h-panel[data-cat], .hc[data-cat]'));
         const drawer = document.querySelector('.cat-drawer');
         const grid = drawer && drawer.querySelector('.cat-drawer__grid');
         if (!folders.length || !drawer || !grid || !window.NEO_PROJECTS) return;
@@ -597,7 +597,7 @@
         // Contadores nos painéis ("12 projetos") — no lugar da localização
         folders.forEach((f) => {
             const n = (byCat[f.dataset.cat] || []).length;
-            const el = f.querySelector('.h-panel__loc');
+            const el = f.querySelector('.h-panel__loc, .hc__n');
             if (el) el.textContent = n + (n === 1 ? ' projeto' : ' projetos');
         });
 
@@ -632,13 +632,17 @@
                            '<span class="cat-item__loc">' + p.location + '</span></a>';
                 }).join('');
 
+                // cards horizontais (Work Profile): a gaveta abre logo abaixo do card clicado
+                if (f.classList.contains('hc') && f.nextElementSibling !== drawer) f.after(drawer);
+
                 drawer.hidden = false;
                 // reinicia a animação de abertura da gaveta
                 drawer.classList.remove('is-open');
                 void drawer.offsetWidth;
                 drawer.classList.add('is-open');
                 // leva o visitante até a gaveta (logo abaixo do tabuleiro)
-                if (lenis && lenis.scrollTo) lenis.scrollTo(drawer, { offset: -90, duration: 1.1 });
+                const off = f.classList.contains('hc') ? -Math.min(260, f.offsetHeight * 0.45) : -90;
+                if (lenis && lenis.scrollTo) lenis.scrollTo(drawer, { offset: off, duration: 1.1 });
                 else drawer.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
@@ -828,7 +832,7 @@
 
         // intercepta os projetos da gaveta E os destaques (delegação)
         document.addEventListener('click', (e) => {
-            const a = e.target.closest && e.target.closest('.cat-item, .f-card, .h-panel[data-project], .pc[data-project]');
+            const a = e.target.closest && e.target.closest('.cat-item, .f-card, .h-panel[data-project], .hc[data-project]');
             if (!a) return;
             const m = (a.getAttribute('href') || '').match(/id=([\w-]+)/);
             if (!m) return;
@@ -1102,9 +1106,12 @@
     //     do fim. Só o 1º é pré-carregado; o próximo é carregado quando o
     //     atual começa (sempre um à frente, sem baixar os seis de uma vez).
     // =====================================================
+    // o mesmo vídeo roda no hero do início e atrás do título das páginas internas (.hero-inner--video)
     function initHeroVideo() {
-        const hero = document.querySelector('.hero--editorial');
-        if (!hero) return;
+        document.querySelectorAll('.hero-video').forEach(rodarHeroVideo);
+    }
+
+    function rodarHeroVideo(hero) {
         const clips = Array.from(hero.querySelectorAll('.hero-video__clip'));
         if (!clips.length) return;
         const FADE = 1.2;           // s — igual à transition do CSS

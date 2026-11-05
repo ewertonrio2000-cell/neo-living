@@ -28,8 +28,8 @@
     <link rel="preload" href="assets/fonts/Oswald-variable.ttf" as="font" type="font/ttf" crossorigin>
 
     <link rel="stylesheet" href="css/globals.css?v=20261028a">
-    <link rel="stylesheet" href="css/components.css?v=20260929b">
-    <link rel="stylesheet" href="css/pages.css?v=20261022c">
+    <link rel="stylesheet" href="css/components.css?v=20261105a">
+    <link rel="stylesheet" href="css/pages.css?v=20261105a">
 </head>
 <body>
     <div data-include="header"></div>
@@ -38,20 +38,118 @@
         <!-- ============================================
              HERO INNER (editorial, panorama)
              ============================================ -->
-        <section class="hero-inner">
+        <section class="hero-inner hero-inner--video section--dark">
             <div class="hero-inner__media" data-parallax="0.2">
-                <div class="placeholder-img">
-                    <span class="placeholder-img__label">_ Panorama · interior NEO.LIVING</span>
+                <div class="hero-video" aria-hidden="true">
+                    <!-- 8 clipes em fusão contínua (o grade fosco já vem embutido nos arquivos);
+                         05/11: saíram hero-2b e hero-4b, entraram hero-8 a hero-11 -->
+                    <video class="hero-video__clip" muted playsinline preload="auto" poster="assets/images/hero/hero-poster-5.jpg" data-poster-v="assets/images/hero/hero-poster-5-v.jpg">
+                        <source src="assets/videos/hero-5.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-8.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-7.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-9.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-6.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-10.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-3b.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-11.mp4" type="video/mp4">
+                    </video>
                 </div>
             </div>
             <div class="hero-inner__overlay"></div>
 
             <div class="hero-inner__content">
                 <p class="t-eyebrow hero-inner__eyebrow fade-in">_ Project Portfolio</p>
-                <h1 class="t-h1 hero-inner__title fade-in fade-in-delay-1">Bem-vindo ao mundo NEO.LIVING.</h1>
+                <h1 class="t-h1 t-prata hero-inner__title fade-in fade-in-delay-1">Bem-vindo ao mundo NEO.LIVING.</h1>
                 <p class="hero-inner__sub t-serif fade-in fade-in-delay-2">
                     Arquitetura que cria e proporciona novas formas de viver.
                 </p>
+            </div>
+        </section>
+
+        <!-- ============================================
+             PROJETOS POR CATEGORIA — cards horizontais NEO.LIVING, um embaixo
+             do outro (mesmo padrão do Highlights da página inicial). O clique
+             abre a gaveta com os projetos da categoria logo abaixo do card.
+             ============================================ -->
+        <section class="destaques destaques--categorias section--dark" id="categorias" aria-label="Projetos por categoria" data-fingerprint="dark">
+            <div class="destaques__head">
+                <p class="t-eyebrow">_ Portfólio</p>
+                <h2 class="t-h2 t-frame t-prata">Projetos por categoria</h2>
+            </div>
+            <div class="hl" role="list">
+                <a class="hc fade-in" role="listitem" href="#categorias" data-cat="casas" data-cursor="Abrir categoria" aria-expanded="false" aria-label="Casas contemporâneas" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/categorias/casas.svg" alt="Casas contemporâneas" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">01</span><span class="hc__cat hc__n">projetos</span></span>
+                    <span class="hc__tit"><span class="hc__c">arquitetura</span><span class="hc__p">Casas</span><span class="hc__c">contemporâneas</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Casas contemporâneas</b><small>portfólio neo.living</small></span><span class="hc__ver"><b>ver projetos</b><i aria-hidden="true"></i></span></span>
+                </a>
+                <a class="hc fade-in" role="listitem" href="#categorias" data-cat="hotel" data-cursor="Abrir categoria" aria-expanded="false" aria-label="Hotel design" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/categorias/hotel.svg" alt="Hotel design" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">02</span><span class="hc__cat hc__n">projetos</span></span>
+                    <span class="hc__tit"><span class="hc__c">hospitalidade</span><span class="hc__p">Hotel</span><span class="hc__c">design</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Hotel design</b><small>portfólio neo.living</small></span><span class="hc__ver"><b>ver projetos</b><i aria-hidden="true"></i></span></span>
+                </a>
+                <a class="hc fade-in" role="listitem" href="#categorias" data-cat="interior" data-cursor="Abrir categoria" aria-expanded="false" aria-label="Interior design" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/categorias/interior.svg" alt="Interior design" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">03</span><span class="hc__cat hc__n">projetos</span></span>
+                    <span class="hc__tit"><span class="hc__c">atmosfera · materialidade</span><span class="hc__p">Interior</span><span class="hc__c">design</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Interior design</b><small>portfólio neo.living</small></span><span class="hc__ver"><b>ver projetos</b><i aria-hidden="true"></i></span></span>
+                </a>
+                <a class="hc fade-in" role="listitem" href="#categorias" data-cat="offices" data-cursor="Abrir categoria" aria-expanded="false" aria-label="Design offices" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/categorias/offices.svg" alt="Design offices" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">04</span><span class="hc__cat hc__n">projetos</span></span>
+                    <span class="hc__tit"><span class="hc__c">design</span><span class="hc__p">Offices</span><span class="hc__c">espaços corporativos</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Design offices</b><small>portfólio neo.living</small></span><span class="hc__ver"><b>ver projetos</b><i aria-hidden="true"></i></span></span>
+                </a>
+                <a class="hc fade-in" role="listitem" href="#categorias" data-cat="retrofits" data-cursor="Abrir categoria" aria-expanded="false" aria-label="Retrofits" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/categorias/retrofits.svg" alt="Retrofits" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">05</span><span class="hc__cat hc__n">projetos</span></span>
+                    <span class="hc__tit"><span class="hc__c">releitura contemporânea</span><span class="hc__p">Retrofits</span><span class="hc__c">residencial e comercial</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Retrofits</b><small>portfólio neo.living</small></span><span class="hc__ver"><b>ver projetos</b><i aria-hidden="true"></i></span></span>
+                </a>
+                <a class="hc fade-in" role="listitem" href="#categorias" data-cat="comercial" data-cursor="Abrir categoria" aria-expanded="false" aria-label="Arquitetura comercial" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/categorias/comercial.svg" alt="Arquitetura comercial" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">06</span><span class="hc__cat hc__n">projetos</span></span>
+                    <span class="hc__tit"><span class="hc__c">arquitetura</span><span class="hc__p">Comercial</span><span class="hc__c">lojas · clubs · lounges</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Arquitetura comercial</b><small>portfólio neo.living</small></span><span class="hc__ver"><b>ver projetos</b><i aria-hidden="true"></i></span></span>
+                </a>
+                <a class="hc fade-in" role="listitem" href="#categorias" data-cat="geral" data-cursor="Abrir categoria" aria-expanded="false" aria-label="Geral" style="--fx:50%;--fy:50%">
+                    <img class="hc__foto" src="assets/images/categorias/geral.svg" alt="Geral" loading="lazy" decoding="async">
+                    <span class="hc__pel" aria-hidden="true"></span>
+                    <span class="hc__topo"><span class="hc__idx">07</span><span class="hc__cat hc__n">projetos</span></span>
+                    <span class="hc__tit"><span class="hc__c">portfólio</span><span class="hc__p">Geral</span><span class="hc__c">estudos · peças · sketchbook</span></span>
+                    <span class="hc__cunha" aria-hidden="true"><span class="hc__fio"></span><span class="hc__lip"></span><span class="hc__placa"></span></span>
+                    <span class="hc__rod"><span class="hc__info"><b>Geral</b><small>portfólio neo.living</small></span><span class="hc__ver"><b>ver projetos</b><i aria-hidden="true"></i></span></span>
+                </a>
+                <div class="cat-drawer" hidden>
+                    <div class="cat-drawer__grid"></div>
+                </div>
             </div>
         </section>
 
@@ -214,6 +312,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="js/partials.js?v=20260929b"></script>
-    <script src="js/app.js?v=20261028a"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/app.js?v=20261105a"></script>
 </body>
 </html>

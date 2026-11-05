@@ -28,25 +28,50 @@
     <link rel="preload" href="assets/fonts/Oswald-variable.ttf" as="font" type="font/ttf" crossorigin>
 
     <link rel="stylesheet" href="css/globals.css?v=20261028a">
-    <link rel="stylesheet" href="css/components.css?v=20260929b">
-    <link rel="stylesheet" href="css/pages.css?v=20261022c">
+    <link rel="stylesheet" href="css/components.css?v=20261105a">
+    <link rel="stylesheet" href="css/pages.css?v=20261105a">
 </head>
 <body>
     <div data-include="header"></div>
 
     <main>
         <!-- HERO -->
-        <section class="hero-inner">
+        <section class="hero-inner hero-inner--video section--dark">
             <div class="hero-inner__media" data-parallax="0.2">
-                <div class="placeholder-img">
-                    <span class="placeholder-img__label">_ Detalhe · Execução / Material</span>
+                <div class="hero-video" aria-hidden="true">
+                    <!-- 8 clipes em fusão contínua (o grade fosco já vem embutido nos arquivos);
+                         05/11: saíram hero-2b e hero-4b, entraram hero-8 a hero-11 -->
+                    <video class="hero-video__clip" muted playsinline preload="auto" poster="assets/images/hero/hero-poster-5.jpg" data-poster-v="assets/images/hero/hero-poster-5-v.jpg">
+                        <source src="assets/videos/hero-5.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-8.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-7.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-9.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-6.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-10.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-3b.mp4" type="video/mp4">
+                    </video>
+                    <video class="hero-video__clip" muted playsinline preload="none">
+                        <source src="assets/videos/hero-11.mp4" type="video/mp4">
+                    </video>
                 </div>
             </div>
             <div class="hero-inner__overlay"></div>
 
             <div class="hero-inner__content">
                 <p class="t-eyebrow hero-inner__eyebrow fade-in">_ Full Service</p>
-                <h1 class="t-h1 hero-inner__title fade-in fade-in-delay-1">Execução + Full Service.</h1>
+                <h1 class="t-h1 t-prata hero-inner__title fade-in fade-in-delay-1">Execução + Full Service.</h1>
                 <p class="hero-inner__sub t-serif fade-in fade-in-delay-2">
                     Do conceito à entrega — um único núcleo criativo conduz cada etapa.
                 </p>
@@ -165,6 +190,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="js/partials.js?v=20260929b"></script>
-    <script src="js/app.js?v=20261028a"></script>
+    <script src="js/app.js?v=20261105a"></script>
 </body>
 </html>

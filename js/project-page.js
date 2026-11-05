@@ -28,7 +28,7 @@
                         ? `O ID <strong style="color: var(--accent-amber);">${escapeHTML(requestedId)}</strong> não corresponde a nenhum projeto do portfólio NEO.LIVING.`
                         : 'Nenhum projeto foi especificado na URL.'}
                 </p>
-                <a href="index.html#highlights" class="btn btn-primary">
+                <a href="index.html#destaques" class="btn btn-primary">
                     <span>Ver portfólio</span>
                     <span class="arrow" aria-hidden="true">→</span>
                 </a>
@@ -65,7 +65,7 @@
                 <div class="project-hero__overlay"></div>
 
                 <div class="project-hero__content">
-                    <a href="index.html#highlights" class="project-hero__back fade-in">
+                    <a href="index.html#destaques" class="project-hero__back fade-in">
                         <span class="arrow" aria-hidden="true">←</span>
                         <span>Voltar ao portfólio</span>
                     </a>

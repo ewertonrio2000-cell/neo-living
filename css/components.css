@@ -223,6 +223,11 @@ body.has-custom-cursor select {
     background-color: var(--accent-amber);
 }
 
+/* no topo (header ainda transparente sobre o hero escuro) o item ativo e o
+   hover ficam brancos — antes herdavam o preto do tema e sumiam */
+.site-header:not(.is-scrolled) .site-nav__link:hover,
+.site-header:not(.is-scrolled) .site-nav__link.is-active { color: #FFFFFF; }
+
 /* ---------- THEME TOGGLE (sol/lua) ---------- */
 .theme-toggle {
     position: relative;
