@@ -3380,25 +3380,20 @@ html[data-theme="light"] .hero.hero--editorial {
 }
 
 .hc {
-    /* medidas (resolvidas nos filhos, relativas à largura do card) */
-    --m: 3.75cqw;                 /* margem lateral */
-    --top: 3cqw;                  /* topo: índice e categoria */
-    --s-top: max(11px, 1.05cqw);
-    --s-c: 2.1cqw;                /* complementos */
-    --s-p: 8.2cqw;                /* palavra principal */
-    --tit-b: 12.6cqw;             /* base do título */
-    --ch: 11cqw;                  /* altura da área da cunha */
-    --pl: 5.6cqw;  --pr: 8.8cqw;  /* placa: lado baixo / lado alto */
-    --ll: 5.84cqw; --lr: 9.6cqw;  /* lábio grafite */
-    --fl: 6cqw;    --fr: 9.8cqw;  /* fio de latão */
-    --rod-b: 1.9cqw;
-    --s-rb: max(11px, 1.1cqw);
-    --s-rs: max(10px, 0.78cqw);
-    --seta: 4.2cqw;
+    /* 05/11 (v2): metade da altura (4,5:1), foto cheia, sem a cunha branca; degradê curto só
+       do lado do título (ímpares: da esquerda; pares: da direita) e a foto predomina.
+       Medidas em cqw (largura do card), resolvidas nos filhos. */
+    --m: 3.4cqw;                  /* margem lateral */
+    --top: 2.1cqw;                /* topo: índice e categoria */
+    --s-top: max(10px, 0.82cqw);
+    --s-c: 1.45cqw;               /* complementos */
+    --s-p: 5.6cqw;                /* palavra principal */
+    --s-ver: max(10px, 0.82cqw);  /* "ver projeto" */
+    --seta: 3.2cqw;
 
     position: relative;
     display: block;
-    aspect-ratio: 2.25 / 1;
+    aspect-ratio: 4.5 / 1;
     overflow: hidden;
     isolation: isolate;
     container-type: inline-size;
@@ -3423,16 +3418,16 @@ html[data-theme="light"] .hero.hero--editorial {
 }
 
 .hc:hover .hc__foto,
-.hc:focus-visible .hc__foto { transform: scale(1.045); }
+.hc:focus-visible .hc__foto { transform: scale(1.04); }
 
-/* película: degradê inclinado escuro do lado do título + leve fechamento no alto e na base */
+/* película: degradê curto do lado do título, como no hero do Head Designers */
 .hc__pel {
     position: absolute;
     inset: 0;
-    background:
-        linear-gradient(100deg, rgba(10,10,10,.80) 0%, rgba(10,10,10,.56) 30%, rgba(10,10,10,.20) 58%, rgba(10,10,10,0) 80%),
-        linear-gradient(180deg, rgba(10,10,10,.40) 0%, rgba(10,10,10,.08) 26%, rgba(10,10,10,.10) 60%, rgba(10,10,10,.46) 100%);
+    background: linear-gradient(90deg, rgba(10,10,10,.90) 0%, rgba(10,10,10,.66) 15%, rgba(10,10,10,.26) 33%, rgba(10,10,10,0) 50%);
 }
+
+.hc:nth-of-type(even) .hc__pel { background: linear-gradient(270deg, rgba(10,10,10,.90) 0%, rgba(10,10,10,.66) 15%, rgba(10,10,10,.26) 33%, rgba(10,10,10,0) 50%); }
 
 /* topo: índice do lado do título, categoria do outro lado (minúscula, espaçada) */
 .hc__topo {
@@ -3447,22 +3442,22 @@ html[data-theme="light"] .hero.hero--editorial {
     font-weight: 500;
     letter-spacing: .3em;
     line-height: 1;
+    text-shadow: 0 1px 14px rgba(0,0,0,.5);
 }
 
 .hc__idx { color: #E2E2E2; }
-.hc__cat { color: rgba(255,255,255,.78); text-transform: lowercase; }
-.hc__topo { text-shadow: 0 1px 14px rgba(0,0,0,.45); }
+.hc__cat { color: rgba(255,255,255,.8); text-transform: lowercase; }
 
-/* título: complemento · PALAVRA · complemento, todos na mesma margem */
+/* título no meio da altura: complemento · PALAVRA (prata, como o hero) · complemento */
 .hc__tit {
     position: absolute;
     left: var(--m);
-    bottom: var(--tit-b);
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     line-height: 1;
-    text-shadow: 0 2px 26px rgba(0,0,0,.28);
 }
 
 .hc__c {
@@ -3472,112 +3467,51 @@ html[data-theme="light"] .hero.hero--editorial {
     color: #DCDCDC;
     text-transform: lowercase;
     white-space: nowrap;
+    text-shadow: 0 1px 16px rgba(0,0,0,.45);
 }
 
 .hc__p {
     font-weight: 600;
     font-size: var(--s-p);
     line-height: .96;
-    letter-spacing: 0;
-    color: #FFFFFF;
+    letter-spacing: .01em;
     text-transform: uppercase;
     white-space: nowrap;
-    margin: .35cqw 0 .5cqw -.22cqw;
+    /* respiro para acentos (Ã, Ê) e cedilha: o degradê só pinta dentro da caixa */
+    padding: .14em 0 .08em;
+    margin: -.1em 0 -.02em -.15cqw;
+    background: linear-gradient(180deg, #FFFFFF 0%, #E3E8ED 50%, #BFC7CE 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
 }
 
-/* cunha de contraste: placa branca inclinada, lábio grafite e fio de latão */
-.hc__cunha {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: var(--ch);
-    pointer-events: none;
-}
+/* sem a cunha branca: fica só o convite "ver projeto" no canto de baixo, do lado do título */
+.hc__cunha,
+.hc__info { display: none; }
 
-.hc__fio, .hc__lip, .hc__placa { position: absolute; inset: 0; }
-
-.hc__fio {
-    background: #A8813A;
-    clip-path: polygon(0 calc(100% - var(--fl)), 100% calc(100% - var(--fr)), 100% 100%, 0 100%);
-}
-
-.hc__lip {
-    background: linear-gradient(90deg, #55544F, #2C2C2A);
-    clip-path: polygon(0 calc(100% - var(--ll)), 100% calc(100% - var(--lr)), 100% 100%, 0 100%);
-}
-
-.hc__placa {
-    overflow: hidden;
-    background: linear-gradient(100deg, #FFFFFF 0%, #EDECE7 100%);
-    clip-path: polygon(0 calc(100% - var(--pl)), 100% calc(100% - var(--pr)), 100% 100%, 0 100%);
-}
-
-/* fundo 3D claro da marca, bem de leve */
-.hc__placa::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: url('../assets/images/marca/kit-claro.jpg') center 74% / 100% auto no-repeat;
-    opacity: .22;
-    mix-blend-mode: multiply;
-}
-
-.hc__placa::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.22) 100%);
-}
-
-/* rodapé dentro da cunha: nome · local e o convite para ver o projeto */
 .hc__rod {
     position: absolute;
     left: var(--m);
-    right: var(--m);
-    bottom: var(--rod-b);
+    bottom: 2.1cqw;
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 2cqw;
-    color: #0A0A0A;
-}
-
-.hc__info b {
-    display: block;
-    font-weight: 600;
-    font-size: var(--s-rb);
-    letter-spacing: .3em;
-    text-transform: uppercase;
-    line-height: 1.35;
-    white-space: nowrap;
-}
-
-.hc__info small {
-    display: block;
-    margin-top: .3cqw;
-    font-weight: 400;
-    font-size: var(--s-rs);
-    letter-spacing: .24em;
-    color: #4A4A4A;
-    text-transform: lowercase;
-    line-height: 1.35;
-    white-space: nowrap;
+    color: #FFFFFF;
 }
 
 .hc__ver {
     display: flex;
     align-items: center;
-    gap: 1.1cqw;
-    padding-bottom: .15cqw;
+    gap: .9cqw;
+    text-shadow: 0 1px 14px rgba(0,0,0,.5);
 }
 
 .hc__ver b {
-    font-weight: 600;
-    font-size: var(--s-rb);
-    letter-spacing: .14em;
+    font-weight: 500;
+    font-size: var(--s-ver);
+    letter-spacing: .24em;
     text-transform: lowercase;
     line-height: 1;
+    color: rgba(255,255,255,.82);
 }
 
 .hc__ver i {
@@ -3585,7 +3519,7 @@ html[data-theme="light"] .hero.hero--editorial {
     display: block;
     width: var(--seta);
     height: 1px;
-    background: #0A0A0A;
+    background: #D9BC85;
     transition: width 520ms var(--ease-out);
 }
 
@@ -3596,8 +3530,8 @@ html[data-theme="light"] .hero.hero--editorial {
     top: -3.5px;
     width: 7px;
     height: 7px;
-    border-top: 1px solid #0A0A0A;
-    border-right: 1px solid #0A0A0A;
+    border-top: 1px solid #D9BC85;
+    border-right: 1px solid #D9BC85;
     transform: rotate(45deg);
 }
 
@@ -3611,7 +3545,7 @@ html[data-theme="light"] .hero.hero--editorial {
     inset: 0;
     z-index: 2;
     pointer-events: none;
-    opacity: .09;
+    opacity: .08;
     mix-blend-mode: screen;
     background-size: 220px 220px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.55 0 0 0 0 0.55 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -3619,79 +3553,40 @@ html[data-theme="light"] .hero.hero--editorial {
 
 .hc:focus-visible { outline: 1px solid var(--accent-amber); outline-offset: 4px; }
 
-/* espelho nos pares (nth-of-type: a gaveta das categorias, um <div>, não conta): título à direita, degradê vindo da direita, cunha subindo para a esquerda */
-.hc:nth-of-type(even) .hc__pel {
-    background:
-        linear-gradient(260deg, rgba(10,10,10,.80) 0%, rgba(10,10,10,.56) 30%, rgba(10,10,10,.20) 58%, rgba(10,10,10,0) 80%),
-        linear-gradient(180deg, rgba(10,10,10,.40) 0%, rgba(10,10,10,.08) 26%, rgba(10,10,10,.10) 60%, rgba(10,10,10,.46) 100%);
-}
-
+/* espelho nos pares (nth-of-type: a gaveta das categorias, um <div>, não conta) */
 .hc:nth-of-type(even) .hc__topo { flex-direction: row-reverse; }
-
 .hc:nth-of-type(even) .hc__tit { left: auto; right: var(--m); align-items: flex-end; text-align: right; }
+.hc:nth-of-type(even) .hc__p { margin: -.1em -.15cqw -.02em 0; }
+.hc:nth-of-type(even) .hc__rod { left: auto; right: var(--m); }
 
-.hc:nth-of-type(even) .hc__p { margin: .35cqw -.22cqw .5cqw 0; }
-
-.hc:nth-of-type(even) .hc__fio { clip-path: polygon(0 calc(100% - var(--fr)), 100% calc(100% - var(--fl)), 100% 100%, 0 100%); }
-
-.hc:nth-of-type(even) .hc__lip {
-    background: linear-gradient(270deg, #55544F, #2C2C2A);
-    clip-path: polygon(0 calc(100% - var(--lr)), 100% calc(100% - var(--ll)), 100% 100%, 0 100%);
-}
-
-.hc:nth-of-type(even) .hc__placa {
-    background: linear-gradient(260deg, #FFFFFF 0%, #EDECE7 100%);
-    clip-path: polygon(0 calc(100% - var(--pr)), 100% calc(100% - var(--pl)), 100% 100%, 0 100%);
-}
-
-/* telas médias: card um pouco mais alto e textos do rodapé com respiro */
+/* telas médias: um pouco mais alto */
 @media (max-width: 1100px) {
     .hc {
-        aspect-ratio: 2 / 1;
-        --s-c: 2.4cqw;
-        --s-p: 9cqw;
-        --tit-b: 14cqw;
-        --ch: 13cqw;
-        --pl: 6.8cqw;  --pr: 10.4cqw;
-        --ll: 7.06cqw; --lr: 11.3cqw;
-        --fl: 7.24cqw; --fr: 11.5cqw;
-        --rod-b: 2.2cqw;
+        aspect-ratio: 3.6 / 1;
+        --m: 3.6cqw;
+        --s-c: 1.75cqw;
+        --s-p: 6.6cqw;
+        --seta: 4cqw;
     }
 }
 
-/* celular: card 4:3, letras proporcionalmente maiores, rodapé só com o nome */
+/* celular: 2:1, letras proporcionalmente maiores, degradê mais largo; seta sem texto */
 @media (max-width: 768px) {
     .destaques { padding: var(--space-lg) var(--space-sm) var(--space-lg); }
     .destaques__head { padding: 0 var(--space-2xs) var(--space-md); }
-    .hl { gap: 14px; }
+    .hl { gap: 12px; }
     .hc {
-        aspect-ratio: 4 / 3;
-        --m: 5.2cqw;
-        --top: 5cqw;
-        --s-top: 10px;
-        --s-c: 3.8cqw;
-        --s-p: 12cqw;
-        --tit-b: 19cqw;
-        --ch: 18cqw;
-        --pl: 10cqw;   --pr: 15cqw;
-        --ll: 10.4cqw; --lr: 16.1cqw;
-        --fl: 10.7cqw; --fr: 16.5cqw;
-        --rod-b: 3.6cqw;
-        --s-rb: 10px;
+        aspect-ratio: 2 / 1;
+        --m: 5cqw;
+        --top: 4.2cqw;
+        --s-top: 9px;
+        --s-c: 3.3cqw;
+        --s-p: 10.5cqw;
         --seta: 7cqw;
     }
-    .hc__pel {
-        background:
-            linear-gradient(100deg, rgba(10,10,10,.70) 0%, rgba(10,10,10,.42) 45%, rgba(10,10,10,.10) 80%),
-            linear-gradient(180deg, rgba(10,10,10,.34) 0%, rgba(10,10,10,.06) 30%, rgba(10,10,10,.18) 60%, rgba(10,10,10,.54) 100%);
-    }
-    .hc:nth-of-type(even) .hc__pel {
-        background:
-            linear-gradient(260deg, rgba(10,10,10,.70) 0%, rgba(10,10,10,.42) 45%, rgba(10,10,10,.10) 80%),
-            linear-gradient(180deg, rgba(10,10,10,.34) 0%, rgba(10,10,10,.06) 30%, rgba(10,10,10,.18) 60%, rgba(10,10,10,.54) 100%);
-    }
-    .hc__info small { display: none; }
-    .hc__info b { letter-spacing: .2em; }
+    .hc__pel { background: linear-gradient(90deg, rgba(10,10,10,.86) 0%, rgba(10,10,10,.55) 32%, rgba(10,10,10,.12) 62%, rgba(10,10,10,0) 78%); }
+    .hc:nth-of-type(even) .hc__pel { background: linear-gradient(270deg, rgba(10,10,10,.86) 0%, rgba(10,10,10,.55) 32%, rgba(10,10,10,.12) 62%, rgba(10,10,10,0) 78%); }
+    .hc__rod { bottom: 4cqw; }
     .hc__ver b { display: none; }
 }
 
@@ -3703,9 +3598,8 @@ html[data-theme="light"] .hero.hero--editorial {
 .hl > .cat-drawer {
     position: relative;
     z-index: 3;
-    margin-top: calc(-1 * clamp(14px, 1.8vw, 28px));
     padding: var(--space-lg) var(--space-lg) var(--space-xl);
-    background: linear-gradient(180deg, #EDECE7 0%, #FFFFFF 18%);
+    background: #FFFFFF;
     /* volta às cores do tema claro dentro da seção escura */
     color: #0A0A0A;
     --text-primary: #0A0A0A;
@@ -3715,11 +3609,11 @@ html[data-theme="light"] .hero.hero--editorial {
 
 .hc[data-cat] .hc__ver i { transition: width 520ms var(--ease-out), transform 420ms var(--ease-out); }
 .hc[data-cat].is-open .hc__ver i { transform: rotate(90deg); }
-.hc[data-cat].is-open .hc__ver b { color: var(--accent-amber-soft); }
+.hc[data-cat].is-open .hc__ver b { color: #D9BC85; }
 
 @media (max-width: 768px) {
     .hl--practice { padding: 0 var(--space-sm); }
-    .hl > .cat-drawer { margin-top: -14px; padding: var(--space-md) var(--space-sm) var(--space-lg); }
+    .hl > .cat-drawer { padding: var(--space-md) var(--space-sm) var(--space-lg); }
     .hl > .cat-drawer .cat-drawer__grid { margin-left: calc(-1 * var(--space-sm)); margin-right: calc(-1 * var(--space-sm)); padding: 0 var(--space-sm) var(--space-sm); }
 }
 
@@ -4133,6 +4027,9 @@ html[data-theme="light"] .hero.hero--editorial {
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
+    /* respiro para acentos e cedilha (o degradê só pinta dentro da caixa) */
+    padding-top: 0.1em;
+    padding-bottom: 0.06em;
 }
 
 .t-prata,
@@ -4215,3 +4112,16 @@ html[data-theme="light"] .hero.hero--editorial {
 @media (prefers-reduced-motion: reduce) {
     .hero-inner__foto { animation: none; }
 }
+
+/* =========================================================
+   SUBTÍTULOS DE SEÇÃO — mesma fonte do título do hero (Oswald 600
+   prateado), maiores; o traçado dourado em volta continua
+   (Highlights, Our Practice, Three-Step, Projetos por categoria,
+   Portfolio de Incorporações — todos sobre fundo escuro)
+   ========================================================= */
+.t-secao {
+    font-size: clamp(2.25rem, 4.6vw, 4.5rem);
+    line-height: 0.95;
+}
+
+.t-frame.t-secao { padding: 0.2em 0.42em 0.12em; }
