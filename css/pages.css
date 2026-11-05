@@ -3593,6 +3593,15 @@ html[data-theme="light"] .hero.hero--editorial {
 /* Our Practice: mesma lista de cards horizontais, com o respiro lateral da seção */
 .hl--practice { padding: 0 var(--space-md); }
 
+/* Our Practice: película preta por cima da foto inteira (disfarça a imagem), além do degradê do título */
+.hl--practice .hc__pel { background: linear-gradient(90deg, rgba(10,10,10,.90) 0%, rgba(10,10,10,.66) 15%, rgba(10,10,10,.26) 33%, rgba(10,10,10,0) 50%), rgba(10,10,10,.45); }
+.hl--practice .hc:nth-of-type(even) .hc__pel { background: linear-gradient(270deg, rgba(10,10,10,.90) 0%, rgba(10,10,10,.66) 15%, rgba(10,10,10,.26) 33%, rgba(10,10,10,0) 50%), rgba(10,10,10,.45); }
+
+@media (max-width: 768px) {
+    .hl--practice .hc__pel { background: linear-gradient(90deg, rgba(10,10,10,.86) 0%, rgba(10,10,10,.55) 32%, rgba(10,10,10,.12) 62%, rgba(10,10,10,0) 78%), rgba(10,10,10,.45); }
+    .hl--practice .hc:nth-of-type(even) .hc__pel { background: linear-gradient(270deg, rgba(10,10,10,.86) 0%, rgba(10,10,10,.55) 32%, rgba(10,10,10,.12) 62%, rgba(10,10,10,0) 78%), rgba(10,10,10,.45); }
+}
+
 /* Projetos por categoria (Work Profile): a gaveta abre logo abaixo do card
    clicado, como uma folha branca que continua a cunha */
 .hl > .cat-drawer {
