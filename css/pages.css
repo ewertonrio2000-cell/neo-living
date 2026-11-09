@@ -3429,6 +3429,14 @@ html[data-theme="light"] .hero.hero--editorial {
 
 .hc:nth-of-type(even) .hc__pel { background: linear-gradient(270deg, rgba(10,10,10,.90) 0%, rgba(10,10,10,.66) 15%, rgba(10,10,10,.26) 33%, rgba(10,10,10,0) 50%); }
 
+/* faixa leve no topo: índice e categoria legíveis mesmo sobre céu claro */
+.hc__pel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,10,.42) 0%, rgba(10,10,10,0) 26%);
+}
+
 /* topo: índice do lado do título, categoria do outro lado (minúscula, espaçada) */
 .hc__topo {
     position: absolute;
